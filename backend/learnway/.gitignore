@@ -279,3 +279,5 @@ build/
 **/application.properties
 
 .vscode/
+
+.DS_Store
