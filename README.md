@@ -1,5 +1,4 @@
-
-### [ SSAFY 6기 공통 프로젝트 ]
+### [ SSAFY 8기 공통 프로젝트 ]
 #  LEARNWAY 
 ## Introduction
 
