@@ -1,4 +1,4 @@
-package com.ssafy.learnway.controller;
+package com.ssafy.learnway.controller.user;
 
 
 import com.ssafy.learnway.domain.user.User;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 @Api(tags = {"sign"})
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class SignController {
     @Autowired
     private UserService userService;
