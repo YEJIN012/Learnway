@@ -13,10 +13,14 @@ import java.util.Date;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_room")
 public class Room {
+
+    @Id
+    private int relationId;
+
+    @MapsId // @MapsId는 @id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="relation_id")
-    @Id
-    private Friend relationId;
+    private Friend friend;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="last_sent")

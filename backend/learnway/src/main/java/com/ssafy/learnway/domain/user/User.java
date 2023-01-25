@@ -12,6 +12,7 @@ import java.util.Date;
 @Table(name = "tb_user")
 public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
+    @Column(name="user_id")
     @Id
     private int userId;
     @Column(name="user_email")
