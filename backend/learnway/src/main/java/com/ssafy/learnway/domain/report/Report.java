@@ -16,13 +16,18 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_report")
 public class Report {
+
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
+    private int declarationId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User userId;
 
-    @OneToMany(mappedBy = "", cascade = CascadeType.ALL)
-    private List<ReportDetail> reportList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="report_id")
+    private ReportDetail reportId;
 
     @Column(name="report_datetime")
     private Date regDate;
