@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import friends from "../../../friends.json";
+import ProfileImg from "../../ui/ProfileImg";
 
 const Wrapper = styled.div`
     margin-left: 12px;
@@ -41,21 +43,59 @@ const CardTop = styled.div`
     );
     border-radius: 35px 35px 0px 0px;
 `;
-
 const CardBottom = styled.div`
     display: flex;
     justify-content: center;
 `;
-function ProfileCard(params) {
+
+// function ProfileCardTop(props) {
+//         return
+// }
+
+
+// 프로필 편집시, useEffect 필요?
+function MyProfile(props) {
+    const {name, email, birth} = props.data
+    return (
+        <div>
+            {name},
+            {email},
+            {birth}
+        </div>
+    )
+}
+
+function FriendProfile(props) {
+    const {name, language, birth, interest, bio} = props.data
+    return (
+        <div>
+            {name},
+            {language},
+            {birth},
+            {interest},
+            {bio}
+        </div>
+    )
+}
+
+function ProfileCard(props) {
+    // profile -> 선택된 user_id
+    // Profile탭 -> 0 Friends탭->1
+    const { profile, user } = props
+    
+    const data = profile ? friends.find((item) => {
+        return item.user_id === profile
+    }) : friends[0]
+
     return (
         <Wrapper>
             <Subtitle>Profile</Subtitle>
             <Card>
                 <CardTop>
-                    프로필이미지
+                    <ProfileImg  src={data.img_url}/>
                 </CardTop>
                 <CardBottom>
-                    카드내용
+                    { (user===0) ? <MyProfile data={data}/> : <FriendProfile data={data}/>}
                 </CardBottom>
             </Card>
         </Wrapper>

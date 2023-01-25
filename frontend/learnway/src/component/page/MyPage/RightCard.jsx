@@ -55,7 +55,8 @@ function FriendListItem(props) {
     );
 }
 
-function FriendsList() {
+function RightCard(props) {
+    const tab = props
     // friends json 데이터 index기반.
     const [selectedFriend, setSelectedFriend] = useState("");
     console.log(selectedFriend);
@@ -78,4 +79,4 @@ function FriendsList() {
     );
 }
 
-export default FriendsList;
+export default RightCard;

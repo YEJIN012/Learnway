@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Btn = styled.button`
     width: 166px;
@@ -36,7 +36,7 @@ const SelectedBtn = styled.button`
 
 function MyPageBtn(props) {
     const { title, content, onClick } = props;
-    if (props.content === props.title) {
+    if (content === title) {
         return <SelectedBtn onClick={onClick}>{title}</SelectedBtn>;
     } else {
         return <Btn onClick={onClick}>{title}</Btn>;

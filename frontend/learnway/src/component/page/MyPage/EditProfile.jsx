@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import ProfileCard from "./ProfileCard";
 
 const Wrapper = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
     margin-left: 12px;
     margin-right: 12px;
-    width: 60%
+    width: 60%;
 `;
 
 const Subtitle = styled.div`
@@ -19,6 +22,8 @@ const Subtitle = styled.div`
     align-items: center;
 `;
 const Card = styled.div`
+    display: flex;
+    flex-direction: row;
     margin-top: 10px;
     height: 600px;
     left: 0px;
@@ -45,10 +50,11 @@ const Card = styled.div`
 function EditProfile() {
     return (
         <Wrapper>
-            <Subtitle>Edit profile</Subtitle>
-            <Card>
-                프로필편집
-                {/* <TextInput placeholder="username" />
+            <div>
+                <Subtitle>Edit profile</Subtitle>
+                <Card>
+                    프로필편집
+                    {/* <TextInput placeholder="username" />
                 <p>
                     <TextInput placeholder="username" />
                     <TextInput placeholder="username" />
@@ -56,9 +62,12 @@ function EditProfile() {
                 <TextInput placeholder="username" />
                 <TextInput placeholder="username" />
                 <TextInput placeholder="username" /> */}
-            </Card>
+                </Card>
+            </div>
+
+            <ProfileCard profile={1} user={0} />
         </Wrapper>
     );
 }
 
-export default EditProfile
+export default EditProfile;

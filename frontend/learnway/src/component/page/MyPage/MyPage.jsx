@@ -11,7 +11,7 @@ const StyledBody = styled.div`
     margin-right: 110px;
 `;
 
-const Wrapper = styled.div`
+const BtnWrapper = styled.div`
     margin-right: 20%;
     margin-left: 20%;
     display: flex;
@@ -35,7 +35,7 @@ function Mypage() {
         <div>
             <NavBar />
             <StyledBody>
-                <Wrapper>
+                <BtnWrapper>
                     {Menu.map((title, index) => (
                         <MyPageBtn
                             key={index}
@@ -44,10 +44,9 @@ function Mypage() {
                             content={content}
                         />
                     ))}
-                </Wrapper>
+                </BtnWrapper>
                 <ContentWrapper>
                     <MyPageContent content={content}></MyPageContent>
-
                 </ContentWrapper>
             </StyledBody>
         </div>

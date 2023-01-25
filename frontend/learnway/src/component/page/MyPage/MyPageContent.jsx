@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import ProfileCard from "./ProfileCard";
+import RightCard from "./RightCard";
 import EditProfile from "./EditProfile";
 import FriendsList from "./FriendsList";
 import StudyCalendar from "./StudyCalendar";
-import StudyScripts from "./StudyScripts";
 
 const Wrapper = styled.div`
     height: 700px;
@@ -19,22 +18,19 @@ function Content(props) {
     if (props.content === "PROFILE") {
         return (
             <Wrapper>
-                <ProfileCard />
-                <EditProfile />
+                <RightCard tab={1}/>
             </Wrapper>
         );
     } else if (props.content === "FRIENDS") {
         return (
             <Wrapper>
-                <ProfileCard />
-                <FriendsList />
+                <RightCard tab={2}/>
             </Wrapper>
         )
     } else {
         return (
             <Wrapper>
                 <StudyCalendar />
-                <StudyScripts />
             </Wrapper>
         )
     }
