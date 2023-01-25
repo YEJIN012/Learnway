@@ -11,16 +11,17 @@ import java.util.Date;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tb_room")
 public class Room {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="relation_id")
     @Id
     private Friend relationId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="last_sent")
     private Date time;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name="last_msg")
     private String msg;
 }

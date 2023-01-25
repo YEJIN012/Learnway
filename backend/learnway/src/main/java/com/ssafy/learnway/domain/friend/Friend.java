@@ -9,8 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_friend")
 public class Friend {
@@ -19,10 +18,10 @@ public class Friend {
     private int relationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(referencedColumnName = "user_id", name="user_id")
     private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(referencedColumnName = "user_id", name="friend_id")
     private User friendId;
 }
