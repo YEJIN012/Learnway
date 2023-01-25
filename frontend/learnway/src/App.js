@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./component/page/Home";
+import Home from "./component/page/MainPage/Home";
 import MyPage from "./component/page/MyPage/MyPage";
 import Logout from "./component/page/Logout";
 import NavBar from "./component/ui/NavBar";

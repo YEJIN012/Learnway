@@ -1,11 +1,12 @@
 import React from "react";
-import NavBar from "../ui/NavBar";
+import NavBar from "../../ui/NavBar";
+import Body from "./Body";
 
 function Home(params) {
     return (
         <div>
             <NavBar></NavBar>
-            <div>여기는 홈입니다.</div>
+            <Body></Body>
         </div>
     );
 }
