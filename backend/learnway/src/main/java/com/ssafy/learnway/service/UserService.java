@@ -1,13 +1,17 @@
 package com.ssafy.learnway.service;
 
+import com.ssafy.learnway.domain.Interest;
 import com.ssafy.learnway.domain.RefreshToken;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.domain.user.UserInterest;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
+import com.ssafy.learnway.dto.UserSignupDto;
 import com.ssafy.learnway.dto.UserSignupRequestDto;
 import com.ssafy.learnway.exception.TokenValidFailedException;
 import com.ssafy.learnway.exception.UserNotFoundException;
 import com.ssafy.learnway.repository.RefreshTokenRepository;
+import com.ssafy.learnway.repository.UserInterestRepository;
 import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +21,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserInterestRepository userInterestRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -62,14 +71,21 @@ public class UserService {
     public User userInfo (String userEmail){
         return userRepository.findByUserEmail(userEmail);
     }
+
     @Transactional
-    public void signUp(UserSignupRequestDto userSignupDto) throws SQLException {
-        if(userRepository.findByUserEmail(userSignupDto.getUserEmail())==null){
-            userRepository.save(userSignupDto.toEntity());
+    public void signUp(UserSignupRequestDto userSignupRequestDto) throws SQLException {
+
+        if(userRepository.findByUserEmail(userSignupRequestDto.getUserEmail())==null){
+            User user = userRepository.save(userSignupRequestDto.toEntity());
+
+            for(Interest interest : userSignupRequestDto.getInterests()){
+                UserInterest userInterest = UserInterest.builder()
+                                .userId(user).interestId(interest).build();
+                userInterestRepository.save(userInterest);
+            }
         }
         else throw new SQLException();
     }
-
     @Transactional
     public User findByEmail(String userEmail) throws SQLException{
         return userRepository.findByUserEmail(userEmail);

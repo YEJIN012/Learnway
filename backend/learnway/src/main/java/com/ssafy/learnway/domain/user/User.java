@@ -1,6 +1,7 @@
 package com.ssafy.learnway.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -20,7 +22,8 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
-public class User implements UserDetails {
+@ToString
+public class User extends BaseTime implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
     @Id
@@ -36,8 +39,8 @@ public class User implements UserDetails {
     private String name;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE) //년-월-일 의 date 타입
-    private Date birthday;
+    //@Temporal(TemporalType.DATE) //년-월-일 의 date 타입
+    private LocalDate birthday;
 
     @ManyToOne(fetch = FetchType.LAZY) // 하나의 언어는 여러명의 사용자를 가진다?
     @JoinColumn(name="languageId")
@@ -46,9 +49,9 @@ public class User implements UserDetails {
     @Column(columnDefinition = "TINYINT", length=1)
     private boolean badUser;
 
-    @Temporal(TemporalType.TIMESTAMP) //date + time
-    @Column(name="register_time")
-    private Date regDate;
+//    @Temporal(TemporalType.TIMESTAMP) //date + time
+//    @Column(name="register_time")
+//    private Date regDate;
 
     private String imgUrl;
     private String bio;

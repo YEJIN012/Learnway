@@ -4,6 +4,7 @@ package com.ssafy.learnway.controller;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
+import com.ssafy.learnway.dto.UserSignupDto;
 import com.ssafy.learnway.dto.UserSignupRequestDto;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.JwtTokenProvider;
@@ -28,7 +29,7 @@ public class SignController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String userEmail, @RequestParam String userPwd ){
+    public ResponseEntity login(@RequestParam String userEmail, @RequestParam String userPwd ){
 
         try {
             TokenDto tokenDto = userService.login(userEmail,userPwd);
@@ -38,15 +39,28 @@ public class SignController {
             return ResponseHandler.generateResponse("이메일, 비밀번호를 다시 확인해주세요.", HttpStatus.ACCEPTED);
         }
     }
-    @GetMapping("/sign-up")
-    public ResponseEntity signup(@RequestParam String userEmail, @RequestParam String userPwd) {
+//    @GetMapping("/sign-up/test")
+//    public ResponseEntity signupOrigin(@RequestParam String userEmail, @RequestParam String userPwd) {
+//
+//        // 회원가입 요청 dto 생성
+//        UserSignupRequestDto userSignupRequestDto = UserSignupRequestDto.builder()
+//                .userEmail(userEmail)
+//                .userPwd(passwordEncoder.encode(userPwd))
+//                .build();
+//        try {
+//            userService.signUp(userSignupRequestDto);
+//            return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userSignupRequestDto.toEntity());
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse("회원가입에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-        // 회원가입 요청 dto 생성
-        UserSignupRequestDto userSignupRequestDto = UserSignupRequestDto.builder()
-                .userEmail(userEmail)
-                .userPwd(passwordEncoder.encode(userPwd))
-                .build();
+    @PostMapping("/sign-up")
+    public ResponseEntity signup(@RequestBody UserSignupRequestDto userSignupRequestDto) {
+
+
         try {
+            userSignupRequestDto.setUserPwd(passwordEncoder.encode(userSignupRequestDto.getUserPwd()));
             userService.signUp(userSignupRequestDto);
             return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userSignupRequestDto.toEntity());
         } catch (Exception e) {
