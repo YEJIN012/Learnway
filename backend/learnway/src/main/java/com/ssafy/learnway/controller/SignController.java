@@ -50,6 +50,7 @@ public class SignController {
             userService.signUp(userSignupRequestDto);
             return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userSignupRequestDto.toEntity());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseHandler.generateResponse("회원가입에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
     }
