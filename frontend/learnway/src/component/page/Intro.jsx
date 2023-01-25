@@ -1,152 +1,100 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate  } from "react-router-dom";
 
 import logo from '../../img/intro_logo.png';
 import learnway from '../../img/learnway.png'
 import picture from '../../img/intro_picture.png';
-
-import backgroundImg from "../../img/backgroundImage.jpg"
+import subment from '../../img/subtitle.png'
+import backgroundImg from "../../img/backgroundImage.jpg";
 
 const Background = styled.body`
-  background-image: url(${backgroundImg});
-  background-repeat: no-repeat;
-  background-position: top center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
   background-size: cover;
-  background-attachment: fixed;
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-  width: 1440px;
-  height: 1024px;
+  justify-content: center;
+  background-image: url(${backgroundImg});
 `;
 
 const LeftSide = styled.div`
+  width: 58vw;
+  height: 100vh;
+  left: 0vw;
   position: absolute;
-  width: 832px;
-  height: 1024px;
-  left: 0px;
-  top: 0px;
 `;
 
 const Picture = styled.img`
+  width: 35vw;
+  height: 65vh;
+  margin-left: 11vw;
+  margin-top: 22.7vh;
   position: absolute;
-  width: 596px;
-  height: 630px;
-  left: 153px;
-  top: 232px;
 `;
 
 const RightSide = styled.div`
+  width: 42vw;
+  height: 100vh;
+  margin-left: 50vw;
   position: absolute;
-  width: 608px;
-  height: 1024px;
-  left: 833px;
-  top: 0px;
-`;
-
-const Side2Frame = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 409px 121px 409px 30px;
 `;
 
 const Frame = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  width: 549px;
-  height: 206px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  padding: 40vh 8.4vw 40vh 2.1vw;
 `;
 
+
 const Title = styled.div`
+  width: 38.1vw;
+  height: 6.3vh;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0px 92px 0px 0px;
-  width: 549px;
-  height: 64px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  padding: 0vh 6.4vw 0vh 0vw;
 `;
 
 const Learnway = styled.img`
-  width: 447px;
-  height: 64px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  width: 28vw;
+  height: 6.3vh;
 `;
 
 const Logo = styled.img`
-  width: 102px;
-  height: 64px;
-  flex: none;
-  order: 1;
+  width: 6vw;
+  height: 6.3vh;
 `;
 
-const Subtitle = styled.div`
+const Subtitle = styled.img`
+  width: 35vw;
+  height: 8.9vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px 20px;
-  width: 549px;
-  height: 91px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 `;
 
-const SubtitleMent = styled.span`
-  width: 521px;
-  height: 63px;
-  font-family: var(--font-googleKreon);
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 25px;
-  color: #F2F2F2;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-
-const StartBtn = styled.div`
+const StartBtn = styled.button`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  gap: 10px;
-  width: 243px;
-  height: 50px;
-  flex: none;
-  order: 2;
-  flex-grow: 0;
+  width: 14vw;
+  height: 4.9vh;
   background-color: #0971BC;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  font-size: 36px;
-  display: flex;
+  font-size: 3.5vh;
   align-items: center;
   text-align: center;
   color: #FFFFFF;
+  border: none; 
+  border-radius: 1.02vh;
 `;
+
 
 export default function Intro () {
   return (
     <Background>
-      <Wrapper>
-        <RightBox />
-        <LeftBox />
-      </Wrapper>
+      <LeftBox />
+      <RightBox />
     </Background>
   )
 }
@@ -162,21 +110,24 @@ function LeftBox(){
 function RightBox(){
   return(
     <RightSide>
-      <Side2Frame>
-        <Frame>
-          <Title>
-            <Learnway src={learnway} />
-            <Logo src={logo} />
-          </Title>
-          <Subtitle>
-            <SubtitleMent>
-              Fly over the runway with our Learnway
-            </SubtitleMent>
-          </Subtitle>
-          <StartBtn>START</StartBtn>
-        </Frame>
-      </Side2Frame>
+      <Frame>
+        <Title>
+          <Learnway src={learnway} />
+          <Logo src={logo} />
+        </Title>
+        <Subtitle src={subment}>
+        </Subtitle>
+        <Btn/>
+      </Frame>
     </RightSide>
   )
 }
 
+function Btn(){
+  let navigate = useNavigate()
+  return (
+    <StartBtn onClick={()=>{ navigate('/login') }}>
+      START
+    </StartBtn>
+  )
+}
