@@ -16,7 +16,7 @@ public class RefreshToken extends BaseTime {
     @Id
     @Column(name = "token_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name="user_key", nullable = false)
     private Long userKey;

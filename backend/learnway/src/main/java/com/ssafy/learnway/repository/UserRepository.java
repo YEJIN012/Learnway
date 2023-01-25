@@ -1,9 +1,8 @@
 package com.ssafy.learnway.repository;
 
-import com.ssafy.learnway.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import com.ssafy.learnway.domain.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository  extends JpaRepository<User, Long> {
     User findByUserEmail(String userEmail);

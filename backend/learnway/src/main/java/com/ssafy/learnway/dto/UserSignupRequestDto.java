@@ -1,6 +1,6 @@
 package com.ssafy.learnway.dto;
 
-import com.ssafy.learnway.domain.User;
+import com.ssafy.learnway.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 

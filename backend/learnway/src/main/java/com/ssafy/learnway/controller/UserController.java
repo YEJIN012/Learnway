@@ -1,6 +1,6 @@
 package com.ssafy.learnway.controller;
 
-import com.ssafy.learnway.domain.User;
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;

@@ -1,7 +1,7 @@
 package com.ssafy.learnway.service;
 
 import com.ssafy.learnway.domain.RefreshToken;
-import com.ssafy.learnway.domain.User;
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
 import com.ssafy.learnway.dto.UserSignupRequestDto;
@@ -39,7 +39,7 @@ public class UserService {
 
         // 장소에서 가져온 인코딩된 암호(encodedPassword)가 인코딩 된 후 제출된 원시 암호(raw password)와 일치하는지 확인
         // 불일치하면 확인 msg 반환.
-        if (user == null || !passwordEncoder.matches(userPwd, user.getUserPwd()) ) {
+        if (user == null || !passwordEncoder.matches(userPwd, user.getPassword()) ) {
             throw new SQLException();
         }
 

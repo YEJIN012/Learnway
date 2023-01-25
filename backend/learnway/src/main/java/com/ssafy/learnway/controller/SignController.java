@@ -1,14 +1,13 @@
 package com.ssafy.learnway.controller;
 
-import com.ssafy.learnway.domain.RefreshToken;
-import com.ssafy.learnway.domain.User;
+
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
 import com.ssafy.learnway.dto.UserSignupRequestDto;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import com.ssafy.learnway.util.ResponseHandler;
-import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
