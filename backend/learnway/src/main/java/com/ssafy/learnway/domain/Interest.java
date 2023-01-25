@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_interest")
 public class Interest {

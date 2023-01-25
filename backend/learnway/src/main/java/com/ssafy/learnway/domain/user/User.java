@@ -15,23 +15,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Getter @Setter
+@Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 public class User implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
-    @Column(name="user_id")
+    @Column(name="user_id", nullable = false)
     @Id
     private Long userId;
-    @Column(name="user_email")
+    @Column(name="user_email", nullable = false)
     private String userEmail;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name="user_pwd")
+    @Column(name="user_pwd", nullable = false)
     private String userPwd;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE) //년-월-일 의 date 타입
     private Date birthday;
 

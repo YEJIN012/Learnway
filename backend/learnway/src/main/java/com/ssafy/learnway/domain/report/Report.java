@@ -1,10 +1,7 @@
 package com.ssafy.learnway.domain.report;
 
 import com.ssafy.learnway.domain.user.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_report")
 public class Report {

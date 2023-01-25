@@ -1,17 +1,15 @@
 package com.ssafy.learnway.domain.study;
 
 import com.ssafy.learnway.domain.user.User;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_study")
 public class Study {
