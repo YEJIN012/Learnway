@@ -1,0 +1,111 @@
+package com.ssafy.learnway.service;
+
+import com.ssafy.learnway.domain.RefreshToken;
+import com.ssafy.learnway.domain.User;
+import com.ssafy.learnway.dto.TokenDto;
+import com.ssafy.learnway.dto.TokenRequestDto;
+import com.ssafy.learnway.dto.UserSignupRequestDto;
+import com.ssafy.learnway.repository.RefreshTokenRepository;
+import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.util.JwtTokenProvider;
+import com.ssafy.learnway.util.ResponseHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.SQLException;
+
+@Service
+public class UserService {
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
+    @Transactional
+    public TokenDto login(String userEmail, String userPwd) throws SQLException {
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        // 장소에서 가져온 인코딩된 암호(encodedPassword)가 인코딩 된 후 제출된 원시 암호(raw password)와 일치하는지 확인
+        // 불일치하면 확인 msg 반환.
+        if (user == null || !passwordEncoder.matches(userPwd, user.getUserPwd()) ) {
+            throw new SQLException();
+        }
+
+        // 유저 정보와 유저 권한이 담긴 token 생성. UserNamePasswordAuthentication Token 생성
+        // String token = jwtTokenProvider.createToken(String.valueOf(user.getUserId()), user.getRoles());
+
+        // AccessToken, RefreshToken 발급
+        TokenDto tokenDto = jwtTokenProvider.createTokenDto(user.getUserId(),user.getRoles());
+
+        RefreshToken refreshToken = RefreshToken.builder()
+                .userKey(user.getUserId())
+                .token(tokenDto.getRefreshToken())
+                .build();
+
+        refreshTokenRepository.save(refreshToken);
+
+        return tokenDto;
+    }
+    @Transactional
+    public User userInfo (String userEmail){
+        return userRepository.findByUserEmail(userEmail);
+    }
+    @Transactional
+    public void signUp(UserSignupRequestDto userSignupDto) throws SQLException {
+        if(userRepository.findByUserEmail(userSignupDto.getUserEmail())==null){
+            userRepository.save(userSignupDto.toEntity());
+        }
+        else throw new SQLException();
+    }
+
+    @Transactional
+    public User findByEmail(String userEmail) throws SQLException{
+        return userRepository.findByUserEmail(userEmail);
+    }
+
+    @Transactional
+    public TokenDto refreshToken(TokenRequestDto tokenRequestDto) throws Exception {
+
+        // 만료된 refresh token 에러
+        if(!jwtTokenProvider.validateToken(tokenRequestDto.getRefreshToken())){
+            System.out.println("토큰 에러");
+            throw new Exception(); // refreshtoken 예외 처리로 바꿔주기
+        }
+
+        // AccessToken 에서 username(pk) 가져오기
+        String accessToken = tokenRequestDto.getAccessToken();
+        Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
+
+        System.out.println("유저 찾기전");
+        // userPk로 유저 검섹
+        User user = userRepository.findById(Long.parseLong(authentication.getName())).orElseThrow(() -> new Exception());// usernotfound 예외 처리로 바꿔주기
+        System.out.println("유저 못 찾음");
+
+        RefreshToken refreshToken = refreshTokenRepository.findByUserKey(user.getUserId()).orElseThrow(() -> new Exception());
+        System.out.println("유저를 이름으로 못 가져옴");
+
+        // refreshToken 불일치 에러
+        if(!refreshToken.getToken().equals(tokenRequestDto.getRefreshToken()))
+            throw new Exception();// refreshtoken 예외 처리로 바꿔주기
+        System.out.println("토큰불일치");
+
+        // AccessToken, RefreshToken 재발급 및 RefreshToken 저장
+        TokenDto newCreatedToken = jwtTokenProvider.createTokenDto(user.getUserId(), user.getRoles());
+        RefreshToken updateRefreshToken  = refreshToken.updateToken(newCreatedToken.getRefreshToken());
+        refreshTokenRepository.save(updateRefreshToken);
+
+        return newCreatedToken;
+    }
+}
