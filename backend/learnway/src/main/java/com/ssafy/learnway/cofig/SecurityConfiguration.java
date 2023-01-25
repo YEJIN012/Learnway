@@ -77,25 +77,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
      // 인증, 인가가 필요한 페이지 설정
      @Override
      public void configure(HttpSecurity http) throws Exception {
-//          http
-//                  .csrf().disable() // csrf : post방식으로 값을 전송시, token을 사용해야되는 보안 설정 => csrf 기능 disable
-//                  .authorizeRequests()
-//                  .antMatchers("/","/main").permitAll() // 해당 path는 모든 사람 접근 가능
-//                  .antMatchers("/securepage","/members/**").hasRole("USER") // 해당 path는 로그인 인증 + USER라는 권한이 있어야 접근 가능
-//                  .anyRequest().authenticated() // 그 외의 모든 path는 인증, 인가를 거쳐야함
-//                  .and()
-//                    .formLogin() // 로그인 폼 설정
-//                    .loginPage("/users/login")// 로그인 요청 url
-//                    .usernameParameter("userEmail")
-//                    .passwordParameter("userPwd")
-//                    .loginProcessingUrl("/authenticate") // Spring Security에사 ID와 PW를 입력받아 로그인 처리
-//                    .failureForwardUrl("/users/loginerror?login_error=1") // 로그인 실패 forward url
-//                    .defaultSuccessUrl("/",true) // 로그인 성공 redirect url
-//                    .permitAll() // 로그인 폼은 모든 사람 접근 가능
-//                 .and()
-//                    .logout()
-//                    .logoutUrl("/logout") // 로그아웃 후 세션 모두 삭제 후
-//                    .logoutSuccessUrl("/"); // 해당 path로 redirect
          http
                   // 기본 REST API만 사용하므로 기본 설정 비활성화
                  .httpBasic().disable()

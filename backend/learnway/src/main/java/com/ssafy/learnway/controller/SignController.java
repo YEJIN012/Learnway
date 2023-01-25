@@ -34,7 +34,7 @@ public class SignController {
         try {
             TokenDto tokenDto = userService.login(userEmail,userPwd);
             User user = userService.userInfo(userEmail); // 유저확인
-            return ResponseHandler.generateResponse("로그인에 성공하였습니다.", HttpStatus.OK, "accessToken", tokenDto, "user",user);
+            return ResponseHandler.generateResponse("로그인에 성공하였습니다.", HttpStatus.OK, "token", tokenDto, "user",user);
         } catch (SQLException e) {
             return ResponseHandler.generateResponse("이메일, 비밀번호를 다시 확인해주세요.", HttpStatus.ACCEPTED);
         }
