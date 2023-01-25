@@ -1,13 +1,21 @@
-import React from 'react'
-import Styled from 'styled-components'
+import React from "react";
+import Home from "./component/page/Home";
+import MyPage from "./component/page/MyPage/MyPage";
+import Logout from "./component/page/Logout";
+import NavBar from "./component/ui/NavBar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const Label = Styled.span`
-  font-size:10px;
-`
 function App() {
-  return (
-    <Label>Hello World</Label>
-  );
+    return (
+        <BrowserRouter>
+            {/* <NavBar/> */}
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/mypage" element={<MyPage />}></Route>
+                <Route path="/logout" element={<Logout />}></Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
