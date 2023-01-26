@@ -10,8 +10,8 @@ const Img = styled.img`
 `
 
 function ProfileImg(props) {
-    const { src, width} = props
-    return <Img src={src} width={width} />
+    const { src, width } = props
+    return <Img src={src || "profile_default.png"} width={width} />
     
 }
 

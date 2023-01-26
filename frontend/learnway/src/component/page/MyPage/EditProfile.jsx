@@ -21,8 +21,8 @@ function EditProfile() {
             <StyledTextInput placeholder="username" />
             <StyledTextInput placeholder="username" />
             <BtnWrapper>
-                <Button id="5" fontSize={"7.792vw"} textValue={"Cancel"} width="20%"></Button>
-                <Button id="4" fontSize={"100%"} textValue={"Save"} width="20%"></Button>
+                <Button id="5" fontSize={"1vw"} textValue={"Cancel"} width="7.079vw" radius={"5px"}></Button>
+                <Button id="4" fontSize={"1vw"} textValue={"Save"} width="7.079vw" radius={"5px"}></Button>
             </BtnWrapper>
         </div>
     );

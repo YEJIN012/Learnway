@@ -34,7 +34,7 @@ function ProfileAndFriends(props) {
     
     if (tab === 0) {
         return (
-            <div className="wrapper">
+            <div className="wrapper-row">
                 <div>
                     <div className="subtitle">Profile</div>
                     <ProfileCard user={tab} />
@@ -47,7 +47,7 @@ function ProfileAndFriends(props) {
         );
     } else {
         return (
-            <div className="wrapper">
+            <div className="wrapper-row">
                 <div>
                     <div className="subtitle">Friend</div>
                     <ProfileCard profile={selectedFriend} user={tab} />
