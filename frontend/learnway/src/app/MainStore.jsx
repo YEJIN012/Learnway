@@ -1,6 +1,6 @@
 const selectedMatchLang="";
   
-  function UserStore(state = selectedMatchLang, action){
+  function MainStore(state = selectedMatchLang, action){
     if(action.type === 'matchLangUpdate'){
         state = action.payload;
       return state; 
@@ -10,4 +10,4 @@ const selectedMatchLang="";
     }
   }
 
-  export default UserStore;
+  export default MainStore;
