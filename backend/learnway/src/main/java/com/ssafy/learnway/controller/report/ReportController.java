@@ -27,7 +27,6 @@ public class ReportController {
     @PostMapping
     public ResponseEntity<String> writeArticle(@RequestBody @ApiParam(value = "신고 내역 정보.", required = true) ReportDto reportDto) throws Exception {
 
-        log.info(reportDto.getReportId().toString());
         if (reportService.writeReport(reportDto) != null) {
             return new ResponseEntity<>("success", HttpStatus.OK);
         }

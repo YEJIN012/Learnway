@@ -13,13 +13,13 @@ import java.util.Collections;
 @AllArgsConstructor
 @ToString
 public class ReportDto { //request용
-    private User userId;
-    private ReportDetail reportId;
+    private Long userId;
+    private int reportId;
 
-    public Report toEntity(){
-        return Report.builder()
-                .userId(userId)
-                .reportId(reportId)
-                .build();
-    }
+//    public Report toEntity(){
+//        return Report.builder()
+//                .userId(userId)
+//                .reportId(reportId)
+//                .build();
+//    }
 }
