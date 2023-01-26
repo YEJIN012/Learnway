@@ -1,4 +1,4 @@
-package com.ssafy.learnway.cofig.auth;
+package com.ssafy.learnway.config.auth;
 
 import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
