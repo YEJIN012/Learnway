@@ -1,14 +1,13 @@
 package com.ssafy.learnway.service;
 
+import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.RefreshToken;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.TokenDto;
-import com.ssafy.learnway.dto.TokenRequestDto;
-import com.ssafy.learnway.dto.UserSignupRequestDto;
+import com.ssafy.learnway.domain.user.UserInterest;
+import com.ssafy.learnway.dto.*;
 import com.ssafy.learnway.exception.TokenValidFailedException;
 import com.ssafy.learnway.exception.UserNotFoundException;
-import com.ssafy.learnway.repository.RefreshTokenRepository;
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.repository.*;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,11 +16,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+
+    @Autowired
+    private UserInterestRepository userInterestRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -59,17 +64,50 @@ public class UserService {
         return tokenDto;
     }
     @Transactional
-    public User userInfo (String userEmail){
-        return userRepository.findByUserEmail(userEmail);
+    public UserDto userInfo (String userEmail) throws SQLException{
+        User user = userRepository.findByUserEmail(userEmail);
+
+        Language language = user.getLanguageId();
+        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+
+        List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
+
+        List<InterestDto> interests = new ArrayList<>();
+        for(UserInterest userInterest : userInterests){
+            InterestDto interestDto = InterestDto.builder()
+                    .interestId(userInterest.getInterestId().getInterestId())
+                    .field(userInterest.getInterestId().getField()).build();
+            interests.add(interestDto);
+        }
+
+        UserDto userDto = UserDto.builder()
+                .userEmail(user.getUserEmail())
+                .name(user.getName())
+                .birthDay(user.getBirthday())
+                .language(languageDto)
+                .interests(interests)
+                .badUser(user.isBadUser())
+                .imgUrl(user.getImgUrl())
+                .bio(user.getBio()).build();
+        return userDto;
     }
+
     @Transactional
-    public void signUp(UserSignupRequestDto userSignupDto) throws SQLException {
-        if(userRepository.findByUserEmail(userSignupDto.getUserEmail())==null){
-            userRepository.save(userSignupDto.toEntity());
+    public void signUp(UserDto userDto) throws SQLException {
+
+        if(userRepository.findByUserEmail(userDto.getUserEmail())==null){
+            User user = userRepository.save(userDto.toEntity());
+
+            for(InterestDto interestDto : userDto.getInterests()){
+                UserInterest userInterest = UserInterest.builder()
+                                .userId(user).interestId(interestDto.toEntity()).build();
+
+                userInterestRepository.save(userInterest);
+
+            }
         }
         else throw new SQLException();
     }
-
     @Transactional
     public User findByEmail(String userEmail) throws SQLException{
         return userRepository.findByUserEmail(userEmail);

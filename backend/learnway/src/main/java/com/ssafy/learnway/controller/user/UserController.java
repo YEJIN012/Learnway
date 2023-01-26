@@ -1,15 +1,16 @@
 package com.ssafy.learnway.controller.user;
 
-import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.service.MailService;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
+
 @Api(tags = {"users"})
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
@@ -28,9 +29,9 @@ public class UserController {
             return ResponseHandler.generateResponse("이메일을 입력해주세요.", HttpStatus.ACCEPTED);
         }
         try {
-            User user = userService.findByEmail(userEmail);
-            if(user!=null){
-                return ResponseHandler.generateResponse("회원정보가 조회되었습니다.", HttpStatus.OK,"user",user);
+            UserDto userDto = userService.userInfo(userEmail); // 유저확인
+            if(userDto!=null){
+                return ResponseHandler.generateResponse("회원정보가 조회되었습니다.", HttpStatus.OK,"user",userDto);
             }else {
                 return ResponseHandler.generateResponse("존재하지 않는 회원입니다.", HttpStatus.ACCEPTED);
             }
