@@ -2,20 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate  } from "react-router-dom";
 
+import '../ui/Background.css';
 import logo from '../../img/intro_logo.png';
 import learnway from '../../img/learnway.png'
 import picture from '../../img/intro_picture.png';
-import subment from '../../img/subtitle.png'
-import backgroundImg from "../../img/backgroundImage.jpg";
+import subment from '../../img/subtitle.png';
 
-const Background = styled.body`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  background-size: cover;
-  justify-content: center;
-  background-image: url(${backgroundImg});
-`;
 
 const LeftSide = styled.div`
   width: 58vw;
@@ -92,10 +84,10 @@ const StartBtn = styled.button`
 
 export default function Intro () {
   return (
-    <Background>
+    <body className="background">
       <LeftBox />
       <RightBox />
-    </Background>
+    </body>
   )
 }
 
