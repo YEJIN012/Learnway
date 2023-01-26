@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -68,7 +69,7 @@ public class MailService {
         MimeMessage 객체 안에 내가 전송할 메일의 내용을 담아준다.
         bean으로 등록해둔 javaMailSender 객체를 사용하여 이메일 send
      */
-    public String sendSimpleMessage(String to)throws Exception {
+    public String sendSimpleMessage(String to) throws Exception {
         MimeMessage message = createMessage(to);
         try{
             redisUtil.setDataExpire(certNum, to, 60 * 5L); // redis에 저장(유효시간 5분 후 삭제된다)
@@ -78,5 +79,14 @@ public class MailService {
             throw new IllegalArgumentException();
         }
         return certNum; //인증번호
+    }
+
+    // 이메일에 보낸 인증번호와 사용자가 보낸 인증번호와 같은지 비교한다.
+    public String verifyEmail(String key) throws Exception {
+        String isEmail = redisUtil.getData(key);
+        if (isEmail != null) {
+            redisUtil.deleteData(key);
+        }
+        return isEmail ;
     }
 }
