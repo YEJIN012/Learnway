@@ -22,7 +22,7 @@ function SelectLanguage(){
             
             const options=[];
             for(let i = 0; i < data.length; i++){
-                options.push(<option key={i} value={i}>{data[i]}</option>);
+                options.push(<option key={i} value={data[i]}>{data[i]}</option>);
             }
             setOptionList(options);
         }).catch(function(err){
