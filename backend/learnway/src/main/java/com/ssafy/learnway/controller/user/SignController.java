@@ -1,4 +1,4 @@
-package com.ssafy.learnway.controller;
+package com.ssafy.learnway.controller.user;
 
 
 import com.ssafy.learnway.dto.TokenDto;

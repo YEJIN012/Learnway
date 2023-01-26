@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Wrapper = styled.div`
+    background-color: #fefdf7;
     height: 30px;
     padding: 15px;
     display: flex;
@@ -28,7 +29,7 @@ function NavBar(params) {
         <Wrapper>
             <NavLink to="/">
                 <Img>
-                    <img src="logo.png" alt="" />
+                    <img src="/logo.png" alt="" />
                 </Img>
             </NavLink>
             <Menu>
