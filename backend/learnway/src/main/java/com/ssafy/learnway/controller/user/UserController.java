@@ -1,6 +1,6 @@
 package com.ssafy.learnway.controller.user;
 
-import com.ssafy.learnway.service.MailService;
+import com.ssafy.learnway.dto.UserDto;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
@@ -9,18 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.sql.SQLException;
 
 @Api(tags = {"users"})
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
 public class UserController {
-
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private MailService mailService;
 
     // 회원 조회
     @GetMapping("/{userEmail}")
