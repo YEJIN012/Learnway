@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import MyLanguage from "./MyLanguage";
+import SelectLanguage from "./SelectLanguage";
+import langSelectImg from "./langSelectImg.png";
 
 const Frame = styled.div`
     width: 50vmax;
     height: 38vmax;
-    background: #000000;
+    border:1px solid black;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
@@ -12,26 +15,33 @@ const Frame = styled.div`
 
 const Component=styled.div`
     height:24vmax;
-    background:#00FF00;
+    border:1px solid black;
 `;
 
 const SelectSection=styled.div`
-    background:purple;
+    display:flex;
+    flex-direction:row;
+    border:1px solid black;
     height:60%;
 `;
 
 const BtnSection = styled.div`
-    background:yellow;
+    border:1px solid black;
     height:40%;
 `;
 
-const MyLanguage = styled.span`
-
+const Img = styled.div`
+    width:20%;
+    background-image: url(${langSelectImg});
+    background-size:cover;
 `;
 
-const Img = styled.img``;
-
-const SelectLanguage = styled.select``;
+const SelectFrame = styled.div`
+    width:40%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+`;
 
 function Body(){
     return(
@@ -40,9 +50,13 @@ function Body(){
                 <SelectSection>
                     <MyLanguage></MyLanguage>
                     <Img></Img>
-                    <SelectLanguage></SelectLanguage>
+                    <SelectFrame>
+                        <SelectLanguage></SelectLanguage>
+                    </SelectFrame>
                 </SelectSection>
-                <BtnSection></BtnSection>
+                <BtnSection>
+                    
+                </BtnSection>
             </Component>
         </Frame>
     );
