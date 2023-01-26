@@ -54,7 +54,7 @@ function ProfileAndFriends(props) {
                 </div>
                 <div>
                     <div className="subtitle">MyFriendsList</div>
-                    <div className="white-card-list">
+                    <div className="white-card list">
                         {friends.map((friend, index) => (
                             <FriendListItem
                                 key={index}

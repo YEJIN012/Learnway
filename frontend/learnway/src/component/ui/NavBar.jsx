@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Wrapper = styled.div`
+    background-color: #fefdf7;
     height: 30px;
     padding: 15px;
     display: flex;

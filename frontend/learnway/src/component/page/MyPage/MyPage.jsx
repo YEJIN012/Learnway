@@ -3,21 +3,17 @@ import styled from "styled-components";
 import NavBar from "../../ui/NavBar";
 import MyPageTab from "./MyPageTab";
 
-const StyledBody = styled.div`
-    margin-top: 65px;
-    margin-left: 110px;
-    margin-right: 110px;
-`;
+const Background = styled.div`
+    background-color: #fefdf7;
+    height: 100vh;
+`
 
 function Mypage() {
-    
     return (
-        <div>
+        <Background>
             <NavBar />
-            <StyledBody>
-                <MyPageTab/>
-            </StyledBody>
-        </div>
+            <MyPageTab/>
+        </Background>
     );
 }
 export default Mypage;

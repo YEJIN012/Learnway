@@ -8,8 +8,7 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.white-card-list {
-    box-sizing: border-box;
+.list {
     padding-top: 50%;
     padding-left: 15%;
     padding-right: 15%;
@@ -17,24 +16,12 @@
     flex-direction: row;
     flex-flow: wrap;
     /* align-items: start; */
-    margin-left: 12px;
-    margin-right: 12px;
-    height: 600px;
-    border-radius: 35px;
-    background: #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.white-card-script {
-    box-sizing: border-box;
+.script {
     padding: 10%;
     display: flex;
     flex-direction: row;
-    margin-left: 12px;
-    margin-right: 12px;
-    border-radius: 30px;
-    background: #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .subtitle{

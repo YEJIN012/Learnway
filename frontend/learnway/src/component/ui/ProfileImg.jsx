@@ -2,17 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Img = styled.img`
-    width: 90px;
-    height: 90px;
-    ${(props) => 
-        props.width &&
-        `
-        width: ${props.width}px;
-        height: ${props.width}px;
-        `
-    }
+    width: ${(props) => 
+        props.width || '90px'};
+    height: ${(props) => 
+        props.width || '90px'};
     border-radius: 50%;
-    
 `
 
 function ProfileImg(props) {

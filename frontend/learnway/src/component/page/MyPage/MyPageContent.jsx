@@ -3,13 +3,11 @@ import styled from "styled-components";
 import ProfileAndFriends from "./ProfileAndFriends";
 import Study from "./Study";
 
-
-const Wrapper = styled.div`
+const ContentWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     height: 700px;
-    margin-top: 100px;
     margin-right: 15%;
     margin-left: 15%;
     border: 1px solid;
@@ -18,21 +16,21 @@ const Wrapper = styled.div`
 function MyPageContent(props) {
     if (props.content === "PROFILE") {
         return (
-            <Wrapper>
+            <ContentWrapper>
                 <ProfileAndFriends tab={0} />
-            </Wrapper>
+            </ContentWrapper>
         );
     } else if (props.content === "FRIENDS") {
         return (
-            <Wrapper>
+            <ContentWrapper>
                 <ProfileAndFriends tab={1} />
-            </Wrapper>
+            </ContentWrapper>
         );
     } else {
         return (
-            <Wrapper>
+            <ContentWrapper>
                 <Study />
-            </Wrapper>
+            </ContentWrapper>
         );
     }
 }
