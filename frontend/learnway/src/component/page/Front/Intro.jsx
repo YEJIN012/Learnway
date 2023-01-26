@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate  } from "react-router-dom";
 
-import '../ui/Background.css';
-import logo from '../../img/intro_logo.png';
-import learnway from '../../img/learnway.png'
-import picture from '../../img/intro_picture.png';
-import subment from '../../img/subtitle.png';
+import '../../ui/Background.css';
+import logo from '../Front/img/intro_logo.png';
+import learnway from '../Front/img/learnway.png'
+import picture from '../Front/img/intro_picture.png';
+import subment from '../Front/img/subtitle.png';
 
 
 const LeftSide = styled.div`

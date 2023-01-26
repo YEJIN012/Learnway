@@ -4,5 +4,5 @@
   display: flex;
   background-size: cover;
   justify-content: center;
-  background-image: url('../../img/backgroundImage.jpg');
+  background-image: url('../page/Front/img/backgroundImage.jpg');
 }

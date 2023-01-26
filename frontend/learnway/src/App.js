@@ -1,7 +1,9 @@
 import React from "react";
 import Home from "./component/page/MainPage/Home";
 import MyPage from "./component/page/MyPage/MyPage";
-import Logout from "./component/page/Logout";
+import Intro from "./component/page/Front/Intro";
+import Login from "./component/page/Front/Login";
+import Logout from "./component/page/Front/Logout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {

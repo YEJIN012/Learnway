@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 // import { useNavigate  } from "react-router-dom";
 
-import '../ui/Background.css';
-import '../ui/LoginSignup.css';
+import '../../ui/Background.css';
+import '../../ui/LoginSignup.css';
 
 const LoginBackground = styled.div`
   position: absolute;

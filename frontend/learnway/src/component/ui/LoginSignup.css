@@ -19,5 +19,5 @@
 .logo {
   width: 10vw;
   height: 2.5vh;
-  content: url('../../img/logo_skyblue.png');
+  content: url('../page/Front/img/logo_skyblue.png');
 }
