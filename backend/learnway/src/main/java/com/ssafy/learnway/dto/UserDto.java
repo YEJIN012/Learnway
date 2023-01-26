@@ -1,21 +1,20 @@
 package com.ssafy.learnway.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ssafy.learnway.domain.Interest;
-import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
-public class UserSignupRequestDto {
+@Builder
+public class UserDto {
     String userEmail;
     String userPwd;
 
@@ -24,9 +23,15 @@ public class UserSignupRequestDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     LocalDate birthDay;
 
-    Language languageId;
+    LanguageDto language;
 
-    List<Interest>  interests;
+    List<InterestDto>  interests;
+
+    boolean badUser;
+
+    String imgUrl;
+
+    String bio;
 
     public User toEntity(){
         return User.builder()
@@ -35,7 +40,10 @@ public class UserSignupRequestDto {
                 .roles(Collections.singletonList("ROLE_USER"))
                 .name(name)
                 .birthday(birthDay)
-                .languageId(languageId)
+                .languageId(language.toEntity())
+                .badUser(badUser)
+                .imgUrl(imgUrl)
+                .bio(bio)
                 .build();
     }
 }

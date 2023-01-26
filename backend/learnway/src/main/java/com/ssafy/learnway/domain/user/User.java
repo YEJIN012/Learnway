@@ -1,5 +1,6 @@
 package com.ssafy.learnway.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
@@ -42,6 +43,7 @@ public class User extends BaseTime implements UserDetails {
     //@Temporal(TemporalType.DATE) //년-월-일 의 date 타입
     private LocalDate birthday;
 
+    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) // 하나의 언어는 여러명의 사용자를 가진다?
     @JoinColumn(name="languageId")
     private Language languageId;
