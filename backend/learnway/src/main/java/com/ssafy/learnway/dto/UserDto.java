@@ -15,6 +15,7 @@ import java.util.List;
 @ToString
 @Builder
 public class UserDto {
+    Long userId;
     String userEmail;
     String userPwd;
 
@@ -35,6 +36,7 @@ public class UserDto {
 
     public User toEntity(){
         return User.builder()
+                .userId(userId)
                 .userEmail(userEmail)
                 .userPwd(userPwd)
                 .roles(Collections.singletonList("ROLE_USER"))

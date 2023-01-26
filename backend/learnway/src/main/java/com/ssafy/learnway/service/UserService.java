@@ -64,7 +64,7 @@ public class UserService {
         return tokenDto;
     }
     @Transactional
-    public UserDto userInfo (String userEmail) throws SQLException{
+    public UserDto userInfo (String userEmail){
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
@@ -88,7 +88,40 @@ public class UserService {
                 .interests(interests)
                 .badUser(user.isBadUser())
                 .imgUrl(user.getImgUrl())
+                .userId(user.getUserId())
                 .bio(user.getBio()).build();
+        return userDto;
+    }
+
+    @Transactional
+    public UserDto userInfoPwd (String userEmail){
+        User user = userRepository.findByUserEmail(userEmail);
+
+        Language language = user.getLanguageId();
+        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+
+        List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
+
+        List<InterestDto> interests = new ArrayList<>();
+        for(UserInterest userInterest : userInterests){
+            InterestDto interestDto = InterestDto.builder()
+                    .interestId(userInterest.getInterestId().getInterestId())
+                    .field(userInterest.getInterestId().getField()).build();
+            interests.add(interestDto);
+        }
+
+        UserDto userDto = UserDto.builder()
+                .userEmail(user.getUserEmail())
+                .userPwd(user.getUserPwd())
+                .name(user.getName())
+                .birthDay(user.getBirthday())
+                .language(languageDto)
+                .interests(interests)
+                .badUser(user.isBadUser())
+                .imgUrl(user.getImgUrl())
+                .bio(user.getBio())
+                .userId(user.getUserId())
+                .build();
         return userDto;
     }
 
@@ -144,5 +177,24 @@ public class UserService {
         refreshTokenRepository.save(updateRefreshToken);
 
         return newCreatedToken;
+    }
+
+    public User dupName(String name){
+        return userRepository.findByName(name);
+    }
+
+    public void userModify(UserDto userDto) {
+
+        // 수정
+        User user = userRepository.save(userDto.toEntity());
+
+        userInterestRepository.deleteAllByUserId(user);
+
+        for(InterestDto interestDto : userDto.getInterests()){
+            UserInterest userInterest = UserInterest.builder()
+                    .userId(user).interestId(interestDto.toEntity()).build();
+            userInterestRepository.save(userInterest);
+        }
+
     }
 }

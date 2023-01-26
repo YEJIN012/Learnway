@@ -9,4 +9,5 @@ import java.util.List;
 public interface UserInterestRepository extends JpaRepository<UserInterest, Integer> {
     List<UserInterest> findAllByUserId(User userId);
 
+    void deleteAllByUserId(User user);
 }

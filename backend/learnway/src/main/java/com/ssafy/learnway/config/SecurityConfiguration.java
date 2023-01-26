@@ -42,12 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             "/swagger-ui/**"
     };
 
-    // 암호 인코딩 or 인코딩된 암호와 사용자가 입력한 암호가 같은지 확인
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-
     // 저장소에서 가져온 인코딩된 암호(encodedPassword)가 인코딩 된 후 제출된 원시 암호(raw password)와 일치하는지 확인
     // 일치하면 true 반환. 불일치하면 false 반환.
     // 저장된 암호는 디코딩하지 않음
