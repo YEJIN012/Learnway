@@ -1,6 +1,7 @@
 package com.ssafy.learnway.util;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.time.Duration;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class RedisUtil {
     private final StringRedisTemplate stringRedisTemplate;
 
@@ -27,5 +29,12 @@ public class RedisUtil {
 
     public void deleteData(String key) {
         stringRedisTemplate.delete(key);
+    }
+
+    public boolean checkAuth(String email,String value) {
+        ValueOperations<String, String> valueOperations = stringRedisTemplate.opsForValue();
+        String authK = valueOperations.get(email);
+        if (authK.equals(value)) return true;
+        return false;
     }
 }

@@ -28,11 +28,11 @@ public class MailController {
 
     @PostMapping("/verify")
     @ResponseBody
-    public ResponseEntity verifyConfirm(@RequestParam(name = "verify_code") String key) throws Exception {
+    public ResponseEntity verifyConfirm(@RequestParam(name = "email") String email, @RequestParam(name = "code") String value) throws Exception {
         try {
-            String isEmail = mailService.verifyEmail(key);
-            log.info("인증여부 : " + isEmail);
-            if(isEmail != null){
+            boolean isEmail = mailService.verifyEmail(email, value);
+//            log.info("인증여부 : " + isEmail);
+            if(isEmail){
                 return ResponseHandler.generateResponse("인증번호가 일치합니다.", HttpStatus.OK);
             }else{
                 return ResponseHandler.generateResponse("인증번호가 일치하지 않습니다.", HttpStatus.ACCEPTED);

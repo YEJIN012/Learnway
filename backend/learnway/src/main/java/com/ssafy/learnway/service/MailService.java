@@ -47,7 +47,7 @@ public class MailService {
         msg += "</td></tr></tbody></table></div>";
 
         message.setText(msg, "utf-8", "html"); //내용, charset타입, subtype
-        message.setFrom(new InternetAddress(id,"prac_Admin")); //보내는 사람의 메일 주소, 보내는 사람 이름
+        message.setFrom(new InternetAddress(id,"learnway")); //보내는 사람의 메일 주소, 보내는 사람 이름
 
         return message;
     }
@@ -72,9 +72,11 @@ public class MailService {
     public String sendSimpleMessage(String to) throws Exception {
         MimeMessage message = createMessage(to);
         try{
-            redisUtil.setDataExpire(certNum, to, 60 * 5L); // redis에 저장(유효시간 5분 후 삭제된다)
+            //key, value, 유효시간 (email을 key로 한다.)
+            redisUtil.setDataExpire(to, certNum, 60 * 5L); // redis에 저장(유효시간 5분 후 삭제된다)
             javaMailSender.send(message); // 메일 발송
         }catch(MailException es){
+            redisUtil.deleteData(to);
             es.printStackTrace();
             throw new IllegalArgumentException();
         }
@@ -82,11 +84,11 @@ public class MailService {
     }
 
     // 이메일에 보낸 인증번호와 사용자가 보낸 인증번호와 같은지 비교한다.
-    public String verifyEmail(String key) throws Exception {
-        String isEmail = redisUtil.getData(key);
-        if (isEmail != null) {
-            redisUtil.deleteData(key);
+    public boolean verifyEmail(String email, String value) throws Exception {
+        boolean isEmail = redisUtil.checkAuth(email, value);
+        if (isEmail) {
+            redisUtil.deleteData(email);
         }
-        return isEmail ;
+        return isEmail;
     }
 }
