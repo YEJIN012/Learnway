@@ -14,7 +14,7 @@ function MyCalendar() {
 
 function Study() {
     return (
-        <div className="wrapper">
+        <div className="wrapper-row">
             <div>
                 <div className="subtitle">Calendar</div>
                 <div className="white-card">

@@ -7,7 +7,6 @@ const ContentWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 700px;
     margin-right: 15%;
     margin-left: 15%;
     border: 1px solid;
