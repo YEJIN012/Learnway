@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useNavigate, NavLink  } from "react-router-dom";
+import { useNavigate, NavLink, navigate  } from "react-router-dom";
 import Button from '../../ui/Button';
 
 import '../../ui/Background.css';
@@ -80,36 +80,27 @@ const CheckBox = styled.input`
 
 const BtnFrame = styled.div`
   width: 20vw;
-
   display: flex;
   flex-direction: row;
   align-items: center;
   position: absolute;
-  padding: 42.6vh 5vw 18vh 4.9vw;
+  margin: 45vh 5vw 18vh 4.9vw;
 
 `
 
 export default function Login () {
-  const [inputs, setInputs] = useState({
-    id: "",
-    password: "",
-  });
-  const { id, password } = inputs;
-  const onChange = (e) => {
-    const { id, value } = e.target;
-  
-    setInputs({
-      ...inputs,
-      [id]: value,
-    });
-  };
-  
-  // const onReset = () => {
-  //   setInputs({
-  //     id: "",
-  //     password: "",
-  //   });
-  // };
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [button, setButton] = useState(true);
+  const realId = "hanbin0501@gmail.com";
+  const realPw = "12345678";
+
+
+  function changeButton() {
+    id.includes('@') && pw.length >= 5 ? setButton(false) :setButton(true)
+  }
+
+
   return (
     <body className="background">
         <LoginBackground>
@@ -126,17 +117,23 @@ export default function Login () {
               <Input 
                 id="id"
                 placeholder="abcdefg@abcd.com"
-                onChange={onChange}
-                value={id}  
+                onChange={(e) => {
+                  setId(e.target.value);
+                  console.log(e.target.value)
+                }}
+                onKeyUp={changeButton}
               />
             </InputBox>
             <InputBox>
               <InputTitle>Password</InputTitle>
               <Input 
+                type="password"
                 id="password"
                 placeholder="********"
-                onChange={onChange}
-                value={password} 
+                onChange={(e) => {
+                  setPw(e.target.value);
+                }}
+                onKeyUp={changeButton}
               />
             </InputBox>
             <Owframe>
@@ -148,8 +145,8 @@ export default function Login () {
             </Owframe>
           </InputFrame>
           <BtnFrame>
-            <Btn nexturl="/" name="0" txt="Login"></Btn>
-            <Btn nexturl="/signup" name="1" txt="Sign Up"></Btn>
+            <Btn nexturl='/' name="0" txt="Login"></Btn>
+            <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
           </BtnFrame>
         </LoginBackground>
     </body>
@@ -162,13 +159,13 @@ function Btn(props){
   return (
     <Button 
       id= {name} 
-      width="189.5px" 
-      height="38.93px" 
-      fontSize="12px" 
+      width="13.16vw" 
+      height="5vh" 
+      fontSize="0.83vw" 
       textWeight="700" 
-      radius="2.5vh" 
+      radius="2vh" 
       textValue= {txt}
-      onClick={()=>{ navigate({nexturl}) }}>
+      onClick={()=>{ navigate(`${nexturl}`) }}>
     </Button>
   )
 }
