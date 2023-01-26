@@ -1,64 +1,31 @@
 import React from "react";
 import styled from "styled-components";
+import Button from "../../ui/Button";
 
-const Wrapper = styled.div`
-    margin-left: 12px;
-    margin-right: 12px;
-    width: 60%
+const StyledTextInput = styled.input`
+    width: 100%;
+    height: 20px;
+    font-size: 16px;
+    margin: 10px;
 `;
-
-const Subtitle = styled.div`
-    left: 6.43%;
-    right: 34.05%;
-    height: 60px;
-    bottom: 91.04%;
-    font-weight: 300px;
-    font-size: 30px;
-    line-height: 32px;
+const BtnWrapper = styled.div`
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: row;
+    justify-content: flex-end;
 `;
-const Card = styled.div`
-    margin-top: 10px;
-    height: 600px;
-    left: 0px;
-    top: 70px;
-    border-radius: 35px;
-    background: #ffffff;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
-// const StyledTextInput = styled.input`
-//     width: 100%;
-//     height: 20px;
-//     font-size: 16px;
-//     margin: 10px;
-// `;
-
-// function TextInput(props) {
-//     // const { placeholder, value, onChange } = props
-//     const { placeholder } = props
-//     return (
-//     )
-// }
 
 function EditProfile() {
     return (
-        <Wrapper>
-            <Subtitle>Edit profile</Subtitle>
-            <Card>
-                프로필편집
-                {/* <TextInput placeholder="username" />
-                <p>
-                    <TextInput placeholder="username" />
-                    <TextInput placeholder="username" />
-                </p>
-                <TextInput placeholder="username" />
-                <TextInput placeholder="username" />
-                <TextInput placeholder="username" /> */}
-            </Card>
-        </Wrapper>
+        <div className="white-card list">
+            <StyledTextInput placeholder="username" />
+            <StyledTextInput placeholder="username" />
+            <BtnWrapper>
+                <Button id="5" fontSize={"1vw"} textValue={"Cancel"} width="7.079vw" radius={"5px"}></Button>
+                <Button id="4" fontSize={"1vw"} textValue={"Save"} width="7.079vw" radius={"5px"}></Button>
+            </BtnWrapper>
+        </div>
     );
 }
 
-export default EditProfile
+export default EditProfile;
