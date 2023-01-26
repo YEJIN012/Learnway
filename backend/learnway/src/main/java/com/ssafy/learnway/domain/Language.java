@@ -1,11 +1,9 @@
 package com.ssafy.learnway.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -13,7 +11,9 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_language")
+@ToString
 public class Language {
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="language_id")
     @Id
     private int languageId;

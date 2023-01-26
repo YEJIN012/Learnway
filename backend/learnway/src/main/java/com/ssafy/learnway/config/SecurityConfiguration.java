@@ -1,6 +1,7 @@
-package com.ssafy.learnway.cofig;
+package com.ssafy.learnway.config;
 
-import com.ssafy.learnway.cofig.auth.JwtAuthenticationFilter;
+import com.ssafy.learnway.config.auth.JwtAuthenticationFilter;
+import com.ssafy.learnway.config.auth.JwtAuthenticationFilter;
 import com.ssafy.learnway.exception.CustomAccessDeniedHandler;
 import com.ssafy.learnway.exception.CustomAuthenticationEntryPoint;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;

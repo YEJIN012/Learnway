@@ -1,10 +1,10 @@
 package com.ssafy.learnway.controller;
 
 
-import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
-import com.ssafy.learnway.dto.UserSignupRequestDto;
+import com.ssafy.learnway.dto.UserDto;
+import com.ssafy.learnway.dto.UserSignupDto;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import com.ssafy.learnway.util.ResponseHandler;
@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 @Api(tags = {"sign"})
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class SignController {
     @Autowired
     private UserService userService;
@@ -28,28 +28,31 @@ public class SignController {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String userEmail, @RequestParam String userPwd ){
+    public ResponseEntity login(@RequestParam String userEmail, @RequestParam String userPwd ){
 
         try {
             TokenDto tokenDto = userService.login(userEmail,userPwd);
-            User user = userService.userInfo(userEmail); // 유저확인
-            return ResponseHandler.generateResponse("로그인에 성공하였습니다.", HttpStatus.OK, "token", tokenDto, "user",user);
+            UserDto userDto = userService.userInfo(userEmail); // 유저확인
+            System.out.println(userDto.toString());
+
+            return ResponseHandler.generateResponse("로그인에 성공하였습니다.", HttpStatus.OK, "token", tokenDto, "user",userDto);
         } catch (SQLException e) {
+            e.printStackTrace();
             return ResponseHandler.generateResponse("이메일, 비밀번호를 다시 확인해주세요.", HttpStatus.ACCEPTED);
         }
     }
-    @GetMapping("/sign-up")
-    public ResponseEntity signup(@RequestParam String userEmail, @RequestParam String userPwd) {
+    @PostMapping("/sign-up")
+    public ResponseEntity signup(@RequestBody UserDto userDto) {
 
-        // 회원가입 요청 dto 생성
-        UserSignupRequestDto userSignupRequestDto = UserSignupRequestDto.builder()
-                .userEmail(userEmail)
-                .userPwd(passwordEncoder.encode(userPwd))
-                .build();
         try {
-            userService.signUp(userSignupRequestDto);
-            return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userSignupRequestDto.toEntity());
+            userDto.setUserPwd(passwordEncoder.encode(userDto.getUserPwd()));
+            userDto.setBadUser(false);
+            userDto.setBio("HI");
+            userDto.setImgUrl(null);
+            userService.signUp(userDto);
+            return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userDto.toEntity());
         } catch (Exception e) {
+            e.printStackTrace();
             return ResponseHandler.generateResponse("회원가입에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
     }
