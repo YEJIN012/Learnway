@@ -5,6 +5,7 @@ import ProfileCard from "./ProfileCard";
 import EditProfile from "./EditProfile";
 import friends from "../../../friends.json";
 import "../../ui/mypage.css"
+import axios from "axios";
 
 const Item = styled.div`
     width: 50%;
@@ -14,6 +15,19 @@ const Item = styled.div`
     align-items: center;
     cursor: pointer;
 `;
+
+function FriendList() {
+    axios.get("https://e2f0d84e-8814-4680-9e99-76a584a5f3e8.mock.pstmn.io/friend")
+    .then(function (response) {
+        // handle success
+        console.log(response);
+        console.log(response.data.friends)
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+}
 
 function FriendListItem(props) {
     const { friend, onClick } = props;
@@ -55,6 +69,7 @@ function ProfileAndFriends(props) {
                 <div>
                     <div className="subtitle">MyFriendsList</div>
                     <div className="white-card list">
+                        <FriendList/>
                         {friends.map((friend, index) => (
                             <FriendListItem
                                 key={index}
