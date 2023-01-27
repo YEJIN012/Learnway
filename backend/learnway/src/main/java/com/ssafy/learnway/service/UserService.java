@@ -1,5 +1,6 @@
 package com.ssafy.learnway.service;
 
+import com.ssafy.learnway.domain.Interest;
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.RefreshToken;
 import com.ssafy.learnway.domain.user.User;
@@ -36,6 +37,12 @@ public class UserService {
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
+
+    @Autowired
+    private InterestRepository interestRepository;
+
+    @Autowired
+    private LanguageRepository languageRepository;
 
     @Transactional
     public TokenDto login(String userEmail, String userPwd) throws SQLException {
@@ -94,38 +101,6 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto userInfoPwd (String userEmail){
-        User user = userRepository.findByUserEmail(userEmail);
-
-        Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
-
-        List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
-
-        List<InterestDto> interests = new ArrayList<>();
-        for(UserInterest userInterest : userInterests){
-            InterestDto interestDto = InterestDto.builder()
-                    .interestId(userInterest.getInterestId().getInterestId())
-                    .field(userInterest.getInterestId().getField()).build();
-            interests.add(interestDto);
-        }
-
-        UserDto userDto = UserDto.builder()
-                .userEmail(user.getUserEmail())
-                .userPwd(user.getUserPwd())
-                .name(user.getName())
-                .birthDay(user.getBirthday())
-                .language(languageDto)
-                .interests(interests)
-                .badUser(user.isBadUser())
-                .imgUrl(user.getImgUrl())
-                .bio(user.getBio())
-                .userId(user.getUserId())
-                .build();
-        return userDto;
-    }
-
-    @Transactional
     public void signUp(UserDto userDto) throws SQLException {
 
         if(userRepository.findByUserEmail(userDto.getUserEmail())==null){
@@ -140,10 +115,6 @@ public class UserService {
             }
         }
         else throw new SQLException();
-    }
-    @Transactional
-    public User findByEmail(String userEmail) throws SQLException{
-        return userRepository.findByUserEmail(userEmail);
     }
 
     @Transactional
@@ -183,10 +154,13 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public void userModify(UserDto userDto) {
+    @Transactional
+    public void modifyUser(UserDto userDto) {
 
-        // 수정
-        User user = userRepository.save(userDto.toEntity());
+        // 맞는 유저 가져오기
+        User user = userRepository.findByUserEmail(userDto.getUserEmail());
+
+        user.update(userDto.getName(), userDto.getBirthDay(), userDto.getLanguage().toEntity(), userDto.getImgUrl(),userDto.getBio());
 
         userInterestRepository.deleteAllByUserId(user);
 
@@ -196,5 +170,59 @@ public class UserService {
             userInterestRepository.save(userInterest);
         }
 
+    }
+
+    @Transactional(readOnly = true)
+    public ProfileDto getProfile(String userEmail){
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+        Language language = user.getLanguageId();
+        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+
+        List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
+
+        List<InterestDto> interests = new ArrayList<>();
+        for(UserInterest userInterest : userInterests){
+            InterestDto interestDto = InterestDto.builder()
+                    .interestId(userInterest.getInterestId().getInterestId())
+                    .field(userInterest.getInterestId().getField()).build();
+            interests.add(interestDto);
+        }
+
+        return ProfileDto.builder()
+                .userEmail(user.getUserEmail())
+                .name(user.getName())
+                .birthDay(user.getBirthday())
+                .language(languageDto)
+                .interests(interests)
+                .imgUrl(user.getImgUrl())
+                .bio(user.getBio()).build();
+    }
+
+    @Transactional(readOnly = true)
+    public List<InterestDto> getInterest(){
+        List<Interest> interests = interestRepository.findAll();
+
+        List<InterestDto> interestDtos = new ArrayList<>();
+
+        for(Interest interest : interests){
+            interestDtos.add(InterestDto.builder().interestId(interest.getInterestId()).field(interest.getField()).build());
+        }
+
+        return interestDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public List<LanguageDto> getLanguage(){
+        List<Language> languages = languageRepository.findAll();
+
+        List<LanguageDto> languageDtos = new ArrayList<>();
+
+        for(Language language : languages){
+            languageDtos.add(LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build());
+        }
+
+        return languageDtos;
     }
 }
