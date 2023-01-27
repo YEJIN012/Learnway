@@ -1,5 +1,6 @@
 package com.ssafy.learnway.domain.study;
 
+import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 
@@ -31,4 +32,8 @@ public class Study {
     @Temporal(TemporalType.TIMESTAMP) //date + time
     @Column(name="study_datetime")
     private Date regTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="languageId")
+    private Language languageId;
 }
