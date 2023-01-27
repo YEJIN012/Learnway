@@ -118,6 +118,11 @@ public class UserService {
     }
 
     @Transactional
+    public User findByEmail(String userEmail) throws SQLException{
+        return userRepository.findByUserEmail(userEmail);
+    }
+
+    @Transactional
     public TokenDto refreshToken(TokenRequestDto tokenRequestDto) throws SQLException {
 
         // 만료된 refresh token 에러

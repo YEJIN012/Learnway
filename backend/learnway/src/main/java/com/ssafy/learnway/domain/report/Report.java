@@ -1,5 +1,6 @@
 package com.ssafy.learnway.domain.report;
 
+import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tb_report")
-public class Report {
+public class Report extends BaseTime {
 
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Id
@@ -28,6 +29,6 @@ public class Report {
     @JoinColumn(name="report_id")
     private ReportDetail reportId;
 
-    @Column(name="report_datetime")
-    private Date regDate;
+//    @Column(name="report_datetime")
+//    private Date regDate;
 }

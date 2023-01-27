@@ -1,4 +1,4 @@
-package com.ssafy.learnway.controller;
+package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.InterestDto;
@@ -14,16 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
 import java.util.List;
 
-@Api(tags = {"user"})
+@Api(tags = {"users"})
+
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
-@Slf4j
 public class UserController {
-
     @Autowired
     private UserService userService;
 

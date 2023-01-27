@@ -1,42 +1,36 @@
 import React from "react";
 import styled from "styled-components";
-import ProfileCard from "./ProfileCard";
-import EditProfile from "./EditProfile";
-import FriendsList from "./FriendsList";
-import StudyCalendar from "./StudyCalendar";
-import StudyScripts from "./StudyScripts";
+import ProfileAndFriends from "./ProfileAndFriends";
+import Study from "./Study";
 
-const Wrapper = styled.div`
-    height: 700px;
-    left: 11.81%;
-    right: 11.81%;
-    top: 257px;
+const ContentWrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15%;
+    margin-left: 15%;
+    border: 1px solid;
 `;
 
-function Content(props) {
+function MyPageContent(props) {
     if (props.content === "PROFILE") {
         return (
-            <Wrapper>
-                <ProfileCard />
-                <EditProfile />
-            </Wrapper>
+            <ContentWrapper>
+                <ProfileAndFriends tab={0} />
+            </ContentWrapper>
         );
     } else if (props.content === "FRIENDS") {
         return (
-            <Wrapper>
-                <ProfileCard />
-                <FriendsList />
-            </Wrapper>
-        )
+            <ContentWrapper>
+                <ProfileAndFriends tab={1} />
+            </ContentWrapper>
+        );
     } else {
         return (
-            <Wrapper>
-                <StudyCalendar />
-                <StudyScripts />
-            </Wrapper>
-        )
+            <ContentWrapper>
+                <Study />
+            </ContentWrapper>
+        );
     }
 }
-export default Content;
+export default MyPageContent;
