@@ -2,9 +2,9 @@ import React from "react";
 import Home from "./component/page/MainPage/Home";
 import MyPage from "./component/page/MyPage/MyPage";
 import Intro from "./component/page/Front/Intro";
-import Login from "./component/page/Front/Login";
+import Login from "./component/page/Front/LoginPage/Login";
 import Logout from "./component/page/Front/Logout";
-import SignUp from "./component/page/Front/SignUp"
+import Signup from "./component/page/Front/SignupPage/SignUp";
 import FindPassword from "./component/page/Front/FindPassword"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -17,7 +17,7 @@ function App() {
                 <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/logout" element={<Logout />}></Route>
-                <Route path="/signup" element={<SignUp />}></Route>
+                <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPassword />}></Route>
             </Routes>
         </BrowserRouter>
