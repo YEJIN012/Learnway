@@ -112,4 +112,13 @@ public class User extends BaseTime implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void update(String name, LocalDate birthday, Language languageId, String imgUrl, String bio ) {
+        this.name = name;
+        this.birthday = birthday;
+        this.languageId = languageId;
+        this.imgUrl = imgUrl;
+        this.bio = bio;
+    }
+
 }

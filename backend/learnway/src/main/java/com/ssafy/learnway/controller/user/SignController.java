@@ -1,6 +1,7 @@
 package com.ssafy.learnway.controller.user;
 
 
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.dto.TokenRequestDto;
 import com.ssafy.learnway.dto.UserDto;
@@ -45,14 +46,31 @@ public class SignController {
     public ResponseEntity signup(@RequestBody UserDto userDto) {
 
         try {
+            // 정보 미입력시 리턴
+            if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")||userDto.getUserPwd().equals("")){
+                return ResponseHandler.generateResponse("회원가입 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
+            }
+
+            // 관심 분야 3개 이상 체크
+            if(userDto.getInterests().size()<3){
+                return ResponseHandler.generateResponse("관심분야를 3개 이상 선택해주세요.", HttpStatus.ACCEPTED);
+            }
+
+            // 닉네임 한번 더 중복 체크
+            User user = userService.dupName(userDto.getName());
+            if(user!=null){
+                return ResponseHandler.generateResponse("사용중인 닉네임입니다. 회원가입에 실패하였습니다.", HttpStatus.ACCEPTED);
+            }
+
             userDto.setUserPwd(passwordEncoder.encode(userDto.getUserPwd()));
+            
+            // DB 초기화
             userDto.setBadUser(false);
             userDto.setBio("HI");
             userDto.setImgUrl(null);
             userService.signUp(userDto);
             return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userDto.toEntity());
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseHandler.generateResponse("회원가입에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
     }
