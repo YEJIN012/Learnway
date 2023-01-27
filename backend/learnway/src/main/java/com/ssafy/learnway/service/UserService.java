@@ -230,4 +230,13 @@ public class UserService {
 
         return languageDtos;
     }
+
+    public void modifyPwd (PwdDto pwdDto) {
+        User user = userRepository.findByUserEmail(pwdDto.getUserEmail());
+
+        System.out.println(pwdDto.getNewPassword());
+        user.update(pwdDto.getNewPassword());
+
+    }
+
 }

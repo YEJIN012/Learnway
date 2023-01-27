@@ -32,6 +32,7 @@ public class User extends BaseTime implements UserDetails {
     @Column(name="user_email", nullable = false)
     private String userEmail;
 
+    // Json결과로 출력 안 할 데이터
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name="user_pwd", nullable = false)
     private String userPwd;
@@ -119,6 +120,10 @@ public class User extends BaseTime implements UserDetails {
         this.languageId = languageId;
         this.imgUrl = imgUrl;
         this.bio = bio;
+    }
+
+    public void update(String userPwd){
+        this.userPwd = userPwd;
     }
 
 }

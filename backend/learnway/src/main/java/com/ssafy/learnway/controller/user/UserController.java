@@ -1,10 +1,7 @@
 package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.InterestDto;
-import com.ssafy.learnway.dto.LanguageDto;
-import com.ssafy.learnway.dto.ProfileDto;
-import com.ssafy.learnway.dto.UserDto;
+import com.ssafy.learnway.dto.*;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
@@ -130,4 +127,24 @@ public class UserController {
             return ResponseHandler.generateResponse("언어 리스트 조회에 실패하였습니다.",HttpStatus.ACCEPTED);
         }
     }
+
+    // 비밀번호 수정
+    // 비밀번호 찾기 후 수정 : 이메일 인증(userEmail)후, userEmail과 newPassword, newPasswordConfirm
+    // 회원 정보에서 비밀번호 수정 : userEmail, newPassword, newPasswordConfirm
+    @PutMapping("/modify/userPwd")
+    public ResponseEntity modifyPwd(@RequestBody PwdDto pwdDto){
+        try {
+            if(!pwdDto.getNewPassword().equals(pwdDto.getNewPasswordConfirm())) {
+                return ResponseHandler.generateResponse("입력한 새 패스워드가 일치하지 않습니다.", HttpStatus.ACCEPTED, "pwd", pwdDto);
+            }
+            pwdDto.setNewPassword(passwordEncoder.encode(pwdDto.getNewPasswordConfirm()));
+
+            userService.modifyPwd(pwdDto);
+
+            return ResponseHandler.generateResponse("비밀번호가 수정되었습니다.",HttpStatus.ACCEPTED);
+        } catch (Exception e){
+            return ResponseHandler.generateResponse("비밀번호 수정에 실패하였습니다.",HttpStatus.ACCEPTED);
+        }
+    }
+
 }
