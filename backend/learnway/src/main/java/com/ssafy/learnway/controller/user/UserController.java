@@ -1,4 +1,4 @@
-package com.ssafy.learnway.controller;
+package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.dto.UserDto;
 import com.ssafy.learnway.service.UserService;
@@ -10,12 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = {"user"})
+@Api(tags = {"users"})
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
-@Slf4j
 public class UserController {
-
     @Autowired
     private UserService userService;
 
@@ -35,10 +33,6 @@ public class UserController {
         } catch (Exception e) {
             return ResponseHandler.generateResponse("요청에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
-    }
-    @GetMapping("/test")
-    public ResponseEntity test(){
-        return ResponseHandler.generateResponse("test", HttpStatus.ACCEPTED);
     }
 
 }
