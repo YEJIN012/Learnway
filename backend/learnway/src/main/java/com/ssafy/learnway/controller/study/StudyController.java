@@ -3,6 +3,7 @@ package com.ssafy.learnway.controller.study;
 import com.ssafy.learnway.domain.study.Study;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
+import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
 import com.ssafy.learnway.service.study.StudyService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
@@ -34,7 +35,7 @@ public class StudyController {
             List<StudyListResponseDto> studyList = studyService.selectStudyList(studyListDto);
 
             if(studyList.isEmpty() || studyList == null){
-                return ResponseHandler.generateResponse("검색된 학습 목록이 없습니다.", HttpStatus.NOT_FOUND);
+                return ResponseHandler.generateResponse("검색된 학습 목록이 없습니다.", HttpStatus.ACCEPTED);
             }
 
             return ResponseHandler.generateResponse("검색된 날짜의 학습 목록입니다.", HttpStatus.OK, "studyList", studyList);
@@ -47,9 +48,9 @@ public class StudyController {
     //학습 기록
     @ApiOperation(value = "학습 기록", notes = "화상이 마치면 해당 학습에 대한 정보를 기록한다.")
     @PostMapping
-    public ResponseEntity record(@RequestBody @ApiParam(value = "학습 정보 (useId, date(선택한 날짜))", required = true) StudyListRequestDto studyProvideDto) throws SQLException {
+    public ResponseEntity record(@RequestBody @ApiParam(value = "기록에 관한 정보", required = true) StudyRecordRequestDto studyRecordRequestDto) throws SQLException {
         try {
-
+            studyService.insertStudy(studyRecordRequestDto);
             return ResponseHandler.generateResponse("학습 기록이 완료되었습니다.", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

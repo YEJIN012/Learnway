@@ -22,7 +22,7 @@ public class StudyListResponseDto {
 
     private String script;
 
-    private LocalDateTime studyDatetime;
+    private LocalDateTime createdDate;
 
     private Language languageId;
 }

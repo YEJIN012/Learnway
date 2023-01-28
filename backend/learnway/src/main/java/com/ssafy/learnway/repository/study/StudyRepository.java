@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface StudyRepository extends JpaRepository<Study, Integer> {
 //    List<Study> findAllByStudyDatetime(@Param("study_datetime") LocalDateTime regTime);
-    @Query("SELECT u FROM Study u WHERE u.userId = :user_id AND DATE_FORMAT(u.studyDatetime, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')")
-    List<Study> findAllByUserIdAndStudyDatetime(@Param("user_id") User user, @Param("date") Date date);
+    @Query("SELECT u FROM Study u WHERE u.userId = :user_id AND DATE_FORMAT(u.createdDate, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')")
+    List<Study> findAllByUserIdAndCreatedDate(@Param("user_id") User user, @Param("date") Date date);
 }
