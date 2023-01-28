@@ -3,6 +3,7 @@ package com.ssafy.learnway.service.study;
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.study.Study;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.LanguageDto;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
@@ -38,12 +39,18 @@ public class StudyService {
 
         List<StudyListResponseDto> studyList = new ArrayList<>();
         for(Study study : list){
+            //lazy
+            LanguageDto languageDto = LanguageDto.builder()
+                    .languageId(study.getLanguageId().getLanguageId())
+                    .name(study.getLanguageId().getName())
+                    .build();
+
             StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())
                     .userId(study.getUserId().getUserId())
                     .friendId(study.getFriendId().getUserId())
                     .script(study.getScript())
                     .createdDate(study.getCreatedDate())
-                    .languageId(study.getLanguageId())
+                    .language(languageDto)
                     .build();
 
             studyList.add(response);
@@ -58,7 +65,8 @@ public class StudyService {
         User friend = userRepository.findByUserEmail(studyRecordRequestDto.getFriendEmail());
         Language language = languageRepository.findByLanguageId(studyRecordRequestDto.getLanguageId());
 
-        Study study = Study.builder().userId(user)
+        Study study = Study.builder()
+                .userId(user)
                 .friendId(friend)
                 .languageId(language)
                 .script(studyRecordRequestDto.getScript())

@@ -2,6 +2,7 @@ package com.ssafy.learnway.dto.study;
 
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.LanguageDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,5 +25,5 @@ public class StudyListResponseDto {
 
     private LocalDateTime createdDate;
 
-    private Language languageId;
+    private LanguageDto language;
 }
