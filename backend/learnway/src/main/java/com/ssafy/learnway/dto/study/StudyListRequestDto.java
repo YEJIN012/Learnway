@@ -1,11 +1,9 @@
 package com.ssafy.learnway.dto.study;
 
 
-import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -14,9 +12,9 @@ import java.util.Date;
 @ToString
 @Builder
 @AllArgsConstructor
-public class StudyProvideRequestDto { //학습기록 request
+public class StudyListRequestDto { //학습기록 request
 
-    private Long userId;
+    private String userEmail;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;

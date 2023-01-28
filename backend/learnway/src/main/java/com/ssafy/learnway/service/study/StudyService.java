@@ -2,10 +2,10 @@ package com.ssafy.learnway.service.study;
 
 import com.ssafy.learnway.domain.study.Study;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.study.StudyProvideRequestDto;
+import com.ssafy.learnway.dto.study.StudyListRequestDto;
+import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.repository.study.StudyRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,25 @@ public class StudyService {
     private UserRepository userRepository;
 //    private final StudyRepository studyRepository;
 
-    public List<Study> selectStudyList(StudyProvideRequestDto studyProvideRequestDto) throws Exception{
+    public List<StudyListResponseDto> selectStudyList(StudyListRequestDto studyListRequestDto) throws Exception{
 //        List<Study> studyList = studyRepository.findAllByUserId(studyProvideRequestDto.getUserId());
-        Date date = studyProvideRequestDto.getDate();
-        User user = userRepository.findByUserId(studyProvideRequestDto.getUserId());
-        List<Study> studyList = studyRepository.findAllByUserIdAndStudyDatetime(user, date);
+        Date date = studyListRequestDto.getDate();
+        User user = userRepository.findByUserEmail(studyListRequestDto.getUserEmail());
+        List<Study> list = studyRepository.findAllByUserIdAndStudyDatetime(user, date);
+
+        List<StudyListResponseDto> studyList = new ArrayList<>();
+        for(Study study : list){
+            StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())
+                    .userId(study.getUserId().getUserId())
+                    .friendId(study.getFriendId().getUserId())
+                    .script(study.getScript())
+                    .studyDatetime(study.getStudyDatetime())
+                    .languageId(study.getLanguageId())
+                    .build();
+
+            studyList.add(response);
+        }
+
         return studyList;
     }
 
