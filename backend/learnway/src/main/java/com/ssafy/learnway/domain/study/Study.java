@@ -5,6 +5,7 @@ import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -27,11 +28,12 @@ public class Study {
     @JoinColumn(referencedColumnName = "user_id", name="friend_id")
     private User friendId;
 
+    @Column(columnDefinition = "TEXT")
     private String script;
 
-    @Temporal(TemporalType.TIMESTAMP) //date + time
+//    @Temporal(TemporalType.TIMESTAMP) //date + time
     @Column(name="study_datetime")
-    private Date regTime;
+    private LocalDateTime studyDatetime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="languageId")

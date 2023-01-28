@@ -20,24 +20,30 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/study")
-
 public class StudyController {
 
+    @Autowired
     private StudyService studyService;
 
     //날짜별 채팅내역 조회
     @ApiOperation(value = "학습 정보", notes = "날짜에 대한 학습 기록을 리턴한다.")
     @PostMapping("/day")
-    public ResponseEntity list(@RequestBody @ApiParam(value = "학습 정보 (useerId, date(선택한 날짜))", required = true) StudyProvideRequestDto studyProvideDto) throws SQLException {
+    public ResponseEntity list(@RequestBody @ApiParam(value = "학습 정보 (userId, date(선택한 날짜))", required = true) StudyProvideRequestDto studyProvideDto) throws SQLException {
         try {
-
+//            log.info(studyProvideDto.toString());
             List<Study> studyList = studyService.selectStudyList(studyProvideDto);
+
+            if(studyList.isEmpty() || studyList == null){
+                return ResponseHandler.generateResponse("검색된 학습 목록이 없습니다.", HttpStatus.NOT_FOUND);
+            }
 
             return ResponseHandler.generateResponse("검색된 날짜의 학습 목록입니다.", HttpStatus.OK, "studyList", studyList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
+    
+    //학습 기록
+   
 }
