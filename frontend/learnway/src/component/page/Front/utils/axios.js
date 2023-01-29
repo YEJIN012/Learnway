@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DOMAIN = "http://localhost:9000";
+const DOMAIN = "http://localhost:8123";
 axios.defaults.withCredentials = true; // 쿠키 데이터를 전송받기 위해
 export const request = (method, url, data) => {
   return axios({
@@ -8,6 +8,10 @@ export const request = (method, url, data) => {
     url: DOMAIN + url,
     data,
   })
-    .then((res) => res.data)
+    .then((res) => { 
+      // res.data
+      console.log(res.data)
+      })
+
     .catch((err) => console.log(err));
 };

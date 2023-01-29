@@ -1,70 +1,133 @@
-// import styled from 'styled-components';
-import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import React, { useState } from 'react';
+import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from '../Input';
+import Button from '../../../ui/Button';
+import { useDispatch } from "react-redux";
+import { loginUser } from '../actions/userAction';
 
+const Owframe = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;  
+  width: 20vw;
+  heght: 3vh;
+`;
 
-export default function LoginForm () {
+const CheckBoxFrame = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
 
-  const userRef = useRef();
-  // const errRef = useRef();
+const Checkboxlabel = styled.p`
+  font-size: 0.5vw;
+`;
 
-  const [user, setUser] = useState("");
+const CheckBox = styled.input`
+  display: flex;
+  left: 0vw
+`;
+
+const BtnFrame = styled.div`
+  width: 20vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  margin: 45vh 5vw 18vh 4.9vw;
+`
+
+function LoginForm (props) {
+  const dispatch = useDispatch();
+
+  const [email, setEamil] = useState("");
   const [pw, setPw] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
-  // useEffect(() => {
-  //   userRef.current.focus(); 
-  // }, [])
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [user, pw])
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user, pw)
-    setUser("");
-    setPw("");
-    setSuccess(true);
-  }
+
+    let body = {
+      email: email,
+      pw: pw
+    };
+    console.log(11111111);
+    
+    console.log(dispatch(loginUser(body)))
+    // console.log(loginUser(body))
+      // .then((res) => {
+        // if (res.payload.loginSuccess) {
+          // props.history.push("/")
+          // console.log(props)
+        // } else {
+        //   alert(res.payload.message);
+        // }
+      // })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
+    // console.log(email, pw)
+  };
 
   return (
-      <>
-        {success ? (
-          <section>
-            <h1>You are logged in!</h1>
-            <br />
-            {/* <p>
-              <a href="#">Go to Home</a>
-            </p> */}
-          </section>
-        ):(
-          <section>
-            <form onSubmit={handleSubmit}>
-              <InputBox 
-                id="id"
-                type="text"
-                title="E-mail"
-                placeholder="abcdef@dfd.com"
-                onChange={(e) => {setUser(e.target.value)}}
-                value={user}
-                ref={userRef}
-                // onKeyUp={changeButton}
-              ></InputBox>
-              <InputBox              
-                id="password"
-                type="password"
-                title="Password"
-                placeholder="********"
-                onChange={(e) => {setPw(e.target.value)}}
-                value={pw}
-                // onKeyUp={changeButton}
-              ></InputBox>
-              <button>Sign In</button>
-            </form>
-          </section>
-        )}
+    <>
+      <section>
+        <form onSubmit={handleSubmit}>
+          <InputBox 
+            id="id"
+            type="email"
+            title="E-mail"
+            placeholder="abcdef@dfd.com"
+            onChange={(e) => {setEamil(e.target.value)}}
+            value={email}
+            // ref={userRef}
+            // onKeyUp={changeButton}
+          ></InputBox>
+          <InputBox              
+            id="password"
+            type="password"
+            title="Password"
+            placeholder="********"
+            onChange={(e) => {setPw(e.target.value)}}
+            value={pw}
+            // onKeyUp={changeButton}
+          ></InputBox>
+          <Owframe>
+            <CheckBoxFrame >
+              <CheckBox type='checkbox' />
+              <Checkboxlabel>Remember Me</Checkboxlabel>
+            </CheckBoxFrame>
+            <NavLink to="/find_password">Forgot Password?</NavLink>
+          </Owframe>
+          <button type='submit'> 버튼 </button>
+          {/* <BtnFrame>
+            <Btn name="0" txt="Login"></Btn>  
+            <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
+          </BtnFrame> */}
+        </form>
+      </section>
     </>
   )
 }
+
+
+
+function Btn(props){
+  let navigate = useNavigate();
+  const {nexturl, name, txt} = props;
+  return (
+    <Button 
+      id= {name} 
+      width="13.16vw" 
+      height="5vh" 
+      fontSize="0.83vw" 
+      textWeight="700" 
+      radius="2vh" 
+      textValue= {txt}
+      // onClick={()=>{ navigate(`${nexturl}`) }}
+      >
+    </Button>
+  )
+}
+export default LoginForm

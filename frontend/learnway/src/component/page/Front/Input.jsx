@@ -19,7 +19,7 @@ const Input = styled.input`
 `;
 
 
-export default function InputBox({title, id, type, placeholder, onChange, onKeyUp, ref, value}){
+export default function InputBox({title, id, type, placeholder, onChange, onKeyUp, ref, value }){
   
   return (
     <InputFrame>
@@ -33,31 +33,8 @@ export default function InputBox({title, id, type, placeholder, onChange, onKeyU
         ref={ref}
         value={value}
         autoComplete="off"
+        required
       />
     </InputFrame>
-//   <InputBox>
-//   <InputTitle>E-mail</InputTitle>
-//   <Input 
-//     id="id"
-//     placeholder="abcdefg@abcd.com"
-    // onChange={(e) => {
-    //   setId(e.target.value);
-    //   console.log(e.target.value)
-    // }}
-//     onKeyUp={changeButton}
-//   />
-// </InputBox>
-// <InputBox>
-//   <InputTitle>Password</InputTitle>
-//   <Input 
-//     type="password"
-//     id="password"
-//     placeholder="********"
-//     onChange={(e) => {
-//       setPw(e.target.value);
-//     }}
-//     onKeyUp={changeButton}
-//   />
-// </InputBox>
   )
 }
