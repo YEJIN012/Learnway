@@ -24,48 +24,48 @@ const CardBottom = styled.div`
     justify-content: center;
 `;
 
+
 // 프로필 편집시, useEffect 필요?
 function MyProfile() {
     // 로그인 유저 data
-    const { img_url, name, email, birth } = friends[0];
+    const { imgUrl, name, email, birthDay } = friends[0];
     return (
         <div className="white-card">
             <CardTop>
-                <ProfileImg src={img_url} />
+                <ProfileImg src={imgUrl} />
                 프로필이미지편집버튼
             </CardTop>
             <CardBottom>
-                {name},{email},{birth}
+                {name},{email},{birthDay}
             </CardBottom>
         </div>
     );
 }
 
 function FriendProfile(props) {
-    const { img_url, name, language, birth, interest, bio } = props.data;
+    console.log(props)
+    const { userEmail, name, birthDay, language, interest, imgUrl,bio } = props.data;
     return (
         <div className="white-card">
             <CardTop>
-                <ProfileImg src={img_url} />
+                <ProfileImg src={imgUrl} />
                 친구삭제버튼
             </CardTop>
             <CardBottom>
-                {name},{language},{birth},{interest},{bio}
+                <p>{name}</p>
+                <p>{language.name}</p>
+                <p>{birthDay}</p>
+                <p>{interest}</p>
+                <p>{bio}</p>
             </CardBottom>
         </div>
     );
 }
 
 function ProfileCard(props) {
-    // profile -> 선택된 user_id
+    // email -> 선택된 친구의 data
     // Profile탭 -> 0 Friends탭->1
-    const { profile, user } = props;
-
-    const data = profile
-        ? friends.find((item) => {
-              return item.user_id === profile;
-          })
-        : friends[0];
+    const { data, user } = props;
 
     return (
         <div>{user === 0 ? <MyProfile /> : <FriendProfile data={data} />}</div>
