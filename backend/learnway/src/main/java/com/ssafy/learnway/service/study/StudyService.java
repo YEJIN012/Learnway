@@ -6,6 +6,7 @@ import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.LanguageDto;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
+import com.ssafy.learnway.dto.study.StudyMonthResponseDto;
 import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
 import com.ssafy.learnway.repository.LanguageRepository;
 import com.ssafy.learnway.repository.UserRepository;
@@ -77,4 +78,8 @@ public class StudyService {
         }
     }
 
+    public List<StudyMonthResponseDto> selectStudyMonthList(String userEmail, Date month) throws Exception{
+        User user = userRepository.findByUserEmail(userEmail);
+        return studyRepository.selectByUserIdAndMonth(user, month);
+    }
 }
