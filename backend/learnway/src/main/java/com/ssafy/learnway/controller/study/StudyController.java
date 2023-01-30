@@ -63,14 +63,14 @@ public class StudyController {
 
     @ApiOperation(value = "월별 기록 count", notes = "달력에 표시용")
     @GetMapping("/month")
-    public ResponseEntity listCount(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "study_all_month") @DateTimeFormat(pattern = "yyyy-MM") Date day) throws SQLException {
+    public ResponseEntity listCount(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "study_month") @DateTimeFormat(pattern = "yyyy-MM") Date day) throws SQLException {
         try {
             List<StudyMonthResponseDto> monthCountList = studyService.selectStudyMonthList(userEmail, day);
 
-            for(int i=0; i<monthCountList.size(); i++){
-                System.out.println(monthCountList.get(i).toString());
-            }
-            return ResponseHandler.generateResponse("선택된 달의 기록입니다.", HttpStatus.OK);
+//            for(int i=0; i<monthCountList.size(); i++){
+//                System.out.println(monthCountList.get(i));
+//            }
+            return ResponseHandler.generateResponse("선택된 달의 기록입니다.", HttpStatus.OK, "monthCountList",monthCountList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);

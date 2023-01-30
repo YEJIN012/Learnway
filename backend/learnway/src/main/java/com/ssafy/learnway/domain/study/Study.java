@@ -22,7 +22,7 @@ public class Study extends BaseTime {
     private int videoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(referencedColumnName = "user_id", name="user_id")
+    @JoinColumn(referencedColumnName = "user_id", name="\"user_id\"")
     private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
