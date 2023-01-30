@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import ProfileImg from "../../ui/ProfileImg";
 import ProfileCard from "./ProfileCard";
 import EditProfile from "./EditProfile";
 import FriendList from "./FriendList";
-import friends from "../../../friends.json";
 import "../../ui/mypage.css";
 
 function ProfileAndFriends(props) {
@@ -31,7 +29,7 @@ function ProfileAndFriends(props) {
     } else {
         return (
             <div className="wrapper-row">
-                {console.log(selectedFriend)}
+                {/* {console.log(selectedFriend)} */}
                 {selectedFriend && (
                     <div>
                         <div className="subtitle">Friend</div>
@@ -44,7 +42,7 @@ function ProfileAndFriends(props) {
                         <FriendList
                             handleSelectedFriend={handleSelectedFriend}
                         />
-                        {console.log(selectedFriend)}
+                        {/* {console.log(selectedFriend)} */}
                     </div>
                 </div>
             </div>

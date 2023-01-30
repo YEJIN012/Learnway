@@ -15,8 +15,7 @@ const Item = styled.div`
 
 function FriendListItem(props) {
     const { friendsProfile, handleSelectedFriend } = props
-
-    console.log(friendsProfile);
+    // console.log(friendsProfile);
 
     return friendsProfile.map((friend, index) => (
 

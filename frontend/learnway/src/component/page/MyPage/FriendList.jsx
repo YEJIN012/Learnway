@@ -21,7 +21,7 @@ function FriendList(props) {
         try {
             const response = await axios
                 .get(
-                    "https://e2f0d84e-8814-4680-9e99-76a584a5f3e8.mock.pstmn.io/friend"
+                    "https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/friend"
                 )
             // handle success
             setFriends(response.data.friends);
@@ -41,7 +41,7 @@ function FriendList(props) {
         for await (const friend of friends) {
             try {
                 const response = await axios.get(
-                    `https://e2f0d84e-8814-4680-9e99-76a584a5f3e8.mock.pstmn.io//users/profile/${friend}`
+                    `https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/users/profile/${friend}`
                 );
                 tmp.push(response);
             } catch (error) {
