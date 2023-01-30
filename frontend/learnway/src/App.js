@@ -9,8 +9,6 @@ import VideoChatMain from "./component/page/VideoChat/VideoChatMain";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
-
-
 function App() {
     return (
         <BrowserRouter>
