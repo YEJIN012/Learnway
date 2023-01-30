@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
 import axios from "axios";
@@ -16,15 +17,18 @@ const Item = styled.div`
 function FriendList(props) {
     const { handleSelectedFriend } = props
     const [friends, setFriends] = useState("");
+    const store = useSelector((state) => state.UserStore);
 
     async function getFriendList() {
         try {
             const response = await axios
                 .get(
                     "https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/friend"
+                    , { "userEmail": store["userEmail"] }
                 )
             // handle success
             setFriends(response.data.friends);
+            console.log('getFriendList')
 
             
         } catch (error) {
@@ -32,7 +36,6 @@ function FriendList(props) {
             console.log(error);
         };
     }
-
 
     const [friendsProfile, setfriendsProfile] = useState([]);
 
@@ -44,6 +47,7 @@ function FriendList(props) {
                     `https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/users/profile/${friend}`
                 );
                 tmp.push(response);
+                console.log("getFriendProfile");
             } catch (error) {
                 console.log(error);
             }
@@ -51,9 +55,9 @@ function FriendList(props) {
         setfriendsProfile(tmp);
     }
 
-
     useEffect(() => { getFriendList(); }, []);
     useEffect(() => { getFriendProfile() }, [friends])
+    
     return (
         <FriendListItem
             friendsProfile={friendsProfile}
