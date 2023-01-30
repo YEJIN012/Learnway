@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
 import { loginUser } from '../actions/userAction';
 
 const Owframe = styled.div`
@@ -38,37 +38,33 @@ const BtnFrame = styled.div`
   position: absolute;
   margin: 45vh 5vw 18vh 4.9vw;
 `
+// email : A4081004@ssafy.com
+// password : 1234
+
 
 function LoginForm (props) {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [email, setEamil] = useState("");
   const [pw, setPw] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     let body = {
       email: email,
       pw: pw
     };
-    console.log(11111111);
-    
-    console.log(dispatch(loginUser(body)))
-    // console.log(loginUser(body))
-      // .then((res) => {
-        // if (res.payload.loginSuccess) {
-          // props.history.push("/")
-          // console.log(props)
-        // } else {
-        //   alert(res.payload.message);
-        // }
-      // })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    // console.log(email, pw)
-  };
+    dispatch(loginUser(body)).payload
+      .then((res) =>{
+        console.log(res)
+        if ( typeof(res) === "undefined"){
+          alert("비밀번호가 틀렸습니다.")
+        } else {
+          navigate(`/`)
+          alert("가입이 정상적으로 완료되었습니다");
+        }
+      });
+    };
 
   return (
     <>

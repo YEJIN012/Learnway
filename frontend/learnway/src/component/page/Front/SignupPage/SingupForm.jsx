@@ -29,17 +29,17 @@ export default function SignupForm(props) {
         };
 
 
-      dispatch(registerUser(data))
-        .then((res)=>{
-          if(res.payload.success) {
-            props.history.push("/login")
-            alert("가입이 정상적으로 완료되었습니다.");
-          } else {
-            alert("Failed to sign up")
-          }
-        });
-      } else {
-        alert("비밀번호가 일치하지 않습니다.");
+      // dispatch(registerUser(data))
+      //   .then((res)=>{
+      //     if(res.payload.success) {
+      //       props.history.push("/login")
+      //       alert("가입이 정상적으로 완료되었습니다.");
+      //     } else {
+      //       alert("Failed to sign up")
+      //     }
+      //   });
+      // } else {
+      //   alert("비밀번호가 일치하지 않습니다.");
       }
     // console.log(data);
     // console.log(username, email, pw, confirmPw, birthday, lagnguae)

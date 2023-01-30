@@ -7,7 +7,7 @@ import UserStore from './app/UserStore';
 import MainStore from './app/MainStore';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
-import AuthReducer from './component/page/Front/reducers/userReducer';
+import AuthReducer from './app/AuthReducer';
 
 const rootReducer = combineReducers({
   UserStore,
