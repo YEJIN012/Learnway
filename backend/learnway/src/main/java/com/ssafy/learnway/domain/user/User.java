@@ -8,13 +8,11 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -24,7 +22,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 @ToString
-public class User extends BaseTime implements UserDetails {
+public class User extends BaseTime implements UserDetails{
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
     @Id
@@ -52,13 +50,13 @@ public class User extends BaseTime implements UserDetails {
     @Column(columnDefinition = "TINYINT", length=1)
     private boolean badUser;
 
+
 //    @Temporal(TemporalType.TIMESTAMP) //date + time
 //    @Column(name="register_time")
 //    private Date regDate;
 
     private String imgUrl;
     private String bio;
-
 
     /**
      * Spring Security 회원 가입
@@ -125,5 +123,14 @@ public class User extends BaseTime implements UserDetails {
     public void update(String userPwd){
         this.userPwd = userPwd;
     }
+
+    public User update(String userEmail, String userPwd, String name){
+        this.userEmail = userEmail;
+        this.userPwd = userPwd;
+        this.name = name;
+        return this;
+    }
+
+
 
 }

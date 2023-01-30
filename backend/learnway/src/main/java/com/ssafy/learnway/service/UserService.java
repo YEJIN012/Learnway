@@ -101,7 +101,7 @@ public class UserService {
     }
 
     @Transactional
-    public void signUp(UserDto userDto) throws SQLException {
+    public void signUp(UserDto userDto) {
 
         if(userRepository.findByUserEmail(userDto.getUserEmail())==null){
             User user = userRepository.save(userDto.toEntity());
@@ -114,7 +114,6 @@ public class UserService {
 
             }
         }
-        else throw new SQLException();
     }
 
     @Transactional
@@ -230,7 +229,7 @@ public class UserService {
 
         return languageDtos;
     }
-
+    @Transactional
     public void modifyPwd (PwdDto pwdDto) {
         User user = userRepository.findByUserEmail(pwdDto.getUserEmail());
 

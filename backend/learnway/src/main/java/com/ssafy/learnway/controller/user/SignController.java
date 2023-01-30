@@ -85,5 +85,13 @@ public class SignController {
         }
 
     }
+    //OAuth로 로그인 시 비밀번호 입력 창으로
+    @GetMapping("/user/oauth/password/{userEmail}/{name}")
+    public ResponseEntity oauth(@PathVariable("email") String userEmail, @PathVariable("nickname") String name) {
+        UserDto userDto = UserDto.builder().userEmail(userEmail).name(name).build();
+
+        return ResponseHandler.generateResponse("Google 로그인 성공하였습니다. 나머지 정보도 입력해주세요.",HttpStatus.OK);
+
+    }
 
 }

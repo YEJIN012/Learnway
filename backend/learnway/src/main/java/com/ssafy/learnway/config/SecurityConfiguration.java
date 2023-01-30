@@ -4,6 +4,9 @@ import com.ssafy.learnway.config.auth.JwtAuthenticationFilter;
 import com.ssafy.learnway.config.auth.JwtAuthenticationFilter;
 import com.ssafy.learnway.exception.CustomAccessDeniedHandler;
 import com.ssafy.learnway.exception.CustomAuthenticationEntryPoint;
+import com.ssafy.learnway.exception.OAuth2SuccessHandler;
+import com.ssafy.learnway.repository.RefreshTokenRepository;
+import com.ssafy.learnway.service.auth.CustomOAuth2UserService;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     private final JwtTokenProvider jwtTokenProvider;
     @Autowired
     private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
     private static final String[] PERMIT_URL_ARRAY = {
             /* swagger v2 */
             "/v2/api-docs",
@@ -92,17 +101,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  //.anyRequest().permitAll() // 나머지 path는 모두 접근 가능
                  //
                  .and()
+                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
+                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+
+                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
+                 .and()
+                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
+                 .and()
                  .logout()
                  .logoutUrl("/logout") // 로그아웃 후 세션 모두 삭제 후
                  .logoutSuccessUrl("/") // 해당 path로 redirect
                  //
                  .and()
-                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
+                 .oauth2Login() // Oauth 로그인 기능에 대한 설정의 시작점
+                 .userInfoEndpoint() // 로그인 성공 후 사용자 정보를 가져올 때의 설정 담당
+                 .userService(customOAuth2UserService) //소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
                  .and()
-                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
-                 .and()
-                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
-                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-    }
+                 .successHandler(oAuth2SuccessHandler) // 인증을 성공적으로 마친 경우 처리할 클래스
+                 .permitAll();
+
+
+     }
 
 }

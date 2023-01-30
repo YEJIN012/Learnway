@@ -34,6 +34,12 @@ public class UserDto {
 
     String bio;
 
+    public UserDto(User user){
+        this.userEmail = user.getUserEmail();
+        this.name = user.getName();
+        this.name = user.getUserPwd();
+    }
+
     public User toEntity(){
         return User.builder()
                 .userId(userId)
