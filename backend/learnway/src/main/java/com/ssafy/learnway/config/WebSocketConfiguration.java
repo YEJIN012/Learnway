@@ -16,13 +16,13 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     // pub/sub 구조 : publisher가 특정 topic에 메시지를 보내면 해당 topic을 구독해놓은 모든 subscriber에게 메시지가 전송이 된다.
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/sub"); //
+        registry.enableSimpleBroker("/sub"); // 메시지 구독 요청
         registry.setApplicationDestinationPrefixes("/pub"); // 메시지 발행 요청
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/chat") // ex ) ws://localhost:9000/chat
+        registry.addEndpoint("/ws-stomp") // ex ) ws://localhost:9000/chat
                 .setAllowedOriginPatterns("*").withSockJS();
     }
 
