@@ -16,7 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 
-                <Route path="/" element={<Test/>}></Route>
+                <Route path="/test" element={<Test/>}></Route>
                 
                 <Route path="/video" element = {<VideoChatMain/>}></Route>
                 <Route path="/loading" element={<Loading />}></Route>
