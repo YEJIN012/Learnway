@@ -3,21 +3,29 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import InputBox from '../Input';
 import { registerUser } from '../actions/userAction';
+import AuthEamil from './AuthEamil';
 
 
 
 export default function SignupForm(props) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [username, setUsername] = useState("");
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const [confirmPw, setconfirmPw] = useState(""); 
   const [birthday, setbirthday] = useState("");
   const [lagnguae, setlagnguae] = useState("");
 
+  const getEmail = (email) => {
+    setEmail(email)
+  }
+  console.log(email)
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+
     if (pw === confirmPw) {
       const data = {
           username: username,
@@ -27,7 +35,7 @@ export default function SignupForm(props) {
           birthday: birthday,
           lagnguae: lagnguae,
         };
-
+      
 
       // dispatch(registerUser(data))
       //   .then((res)=>{
@@ -53,14 +61,16 @@ export default function SignupForm(props) {
   };
 
   return(
-    <form onSubmit={handleSubmit}>
-      <InputBox id="username" type="txt" title="User Name(ENG)" placeholder="hanbin" value={username} onChange={(e) => {setUsername(e.target.value)}}></InputBox>
-      <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} onChange={(e) => {setemail(e.target.value)}}></InputBox>
-      <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}}></InputBox>
-      <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} onChange={(e) => {setconfirmPw(e.target.value)}}></InputBox>
-      <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-      <InputBox id="lagnguae" type="text" title="Lagnguae" placeholder="Korean" value={lagnguae} onChange={(e) => {setlagnguae(e.target.value)}}></InputBox>
-      <button>Next</button>
-    </form>
+    <div>
+      <AuthEamil getEmail = {getEmail}></AuthEamil>
+      <form onSubmit={handleSubmit}>
+        <InputBox id="username" type="txt" title="User Name(ENG)" placeholder="hanbin" value={username} onChange={(e) => {setUsername(e.target.value)}}></InputBox>
+        <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}}></InputBox>
+        <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} onChange={(e) => {setconfirmPw(e.target.value)}}></InputBox>
+        <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
+        <InputBox id="lagnguae" type="text" title="Lagnguae" placeholder="Korean" value={lagnguae} onChange={(e) => {setlagnguae(e.target.value)}}></InputBox>
+        <button>Next</button>
+      </form>
+    </div>
   )
 }
