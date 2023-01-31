@@ -17,7 +17,7 @@ function MyCalendar(props) {
     function getMonthlyLog({ year, month }) {
         axios
             .get(
-                "https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/study/month",
+                "https://i8a408.p.ssafy.io/v2/api-docs/study/month",
                 { userEmail: "12@gmail.com", year: { year }, month: { month } }
             )
             .then(function (res) {

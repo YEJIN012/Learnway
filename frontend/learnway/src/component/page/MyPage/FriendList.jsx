@@ -1,18 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
-import ProfileImg from "../../ui/ProfileImg";
 import axios from "axios";
 import FriendListItem from "./FriendListItem";
-
-const Item = styled.div`
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-`;
 
 function FriendList(props) {
     const { handleSelectedFriend } = props
@@ -23,7 +12,7 @@ function FriendList(props) {
         try {
             const response = await axios
                 .get(
-                    "https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/friend"
+                    "https://i8a408.p.ssafy.io/v2/api-docs/friend"
                     , { "userEmail": store["userEmail"] }
                 )
             // handle success
@@ -44,7 +33,7 @@ function FriendList(props) {
         for await (const friend of friends) {
             try {
                 const response = await axios.get(
-                    `https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/users/profile/${friend}`
+                    `https://i8a408.p.ssafy.io/v2/api-docs/users/profile/${friend}`
                 );
                 tmp.push(response);
                 console.log("getFriendProfile");
