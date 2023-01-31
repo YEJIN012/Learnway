@@ -5,7 +5,7 @@ const BTN1_FILL = styled.button`
     width:${props=>props.width || '70px'};
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
-    background: linear-gradient(90.17deg, #09A7BC 0.19%, #2EC0EE 99.77%);
+    background: ${props=>props.disabled? 'gray': `linear-gradient(90.17deg, #09A7BC 0.19%, #2EC0EE 99.77%)`};
     border-radius: ${props=>props.radius || '0px'};
     font-family: 'Poppins';
     font-style: normal;
@@ -22,7 +22,7 @@ const BTN1_UNFILL = styled.button`
     width:${props=>props.width || '70px'};
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
-    background:none;
+    background:${props=>props.disabled? 'gray': 'none' };
     border: 2.5px solid #09A7BC;
     border-radius: ${props => props.radius || '0px'};
     font-family: 'Poppins';
@@ -65,7 +65,7 @@ const BTN3_FILL = styled.button`
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
     
-    background: #005AA7;
+    background: ${props=>props.disabled? 'gray': '#005AA7'};
     border-radius: ${props=>props.radius || '0px'};
     border:none;
     
@@ -132,24 +132,24 @@ const BTN4_UNFILL = styled.button`
 
 
 
-function Button({id, width, height, margin, fontSize, textWeight, radius, textValue, onClick}){
+function Button({id, width, height, margin, fontSize, textWeight, radius, textValue, onClick, disabled}){
     if(id === "0"){
-        return <BTN1_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN1_FILL>;
+        return <BTN1_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled} >{textValue}</BTN1_FILL>;
     }
     else if(id === "1"){
-        return <BTN1_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN1_UNFILL>;
+        return <BTN1_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled}>{textValue}</BTN1_UNFILL>;
     }
     else if(id === "2"){
-        return <BTN2_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN2_FILL>;
+        return <BTN2_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled}>{textValue}</BTN2_FILL>;
     }
     else if(id === "3"){
-        return <BTN2_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN2_UNFILL>;
+        return <BTN2_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled}>{textValue}</BTN2_UNFILL>;
     }
     else if(id === "4"){
-        return <BTN3_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN3_FILL>;
+        return <BTN3_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled}>{textValue}</BTN3_FILL>;
     }
     else if(id === "5"){
-        return <BTN3_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN3_UNFILL>;
+        return <BTN3_UNFILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick} disabled={disabled}>{textValue}</BTN3_UNFILL>;
     }
     else if(id === "6"){
         return <BTN4_FILL width={width} height={height} margin={margin} radius={radius} textWeight={textWeight} fontSize={fontSize} onClick={onClick}>{textValue}</BTN4_FILL>;

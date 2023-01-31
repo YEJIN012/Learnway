@@ -19,7 +19,7 @@ const Input = styled.input`
 `;
 
 
-export default function InputBox({title, id, type, placeholder, onChange, onKeyUp, ref, value }){
+export default function InputBox({title, id, type, placeholder, onChange, onKeyUp, ref, value, disabled }){
   
   return (
     <InputFrame>
@@ -34,6 +34,7 @@ export default function InputBox({title, id, type, placeholder, onChange, onKeyU
         value={value}
         autoComplete="off"
         required
+        disabled={disabled}
       />
     </InputFrame>
   )
