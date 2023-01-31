@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import { useDispatch, useSelector  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from '../actions/userAction';
 
 const Owframe = styled.div`
@@ -58,7 +58,7 @@ function LoginForm (props) {
       .then((res) =>{
         console.log(res)
         if ( typeof(res) === "undefined"){
-          alert("비밀번호가 틀렸습니다.")
+          alert("이메일 혹은 비밀번호가 틀렸습니다.")
         } else {
           navigate(`/`)
           alert("가입이 정상적으로 완료되었습니다");
