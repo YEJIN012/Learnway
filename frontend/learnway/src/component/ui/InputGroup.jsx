@@ -9,7 +9,7 @@ const Frame=styled.div`
 const GroupTitle = styled.span`
     font-size:${props=>props.fontSize || '1vw'};
     color:${props=>props.fontColor || '#000000'};
-    margin:0vw 1vw 0vw 0vw;
+    margin:-0.2vw 1vw 0vw 0vw;
 
 `;
 
