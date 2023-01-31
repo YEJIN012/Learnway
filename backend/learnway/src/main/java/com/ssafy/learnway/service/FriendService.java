@@ -2,7 +2,7 @@ package com.ssafy.learnway.service;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.repository.FriendRepository;
+import com.ssafy.learnway.repository.friend.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

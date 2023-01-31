@@ -1,5 +1,6 @@
 package com.ssafy.learnway.dto.chat;
 
+import com.ssafy.learnway.domain.friend.Friend;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,11 +19,13 @@ public class ChatRoom implements Serializable { //Redis에 저장할 때는 직�
 //    private String name; //채팅방이름 = 유저
 //    private String img; // 유저 이미지
 //    private long userId; // 유저 아이디
+    private Friend relation;
 
 //    pub/sub방식을 이용하면 구독자 관리와 메시지 발송 구현도 알아서 해결
-    public static ChatRoom create(){
+    public static ChatRoom create(Friend friend){
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.roomId = UUID.randomUUID().toString(); //랜덤
+        chatRoom.relation = friend;
 //        chatRoom.name = name;
         return chatRoom;
     }

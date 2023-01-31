@@ -21,10 +21,12 @@ public class Room {
     @JoinColumn(name="relation_id")
     private Friend friend;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name="last_sent")
-    private Date time;
+    private String roomId;
 
-    @Column(name="last_msg")
-    private String msg;
+//    @Temporal(TemporalType.TIMESTAMP)
+//    @Column(name="last_sent")
+//    private Date time;
+//
+//    @Column(name="last_msg")
+//    private String msg;
 }

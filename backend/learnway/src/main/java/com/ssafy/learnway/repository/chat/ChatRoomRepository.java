@@ -1,5 +1,6 @@
 package com.ssafy.learnway.repository.chat;
 
+import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.chat.ChatRoom;
 import com.ssafy.learnway.service.chat.MessageMaxLength;
@@ -24,47 +25,52 @@ public class ChatRoomRepository {
     public static final String CHAT_LIST = "CHAT_LIST"; // 채팅룸 최근 메시지 내역
     public static final String ROOM_TTL = "ROOM_TTL"; // room 삭제
 
-    @Resource(name = "redisTemplate")
-    private HashOperations<String, String, ChatRoom> hashOpsChatRoom; // 채팅방 ("CHAT_ROOM", 방 id, chatroom 객체)
-    @Resource(name = "redisTemplate")
-    private HashOperations<String, String, String> hashOpsEnterInfo;
-    @Resource(name = "redisTemplate")
-    private ValueOperations<String, String> valueOps;
-    @Resource(name = "redisTemplate")
-    private HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
+//    @Resource(name = "redisTemplate")
+    private final HashOperations<String, String, ChatRoom> hashOpsChatRoom; // 채팅방 ("CHAT_ROOM", 방 id, chatroom 객체)
 
-    @Autowired
-    // 모든 채팅방 조회
-    public List<ChatRoom> findAllRoom() {
-        return hashOpsChatRoom.values(CHAT_ROOMS);
+    private final HashOperations<String, String, String> hashOpsEnterInfo;
+
+    private final ValueOperations<String, String> valueOps;
+
+    private final HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
+
+    // 해당 유저의 모든 채팅방 조회
+    public List<ChatRoom> findAllRoom(Long userId) {
+        List<ChatRoom> allRoom = hashOpsChatRoom.values(CHAT_ROOMS);
+        List<ChatRoom> rooms = new ArrayList<>();
+
+        for(ChatRoom room : allRoom){
+            if(room.getRelation().getUserId().equals(userId) || room.getRelation().getFriendId().equals(userId)){
+                rooms.add(room);
+            }
+        }
+        return rooms;
     }
 
-    // 특정 채팅방 조회
+    // 특정 채팅방 조회 (roomId로)
     public ChatRoom findRoomById(String id) {
         return hashOpsChatRoom.get(CHAT_ROOMS, id);
     }
 
     // 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
-    public ChatRoom createChatRoom() {
-        ChatRoom chatRoom = ChatRoom.create();
+    public ChatRoom createChatRoom(Friend friend) {
+        ChatRoom chatRoom = ChatRoom.create(friend);
+
         hashOpsChatRoom.put(CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
+
+        // 유저와 친구는 자동으로 채팅방이 생성되면 입장된다.
+//        hashOpsEnterInfo.put(ENTER_INFO, friend.getFriendId().getUserId(), chatRoom.getRoomId());
         return chatRoom;
     }
 
-    // 채팅방 삭제 : redis hash에 저장된 채팅방 파괴
+    // 채팅방 삭제 : redis에 저장된 채팅방 파괴
     public void deleteChatRoom(String roomId) {
         // 채팅방 정보 삭제
         hashOpsChatRoom.delete(CHAT_ROOMS, roomId);
+
         // 채팅방 메시지 삭제
         roomMessages.delete(CHAT_LIST, roomId);
 
-        // hashOpsEnterInfo(채팅방 유저 정보)에서 채팅방 ID를 value으로 가지는 key를 삭제
-//        Map<String, ChatUserInfo> entries = hashOpsEnterInfo.entries(ENTER_INFO);
-//        for (Map.Entry<String, ChatUserInfo> stringStringEntry : entries.entrySet()) {
-//            if (stringStringEntry.getValue().getRoomId().equals(roomId)) {
-//                hashOpsEnterInfo.delete(ENTER_INFO, stringStringEntry.getKey());
-//            }
-//        }
     }
 
     // 유저가 입장한 채팅방ID와 유저 세션ID 맵핑 정보 저장
