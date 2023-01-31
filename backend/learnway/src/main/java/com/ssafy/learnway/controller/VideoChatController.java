@@ -1,6 +1,7 @@
 package com.ssafy.learnway.controller;
 
 import io.openvidu.java.client.*;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/chat")
 @CrossOrigin(origins = "*")
+@Api(tags = {"videochat"})
 public class VideoChatController {
 
 //    @Value("${OPENVIDU_URL}")
