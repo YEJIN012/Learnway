@@ -1,31 +1,55 @@
 package com.ssafy.learnway.controller.chat;
 
-import com.ssafy.learnway.dto.chat.ChatRoom;
+import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.chat.ChatMessage;
+import com.ssafy.learnway.repository.chat.ChatRoomRepository;
+import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.service.chat.ChatService;
+import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-import java.util.List;
+import java.sql.SQLException;
+import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
-@RestController
-@RequestMapping("/chat")
+@CrossOrigin(origins="*")
+@Controller
 public class ChatController {
 
+    private final JwtTokenProvider jwtTokenProvider;
+    private final ChatRoomRepository chatRoomRepository;
     private final ChatService chatService;
+    private final UserService userService;
+    /**
+     * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
+     */
+    @MessageMapping("/chat/message")
+    public void message(ChatMessage message, @Header("X-AUTH-TOKEN") String token) throws SQLException { //헤더에 토큰을 담아서 보낸다.
+        Long userId = jwtTokenProvider.getUserIdFromJwt(token.toString()); //access token payload 안에 있는 토큰을 가져오다.
+        Optional<User> userOp = Optional.ofNullable(userService.findById(userId));
+        log.info("ChatController : userId ",userId);
 
-//    @PostMapping
-//    public ChatRoom createRoom(@RequestParam String name){
-//        return chatService.createRoom(name);
-//    }
+        if(userOp.isPresent()) { // 객체가 존재하는가
+            User user = userOp.get();
+            String nickname = user.getUsername();
 
-    @PostMapping
-    public ChatRoom createRoom(){
-        return chatService.createRoom();
-    }
+            // 로그인 회원 정보로 대화명 설정
+            message.setSender(nickname);
 
-    @GetMapping
-    public List<ChatRoom> findAllRoom(){
-        return chatService.findAllRoom();
+//            String imgUrl = user.getImgUrl();
+//            message.setImgUrl(imgUrl);
+
+            // Websocket에 발행된 메시지를 redis로 발행(publish)
+            chatService.sendChatMessage(message);
+
+            // 발행한 메시지 저장
+            chatRoomRepository.saveMessage(message.getRoomId(), message);
+        }
     }
 }

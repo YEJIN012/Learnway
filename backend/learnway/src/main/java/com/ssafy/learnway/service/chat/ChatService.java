@@ -1,54 +1,35 @@
 package com.ssafy.learnway.service.chat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ssafy.learnway.dto.chat.ChatRoom;
+import com.ssafy.learnway.dto.chat.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
 
-import javax.annotation.PostConstruct;
-import java.io.IOException;
-import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class ChatService {
-    //채팅방을 생성, 조회, 메시지 발송
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final ChannelTopic channelTopic;
 
-    private final ObjectMapper objectMapper;
-    private Map<String, ChatRoom> chatRooms;
-
-    @PostConstruct
-    private void init() {
-        chatRooms = new LinkedHashMap<>();
+    /**
+     * destination 정보에서 roomId 추출
+     */
+    public String getRoomId(String destination) {
+        int lastIndex = destination.lastIndexOf('/');
+        if (lastIndex != -1)
+            return destination.substring(lastIndex+1);
+        else
+            return "";
     }
 
-    public List<ChatRoom> findAllRoom() {
-        return new ArrayList<>(chatRooms.values());
-    }
-
-    //채팅방 조회
-    public ChatRoom findRoomById(String roomId) {
-        return chatRooms.get(roomId);
-    }
-
-    public ChatRoom createRoom() {
-        String randomId = UUID.randomUUID().toString();
-        ChatRoom chatRoom = ChatRoom.builder()
-                .roomId(randomId)
-                .build();
-        chatRooms.put(randomId, chatRoom);
-        return chatRoom;
-    }
-
-    public <T> void sendMessage(WebSocketSession session, T message) {
-        try {
-            session.sendMessage(new TextMessage(objectMapper.writeValueAsString(message)));
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-        }
+    /**
+     * 채팅방에 메시지 발송
+     */
+    public void sendChatMessage(ChatMessage chatMessage) {
+        redisTemplate.convertAndSend(channelTopic.getTopic(), chatMessage);
     }
 }

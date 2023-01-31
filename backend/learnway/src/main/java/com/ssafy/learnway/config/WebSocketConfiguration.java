@@ -5,11 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
 @EnableWebSocketMessageBroker //stomp 사용하도록 정의
 @RequiredArgsConstructor
+@CrossOrigin(origins="*")
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer { //stomp 메시지 처리 방법
     private final StompHandler stompHandler;
 
@@ -22,10 +26,13 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-stomp") // ex ) ws://localhost:9000/chat
+        registry.addEndpoint("/ws-stomp") // ex ) ws://localhost:8080/ws-stomp
                 .setAllowedOriginPatterns("*").withSockJS();
     }
 
+    /**
+     * StompHandler가 Websocket 앞단에서 우선 token 체크
+     */
     @Override
     public void configureClientInboundChannel (ChannelRegistration registration){
         registration.interceptors(stompHandler);

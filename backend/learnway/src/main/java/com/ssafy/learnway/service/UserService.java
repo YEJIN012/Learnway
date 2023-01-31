@@ -123,6 +123,11 @@ public class UserService {
     }
 
     @Transactional
+    public User findById(Long userId) throws SQLException{
+        return userRepository.findByUserId(userId);
+    }
+
+    @Transactional
     public TokenDto refreshToken(TokenRequestDto tokenRequestDto) throws SQLException {
 
         // 만료된 refresh token 에러

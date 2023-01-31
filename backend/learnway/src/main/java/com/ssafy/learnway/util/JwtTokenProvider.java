@@ -1,6 +1,5 @@
 package com.ssafy.learnway.util;
 
-import antlr.Token;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
@@ -57,12 +56,13 @@ public class JwtTokenProvider {
 //    }
 
     // JWT 토큰 생성
-    public TokenDto createTokenDto(Long userPk, List<String> roles) {
+    public TokenDto createTokenDto(Long userPk, List<String> roles) { //userPk = user_id
 
         // Claims은 token에 부가적인 정보 담을 수 있음
         // Claims에 user구분을 위해 값 세팅
         Claims claims = Jwts.claims().setSubject(String.valueOf(userPk)); // JWT payload 에 저장되는 정보단위 (sub)
         claims.put(ROLES, roles); // 정보는 key / value 쌍으로 저장
+        claims.put("user_id",userPk); // user_id 값 저장
 
         Date now = new Date(); // 생성 날짜, 만료 날짜를 위한 Date
 
@@ -93,6 +93,12 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
+    // JWT 복호화 해서 id 얻기
+    public Long getUserIdFromJwt(String token) {
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+        return Long.parseLong(String.valueOf(claims.getBody().get("user_id")));
+    }
+
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
 
@@ -118,7 +124,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // Http request의 Header에서 token 값을 가져와 유효성 검사 진행 ( token parsing -> "X-AUTH-TOKEN:token(jwt)"
+    // Http Request의 Header에서 token 값을 가져와 유효성 검사 진행 ( token parsing -> "X-AUTH-TOKEN" : "TOKEN값 (jwt)'
     // 제한된 리소스에 접근할 때 HTTP Header에 토큰 세팅하여 호출하면 유효성 검사 통해 사용자 인증 받음
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");
