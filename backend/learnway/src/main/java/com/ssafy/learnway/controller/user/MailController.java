@@ -20,7 +20,7 @@ public class MailController {
     private MailService mailService;
 
     @GetMapping("/verify")
-    public ResponseEntity<String> mailConfirm(@RequestParam(value = "email") String userEmail) throws Exception {
+    public ResponseEntity<String> mailConfirm(@RequestParam(value = "user_email") String userEmail) throws Exception {
         String code = mailService.sendSimpleMessage(userEmail);
         //log.info("인증코드 : " + code);
         return new ResponseEntity(HttpStatus.OK);
@@ -28,7 +28,7 @@ public class MailController {
 
     @PostMapping("/verify")
     @ResponseBody
-    public ResponseEntity verifyConfirm(@RequestParam(name = "email") String email, @RequestParam(name = "code") String value) throws Exception {
+    public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String email, @RequestParam(name = "code") String value) throws Exception {
         try {
             boolean isEmail = mailService.verifyEmail(email, value);
 //            log.info("인증여부 : " + isEmail);
