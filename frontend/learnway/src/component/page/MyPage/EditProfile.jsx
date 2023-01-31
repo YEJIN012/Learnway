@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "../../ui/Button";
+import CommonSelectLanguage from "../../ui/CommonSelectLanguage"
 
 const StyledTextInput = styled.input`
     width: 100%;
@@ -16,8 +17,13 @@ const BtnWrapper = styled.div`
 `;
 
 function EditProfile() {
+    const [language, setLanguage] = useState("KOREAN")  // 초기값 userInfo.languageId로 수정
+    console.log(language)
+
+
     return (
         <div className="white-card list">
+            <CommonSelectLanguage language = {language} setLanguage={setLanguage} width={"100%"} height={"20px"} />
             <StyledTextInput placeholder="username" />
             <StyledTextInput placeholder="username" />
             <BtnWrapper>
