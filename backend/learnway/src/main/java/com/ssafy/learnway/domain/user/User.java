@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
+import com.ssafy.learnway.domain.oauth.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 @ToString
-public class User extends BaseTime implements UserDetails{
+public class User extends BaseTime implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
     @Id
@@ -58,19 +60,32 @@ public class User extends BaseTime implements UserDetails{
     private String imgUrl;
     private String bio;
 
+    private String socialType; // GOOGLE
+
+    private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). GOOGLE의 경우 "sub"
+
     /**
      * Spring Security 회원 가입
      */
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Builder.Default
+//    private List<String> roles = new ArrayList<>();
+//
+//     //roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return this.roles.stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//    }
 
-    // roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            Collection<GrantedAuthority> collectors = new ArrayList<>();
+
+            collectors.add(() -> "ROLE_"+user.getRole());
     }
 
     @Override

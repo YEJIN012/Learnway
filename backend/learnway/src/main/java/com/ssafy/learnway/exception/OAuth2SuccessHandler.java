@@ -7,8 +7,10 @@ import com.ssafy.learnway.dto.UserDto;
 import com.ssafy.learnway.repository.RefreshTokenRepository;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
-
+@Slf4j
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
@@ -32,19 +34,47 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
 
-        OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
-        System.out.println("oAuth2User = " + oAuth2User);
+        log.info("OAuth2 Login 성공!");
 
-        TokenDto tokenDto = jwtTokenProvider.createTokenDto(oAuth2User ,oAuth2User.getAttrib);
+        try {
+            OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
+
+            // User의 Role이 GUEST일 경우 처음 요청한 회원이므로 회원가입 페이지로 리다이렉트
+            if(oAuth2User.get) {
+                String accessToken = jwtService.createAccessToken(oAuth2User.getEmail());
+                response.addHeader(jwtService.getAccessHeader(), "Bearer " + accessToken);
+                response.sendRedirect("oauth2/sign-up"); // 프론트의 회원가입 추가 정보 입력 폼으로 리다이렉트
+
+                jwtService.sendAccessAndRefreshToken(response, accessToken, null);
+//                User findUser = userRepository.findByEmail(oAuth2User.getEmail())
+//                                .orElseThrow(() -> new IllegalArgumentException("이메일에 해당하는 유저가 없습니다."));
+//                findUser.authorizeUser();
+            } else {
+                loginSuccess(response, oAuth2User); // 로그인에 성공한 경우 access, refresh 토큰 생성
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+
+    }
 
 
-        String userEmail = (String) oAuth2User.getAttributes().get("email");
-        String name = (String) oAuth2User.getAttributes().get("name");
-        String password = passwordEncoder.encode((String) oAuth2User.getAttributes().get("email"));
-
-        UserDto userDto = UserDto.builder().userEmail((userEmail))
-                        .name(name).userPwd(password)
-                        .build();
+//
+//
+//
+//        OAuth2User oAuth2User = (OAuth2User)authentication.getPrincipal();
+//        System.out.println("oAuth2User = " + oAuth2User);
+//
+//        TokenDto tokenDto = jwtTokenProvider.createTokenDto(oAuth2User ,oAuth2User.getAttrib);
+//
+//
+//        String userEmail = (String) oAuth2User.getAttributes().get("email");
+//        String name = (String) oAuth2User.getAttributes().get("name");
+//        String password = passwordEncoder.encode((String) oAuth2User.getAttributes().get("email"));
+//
+//        UserDto userDto = UserDto.builder().userEmail((userEmail))
+//                        .name(name).userPwd(password)
+//                        .build();
 
 
 //
