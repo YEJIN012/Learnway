@@ -8,7 +8,7 @@ import Leave from './Leave'
 function TestPage(){
     return(
         //화상 카메라가 들어갈 영역
-        <CommonFrame title={"Title"} body={<Report></Report>}></CommonFrame>
+        <CommonFrame title={"Title"} body={<Leave></Leave>}></CommonFrame>
         //위젯이 들어갈 영역
     );
 };
