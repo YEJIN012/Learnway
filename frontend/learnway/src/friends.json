@@ -2,36 +2,36 @@
     {
         "user_id":1,
         "name" : "John",
-        "email" : "@gmail.com",
-        "img_url":"",
+        "email" : "12@gmail.com",
+        "imgUrl":"",
         "bio":"자기소개",
-        "birth":20230125,
+        "birthDay":20230125,
         "language":"English",
-        "interest": [
+        "interests": [
             "IT", "Football"
         ]
     },
     {
         "user_id":2,
         "name" : "Ann",
-        "email" : "@gmail.com",
-        "img_url":"",
+        "email" : "34@gmail.com",
+        "imgUrl":"",
         "bio":"자기소개",
-        "birth":20230125,
+        "birthDay":20230125,
         "language":"English",
-        "interest": [
+        "interests": [
             "IT", "Football"
         ]
     },
     {
         "user_id":3,
         "name" : "Kevin",
-        "email" : "@gmail.com",
-        "img_url":"",
+        "email" : "56@gmail.com",
+        "imgUrl":"",
         "bio":"자기소개",
-        "birth":20230125,
+        "birthDay":20230125,
         "language":"English",
-        "interest": [
+        "interests": [
             "IT", "Football"
         ]
     }
