@@ -5,6 +5,7 @@ import Intro from "./component/page/Front/Intro";
 import Login from "./component/page/Front/Login";
 import Logout from "./component/page/Front/Logout";
 import Loading from "./component/page/Loading/LoadingPage"
+import Test from "./component/VideoChat/TestPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -12,6 +13,9 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Home />}></Route>
+
+                <Route path="/test" element={<Test/>}></Route>
+
                 <Route path="/loading" element={<Loading />}></Route>
                 <Route path="/intro" element={<Intro />}></Route>
                 <Route path="/mypage" element={<MyPage />}></Route>
