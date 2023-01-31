@@ -29,7 +29,7 @@ function NavBar(params) {
         <Wrapper>
             <NavLink to="/">
                 <Img>
-                    <img src="logo.png" alt="" />
+                    <img src="/logo.png" alt="" />
                 </Img>
             </NavLink>
             <Menu>
