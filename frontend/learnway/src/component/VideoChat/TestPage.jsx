@@ -15,7 +15,7 @@ const Text = styled.span`
 function TestPage(){
     return(
         //화상 카메라가 들어갈 영역
-        <Quit></Quit>
+        <Translate></Translate>
         //위젯이 들어갈 영역
     );
 };
