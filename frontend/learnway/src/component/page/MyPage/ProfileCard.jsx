@@ -44,7 +44,7 @@ function MyProfile() {
 
 function FriendProfile(props) {
     console.log(props)
-    const { userEmail, name, birthDay, language, interest, imgUrl,bio } = props.data;
+    const { name, birthDay, language, interest, imgUrl,bio } = props.data;
     return (
         <div className="white-card">
             <CardTop>
