@@ -12,23 +12,28 @@ const USER_URL = "/users";
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
   const [authnum, setAuthnum] = useState("")
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
 
+  // const test_func = () => {
+  //   setAuthcode(code)
+  //   setAuth(true)                 // 인증번호 입력태그 보여주기
+  // }
+  // test_func()
   // 인증번호 받아오기
   const getAuthcode = () => {
-    request("post", USER_URL + "/verify", email)
-      .then((res) =>{
-        setAuthcode(res.statusCode)   // 인증번호 Code 받아오기
-        setAuth(true)                 // 인증번호 입력태그 보여주기
-      })
-      .catch((err)=> {
-        console.log(err)
-        alert("요청실패")
-      })
+    console.log(request("post", USER_URL + "/verify", email))
   }
+  // .then((res) =>{
+  //   setAuthcode(res.statusCode)   // 인증번호 Code 받아오기
+  //   setAuth(true)                 // 인증번호 입력태그 보여주기
+  // })
+  // .catch((err)=> {
+  //   console.log(err)
+  //   alert("요청실패")
+  // })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,14 +49,14 @@ export default function AuthEamil({getEmail}) {
   return (
     <>
       <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-      <Btn name="0" txt="Send" func={getAuthcode} disabled={disabled} />
+      <Btn id="0" txt="Send" func={getAuthcode} disabled={disabled} />
       <form onSubmit={handleSubmit}>
         {
           auth == true
           ? (
             <>
               <InputBox id="authnum" type="text" title="Authentication number" placeholder="123456" value={authnum} disabled={disabled} onChange={(e) => {setAuthnum(e.target.value)}} />
-              <Btn name="0" txt="confirm" disabled={disabled} />
+              <Btn id="0" txt="confirm" disabled={disabled} />
             </>
           )
           : null
@@ -63,10 +68,10 @@ export default function AuthEamil({getEmail}) {
 
 
 function Btn(props){
-  const {name, txt, disabled, func} = props;
+  const {id, txt, disabled, func} = props;
   return (
     <Button 
-      id= {name} 
+      id= {id} 
       width="13.16vw" 
       height="5vh" 
       fontSize="0.83vw" 

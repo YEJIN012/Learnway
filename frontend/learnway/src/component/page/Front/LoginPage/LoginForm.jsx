@@ -50,13 +50,13 @@ function LoginForm (props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let body = {
-      userEmail: email,
+    let data = {
+      userEamil: email,
       userPwd: pw
     };
-    dispatch(loginUser(body)).payload
+    dispatch(loginUser(data)).payload
       .then((res) =>{
-        console.log(res)
+        // console.log(res)
         if ( typeof(res) === "undefined"){
           alert("이메일 혹은 비밀번호가 틀렸습니다.")
         } else {
