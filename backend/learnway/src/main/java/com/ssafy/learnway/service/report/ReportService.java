@@ -26,8 +26,9 @@ public class ReportService {
     @Transactional
     public Report writeReport(ReportDto reportDto) throws Exception {
         User user = userRepository.findByUserId(reportDto.getUserId());
-        ReportDetail reportDetail = reportDetailRepository.findByReportId(reportDto.getReportId());
-        Report report = Report.builder().userId(user).reportId(reportDetail).build();
+        ReportDetail reportDetail = reportDetailRepository.findByReportId(reportDto.getReportId()+1); //front단보다 +1
+        Report report = Report.builder().userId(user).reportId(reportDetail)
+                .etc(reportDto.getEtc()).build();
         return reportRepository.save(report);
 //        return reportRepository.save(reportDto.toEntity()); // Report 객체를 반환해준다.
     }

@@ -14,7 +14,8 @@ import java.util.Collections;
 @ToString
 public class ReportDto { //request용
     private Long userId;
-    private int reportId;
+    private int reportId;//선택한 번호 (신고)
+    private String etc;
 
 //    public Report toEntity(){
 //        return Report.builder()
