@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Translate from './Translate/Translate';
 import Report from './Report/Report';
 import CommonFrame from './CommonComponent/CommonFrame'
-import Leave from './Quit/Quit'
+import Quit from './Quit/Quit'
 //화상 채팅방용 테스트 페이지
 const Text = styled.span`
     font-size: 4vw;
@@ -15,7 +15,7 @@ const Text = styled.span`
 function TestPage(){
     return(
         //화상 카메라가 들어갈 영역
-        <CommonFrame header={<Text>Report</Text>} body={<Report></Report>}></CommonFrame>
+        <Quit></Quit>
         //위젯이 들어갈 영역
     );
 };
