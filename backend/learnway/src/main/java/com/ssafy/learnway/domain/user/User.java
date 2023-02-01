@@ -1,16 +1,12 @@
 package com.ssafy.learnway.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
-import com.ssafy.learnway.domain.oauth.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -60,33 +56,35 @@ public class User extends BaseTime implements UserDetails {
     private String imgUrl;
     private String bio;
 
-    private String socialType; // GOOGLE
+    private String socialType; // "google"
 
-    private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). GOOGLE의 경우 "sub"
+    private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
 
     /**
      * Spring Security 회원 가입
      */
-//    @ElementCollection(fetch = FetchType.EAGER)
-//    @Builder.Default
-//    private List<String> roles = new ArrayList<>();
-//
-//     //roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return this.roles.stream()
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            Collection<GrantedAuthority> collectors = new ArrayList<>();
-
-            collectors.add(() -> "ROLE_"+user.getRole());
+     //roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
+
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
+//
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//            Collection<GrantedAuthority> collectors = new ArrayList<>();
+//
+//            collectors.add(() -> "ROLE_"+role);
+//
+//            return collectors;
+//    }
 
     @Override
     public String getPassword() {

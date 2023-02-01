@@ -1,31 +1,23 @@
 package com.ssafy.learnway.service.auth;
 
 import com.ssafy.learnway.domain.oauth.CustomOAuth2User;
-import com.ssafy.learnway.domain.oauth.Role;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.OAuthAttributesDto;
-import com.ssafy.learnway.dto.UserDto;
 import com.ssafy.learnway.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Map;
 
-@Slf4j
-@Service
-@RequiredArgsConstructor
+
 //public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 //
 //    @Autowired
@@ -61,35 +53,36 @@ import java.util.Map;
 //    }
 //
 //}
-
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UserRepository userRepository;
-    private final HttpSession httpSession;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-
         log.info("CustomOAuth2UserService.loadUser() 실행 - OAuth2 로그인 요청 진입");
+        log.info("getAccessToken : "+userRequest.getAccessToken());
 
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate  = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest); // OAuth2User는 OAuth 서비스에서 가져온 유저 정보를 담고 있는 유저
 
-        String registrationId = userRequest.getClientRegistration().getRegistrationId();   //google
+        log.info( userRequest.getClientRegistration().getRegistrationId()); //google
+        log.info(userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()); // sub
+        log.info(oAuth2User.getAttribute("sub")); // "sub"에 맞는 값
 
-        String socialType = "GOOGLE";
+        String socialType = userRequest.getClientRegistration().getRegistrationId();   //google
+        String socialId = oAuth2User.getAttribute("sub"); // "sub"에 맞는 값
 
-        String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); // OAuth2 로그인 시 키(PK)가 되는 값
+        // String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName(); // OAuth2 로그인 시 키(PK)가 되는 값
 
         Map<String, Object> attributes = oAuth2User.getAttributes(); // 소셜 로그인에서 API가 제공하는 userInfo의 Json 값(유저 정보들)
 
-        OAuthAttributesDto ecxtraAttribute = OAuthAttributesDto.of(socialType, userNameAttributeName,attributes);
+        OAuthAttributesDto oAuthAttributesDto = OAuthAttributesDto.of(socialType,attributes);
 
-        User createdUser = getUser(ecxtraAttribute, socialType);
+        User createdUser = getUser(oAuthAttributesDto, socialType);
 
-        return new CustomOAuth2User(Collections.singleton(new SimpleGrantedAuthority(createdUser.getRoles().toString())),attributes,ecxtraAttribute.getNameAttributeKey(),);
+        return new CustomOAuth2User(Collections.singleton(new SimpleGrantedAuthority(createdUser.getRoles().toString())),attributes,"sub",createdUser.getUserEmail(),createdUser.getRoles().toString(),createdUser.getUserId());
     }
 
 
@@ -97,12 +90,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      * SocialType과 attributes에 들어있는 소셜 로그인의 식별값 id를 통해 회원을 찾아 반환하는 메소드
      * 만약 찾은 회원이 있다면, 그대로 반환하고 없다면 saveUser()를 호출하여 회원을 저장한다.
      */
-    private User getUser(OAuthAttributesDto attributes, String socialType) {
+    private User getUser(OAuthAttributesDto oAuthAttributesDto, String socialType) {
         User findUser = userRepository.findBySocialTypeAndSocialId(socialType,
-                (String) attributes.getAttributes().get("sub")).orElse(null);
+                (String) oAuthAttributesDto.getAttributes().get("sub")).orElse(null);
 
         if(findUser == null) {
-            return saveUser(attributes, socialType);
+            return saveUser(oAuthAttributesDto, socialType);
         }
         return findUser;
     }
@@ -111,9 +104,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
      * OAuthAttributesDto의 toEntity() 메소드를 통해 빌더로 User 객체 생성 후 반환
      * 생성된 User 객체를 DB에 저장 : socialType, socialId, email, role 값만 있는 상태
      */
-    private User saveUser(OAuthAttributesDto attributes, String socialType) {
-        User createdUser = attributes.toEntity();
-        return userRepository.save(createdUser);
+    private User saveUser(OAuthAttributesDto oAuthAttributesDto, String socialType) {
+        return userRepository.save(oAuthAttributesDto.toEntity());
     }
 
 

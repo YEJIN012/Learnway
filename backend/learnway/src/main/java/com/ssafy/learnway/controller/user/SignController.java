@@ -13,7 +13,10 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -92,6 +95,18 @@ public class SignController {
 
         return ResponseHandler.generateResponse("Google 로그인 성공하였습니다. 나머지 정보도 입력해주세요.",HttpStatus.OK);
 
+    }
+
+        @GetMapping("/oauth2/sign-up")
+    public @ResponseBody String testOAuthLogin(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth){// DI(의존성주입)
+        // @AuthenticationPrincipal이라는 어노테이션을 통해서 세션정보를 받을 수 있다.
+        System.out.println("=====IndexController.testLogin====");
+        OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        System.out.println("oAuth2User.getAttributes() = " + oAuth2User.getAttributes());
+        // oAuth2User.getAttributes() = {sub=103489475512635244738, name=‍고경환[재학 / 정보통신공학과], given_name=고경환[재학 / 정보통신공학과], family_name=‍, profile=https://plus.google.com/103489475512635244738, picture=https://lh3.googleusercontent.com/a/AItbvmlIUxyycyZvUHNNhzX20-5mvGrmrDbw6G1_Ylqn=s96-c, email={이메일}, email_verified=true, locale=ko, hd=hufs.ac.kr}
+        System.out.println("oauth.getAttributes() = " + oauth.getAttributes());
+        // oauth.getAttributes() = {sub=103489475512635244738, name=‍고경환[재학 / 정보통신공학과], given_name=고경환[재학 / 정보통신공학과], family_name=‍, profile=https://plus.google.com/103489475512635244738, picture=https://lh3.googleusercontent.com/a/AItbvmlIUxyycyZvUHNNhzX20-5mvGrmrDbw6G1_Ylqn=s96-c, email={이메일}, email_verified=true, locale=ko, hd=hufs.ac.kr}
+        return "세션 정보 확인하기";
     }
 
 }
