@@ -2,38 +2,33 @@
 import React, { useState } from 'react';
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import { request } from "../utils/axios";
-
-// const AuthNumber = styled(InputBox)`
-// `;
-
+// import { request } from "../utils/axios";
 
 const USER_URL = "/users";
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
   const [authnum, setAuthnum] = useState("")
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
 
-  // const test_func = () => {
-  //   setAuthcode(code)
-  //   setAuth(true)                 // 인증번호 입력태그 보여주기
-  // }
-  // test_func()
+
   // 인증번호 받아오기
   const getAuthcode = () => {
-    console.log(request("post", USER_URL + "/verify", email))
+    setAuthcode("123456")           // 인증번호 Code 받아오기
+    setAuth(true)                 // 인증번호 입력태그 보여주기
+
+    // request("post", USER_URL + "/verify", email)
+    // .then((res) =>{
+    //   setAuthcode(res.statusCode)   // 인증번호 Code 받아오기
+    //   setAuth(true)                 // 인증번호 입력태그 보여주기
+    // })
+    // .catch((err)=> {
+    //   console.log(err)
+    //   alert("요청실패")
+    // })
   }
-  // .then((res) =>{
-  //   setAuthcode(res.statusCode)   // 인증번호 Code 받아오기
-  //   setAuth(true)                 // 인증번호 입력태그 보여주기
-  // })
-  // .catch((err)=> {
-  //   console.log(err)
-  //   alert("요청실패")
-  // })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +47,7 @@ export default function AuthEamil({getEmail}) {
       <Btn id="0" txt="Send" func={getAuthcode} disabled={disabled} />
       <form onSubmit={handleSubmit}>
         {
-          auth == true
+          auth === true
           ? (
             <>
               <InputBox id="authnum" type="text" title="Authentication number" placeholder="123456" value={authnum} disabled={disabled} onChange={(e) => {setAuthnum(e.target.value)}} />
