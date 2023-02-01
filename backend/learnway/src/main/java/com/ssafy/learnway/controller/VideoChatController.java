@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +62,7 @@ public class VideoChatController {
                 .role(role).data("user_data").build();
 
         JsonObject responseJson = new JsonObject();
+
 
         if (this.mapSessions.get(sessionName) != null) {
             // Session already exists

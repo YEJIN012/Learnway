@@ -26,9 +26,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	implementation("io.jsonwebtoken:jjwt:0.9.1")
+//	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("io.openvidu:openvidu-java-client:2.25.0")
+	implementation("com.google.code.gson:gson:2.9.0")
+	implementation("commons-beanutils:commons-beanutils:1.9.4") {
+		exclude (group = "commons-collections", module= "commons-collections")
+	}
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
