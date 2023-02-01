@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-//화상 통화창에서 부가서비스로 활용할 창의 공통 검포넌트(유튜브, 친구추가 제외)
+//화상 통화창에서 부가서비스로 활용할 창의 공통 검포넌트(유튜브 제외)
 const Frame = styled.div`
     width:46vw;
     height:64vw;
@@ -13,12 +13,10 @@ const Frame = styled.div`
 `;
 
 const Title = styled.span`
-    font-size: 4vw;
-    font-weight: 800;
-    padding: 1vw 0vw 1vw 2vw;
-
+   width:46vw;
     border:solid 1px black;
 `;
+
 const Body = styled.div`
     width:46vw;
     height:55vw;
@@ -27,12 +25,12 @@ const Body = styled.div`
 
     border:1px solid black;
 `;
-function CommonFrame(props){
+function CommonFrame({header, body}){
     return(
         <Frame>
-            <Title>{props.title}</Title>
+            <Title>{header}</Title>
             <Body>
-                {props.body}
+                {body}
             </Body>
         </Frame>
     );
