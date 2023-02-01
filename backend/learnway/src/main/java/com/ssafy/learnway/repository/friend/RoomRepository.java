@@ -8,4 +8,6 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     Room findByRelationId(int relationId);
 
     void deleteByRoomId(String roomId);
+
+    Room findByRoomId(String roomId);
 }

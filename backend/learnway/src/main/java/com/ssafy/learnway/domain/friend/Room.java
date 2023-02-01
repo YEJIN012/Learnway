@@ -2,8 +2,10 @@ package com.ssafy.learnway.domain.friend;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,4 +32,9 @@ public class Room {
 
     @Column(name="last_msg")
     private String msg;
+
+    public void updateRoom(LocalDateTime time, String msg){
+        this.time = time;
+        this.msg = msg;
+    }
 }

@@ -4,6 +4,7 @@ import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.ProfileDto;
+import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.friend.RoomDto;
 import com.ssafy.learnway.repository.friend.RoomRepository;
 import com.ssafy.learnway.service.UserService;
@@ -62,5 +63,15 @@ public class RoomService {
     @Transactional
     public void deleteByRoomId(String roomId){
         roomRepository.deleteByRoomId(roomId);
+    }
+
+    public Room findByRoomId(String roomId){
+        return roomRepository.findByRoomId(roomId);
+    }
+
+    @Transactional
+    public void updateByRoom(Room room, ChatMessage message){
+        room.updateRoom(message.getRegTime(), message.getMessage());
+        roomRepository.save(room); // 최근 메시지 정보 업데이트
     }
 }

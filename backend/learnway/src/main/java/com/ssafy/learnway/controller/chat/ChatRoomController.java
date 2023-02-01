@@ -45,7 +45,7 @@ public class ChatRoomController {
     public ResponseEntity rooms(@PathVariable String userEmail) throws SQLException {
         User user = userService.findByEmail(userEmail);
         List<Friend> friends = friendService.list(user); //user의 친구목록
-        log.info(friends.size()+"!");
+
 //        List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom(user.getUserId(),friends);
         List<RoomDto> chatRooms = roomService.findRooms(friends);
 
