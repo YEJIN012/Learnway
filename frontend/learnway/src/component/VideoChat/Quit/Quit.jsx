@@ -2,7 +2,8 @@ import { TabUnselectedOutlined } from "@mui/icons-material";
 import React from "react";
 import styled from "styled-components";
 import TFBtnSet from "../CommonComponent/TFBtnSet";
-
+import CommonFrame from "../CommonComponent/CommonFrame";
+import Title from "../CommonComponent/CommonTitle";
 const Frame = styled.div`
     display:flex;
     flex-direction:column;
@@ -25,10 +26,16 @@ function cancel(){
 function Leave() {
     
     return (
-        <Frame>
-        <Msg>Do  you want to leave random matching?</Msg>
-        <TFBtnSet function_ok={()=>{quit()}} function_cancel={()=>{cancel()}} radius="5px" width="5vw" height="2vw" fontSize="1vw"></TFBtnSet>
-        </Frame>
+        <CommonFrame 
+            header={<Title title={"Quit"}></Title>} 
+            body={
+                <Frame>
+                <Msg>Do  you want to leave random matching?</Msg>
+                <TFBtnSet function_ok={()=>{quit()}} function_cancel={()=>{cancel()}} radius="5px" width="5vw" height="2vw" fontSize="1vw"></TFBtnSet>
+                </Frame>
+            }>
+        </CommonFrame>
+
     );
 
 };
