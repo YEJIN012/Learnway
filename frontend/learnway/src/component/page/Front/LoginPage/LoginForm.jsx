@@ -51,8 +51,8 @@ function LoginForm (props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let body = {
-      email: email,
-      pw: pw
+      userEmail: email,
+      userPwd: pw
     };
     dispatch(loginUser(body)).payload
       .then((res) =>{

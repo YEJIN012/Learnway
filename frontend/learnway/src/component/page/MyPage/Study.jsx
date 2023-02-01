@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import axios from "axios";
 import StudyScripts from "./StudyScripts";
@@ -6,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import "../../ui/mypage.css";
 
 function MyCalendar(props) {
+    const store = useSelector((state) => state.UserStore);
     // value : 선택된 일자
     const [value, setValue] = useState(new Date());
     // viewValue : 클릭으로 인해 바뀌는 캘린더view정보
@@ -17,8 +19,8 @@ function MyCalendar(props) {
     function getMonthlyLog({ year, month }) {
         axios
             .get(
-                "https://i8a408.p.ssafy.io/v2/api-docs/study/month",
-                { userEmail: "12@gmail.com", year: { year }, month: { month } }
+                "https://i8a408.p.ssafy.io/study/month",
+                { userEmail: store["userEmail"], year: { year }, month: { month } }
             )
             .then(function (res) {
                 const data = res.data.mon_cnt;
