@@ -41,7 +41,7 @@ const InputWrapper = styled.div`
 export default function Login (props) {
 
   return (
-    <body className="background">
+    <div className="background">
       <LoginBackground>
         <div className='logoframe'>
           <img className='logo' alt='logo' />
@@ -54,6 +54,6 @@ export default function Login (props) {
           <LoginForm></LoginForm>
         </InputWrapper>
       </LoginBackground>
-    </body>
+    </div>
   )
 }

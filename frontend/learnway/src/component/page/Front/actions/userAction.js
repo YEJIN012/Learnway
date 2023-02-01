@@ -11,7 +11,7 @@ export function loginUser(dataToSubmit) {
   //   })
   // .then((res) => res.data);
   // const request = user.loginUser();
-  const data = request("post", USER_URL + "/login", dataToSubmit);
+  const data = request("get", USER_URL + "/login", dataToSubmit);
   return {
     type: LOGIN_USER,
     payload: data,
