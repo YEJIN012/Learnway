@@ -1,6 +1,5 @@
 package com.ssafy.learnway.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
@@ -13,7 +12,6 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +39,7 @@ public class User extends BaseTime implements UserDetails {
 
     @Column(nullable = false)
     //@Temporal(TemporalType.DATE) //년-월-일 의 date 타입
+
     private LocalDate birthday;
 
     //@JsonIgnore

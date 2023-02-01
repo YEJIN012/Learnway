@@ -2,12 +2,11 @@ package com.ssafy.learnway.controller;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.service.FriendService;
+import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Api(tags = {"friend"})
 @RestController

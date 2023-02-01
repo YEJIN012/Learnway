@@ -5,9 +5,7 @@ import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.chat.ChatRoom;
 import com.ssafy.learnway.service.chat.MessageMaxLength;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,26 +23,33 @@ public class ChatRoomRepository {
     public static final String CHAT_LIST = "CHAT_LIST"; // 채팅룸 최근 메시지 내역
     public static final String ROOM_TTL = "ROOM_TTL"; // room 삭제
 
+    @Resource(name = "redisTemplate")
+    private HashOperations<String, String, ChatRoom> hashOpsChatRoom; // 채팅방 ("CHAT_ROOM", 방 id, chatroom 객체)
+
+    @Resource(name = "redisTemplate")
+    private HashOperations<String, String, String> hashOpsEnterInfo;
+
 //    @Resource(name = "redisTemplate")
-    private final HashOperations<String, String, ChatRoom> hashOpsChatRoom; // 채팅방 ("CHAT_ROOM", 방 id, chatroom 객체)
+//    private final ValueOperations<String, String> valueOps;
 
-    private final HashOperations<String, String, String> hashOpsEnterInfo;
+    @Resource(name = "redisTemplate")
+    private HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
 
-    private final ValueOperations<String, String> valueOps;
-
-    private final HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
 
     // 해당 유저의 모든 채팅방 조회
-    public List<ChatRoom> findAllRoom(Long userId) {
+    public List<ChatRoom> findAllRoom(Long userId, List<Friend> friends) {
         List<ChatRoom> allRoom = hashOpsChatRoom.values(CHAT_ROOMS);
-        List<ChatRoom> rooms = new ArrayList<>();
-
-        for(ChatRoom room : allRoom){
-            if(room.getRelation().getUserId().equals(userId) || room.getRelation().getFriendId().equals(userId)){
-                rooms.add(room);
-            }
-        }
-        return rooms;
+//        List<ChatRoom> rooms = new ArrayList<>();
+//
+//        for(ChatRoom room : allRoom){
+//            for(Friend friend : friends){
+//                if(room.getRelationId()==friend.getRelationId()){
+//                    rooms.add(room);
+//                }
+//            }
+//        }
+//        return rooms;
+        return allRoom;
     }
 
     // 특정 채팅방 조회 (roomId로)
@@ -53,8 +58,8 @@ public class ChatRoomRepository {
     }
 
     // 채팅방 생성 : 서버간 채팅방 공유를 위해 redis hash에 저장한다.
-    public ChatRoom createChatRoom(Friend friend) {
-        ChatRoom chatRoom = ChatRoom.create(friend);
+    public ChatRoom createChatRoom() {
+        ChatRoom chatRoom = ChatRoom.create();
 
         hashOpsChatRoom.put(CHAT_ROOMS, chatRoom.getRoomId(), chatRoom);
 
