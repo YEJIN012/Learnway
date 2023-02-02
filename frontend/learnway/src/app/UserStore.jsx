@@ -1,6 +1,6 @@
 const userInfo = {
     "userId":"",
-    "userEmail":"",
+    "userEmail":"ccc@ssafy.com",
     "userPwd":"",
     "name":"",
     "birthday":"",

@@ -19,6 +19,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity // spring security를 구성하는 기본적인 기능을 자동으로 빌딩
@@ -77,6 +80,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .httpBasic().disable()
                  // csrf : post방식으로 값을 전송시, token을 사용해야되는 보안 설정 비활성화
                  .csrf().disable()
+                 .cors().configurationSource(corsConfigurationSource())
+                 .and()
+
                  //
 //                 .formLogin()// form 기반 로그인 관련 설정.
 //                 .loginPage("/")// 로그인 요청 URL
@@ -103,6 +109,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .and()
                  // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
                  .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+    }
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // configuration.addAllowedOrigin("*");
+        // config.addAllowedOrigin("*");
+        configuration.addAllowedOriginPattern("*"); // addAllowedOriginPattern("*") 대신 사용
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

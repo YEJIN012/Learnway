@@ -2,6 +2,7 @@ package com.ssafy.learnway.controller;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.FriendRequestDto;
 import com.ssafy.learnway.service.FriendService;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
@@ -57,11 +58,11 @@ public class FriendController {
     }
 
     @PostMapping
-    public ResponseEntity make(String userEmail, String friendEmail) throws SQLException {
+    public ResponseEntity make(@RequestBody FriendRequestDto dto) throws SQLException {
         try {
             // 유저, 친구 객체 반환
-            User user = userService.findByEmail(userEmail);
-            User friend = userService.findByEmail(friendEmail);
+            User user = userService.findByEmail(dto.getUserEmail());
+            User friend = userService.findByEmail(dto.getFriendEmail());
 
             if (user==null || friend == null) return ResponseHandler.generateResponse("유효하지 않은 이메일입니다.", HttpStatus.NOT_FOUND);
 
@@ -77,10 +78,10 @@ public class FriendController {
     }
 
     @DeleteMapping
-    public ResponseEntity delete(String user_email, String friend_email){
+    public ResponseEntity delete(@RequestBody FriendRequestDto dto){
         try {
-            User user = userService.findByEmail(user_email);
-            User friend = userService.findByEmail(friend_email);
+            User user = userService.findByEmail(dto.getUserEmail());
+            User friend = userService.findByEmail(dto.getFriendEmail());
 
             if (user==null || friend == null) return ResponseHandler.generateResponse("유효하지 않은 이메일입니다.", HttpStatus.NOT_FOUND);
 
@@ -93,5 +94,19 @@ public class FriendController {
             return ResponseHandler.generateResponse("친구 삭제에 실패하였습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/count")
+    public ResponseEntity count(@RequestParam String userEmail){
+        try{
+            User user = userService.findByEmail(userEmail);
+
+            int friendCnt = friendService.countByUserId(user);
+            return ResponseHandler.generateResponse("모든 친구 수입니다.", HttpStatus.OK, "friendCnt", friendCnt);
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseHandler.generateResponse("친구 수 조회에 실패했습니다..", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
 
