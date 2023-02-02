@@ -51,7 +51,7 @@ function StudyScripts(props) {
     function getScripts({ date }) {
         axios
             .get(
-                "https://3e43af35-aeee-496c-af8a-0128d780e1a7.mock.pstmn.io/study/day",
+                "https://i8a408.p.ssafy.io/v2/api-docs/study/day",
                 { date: { date }, userEmail: "12@gmail.com" }
             )
             .then(function (res) {

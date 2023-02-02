@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
-import axios from "axios";
-import { useSelector } from "react-redux";
 
 const Item = styled.div`
     width: 50%;
@@ -18,7 +16,6 @@ function FriendListItem(props) {
     // console.log(friendsProfile);
 
     return friendsProfile.map((friend, index) => (
-
         <Item onClick={(e) => handleSelectedFriend(e, friend.data.profile)} key={index}>
             <ProfileImg src={friend.data.profile.img_url} width={50} />
             <div>{friend.data.profile.name}</div>
