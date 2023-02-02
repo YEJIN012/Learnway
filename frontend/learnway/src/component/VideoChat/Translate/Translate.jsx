@@ -3,41 +3,48 @@ import styled from "styled-components";
 import axios from "axios";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
+import { Fab } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+
 // import Button from '../../../ui/Button';
 const Frame = styled.div`
+    margin: 10vw
+    width: 100%;
     display: grid;
-    grid-template-columns: auto 100px 1fr 2fr
-    position: absolute;
+    grid-template-rows: 1fr 1fr
     top: 20vw;
 `;
 const InnerFrame = styled.div`
-
     border: 1px solid;
+`;
+const TranslateBtn = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
 `;
 const TextFrame = styled.textarea`
     radius: 5px;
-
-`
+`;
 
 function Translate() {
     const [value, setValue] = useState("");
     const [translatedContent, setTranslatedContent] = useState("");
 
     async function getTranslate(props) {
-        const {content} = props
-        try {console.log(content)
+        console.log(props)
+        try {
             const response = await axios.post(
                 "https://openapi.naver.com/v1/papago/n2mt",
                 {
                     source: "ko",
                     target: "en",
-                    text: content,
+                    text: props,
                 },
                 {
                     headers: {
                         "X-Naver-Client-Id": "6I2yVts_Y4w2l3KgivdN",
                         "X-Naver-Client-Secret": "KyR4gJtOdH",
-                        "Access-Control-Allow-Origin": "*",
+                        // "Access-Control-Allow-Origin": "*",
                     },
                 }
             );
@@ -53,7 +60,7 @@ function Translate() {
 
     const handleTranslate = (e) => {
         e.preventDefault();
-        console.log(value)
+        console.log(value);
         getTranslate(value);
         console.log("handler");
     };
@@ -71,14 +78,14 @@ function Translate() {
                                     setValue(e.target.value);
                                 }}
                                 placeholder="Enter the content to translate."
-                            >
-                            </TextFrame>
-                            <input type="submit" value="Translate" />
+                            ></TextFrame>
+                            <TranslateBtn>
+                                <button type="submit">translate</button>
+                            </TranslateBtn>
                         </form>
                     </InnerFrame>
-                    <InnerFrame>
-                        {translatedContent}
-                    </InnerFrame>
+                    <InnerFrame>{translatedContent}</InnerFrame>
+                    
                 </Frame>
             }
         ></CommonFrame>
