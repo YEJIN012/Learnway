@@ -28,6 +28,7 @@ const Body = styled.div`
 function CommonFrame({header, body}){
     return(
         <Frame>
+            
             <Title>{header}</Title>
             <Body>
                 {body}

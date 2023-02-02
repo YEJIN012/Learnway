@@ -106,9 +106,8 @@ const BTN4_FILL = styled.button`
     font-weight: ${props=>props.textWeight || '700'};
     border-radius: ${props=>props.radius || '999px'};
     border: transparent;
-    color: #fefdf7;
+    color:  #fffde4;
     background-color: #005aa7;
-    shadow-color: #005aa7;
     box-shadow: 0px 3px 8px 0px rgba(0, 90, 167, 1);
     cursor: pointer;
 `;
@@ -122,8 +121,8 @@ const BTN4_UNFILL = styled.button`
     border-radius: ${props=>props.radius || '999px'};
     border: 3px solid transparent;
     color: #005aa7;
-    background-image: linear-gradient(#fefdf7, #fefdf7),
-        linear-gradient(to left, #005aa7, #fefdf7);
+    background-image: linear-gradient(#fffde4, #fffde4),
+        linear-gradient(to left, #005aa7, #fffde4);
     background-origin: border-box;
     background-clip: content-box, border-box;
     cursor: pointer;
