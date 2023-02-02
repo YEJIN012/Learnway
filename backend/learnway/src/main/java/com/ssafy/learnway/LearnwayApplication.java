@@ -11,7 +11,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableJpaAuditing
-@SpringBootApplication(exclude = { JacksonAutoConfiguration.class }) // Exclude the automatic configuration of JACKSON
+@SpringBootApplication // Exclude the automatic configuration of JACKSON
 //@EnableAutoConfiguration의 exclude 속성을 이용해서 SecurityAutoConfiguration 잠시 중지 가능
 // @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class LearnwayApplication {
