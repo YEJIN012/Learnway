@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Api(tags = {"users"})
@@ -62,7 +64,7 @@ public class UserController {
 
     // 회원 정보 수정
     @PutMapping("/modify")
-    public ResponseEntity modifyUser(@RequestBody UserDto userDto) {
+    public ResponseEntity modifyUser(@RequestPart UserDto userDto, @RequestPart(value = "image", required = false) final MultipartFile multipartFile) {
         // 정보 미입력시 리턴
         if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")||userDto.getUserPwd().equals("")){
             return ResponseHandler.generateResponse("회원가입 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
@@ -84,7 +86,7 @@ public class UserController {
                 }
             }
 
-            userService.modifyUser(userDto);
+            userService.modifyUser(userDto,multipartFile);
 
             UserDto responseUserDto = userService.userInfo(userDto.getUserEmail());
             return ResponseHandler.generateResponse("회원 정보가 수정되었습니다.", HttpStatus.ACCEPTED, "user", responseUserDto);

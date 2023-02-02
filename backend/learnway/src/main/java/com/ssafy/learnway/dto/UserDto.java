@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -34,6 +35,10 @@ public class UserDto {
 
     String bio;
 
+    String provider;
+
+    String providerId;
+
     public UserDto(User user){
         this.userEmail = user.getUserEmail();
         this.name = user.getName();
@@ -54,4 +59,5 @@ public class UserDto {
                 .bio(bio)
                 .build();
     }
+
 }

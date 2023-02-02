@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 @ToString
+@Setter
 public class User extends BaseTime implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
@@ -30,7 +31,7 @@ public class User extends BaseTime implements UserDetails {
 
     // Json결과로 출력 안 할 데이터
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name="user_pwd", nullable = false)
+    @Column(name="user_pwd")
     private String userPwd;
 
     @Column(nullable = false)
@@ -40,9 +41,8 @@ public class User extends BaseTime implements UserDetails {
     //@Temporal(TemporalType.DATE) //년-월-일 의 date 타입
     private LocalDate birthday;
 
-    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) // 하나의 언어는 여러명의 사용자를 가진다?
-    @JoinColumn(name="languageId")
+    @JoinColumn(name="languageId",nullable = false)
     private Language languageId;
 
     @Column(columnDefinition = "TINYINT", length=1)
@@ -56,9 +56,11 @@ public class User extends BaseTime implements UserDetails {
     private String imgUrl;
     private String bio;
 
-    private String socialType; // "google"
+    private String provider; // "google"
+    private String providerId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
+    // private String socialType; // "google"
 
-    private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
+   //private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
 
     /**
      * Spring Security 회원 가입
@@ -74,17 +76,6 @@ public class User extends BaseTime implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
-
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
-//
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//            Collection<GrantedAuthority> collectors = new ArrayList<>();
-//
-//            collectors.add(() -> "ROLE_"+role);
-//
-//            return collectors;
-//    }
 
     @Override
     public String getPassword() {
@@ -125,7 +116,7 @@ public class User extends BaseTime implements UserDetails {
         return true;
     }
 
-    public void update(String name, LocalDate birthday, Language languageId, String imgUrl, String bio ) {
+    public void update(String name, LocalDate birthday, Language languageId, String bio ) {
         this.name = name;
         this.birthday = birthday;
         this.languageId = languageId;
@@ -137,13 +128,15 @@ public class User extends BaseTime implements UserDetails {
         this.userPwd = userPwd;
     }
 
+    public void updateImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
+    }
+
     public User update(String userEmail, String userPwd, String name){
         this.userEmail = userEmail;
         this.userPwd = userPwd;
         this.name = name;
         return this;
     }
-
-
 
 }

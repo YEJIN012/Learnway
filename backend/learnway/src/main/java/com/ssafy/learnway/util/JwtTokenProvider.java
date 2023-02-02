@@ -1,8 +1,6 @@
 package com.ssafy.learnway.util;
 
-import antlr.Token;
 import com.ssafy.learnway.dto.TokenDto;
-import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class JwtTokenProvider {
+
     @Value("jwt.secret")
     private String secretKey;
     private String ROLES = "roles";
@@ -29,10 +28,7 @@ public class JwtTokenProvider {
     private long refreshtokenValidTime =  14 * 24 * 60 * 60 * 1000L; // 14 days
 
     @Autowired
-    private final CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
-    private UserRepository userRepository;
+    private CustomUserDetailsService customUserDetailsService;
 
     // 객체 초기화, secretKey를 Base64로 인코딩한다. 아이디와 비번 정보를 인코딩하는 것!
     @PostConstruct
@@ -89,10 +85,10 @@ public class JwtTokenProvider {
     }
 
     // 토큰에서 회원 정보 추출
-    public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-    }
-
+//    public String getUserPk(String token) {
+//        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+//    }
+//
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
 

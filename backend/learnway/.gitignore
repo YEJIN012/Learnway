@@ -281,3 +281,6 @@ build/
 .vscode/
 
 .DS_Store
+
+**/application-aws.properties
+**/application-oauth.properties
