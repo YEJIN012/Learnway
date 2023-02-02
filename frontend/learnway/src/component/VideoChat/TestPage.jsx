@@ -5,6 +5,8 @@ import Report from './Report/Report';
 import CommonFrame from './CommonComponent/CommonFrame'
 import Quit from './Quit/Quit'
 import Friend from './Friend/Friend'
+import Youtube from './Youtube/Youtube';
+
 //화상 채팅방용 테스트 페이지
 const Text = styled.span`
     font-size: 4vw;
@@ -16,7 +18,7 @@ const Text = styled.span`
 function TestPage(){
     return(
         //화상 카메라가 들어갈 영역
-        <Friend></Friend>
+        <Youtube></Youtube>
         //위젯이 들어갈 영역
     );
 };
