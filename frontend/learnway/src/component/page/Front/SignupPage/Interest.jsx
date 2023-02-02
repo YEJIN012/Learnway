@@ -1,5 +1,6 @@
 import React from 'react';
 import InterestSelect from './InterestSelect';
+
 // import { useDispatch } from "react-redux";
 // import { registerUser } from '../actions/userAction';
 export default function Interest(props) {
@@ -20,9 +21,9 @@ export default function Interest(props) {
   // }
   console.log(props)
   return (
-    <>
+    <div>
       <h1>나는 취향설정이야</h1>
       <InterestSelect></InterestSelect>
-    </>
+    </div>
   )
 }

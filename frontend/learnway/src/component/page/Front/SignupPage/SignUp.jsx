@@ -1,7 +1,7 @@
 import SignupForm from "./SingupForm";
 import Interest from "./Interest";
 import { useState } from "react";
-
+import BackroundFrame from "../Background";
 
 export default function Signup () {
   const [userinfo, setUserinfo] = useState("")
@@ -13,25 +13,25 @@ export default function Signup () {
   }
 
   return (
-    <>
-      {
-        userinfo === ""
-        ? (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100vh",
-            }}>
-            <SignupForm getUserinfo={getUserinfo}></SignupForm>
-          </div>
-        )
-        : (
-          <Interest props={userinfo}></Interest>
-        )
-      }
-    </>
+    <BackroundFrame
+      bg={
+          userinfo !== ""
+          ? (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100vh",
+              }}>
+              <SignupForm getUserinfo={getUserinfo}></SignupForm>
+            </div>
+          )
+          : (
+            <Interest props={userinfo}></Interest>
+          )
+      }>
+    </BackroundFrame>
   )
 }
