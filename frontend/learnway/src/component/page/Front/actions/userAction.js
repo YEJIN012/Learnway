@@ -5,12 +5,6 @@ import { request } from "../utils/axios";
 const USER_URL = "/users";
 
 export function loginUser(dataToSubmit) {
-  // const request = axios
-  //   .post("http://localhost:9000/api/user/login", dataToSubmit, {
-  //     withCredentials: true,
-  //   })
-  // .then((res) => res.data);
-  // const request = user.loginUser();
   const data = request("get", USER_URL + "/login", dataToSubmit);
   return {
     type: LOGIN_USER,

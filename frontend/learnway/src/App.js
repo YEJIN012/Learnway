@@ -7,6 +7,7 @@ import Logout from "./component/page/Front/Logout";
 import Signup from "./component/page/Front/SignupPage/SignUp";
 import FindPassword from "./component/page/Front/FindPassword"
 import Loading from "./component/page/Loading/LoadingPage"
+import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/logout" element={<Logout />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPassword />}></Route>
+                <Route path="/loading/match" element={<RandomMatch />}></Route>
             </Routes>
         </BrowserRouter>
     );

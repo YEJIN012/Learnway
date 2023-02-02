@@ -5,7 +5,6 @@ const Text = styled.span`
     font-size: 4vw;
     font-weight: 800;
     padding: 1vw 0vw 1vw 2vw;
-
     border:solid 1px black;
 `;
 
