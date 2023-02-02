@@ -1,8 +1,13 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import styled from "styled-components";
+import axios from "axios";
+import ResultComponent from './ResultComponent';
+
 import ResultList from './ResultList'
 import SearchBtnImg from '../../ui/searchBtn.png';
-
+axios.defaults.headers['Access-Control-Allow-Credentials']=true;
+axios.defaults.headers['Access-Control-Allow-Origin']='*';
+axios.defaults.withCredentials = true;
 const Frame = styled.div`
     width:60vw;
     height:45vw;
@@ -46,18 +51,44 @@ const Video = styled.div`
 
     border: solid 1px black;
 `;
-function Translate(){
+function Youtube(){
+    const [searchData, setSearchData] = useState([]);
+    const [query, setQuery] = useState("");
+
+    async function getSearchData(query){
+        console.log(process.env.REACT_APP_YOUTUBE_API_KEY)
+        let listData = []
+        await axios.get(`/youtubeapi/youtube/v3/search?q=${query}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${9}`
+        ).then(function(res){
+            const data = res.data.items;
+            console.log(data.length);
+            for(let i = 0; i < data.length; i++){
+                const vodId = data[i].id.videoid;
+                const title = data[i].snippet.title;
+                const thumb = data[i].snippet.thumbnails.high.url;
+                const channel = data[i].snippet.channelTitle;
+                
+                listData.push(<ResultComponent key={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
+            }
+            setSearchData(listData);
+        }).catch(function(err){
+            console.log(err)
+        });
+    }
+
+    useEffect(() => { getSearchData() }, []);
+   
     return(
         <Frame>
             <Search>
                 <SearchBox>
-                    <Input></Input>
-                    <Searchbtn url={SearchBtnImg} ></Searchbtn>
+                    <Input id="queryBox" onChange={(e) => { setQuery(e.target.value) }}></Input>
+                    <Searchbtn url={SearchBtnImg} onClick={()=>{getSearchData(query)}} ></Searchbtn>
                 </SearchBox>
-                <ResultList></ResultList>
+                <ResultList data={searchData}></ResultList>
             </Search>
             <Video></Video>
         </Frame>
     );
 };
-export default Translate;
+export default Youtube;
