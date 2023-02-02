@@ -97,13 +97,13 @@ function Friend() {
     const [userInfo, setUserInfo] = useState({ name: "", email: "", birth: "", friends: "", img: "", lang: "", interest: [], bio: "" })
 
     function getUserInfo() {
-        axios.get(`https://i8a408.p.ssafy.io/users/profile/${'aaa@ssafy.com'}`)
+        axios.get(`/api/users/profile/${'aaa@ssafy.com'}`)
             .then(function (res) {
                 const data = res.data.profile;
 
                 setUserInfo({ name: data.name, email: data.userEmail, birth: data.birthDay, friends: "", img: data.imgUrl, lang: data.language.name, interest: data.interests, bio: data.bio });
             }).catch(function (err) {
-                alert("API 접속 에러");
+                console.log(err);
             });
     }
     useEffect(() => { getUserInfo() }, []);
