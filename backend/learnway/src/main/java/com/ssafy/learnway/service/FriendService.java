@@ -48,4 +48,10 @@ public class FriendService {
     public Friend findById(User userId, User friendId) {
         return friendRepository.findByUserIdAndFriendId(userId, friendId);
     }
+
+    @Transactional(readOnly = true)
+    public int countByUserId(User user){
+        int friendCnt = friendRepository.countByUserId(user) + friendRepository.countByFriendId(user);
+        return friendCnt;
+    }
 }
