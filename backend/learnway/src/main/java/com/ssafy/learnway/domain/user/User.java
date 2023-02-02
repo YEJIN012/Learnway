@@ -120,4 +120,7 @@ public class User extends BaseTime implements UserDetails {
         this.bio = bio;
     }
 
+    public void updateBadUser(boolean badUser){
+        this.badUser = badUser;
+    }
 }
