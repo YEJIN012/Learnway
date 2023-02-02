@@ -1,7 +1,11 @@
 package com.ssafy.learnway.service.conversation;
 
+import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.dto.conversation.ConvTransDto;
+import com.ssafy.learnway.repository.LanguageRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
+@Service
 public class TransService {
 
     @Value("${spring.papago.id}")
@@ -21,14 +27,32 @@ public class TransService {
     @Value("${spring.papago.secret}")
     private String clientSecret;
 
+    private final LanguageRepository languageRepository;
+
     public ConvTransDto getTransSentence(List<String> sentences, String lng, String studyLng){ //변환된 언어 코드로 보낸다.
 
         List<String> lngList = new ArrayList<>(); //모국어로 변역
         List<String> studyLngList = new ArrayList<>(); //학습 언어로 변역
 
+        Language language = languageRepository.findByLanguageName(lng);
+        Language studyLanguage = languageRepository.findByLanguageName(studyLng);
+
         for(int i=0; i<sentences.size(); i++){
-            lngList.add(response(sentences.get(i),lng));
-            studyLngList.add(response(sentences.get(i), studyLng));
+            // 한국어가 아닐때만 번역 진행 (파파고 api)
+            if(!lng.equals("ko")){
+                lngList.add(response(sentences.get(i),language.getLanguageCode()));
+            }else{
+                for(int j=0; j<sentences.size(); j++){
+                    lngList.add(sentences.get(j));
+                }
+            }
+            if(!studyLng.equals("ko")){
+                studyLngList.add(response(sentences.get(i), studyLanguage.getLanguageCode()));
+            }else{
+                for(int j=0; j<sentences.size(); j++){
+                    studyLngList.add(sentences.get(j));
+                }
+            }
         }
 
         return ConvTransDto.builder()

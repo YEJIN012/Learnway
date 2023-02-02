@@ -43,7 +43,8 @@ public class StudyService {
             //lazy
             LanguageDto languageDto = LanguageDto.builder()
                     .languageId(study.getLanguageId().getLanguageId())
-                    .name(study.getLanguageId().getName())
+                    .code(study.getLanguageId().getLanguageCode())
+                    .name(study.getLanguageId().getLanguageName())
                     .build();
 
             StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())

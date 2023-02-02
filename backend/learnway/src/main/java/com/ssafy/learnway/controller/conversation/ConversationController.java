@@ -29,9 +29,9 @@ public class ConversationController {
 
     private final TransService transService;
 
-    @ApiOperation(value = "오늘의 회화", notes = "본인의 언어코드와 학습언어코드를 파라미터에 넘긴다. 본인의 언어와 학습 언어에 대한 오늘의 회화 데이터를 리턴한다.")
+    @ApiOperation(value = "오늘의 회화", notes = "본인의 언어와 학습언어를 파라미터에 넘긴다. 본인의 언어와 학습 언어에 대한 오늘의 회화 데이터를 리턴한다.")
     @GetMapping
-    public ResponseEntity list(@RequestParam(name = "lng_code") int lngCode, @RequestParam(name = "study_code") int studyCode) throws SQLException {
+    public ResponseEntity list(@RequestParam(name = "lng") String lng, @RequestParam(name = "study_lng") String studyLng) throws SQLException {
         try {
             LocalDate date = LocalDate.now();
 
@@ -43,9 +43,9 @@ public class ConversationController {
             List<String> sentences = crawingService.crawling(date);
             
             /// 본인의 언어와 학습 언어로 번역
-            ConvTransDto convTransDto = transService.getTransSentence(sentences, lngCode, studyCode);
+            ConvTransDto convTransDto = transService.getTransSentence(sentences, lng, studyLng);
 
-            return ResponseHandler.generateResponse("오늘의 회화", HttpStatus.OK);
+            return ResponseHandler.generateResponse("오늘의 회화", HttpStatus.OK,"conversation",convTransDto);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);

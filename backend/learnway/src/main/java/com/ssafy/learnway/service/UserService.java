@@ -74,7 +74,10 @@ public class UserService {
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+        LanguageDto languageDto = LanguageDto.builder()
+                .languageId(language.getLanguageId())
+                .name(language.getLanguageName())
+                .code(language.getLanguageCode()).build();
 
         List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
 
@@ -187,7 +190,7 @@ public class UserService {
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getLanguageName()).build();
 
         List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
 
@@ -229,7 +232,7 @@ public class UserService {
         List<LanguageDto> languageDtos = new ArrayList<>();
 
         for(Language language : languages){
-            languageDtos.add(LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build());
+            languageDtos.add(LanguageDto.builder().languageId(language.getLanguageId()).name(language.getLanguageName()).code(language.getLanguageCode()).build());
         }
 
         return languageDtos;
