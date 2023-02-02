@@ -1,6 +1,5 @@
 package com.ssafy.learnway.controller.study;
 
-import com.ssafy.learnway.domain.study.Study;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.dto.study.StudyMonthResponseDto;
@@ -10,8 +9,8 @@ import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +21,13 @@ import java.util.Date;
 import java.util.List;
 
 @Api(tags = {"study"})
-@RestController
 @Slf4j
+@RequiredArgsConstructor
+@RestController
 @RequestMapping("/study")
 public class StudyController {
 
-    @Autowired
-    private StudyService studyService;
+    private final StudyService studyService;
 
     //날짜별 채팅내역 조회
     @ApiOperation(value = "학습 정보", notes = "날짜에 대한 학습 기록을 리턴한다.")
