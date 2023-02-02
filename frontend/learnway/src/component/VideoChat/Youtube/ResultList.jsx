@@ -11,7 +11,7 @@ export default function PinnedSubheaderList() {
     const [searchData, setSearchData] = useState([]);
     function getSearchData(){
         console.log(process.env.REACT_APP_YOUTUBE_API_KEY)
-        axios.get(`q=${'cocoa'}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${9}`
+        axios.get(`https://www.googleapis.com/youtube/v3/search?q=${'cocoa'}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${9}`
         ).then(function(res){
             const data = res.data.item;
             
