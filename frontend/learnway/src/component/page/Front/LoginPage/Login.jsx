@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-// import { useDispatch } from 'react-redux';
-// import axios from 'axios';
 import LoginForm from './LoginForm';
-// import InputBox from './Input';
 import '../../../ui/Background.css';
 import '../../../ui/LoginSignup.css';
 

@@ -1,0 +1,69 @@
+{
+  "interests": [
+    {
+      "interestId": 1,
+      "field": "travel"
+    },
+    {
+      "interestId": 2,
+      "field": "music"
+    },
+    {
+      "interestId": 3,
+      "field": "sports"
+    },
+    {
+      "interestId": 4,
+      "field": "art"
+    },
+    {
+      "interestId": 5,
+      "field": "reading"
+    },
+    {
+      "interestId": 6,
+      "field": "pciture"
+    },
+    {
+      "interestId": 7,
+      "field": "health"
+    },
+    {
+      "interestId": 8,
+      "field": "cooking"
+    },
+    {
+      "interestId": 9,
+      "field": "game"
+    },
+    {
+      "interestId": 10,
+      "field": "dance"
+    },
+    {
+      "interestId": 11,
+      "field": "trouble counseling"
+    },
+    {
+      "interestId": 12,
+      "field": "movie/drama"
+    },
+    {
+      "interestId": 13,
+      "field": "debate"
+    },
+    {
+      "interestId": 14,
+      "field": "animal"
+    },
+    {
+      "interestId": 15,
+      "field": "daily"
+    }
+  ],
+  "random":
+    {
+      "interestId": 16,
+      "field": "random"
+    }
+}
