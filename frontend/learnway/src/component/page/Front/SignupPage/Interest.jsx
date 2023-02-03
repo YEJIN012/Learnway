@@ -4,12 +4,8 @@ import InterestSelect from './InterestSelect';
 // import { useDispatch } from "react-redux";
 // import { registerUser } from '../actions/userAction';
 export default function Interest(userinfo) {
-  console.log(userinfo)
-  const [itobj, setItobj] = useState();
+  // console.log(userinfo)
 
-  const getItobj = (itobj) => {
-    setItobj(itobj)
-  }
   // const dispatch = useDispatch();
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -28,7 +24,7 @@ export default function Interest(userinfo) {
   return (
     <div>
       <h1>나는 취향설정이야</h1>
-      <InterestSelect getItobj={getItobj}></InterestSelect>
+      <InterestSelect userinfo={userinfo}></InterestSelect>
     </div>
   )
 }

@@ -6,7 +6,7 @@ const USER_URL = "/users";
 
 // 로그인 데이터 저장
 export function loginUser(dataToSubmit) {
-  const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`
+  const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`;
   const data = request("get", URL , dataToSubmit);
   console.log(data)
   return {
@@ -39,14 +39,14 @@ export function deleteToken(data){
   }
 }
 
-// export function registerUser(dataToSubmit) {
-//   const data = request("post", USER_URL + "/signup", dataToSubmit);
+export function registerUser(dataToSubmit) {
+  const data = request("post", USER_URL + '/sign-up', dataToSubmit);
 
-//   return {
-//     type: REGISTER_USER,
-//     payload: data,
-//   };
-// }
+  return {
+    type: REGISTER_USER,
+    payload: data,
+  };
+}
 
 // export function auth() {
 //   const data = request("post", USER_URL + "/auth");

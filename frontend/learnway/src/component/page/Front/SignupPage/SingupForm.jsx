@@ -40,6 +40,12 @@ export default function SignupForm({getUserinfo}) {
           // confirmPw: confirmPw,
           birthDay: birthday,
           language: lagnguae,       // 랭귀지 id  체크
+          badUser: false,
+          bio: "",
+          imgUrl: "",
+          providerId: "",
+          provider: "",
+          // interest: [],
         };
         getUserinfo(data)           // 정제된 데이터를 부모 컴포넌트에 보내준다.
       }
