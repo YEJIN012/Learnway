@@ -15,7 +15,7 @@ export default function Signup () {
   return (
     <BackroundFrame
       bg={
-          userinfo !== ""
+          userinfo === ""
           ? (
             <div
               style={{
@@ -29,7 +29,7 @@ export default function Signup () {
             </div>
           )
           : (
-            <Interest props={userinfo}></Interest>
+            <Interest userinfo={userinfo}></Interest>
           )
       }>
     </BackroundFrame>
