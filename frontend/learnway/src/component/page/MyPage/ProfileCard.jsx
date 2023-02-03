@@ -1,7 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import friends from "../../../friends.json";
 import ProfileImg from "../../ui/ProfileImg";
+import Paper from "@mui/material/Paper";
+import InputGroup from "../../ui/InputGroup";
+import EditIcon from '@mui/icons-material/Edit';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import "../../ui/mypage.css";
 
 const CardTop = styled.div`
@@ -9,7 +14,7 @@ const CardTop = styled.div`
     padding: 15%;
     display: flex;
     justify-content: center;
-    height: 40%;
+    height: 30%;
     background: linear-gradient(
         286.15deg,
         rgba(0, 90, 167, 0.5) 0%,
@@ -21,54 +26,183 @@ const CardBottom = styled.div`
     box-sizing: border-box;
     padding: 15%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
 `;
-
+const Friends = styled.div`
+    width: 11vw;
+    height: 15vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.5vw;
+    border: solid 1px black;
+`;
+const FriendNumber = styled.span`
+    font-size: 2vw;
+    border: solid 1px black;
+`;
+const SubFrame = styled.div`
+    width: 40vw;
+    display: flex;
+    flex-direction: row;
+`;
+const Text = styled.span`
+    font-size: 1vw;
+    color: #000000;
+`;
 
 // 프로필 편집시, useEffect 필요?
 function MyProfile() {
-    // 로그인 유저 data
-    const { imgUrl, name, email, birthDay } = friends[0];
+    const info = useSelector((state) => state.UserStore);
     return (
-        <div className="white-card">
+        <>
             <CardTop>
-                <ProfileImg src={imgUrl} />
-                프로필이미지편집버튼
+                <ProfileImg src={info.imgUrl} />
+                <Friends>
+                    <FriendNumber>167</FriendNumber>
+                    Friends
+                </Friends>
+                <EditIcon/>
             </CardTop>
             <CardBottom>
-                {name},{email},{birthDay}
+                <InputGroup
+                    flex="column"
+                    textValue={info.name}
+                    fontSize="2vw"
+                    inputWidth="inherit"
+                    inputHeight="2vw"
+                ></InputGroup>
+                <SubFrame>
+                    <InputGroup
+                        flex="column"
+                        textValue="Email"
+                        fontSize="2vw"
+                        inputWidth="20vw"
+                        inputHeight="2vw"
+                        obj={<Text>{info.userEmail}</Text>}
+                    ></InputGroup>
+                    <InputGroup
+                        flex="column"
+                        textValue="Birthday"
+                        fontSize="2vw"
+                        inputWidth="20vw"
+                        inputHeight="2vw"
+                        obj={<Text>{info.birthDay}</Text>}
+                    ></InputGroup>
+                </SubFrame>
             </CardBottom>
-        </div>
+        </>
     );
 }
 
 function FriendProfile(props) {
-    console.log(props)
-    const { name, birthDay, language, interest, imgUrl,bio } = props.data;
+    const info = props.data;
+    console.log(info)
     return (
-        <div className="white-card">
+        <>
             <CardTop>
-                <ProfileImg src={imgUrl} />
-                친구삭제버튼
+                <ProfileImg src={info.imgUrl} />
+                <Friends>
+                    <FriendNumber>167</FriendNumber>
+                    Friends
+                </Friends>
+                <PersonRemoveIcon/>
             </CardTop>
             <CardBottom>
-                <p>{name}</p>
-                <p>{language.name}</p>
-                <p>{birthDay}</p>
-                <p>{interest}</p>
-                <p>{bio}</p>
+                <InputGroup
+                    flex="column"
+                    textValue={info.name}
+                    fontSize="2vw"
+                    inputWidth="inherit"
+                    inputHeight="2vw"
+                ></InputGroup>
+                <SubFrame>
+                    <InputGroup
+                        flex="column"
+                        textValue="Email"
+                        fontSize="2vw"
+                        inputWidth="15vw"
+                        inputHeight="2vw"
+                        obj={<Text>{info.userEmail}</Text>}
+                    ></InputGroup>
+                    <InputGroup
+                        flex="column"
+                        textValue="Birthday"
+                        fontSize="2vw"
+                        inputWidth="15vw"
+                        inputHeight="2vw"
+                        obj={<Text>{info.birthDay}</Text>}
+                    ></InputGroup>
+                </SubFrame>
             </CardBottom>
-        </div>
+        </>
     );
 }
+// function YourProfile(props) {
+//     //props : 상대방정보 + friend인지아닌지
+//     console.log(props);
+//     const info = props;
+//     return (
+//         <>
+//             <CardTop>
+//                 <ProfileImg src={info.imgUrl} />
+//                 <Friends>
+//                     <FriendNumber>167</FriendNumber>
+//                     Friends
+//                 </Friends>
+//                 프로필이미지편집버튼
+//             </CardTop>
+//             <CardBottom>
+//                 <InputGroup
+//                     flex="column"
+//                     textValue={info.name}
+//                     fontSize="2vw"
+//                     inputWidth="inherit"
+//                     inputHeight="2vw"
+//                 ></InputGroup>
+//                 <SubFrame>
+//                     <InputGroup
+//                         flex="column"
+//                         textValue="Email"
+//                         fontSize="2vw"
+//                         inputWidth="inherit"
+//                         inputHeight="2vw"
+//                         obj={<Text>{info.userEmail}</Text>}
+//                     ></InputGroup>
+//                     <InputGroup
+//                         flex="column"
+//                         textValue="Birthday"
+//                         fontSize="2vw"
+//                         inputWidth="inherit"
+//                         inputHeight="2vw"
+//                         obj={<Text>{info.birthday}</Text>}
+//                     ></InputGroup>
+//                 </SubFrame>
+//             </CardBottom>
+//         </>
+//     );
+// }
 
 function ProfileCard(props) {
     // email -> 선택된 친구의 data
-    // Profile탭 -> 0 Friends탭->1
+    // user : 0 -> MyProfile, 1-> FriendsProfile, 3-> YourProfile
     const { data, user } = props;
+    console.log(user)
+
+    const profileContent = {
+        0: <MyProfile />,
+        1: <FriendProfile data={data} />,
+        // 2: <YourProfile data={data} />,
+    };
 
     return (
-        <div>{user === 0 ? <MyProfile /> : <FriendProfile data={data} />}</div>
+        <Paper
+            elevation={3}
+            children={profileContent[user]}
+            sx={{ borderRadius: "35px", width:"30vw" , height:"50vh"}}
+        />
     );
 }
 

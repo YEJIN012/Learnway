@@ -10,6 +10,7 @@ const ContentWrapper = styled.div`
     margin-right: 15%;
     margin-left: 15%;
     border: 1px solid;
+    height: 600px;
 `;
 
 function MyPageContent(props) {

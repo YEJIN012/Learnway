@@ -93,7 +93,7 @@ function addFriend(me, oppo) {
 
 }
 function Friend() {
-    const [userInfo, setUserInfo] = useState({ name: "", email: "", birth: "", friends: "", img: "", lang: "", interest: [], bio: "" })
+    const [userInfo, setUserInfo] = useState({})
 
     function getUserInfo() {
         axios.get(`/api/users/profile/${'aaa@ssafy.com'}`)
@@ -101,7 +101,7 @@ function Friend() {
                 const data = res.data.profile;
                 console.log(data)
 
-                setUserInfo({ name: data.name, email: data.userEmail, birth: data.birthDay, friends: "", img: data.imgUrl, lang: data.language.name, interest: data.interests, bio: data.bio });
+                setUserInfo(data);
             }).catch(function (err) {
                 console.log(err);
             });
@@ -205,4 +205,6 @@ function Friend() {
         </CommonFrame>
     );
 };
+
+
 export default Friend;

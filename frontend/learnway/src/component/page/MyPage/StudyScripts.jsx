@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import "../../ui/mypage.css";
 import moment from "moment";
 import axios from "axios";
@@ -16,18 +17,19 @@ function ScriptsAccordions(props) {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+    if (studyList) {
 
-    return studyList.map((study, index) => (
-        <Accordion
+        return studyList.map((study, index) => (
+            <Accordion
             key={index}
             expanded={expanded === `panel${index}`}
             onChange={handleChange(`panel${index}`)}
-        >
+            >
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1bh-content"
                 id="panel1bh-header"
-            >
+                >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
                     friendID: {study.friendId}
                 </Typography>
@@ -43,16 +45,22 @@ function ScriptsAccordions(props) {
         </Accordion>
     ));
 }
+}
 
 function StudyScripts(props) {
+    const store = useSelector((state) => state.UserStore);
     const { selectedDate } = props;
     const [studyList, setstudyList] = useState([]);
 
-    function getScripts({ date }) {
+    function getScripts(props) {
+        console.log('getScripts')
+        console.log(props)
+        const date = moment(props).format("YYYY-MM-DD")
+        console.log(date, typeof(date))
         axios
-            .get(
-                "https://i8a408.p.ssafy.io/v2/api-docs/study/day",
-                { date: { date }, userEmail: "12@gmail.com" }
+            .post(
+                "api/study/day",
+                { date: date , userEmail: store["userEmail"] }
             )
             .then(function (res) {
                 setstudyList(res.data.studyList);
@@ -64,8 +72,7 @@ function StudyScripts(props) {
 
     useEffect(() => {
         getScripts(selectedDate);
-    }, []);
-    // }, [selectedDate]);
+    }, [selectedDate]);
     // React Hook useEffect has a missing dependency: 'selectedDate'. Either include it or remove the dependency array ???????????????
 
     return (

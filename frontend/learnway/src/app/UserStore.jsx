@@ -1,13 +1,13 @@
 const userInfo = {
     "userId":"",
     "userEmail":"ccc@ssafy.com",
-    "userPwd":"",
-    "name":"",
-    "birthday":"",
-    "languageId":"KOREAN",
+    "userPwd":"1234",
+    "name":"Yejin",
+    "birthDay":"1995-12-12",
+    "languageId":"Korean",
     "badUser":"",
     "imgUrl":"",
-    "bio":""
+    "bio":"잘부탁드립니다."
   };
   
   function UserStore(state = userInfo, action){

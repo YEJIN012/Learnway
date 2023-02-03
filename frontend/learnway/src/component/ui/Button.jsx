@@ -106,7 +106,7 @@ const BTN4_FILL = styled.button`
     font-weight: ${props=>props.textWeight || '700'};
     border-radius: ${props=>props.radius || '999px'};
     border: transparent;
-    color:  #fffde4;
+    color: #FFFFFF;
     background-color: #005aa7;
     box-shadow: 0px 3px 8px 0px rgba(0, 90, 167, 1);
     cursor: pointer;

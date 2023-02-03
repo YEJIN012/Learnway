@@ -4,26 +4,23 @@ import axios from "axios";
 import FriendListItem from "./FriendListItem";
 
 function FriendList(props) {
-    const { handleSelectedFriend } = props
-    const [friends, setFriends] = useState("");     // 친구들의 이메일Array
+    const { handleSelectedFriend } = props;
+    const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const store = useSelector((state) => state.UserStore);
 
-    async function getFriendList() {
-        try {
-            const response = await axios
-                .get(
-                    "https://i8a408.p.ssafy.io/friend/list"
-                    , {params: { userEmail: store["userEmail"] }}
-                )
+    function getFriendList() {
+        axios
+            .get("api/friend/list",
+                { params: { userEmail: store["userEmail"]}})
             // handle success
-            setFriends(response.data.userEmailList);
-            console.log('getFriendList')
-            console.log(response.data.userEmailList)
-            
-        } catch (error) {
-            // handle error
-            console.log(error);
-        };
+            .then(function (res) {
+                setFriends(res.data.userEmailList);
+                console.log("getFriendList");
+                console.log(res.data.userEmailList);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     const [friendsProfile, setfriendsProfile] = useState([]);
 
@@ -31,9 +28,7 @@ function FriendList(props) {
         const tmp = [];
         for await (const friend of friends) {
             try {
-                const response = await axios.get(
-                    `https://i8a408.p.ssafy.io/users/profile/${friend}`
-                );
+                const response = await axios.get(`api/users/profile/${friend}`);
                 tmp.push(response);
                 console.log("getFriendProfile");
             } catch (error) {
@@ -43,9 +38,13 @@ function FriendList(props) {
         setfriendsProfile(tmp);
     }
 
-    useEffect(() => { getFriendList(); }, []);
-    useEffect(() => { getFriendProfile() }, [friends])
-    
+    useEffect(() => {
+        getFriendList();
+    }, []);
+    useEffect(() => {
+        getFriendProfile();
+    }, [friends]);
+
     return (
         <FriendListItem
             friendsProfile={friendsProfile}

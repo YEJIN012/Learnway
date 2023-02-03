@@ -26,6 +26,10 @@ const TextFrame = styled.textarea`
     radius: 5px;
 `;
 
+const languageCode = {
+
+}
+
 function Translate() {
     const [value, setValue] = useState("");
     const [translatedContent, setTranslatedContent] = useState("");
@@ -34,7 +38,7 @@ function Translate() {
         console.log(props)
         try {
             const response = await axios.post(
-                "https://openapi.naver.com/v1/papago/n2mt",
+                "papagoapi/v1/papago/n2mt",
                 {
                     source: "ko",
                     target: "en",
@@ -49,8 +53,8 @@ function Translate() {
                 }
             );
             // handle success
-            console.log(response.data);
-            setTranslatedContent(response.data);
+            console.log(response.data.message.result.translatedText);
+            setTranslatedContent(response.data.message.result.translatedText);
             console.log("getTranslate");
         } catch (error) {
             // handle error
@@ -63,6 +67,12 @@ function Translate() {
         console.log(value);
         getTranslate(value);
         console.log("handler");
+    };
+
+    const onCheckEnter = (e) => {
+        if(e.key === 'Enter') {
+          getTranslate(value)
+        }
     };
 
     return (
@@ -78,6 +88,7 @@ function Translate() {
                                     setValue(e.target.value);
                                 }}
                                 placeholder="Enter the content to translate."
+                                // onKeyPress={onCheckEnter}
                             ></TextFrame>
                             <TranslateBtn>
                                 <button type="submit">translate</button>
