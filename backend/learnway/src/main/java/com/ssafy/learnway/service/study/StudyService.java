@@ -13,7 +13,6 @@ import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.repository.study.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,8 +78,8 @@ public class StudyService {
         }
     }
 
-    public List<StudyMonthResponseDto> selectStudyMonthList(String userEmail, Date month) throws Exception{
-        User user = userRepository.findByUserEmail(userEmail);
+    public List<StudyMonthResponseDto> selectStudyMonthList(User user, Date month) throws Exception{
+//        User user = userRepository.findByUserEmail(userEmail);
         return studyRepository.selectByUserIdAndMonth(user, month);
     }
 }

@@ -1,9 +1,11 @@
 package com.ssafy.learnway.controller.study;
 
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.dto.study.StudyMonthResponseDto;
 import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
+import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.service.study.StudyService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
@@ -28,6 +30,8 @@ import java.util.List;
 public class StudyController {
 
     private final StudyService studyService;
+
+    private final UserService userService;
 
     //날짜별 채팅내역 조회
     @ApiOperation(value = "학습 정보", notes = "날짜에 대한 학습 기록을 리턴한다.")
@@ -64,7 +68,11 @@ public class StudyController {
     @GetMapping("/month")
     public ResponseEntity listCount(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "study_month") @DateTimeFormat(pattern = "yyyy-MM") Date day) throws SQLException {
         try {
-            List<StudyMonthResponseDto> monthCountList = studyService.selectStudyMonthList(userEmail, day);
+            User user = userService.findByEmail(userEmail);
+            if(user == null){
+                return ResponseHandler.generateResponse("없는 유저입니다", HttpStatus.BAD_REQUEST);
+            }
+            List<StudyMonthResponseDto> monthCountList = studyService.selectStudyMonthList(user, day);
 
 //            for(int i=0; i<monthCountList.size(); i++){
 //                System.out.println(monthCountList.get(i));

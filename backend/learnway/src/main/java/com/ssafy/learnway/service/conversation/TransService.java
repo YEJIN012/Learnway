@@ -37,6 +37,10 @@ public class TransService {
         Language language = languageRepository.findByLanguageName(lng);
         Language studyLanguage = languageRepository.findByLanguageName(studyLng);
 
+        if(language == null || studyLanguage == null){
+            return null;
+        }
+
         for(int i=0; i<sentences.size(); i++){
             // 한국어가 아닐때만 번역 진행 (파파고 api)
             if(!lng.equals("ko")){

@@ -41,9 +41,17 @@ public class ConversationController {
             /////// 해커스로 진행
 
             List<String> sentences = crawingService.crawling(date);
-            
+
+            if(sentences.size() == 0 || sentences == null){
+                return ResponseHandler.generateResponse("오늘의 회화가 없습니다", HttpStatus.NO_CONTENT);
+            }
+
             /// 본인의 언어와 학습 언어로 번역
             ConvTransDto convTransDto = transService.getTransSentence(sentences, lng, studyLng);
+
+            if(convTransDto == null){
+                return ResponseHandler.generateResponse("번역할 수 없는 언어입니다.", HttpStatus.NO_CONTENT);
+            }
 
             return ResponseHandler.generateResponse("오늘의 회화", HttpStatus.OK,"conversation",convTransDto);
         } catch (Exception e) {
