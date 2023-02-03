@@ -1,37 +1,36 @@
-// import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
 import InputBox from '../Input';
-import { registerUser } from '../actions/userAction';
 import AuthEamil from './AuthEamil';
 import Button from '../../../ui/Button';
 
 
-
-export default function SignupForm(props) {
-  // const dispatch = useDispatch();
+export default function SignupForm({getUserinfo}) {
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState();
   const [pw, setPw] = useState("");
   const [confirmPw, setconfirmPw] = useState(""); 
   const [birthday, setbirthday] = useState("");
   const [lagnguae, setlagnguae] = useState("");
   const [disabled, setDisabled] = useState(true);
 
+  // 이메일 인증이 되면 email 갱신
   const getEmail = (email) => {
     setEmail(email)
   }
+
+  // 이메일 값이 들어오면 Next button 활성화
   useEffect(() => {
-    if (!email){
+    if (email){
       setDisabled(false)
     }
   }, [email])
   console.log(email)
 
+
+  // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = (e) => {
     e.preventDefault();
-
 
     if (pw === confirmPw) {
       const data = {
@@ -42,29 +41,11 @@ export default function SignupForm(props) {
           birthDay: birthday,
           language: lagnguae,       // 랭귀지 id  체크
         };
-      
-
-      // dispatch(registerUser(data))
-      //   .then((res)=>{
-      //     if(res.payload.success) {
-      //       props.history.push("/login")
-      //       alert("가입이 정상적으로 완료되었습니다.");
-      //     } else {
-      //       alert("Failed to sign up")
-      //     }
-      //   });
-      // } else {
-      //   alert("비밀번호가 일치하지 않습니다.");
+        getUserinfo(data)           // 정제된 데이터를 부모 컴포넌트에 보내준다.
       }
-    // console.log(data);
-    // console.log(username, email, pw, confirmPw, birthday, lagnguae)
-    // setUsername("");
-    // setemail("");           // 이메일 인증처리 필요 (버튼 누르면 인증 번호 입력창 추가)
-    // setPw("");
-    // setconfirmPw("");
-    // setbirthday("");        // 날짜 string으로 들어옴 yyyy-mm-dd
-    // setlagnguae("");        // 언어도 지정된 언어만 받을 수 있게 해야함
-    // setSuccess(true);
+    else {
+      alert("비밀번호가 다릅니다.")
+    }
   };
 
   return(

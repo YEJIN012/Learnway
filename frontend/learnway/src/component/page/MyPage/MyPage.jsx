@@ -4,7 +4,7 @@ import NavBar from "../../ui/NavBar";
 import MyPageTab from "./MyPageTab";
 
 const Background = styled.div`
-    background-color: #fefdf7;
+    background-color: #fffde4;
     height: 100vh;
 `
 

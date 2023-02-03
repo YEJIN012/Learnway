@@ -15,18 +15,18 @@ function SelectLanguage(){
     
     //API에서 옵션 목록 가져오는 함수
     function dropdownBoxRenderer(){
-        axios.get("https://80f27692-7e52-46ad-a320-53e24b5e4a28.mock.pstmn.io/users/language")
+        axios.get("api/users/language")
         .then(function(res){
             const data = res.data.language;
             console.log(data);
             
             const options=[];
             for(let i = 0; i < data.length; i++){
-                options.push(<option key={i} value={data[i]}>{data[i]}</option>);
+                options.push(<option key={data[i].languageId} value={data[i].name}>{data[i].name}</option>);
             }
             setOptionList(options);
         }).catch(function(err){
-            alert("API 접속 에러");
+            console.log(err);
         });
     }
 
