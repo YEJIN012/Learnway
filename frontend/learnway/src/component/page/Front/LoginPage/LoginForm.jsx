@@ -5,9 +5,7 @@ import InputBox from '../Input';
 import Button from '../../../ui/Button';
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, accessToken } from '../actions/userAction';
-import axios from 'axios';
 import { setRefreshToken } from '../utils/Cookie';
-import { SET_TOKEN } from '../utils/Auth';
 
 const Owframe = styled.div`
   display: flex;
