@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static java.time.LocalDateTime.now;
+
 @Service
 @RequiredArgsConstructor
 public class RoomService {
@@ -26,7 +28,7 @@ public class RoomService {
 
     @Transactional
     public Room createRoom(Friend friend, String roomId){
-        Room room = Room.builder().friend(friend).roomId(roomId).build();
+        Room room = Room.builder().friend(friend).roomId(roomId).msg("").time(now()).build();
         return roomRepository.save(room);
     }
 
@@ -49,6 +51,8 @@ public class RoomService {
                         .relationId(room.getRelationId())
                         .roomId(room.getRoomId())
                         .profileDto(profileDto)
+                        .msg(room.getMsg())
+                        .dateTime(room.getTime())
                         .build()
                 );
             }

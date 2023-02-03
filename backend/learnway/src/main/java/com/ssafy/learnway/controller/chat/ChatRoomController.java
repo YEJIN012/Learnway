@@ -93,9 +93,15 @@ public class ChatRoomController {
     // 채팅방 파괴
     @DeleteMapping("/room/{roomId}")
     public ResponseEntity deleteRoom(@PathVariable String roomId) {
-        chatRoomRepository.deleteChatRoom(roomId); //redis
-        roomService.deleteByRoomId(roomId); //mysql에 있는 chatRoom도 삭제
-        return ResponseHandler.generateResponse("채팅방 삭제 완료", HttpStatus.OK);
+        Room room = roomService.findByRoomId(roomId);
+
+        if(room != null){
+            chatRoomRepository.deleteChatRoom(roomId); //redis
+            roomService.deleteByRoomId(roomId); //mysql에 있는 chatRoom도 삭제
+            return ResponseHandler.generateResponse("채팅방 삭제 완료", HttpStatus.OK);
+        }else{
+            return ResponseHandler.generateResponse("검색된 채팅방이 없습니다.", HttpStatus.ACCEPTED);
+        }
     }
 
     // 특정 채팅방 들어갔을때 채팅방 관련 정보를 전달
