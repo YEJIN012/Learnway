@@ -18,33 +18,30 @@ function ScriptsAccordions(props) {
         setExpanded(isExpanded ? panel : false);
     };
     if (studyList) {
-
         return studyList.map((study, index) => (
             <Accordion
-            key={index}
-            expanded={expanded === `panel${index}`}
-            onChange={handleChange(`panel${index}`)}
+                key={index}
+                expanded={expanded === `panel${index}`}
+                onChange={handleChange(`panel${index}`)}
             >
-            <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
                 >
-                <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                    friendID: {study.friendId}
-                </Typography>
-                <Typography sx={{ color: "text.secondary" }}>
-                    {study.script}
-                </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-                <Typography>
-                    {study.script}
-                </Typography>
-            </AccordionDetails>
-        </Accordion>
-    ));
-}
+                    <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                        friendID: {study.friendId}
+                    </Typography>
+                    <Typography sx={{ color: "text.secondary" }}>
+                        {study.script}
+                    </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Typography>{study.script}</Typography>
+                </AccordionDetails>
+            </Accordion>
+        ));
+    }
 }
 
 function StudyScripts(props) {
@@ -53,15 +50,15 @@ function StudyScripts(props) {
     const [studyList, setstudyList] = useState([]);
 
     function getScripts(props) {
-        console.log('getScripts')
-        console.log(props)
-        const date = moment(props).format("YYYY-MM-DD")
-        console.log(date, typeof(date))
+        console.log("getScripts");
+        console.log(props);
+        const date = moment(props).format("YYYY-MM-DD");
+        console.log(date, typeof date);
         axios
-            .post(
-                "api/study/day",
-                { date: date , userEmail: store["userEmail"] }
-            )
+            .post("api/study/day", {
+                date: date,
+                userEmail: store["userEmail"],
+            })
             .then(function (res) {
                 setstudyList(res.data.studyList);
             })
@@ -73,16 +70,12 @@ function StudyScripts(props) {
     useEffect(() => {
         getScripts(selectedDate);
     }, [selectedDate]);
-    // React Hook useEffect has a missing dependency: 'selectedDate'. Either include it or remove the dependency array ???????????????
 
     return (
-        <div className="-column">
-            <div>
-                <div className="subtitle">Scripts</div>
-                {moment(selectedDate).format("YYYY년 MM월 DD일")}
-            </div>
+        <>
+            {moment(selectedDate).format("YYYY년 MM월 DD일")}
             <ScriptsAccordions studyList={studyList} />
-        </div>
+        </>
     );
 }
 

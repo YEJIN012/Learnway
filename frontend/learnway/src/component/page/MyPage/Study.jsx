@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import axios from "axios";
-import StudyScripts from "./StudyScripts";
 import moment from "moment/moment";
 import "react-calendar/dist/Calendar.css";
-import "../../ui/mypage.css";
 
-function MyCalendar(props) {
+function Study(props) {
+    const { handleSelectedDate } = props;
     const store = useSelector((state) => state.UserStore);
 
     // value : 선택된 일자
@@ -22,9 +21,12 @@ function MyCalendar(props) {
     // 해당 년월 학습일자(학습량) 조회
     function getMonthlyLog({ year, month }) {
         axios
-            .get(
-                "api/study/month",
-                { params: {user_email: store["userEmail"], study_month: `${year}-${month}`} })
+            .get("api/study/month", {
+                params: {
+                    user_email: store["userEmail"],
+                    study_month: `${year}-${month}`,
+                },
+            })
             .then(function (res) {
                 const data = res.data.monthCountList;
                 console.log("getMonthlyLog", year, month);
@@ -35,7 +37,7 @@ function MyCalendar(props) {
                         // {기록이 남은 일자: 학습량}으로 재가공
                     }
                 }
-                console.log(logDay)
+                console.log(logDay);
                 setMark(logDay);
             })
             .catch(function (error) {
@@ -55,42 +57,33 @@ function MyCalendar(props) {
                 month: value.getMonth() + 1,
             };
         }
-        console.log(viewYearDate)
+        console.log(viewYearDate);
         getMonthlyLog(viewYearDate);
     }, [viewValue]);
 
-    return (
-        <div className="wrapper-row">
-            <div>
-                <div className="subtitle">Calendar</div>
-                <Calendar
-                    style={{ height: 500 }}
-                    className="white-card"
-                    onChange={setValue}
-                    onActiveStartDateChange={setViewValue} // 유저의 action으로 인해 바뀌는 캘린더view정보 -> { action, activeStartDate, value, view }
-                    value={value} // 선택된 일자
-                    showNeighboringMonth={false}
-                    tileClassName={({ date, view }) => {
-                        // 해당 달의 일자에만 표시
-                        const day = moment(date).format("YYYY-MM-DD")
-                        if (day in mark) {
-                            if (mark[day] < 3) {
-                                return "highlight-low";
-                            } else if (mark[day] >= 3) {
-                                return "highlight-high";
-                            }
-                        }
-                    }}
-                />
-            </div>
-            <StudyScripts selectedDate={value} />
-        </div>
-    );
-}
+    useEffect(() => {
+        handleSelectedDate(value);
+    }, [value]);
 
-function Study() {
     return (
-        <MyCalendar />
+        <Calendar
+            style={{ height: 500 }}
+            onChange={setValue}
+            onActiveStartDateChange={setViewValue} // 유저의 action으로 인해 바뀌는 캘린더view정보 -> { action, activeStartDate, value, view }
+            value={value} // 선택된 일자
+            showNeighboringMonth={false}
+            tileClassName={({ date }) => {
+                // 해당 달의 일자에만 표시
+                const day = moment(date).format("YYYY-MM-DD");
+                if (day in mark) {
+                    if (mark[day] < 3) {
+                        return "highlight-low";
+                    } else if (mark[day] >= 3) {
+                        return "highlight-high";
+                    }
+                }
+            }}
+        />
     );
 }
 

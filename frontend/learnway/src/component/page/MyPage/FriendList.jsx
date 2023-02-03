@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
 
 function FriendList(props) {
     const { handleSelectedFriend } = props;
-    const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const store = useSelector((state) => state.UserStore);
+    const [friends, setFriends] = useState(""); // 친구들의 이메일Array
 
     function getFriendList() {
         axios
@@ -46,9 +47,24 @@ function FriendList(props) {
     }, [friends]);
 
     return (
-        <FriendListItem
-            friendsProfile={friendsProfile}
-            handleSelectedFriend={handleSelectedFriend}
+        <Paper
+            elevation={3}
+            children={
+                <FriendListItem
+                    friendsProfile={friendsProfile}
+                    handleSelectedFriend={handleSelectedFriend}
+                />
+            }
+            sx={{
+                borderRadius: "35px",
+                width: "30vw",
+                height: "50vh",
+                display: "flex",
+                flexDirection: "row",
+                boxSizing: "border-box",
+                paddingX: "2vw",
+                paddingY: "5vw",
+            }}
         />
     );
 }

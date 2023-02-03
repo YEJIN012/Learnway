@@ -16,7 +16,7 @@ function FriendListItem(props) {
     // console.log(friendsProfile);
 
     return friendsProfile.map((friend, index) => (
-        <Item onClick={(e) => handleSelectedFriend(e, friend.data.profile)} key={index}>
+        <Item onClick={() => handleSelectedFriend(friend.data.profile)} key={index}>
             <ProfileImg src={friend.data.profile.img_url} width={50} />
             <div>{friend.data.profile.name}</div>
             <div>{friend.data.profile.language.name}</div>
