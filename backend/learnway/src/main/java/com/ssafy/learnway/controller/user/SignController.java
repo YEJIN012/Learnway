@@ -86,6 +86,9 @@ public class SignController {
             userDto.setImgUrl("cloud.aws.s3.bucket.urlfac88aa1aaf644e28c109cfd96250b68.png"); // 기본 이미지
 
             userService.signUp(userDto);
+
+            //UserDto savedUserDto = userService.userInfo(userDto.getUserEmail());
+
             return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userDto);
         } catch (Exception e) {
             e.printStackTrace();
