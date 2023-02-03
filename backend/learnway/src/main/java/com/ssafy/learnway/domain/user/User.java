@@ -1,6 +1,5 @@
 package com.ssafy.learnway.domain.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
@@ -11,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -24,6 +20,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 @ToString
+@Setter
 public class User extends BaseTime implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
@@ -32,8 +29,9 @@ public class User extends BaseTime implements UserDetails {
     @Column(name="user_email", nullable = false)
     private String userEmail;
 
+    // Json결과로 출력 안 할 데이터
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name="user_pwd", nullable = false)
+    @Column(name="user_pwd")
     private String userPwd;
 
     @Column(nullable = false)
@@ -43,13 +41,13 @@ public class User extends BaseTime implements UserDetails {
     //@Temporal(TemporalType.DATE) //년-월-일 의 date 타입
     private LocalDate birthday;
 
-    //@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) // 하나의 언어는 여러명의 사용자를 가진다?
-    @JoinColumn(name="languageId")
+    @JoinColumn(name="languageId",nullable = false)
     private Language languageId;
 
     @Column(columnDefinition = "TINYINT", length=1)
     private boolean badUser;
+
 
 //    @Temporal(TemporalType.TIMESTAMP) //date + time
 //    @Column(name="register_time")
@@ -58,6 +56,11 @@ public class User extends BaseTime implements UserDetails {
     private String imgUrl;
     private String bio;
 
+    private String provider; // "google"
+    private String providerId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
+    // private String socialType; // "google"
+
+   //private String socialId; // 로그인한 소셜 타입의 식별자 값 (일반 로그인인 경우 null). google 경우 attribute 중 sub 부분!
 
     /**
      * Spring Security 회원 가입
@@ -66,7 +69,7 @@ public class User extends BaseTime implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    // roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
+     //roles회원이 가지고 있는 권한 정보. 기본으로 "ROLE_USER" 세팅
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
@@ -113,12 +116,27 @@ public class User extends BaseTime implements UserDetails {
         return true;
     }
 
-    public void update(String name, LocalDate birthday, Language languageId, String imgUrl, String bio ) {
+    public void update(String name, LocalDate birthday, Language languageId, String bio ) {
         this.name = name;
         this.birthday = birthday;
         this.languageId = languageId;
         this.imgUrl = imgUrl;
         this.bio = bio;
+    }
+
+    public void update(String userPwd){
+        this.userPwd = userPwd;
+    }
+
+    public void updateImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
+    }
+
+    public User update(String userEmail, String userPwd, String name){
+        this.userEmail = userEmail;
+        this.userPwd = userPwd;
+        this.name = name;
+        return this;
     }
 
 }

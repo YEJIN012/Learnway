@@ -1,10 +1,7 @@
 package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.InterestDto;
-import com.ssafy.learnway.dto.LanguageDto;
-import com.ssafy.learnway.dto.ProfileDto;
-import com.ssafy.learnway.dto.UserDto;
+import com.ssafy.learnway.dto.*;
 import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
@@ -14,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @Api(tags = {"users"})
@@ -65,7 +64,7 @@ public class UserController {
 
     // 회원 정보 수정
     @PutMapping("/modify")
-    public ResponseEntity modifyUser(@RequestBody UserDto userDto) {
+    public ResponseEntity modifyUser(@RequestPart UserDto userDto, @RequestPart(value = "image", required = false) final MultipartFile multipartFile) {
         // 정보 미입력시 리턴
         if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")||userDto.getUserPwd().equals("")){
             return ResponseHandler.generateResponse("회원가입 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
@@ -87,7 +86,7 @@ public class UserController {
                 }
             }
 
-            userService.modifyUser(userDto);
+            userService.modifyUser(userDto,multipartFile);
 
             UserDto responseUserDto = userService.userInfo(userDto.getUserEmail());
             return ResponseHandler.generateResponse("회원 정보가 수정되었습니다.", HttpStatus.ACCEPTED, "user", responseUserDto);
@@ -130,4 +129,24 @@ public class UserController {
             return ResponseHandler.generateResponse("언어 리스트 조회에 실패하였습니다.",HttpStatus.ACCEPTED);
         }
     }
+
+    // 비밀번호 수정
+    // 비밀번호 찾기 후 수정 : 이메일 인증(userEmail)후, userEmail과 newPassword, newPasswordConfirm
+    // 회원 정보에서 비밀번호 수정 : userEmail, newPassword, newPasswordConfirm
+    @PutMapping("/modify/userPwd")
+    public ResponseEntity modifyPwd(@RequestBody PwdDto pwdDto){
+        try {
+            if(!pwdDto.getNewPassword().equals(pwdDto.getNewPasswordConfirm())) {
+                return ResponseHandler.generateResponse("입력한 새 패스워드가 일치하지 않습니다.", HttpStatus.ACCEPTED, "pwd", pwdDto);
+            }
+            pwdDto.setNewPassword(passwordEncoder.encode(pwdDto.getNewPasswordConfirm()));
+
+            userService.modifyPwd(pwdDto);
+
+            return ResponseHandler.generateResponse("비밀번호가 수정되었습니다.",HttpStatus.ACCEPTED);
+        } catch (Exception e){
+            return ResponseHandler.generateResponse("비밀번호 수정에 실패하였습니다.",HttpStatus.ACCEPTED);
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import com.ssafy.learnway.domain.RefreshToken;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.domain.user.UserInterest;
 import com.ssafy.learnway.dto.*;
+import com.ssafy.learnway.exception.S3FileUploadException;
 import com.ssafy.learnway.exception.TokenValidFailedException;
 import com.ssafy.learnway.exception.UserNotFoundException;
 import com.ssafy.learnway.repository.*;
@@ -15,7 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,9 @@ public class UserService {
     @Autowired
     private LanguageRepository languageRepository;
 
+    @Autowired
+    private S3FileUploadService s3FileUploadService;
+
     @Transactional
     public TokenDto login(String userEmail, String userPwd) throws SQLException {
 
@@ -70,6 +76,29 @@ public class UserService {
 
         return tokenDto;
     }
+
+    @Transactional
+    public TokenDto oAuthLogin(String userEmail) throws SQLException {
+
+        User user = userRepository.findByUserEmail(userEmail);
+
+
+        // 유저 정보와 유저 권한이 담긴 token 생성. UserNamePasswordAuthentication Token 생성
+        // String token = jwtTokenProvider.createToken(String.valueOf(user.getUserId()), user.getRoles());
+
+        // AccessToken, RefreshToken 발급
+        TokenDto tokenDto = jwtTokenProvider.createTokenDto(user.getUserId(),user.getRoles());
+
+        RefreshToken refreshToken = RefreshToken.builder()
+                .userKey(user.getUserId())
+                .token(tokenDto.getRefreshToken())
+                .build();
+
+        refreshTokenRepository.save(refreshToken);
+
+        return tokenDto;
+    }
+
     @Transactional
     public UserDto userInfo (String userEmail){
         User user = userRepository.findByUserEmail(userEmail);
@@ -101,7 +130,7 @@ public class UserService {
     }
 
     @Transactional
-    public void signUp(UserDto userDto) throws SQLException {
+    public void signUp(UserDto userDto) {
 
         if(userRepository.findByUserEmail(userDto.getUserEmail())==null){
             User user = userRepository.save(userDto.toEntity());
@@ -114,7 +143,6 @@ public class UserService {
 
             }
         }
-        else throw new SQLException();
     }
 
     @Transactional
@@ -160,12 +188,20 @@ public class UserService {
     }
 
     @Transactional
-    public void modifyUser(UserDto userDto) {
+    public void modifyUser(UserDto userDto, MultipartFile multipartFile) {
 
         // 맞는 유저 가져오기
         User user = userRepository.findByUserEmail(userDto.getUserEmail());
 
-        user.update(userDto.getName(), userDto.getBirthDay(), userDto.getLanguage().toEntity(), userDto.getImgUrl(),userDto.getBio());
+        try{
+            if (multipartFile != null) {
+                user.updateImgUrl(s3FileUploadService.upload(multipartFile));
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        user.update(userDto.getName(), userDto.getBirthDay(), userDto.getLanguage().toEntity(), userDto.getBio());
 
         userInterestRepository.deleteAllByUserId(user);
 
@@ -230,4 +266,18 @@ public class UserService {
 
         return languageDtos;
     }
+    @Transactional
+    public void modifyPwd (PwdDto pwdDto) {
+        User user = userRepository.findByUserEmail(pwdDto.getUserEmail());
+
+        System.out.println(pwdDto.getNewPassword());
+        user.update(pwdDto.getNewPassword());
+
+    }
+
+//    @Transactional
+//    public User findBySocialTypeAndSocialId(String socialType, String socialId){
+//        return userRepository.findBySocialTypeAndSocialId(socialType,socialId).orElse(null);
+//    }
+
 }
