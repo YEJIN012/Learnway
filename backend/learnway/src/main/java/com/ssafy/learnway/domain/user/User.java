@@ -1,5 +1,6 @@
 package com.ssafy.learnway.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.learnway.domain.BaseTime;
 import com.ssafy.learnway.domain.Language;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 접근 권한을 막는다.
 @Table(name = "tb_user")
 @ToString
-@Setter
 public class User extends BaseTime implements UserDetails {
     @GeneratedValue(strategy=GenerationType.IDENTITY) //기본키 생성을 데이터베이스에 위임 AUTO_INCREMENT
     @Column(name="user_id", nullable = false)
@@ -47,7 +47,6 @@ public class User extends BaseTime implements UserDetails {
 
     @Column(columnDefinition = "TINYINT", length=1)
     private boolean badUser;
-
 
 //    @Temporal(TemporalType.TIMESTAMP) //date + time
 //    @Column(name="register_time")
@@ -124,6 +123,9 @@ public class User extends BaseTime implements UserDetails {
         this.bio = bio;
     }
 
+    public void updateBadUser(boolean badUser){
+        this.badUser = badUser;
+    }
     public void update(String userPwd){
         this.userPwd = userPwd;
     }

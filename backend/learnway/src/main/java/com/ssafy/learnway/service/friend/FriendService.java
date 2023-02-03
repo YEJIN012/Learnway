@@ -1,8 +1,8 @@
-package com.ssafy.learnway.service;
+package com.ssafy.learnway.service.friend;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.repository.FriendRepository;
+import com.ssafy.learnway.repository.friend.FriendRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,7 @@ public class FriendService {
         List<Friend> friendListByFID = friendRepository.findAllByFriendId(user);
         List<Friend> friendList = new ArrayList<>();
 
-        if (friendListByUID.isEmpty() && friendListByFID.isEmpty()) {
+        if (!friendListByUID.isEmpty() && !friendListByFID.isEmpty()) { //둘 경우 다  검색됨
             return Stream.concat(friendListByUID.stream(), friendListByFID.stream()).toList();
         } else if (friendListByUID.isEmpty() && !friendListByFID.isEmpty()) {
             return friendListByFID;
@@ -46,7 +46,13 @@ public class FriendService {
 
     @Transactional(readOnly = true)
     public Friend findById(User userId, User friendId) {
-        return friendRepository.findByUserIdAndFriendId(userId, friendId);
+        // 한 번만 저장되었기 때문에 두번 탐색을 진행해야 한다.
+        Friend friend = friendRepository.findByUserIdAndFriendId(userId, friendId);
+        if(friend == null){
+            return friendRepository.findByUserIdAndFriendId(friendId, userId);
+        }else{
+            return friend;
+        }
     }
 
     @Transactional(readOnly = true)

@@ -1,9 +1,12 @@
 package com.ssafy.learnway.domain.friend;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,12 +22,19 @@ public class Room {
     @MapsId // @MapsId는 @id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="relation_id")
+    @JsonIgnore
     private Friend friend;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    private String roomId;
+
     @Column(name="last_sent")
-    private Date time;
+    private LocalDateTime time;
 
     @Column(name="last_msg")
     private String msg;
+
+    public void updateRoom(LocalDateTime time, String msg){
+        this.time = time;
+        this.msg = msg;
+    }
 }

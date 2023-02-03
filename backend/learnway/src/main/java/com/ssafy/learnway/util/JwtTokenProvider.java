@@ -1,6 +1,8 @@
 package com.ssafy.learnway.util;
 
+import antlr.Token;
 import com.ssafy.learnway.dto.TokenDto;
+import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class JwtTokenProvider {
-
     @Value("jwt.secret")
     private String secretKey;
     private String ROLES = "roles";
@@ -28,7 +29,10 @@ public class JwtTokenProvider {
     private long refreshtokenValidTime =  14 * 24 * 60 * 60 * 1000L; // 14 days
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // 객체 초기화, secretKey를 Base64로 인코딩한다. 아이디와 비번 정보를 인코딩하는 것!
     @PostConstruct
@@ -59,6 +63,7 @@ public class JwtTokenProvider {
         // Claims에 user구분을 위해 값 세팅
         Claims claims = Jwts.claims().setSubject(String.valueOf(userPk)); // JWT payload 에 저장되는 정보단위 (sub)
         claims.put(ROLES, roles); // 정보는 key / value 쌍으로 저장
+        claims.put("user_id",userPk); // user_id 값 저장
 
         Date now = new Date(); // 생성 날짜, 만료 날짜를 위한 Date
 
@@ -85,10 +90,16 @@ public class JwtTokenProvider {
     }
 
     // 토큰에서 회원 정보 추출
-//    public String getUserPk(String token) {
-//        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
-//    }
-//
+    public String getUserPk(String token) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+    }
+
+    // JWT 복호화 해서 id 얻기
+    public Long getUserIdFromJwt(String token) {
+        Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+        return Long.parseLong(String.valueOf(claims.getBody().get("user_id")));
+    }
+
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
 
@@ -114,7 +125,7 @@ public class JwtTokenProvider {
         }
     }
 
-    // Http request의 Header에서 token 값을 가져와 유효성 검사 진행 ( token parsing -> "X-AUTH-TOKEN:token(jwt)"
+    // Http Request의 Header에서 token 값을 가져와 유효성 검사 진행 ( token parsing -> "X-AUTH-TOKEN" : "TOKEN값 (jwt)'
     // 제한된 리소스에 접근할 때 HTTP Header에 토큰 세팅하여 호출하면 유효성 검사 통해 사용자 인증 받음
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader("X-AUTH-TOKEN");

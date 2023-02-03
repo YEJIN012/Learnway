@@ -28,7 +28,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Autowired
     private UserInterestRepository userInterestRepository;
 
@@ -104,7 +103,10 @@ public class UserService {
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+        LanguageDto languageDto = LanguageDto.builder()
+                .languageId(language.getLanguageId())
+                .name(language.getLanguageName())
+                .code(language.getLanguageCode()).build();
 
         List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
 
@@ -148,6 +150,11 @@ public class UserService {
     @Transactional
     public User findByEmail(String userEmail) throws SQLException{
         return userRepository.findByUserEmail(userEmail);
+    }
+
+    @Transactional
+    public User findById(Long userId) throws SQLException{
+        return userRepository.findByUserId(userId);
     }
 
     @Transactional
@@ -219,7 +226,7 @@ public class UserService {
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build();
+        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getLanguageName()).build();
 
         List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
 
@@ -261,7 +268,7 @@ public class UserService {
         List<LanguageDto> languageDtos = new ArrayList<>();
 
         for(Language language : languages){
-            languageDtos.add(LanguageDto.builder().languageId(language.getLanguageId()).name(language.getName()).build());
+            languageDtos.add(LanguageDto.builder().languageId(language.getLanguageId()).name(language.getLanguageName()).code(language.getLanguageCode()).build());
         }
 
         return languageDtos;
