@@ -54,10 +54,9 @@ function LoginForm (props) {
       userEmail: userEmail,
       userPwd: userPwd
     };
-    console.log(body)
+    /* console.log(body) */
     dispatch(loginUser(body)).payload
       .then((res) =>{
-        console.log(res)
         const status = res.status
         const msg = res.msg
         if (status === 200) {

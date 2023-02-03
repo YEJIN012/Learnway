@@ -21,6 +21,7 @@ export default function TokenReducer(state=initialState, action) {
       state.accessToken = null;
       state.expireTime = null;
       return state;
+      
     default:
       return state
   }
