@@ -1,5 +1,6 @@
 package com.ssafy.learnway.util;
 
+import antlr.Token;
 import com.ssafy.learnway.dto.TokenDto;
 import com.ssafy.learnway.repository.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
@@ -56,7 +57,7 @@ public class JwtTokenProvider {
 //    }
 
     // JWT 토큰 생성
-    public TokenDto createTokenDto(Long userPk, List<String> roles) { //userPk = user_id
+    public TokenDto createTokenDto(Long userPk, List<String> roles) {
 
         // Claims은 token에 부가적인 정보 담을 수 있음
         // Claims에 user구분을 위해 값 세팅
