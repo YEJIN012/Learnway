@@ -3,8 +3,6 @@ import interest from "../../../ui/Interest.json"
 import SelectBtn from "./InterestIcon";
 import styled from 'styled-components';
 
-
-
 const SelectFrame = styled.div`
   width: 382px;
   height: 599px;
@@ -14,7 +12,7 @@ const SelectFrame = styled.div`
 
 `;
 
-export default function InterestSelect() {
+export default function InterestSelect({getItobj}) {
   const textdata = interest.interests
   var [lst, setLst] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   

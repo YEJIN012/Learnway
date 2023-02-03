@@ -6,7 +6,8 @@ const USER_URL = "/users";
 
 // 로그인 데이터 저장
 export function loginUser(dataToSubmit) {
-  const data = request("get", USER_URL + "/login", dataToSubmit);
+  const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`
+  const data = request("get", URL , dataToSubmit);
   console.log(data)
   return {
     type: LOGIN_USER,

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InterestSelect from './InterestSelect';
 
 // import { useDispatch } from "react-redux";
 // import { registerUser } from '../actions/userAction';
-export default function Interest(props) {
+export default function Interest(userinfo) {
+  console.log(userinfo)
+  const [itobj, setItobj] = useState();
+
+  const getItobj = (itobj) => {
+    setItobj(itobj)
+  }
   // const dispatch = useDispatch();
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -19,11 +25,10 @@ export default function Interest(props) {
   //     } else {
   //       alert("비밀번호가 일치하지 않습니다.");
   // }
-  console.log(props)
   return (
     <div>
       <h1>나는 취향설정이야</h1>
-      <InterestSelect></InterestSelect>
+      <InterestSelect getItobj={getItobj}></InterestSelect>
     </div>
   )
 }

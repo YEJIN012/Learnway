@@ -45,14 +45,14 @@ const BtnFrame = styled.div`
 function LoginForm (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState("");
-  const [userPwd, setUserPwd] = useState("");
+  const [email, setEmail] = useState("");
+  const [pw, setPwd] = useState("");
   
   const handleSubmit = (e) => {
     e.preventDefault();
     let body = {
-      userEmail: userEmail,
-      userPwd: userPwd
+      userEmail: email,
+      userPwd: pw
     };
     /* console.log(body) */
     dispatch(loginUser(body)).payload
@@ -84,8 +84,8 @@ function LoginForm (props) {
             type="email"
             title="E-mail"
             placeholder="abcdef@dfd.com"
-            onChange={(e) => {setUserEmail(e.target.value)}}
-            value={userEmail}
+            onChange={(e) => {setEmail(e.target.value)}}
+            value={email}
             // ref={userRef}
             // onKeyUp={changeButton}
           ></InputBox>
@@ -94,8 +94,8 @@ function LoginForm (props) {
             type="password"
             title="Password"
             placeholder="********"
-            onChange={(e) => {setUserPwd(e.target.value)}}
-            value={userPwd}
+            onChange={(e) => {setPwd(e.target.value)}}
+            value={pw}
             // onKeyUp={changeButton}
           ></InputBox>
           <Owframe>
