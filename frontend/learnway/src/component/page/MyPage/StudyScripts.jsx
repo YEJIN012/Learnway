@@ -1,107 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../../ui/mypage.css";
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import moment from "moment";
+import axios from "axios";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-function ScriptsAccordions() {
-    const [expanded, setExpanded] = React.useState(false);
-  
+function ScriptsAccordions(props) {
+    const studyList = props.studyList;
+    console.log(studyList);
+    const [expanded, setExpanded] = useState(false);
+
     const handleChange = (panel) => (event, isExpanded) => {
-      setExpanded(isExpanded ? panel : false);
+        setExpanded(isExpanded ? panel : false);
     };
-  
-    return (
-      <div>
-        <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              General settings
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>I am an accordion</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-              Aliquam eget maximus est, id dignissim quam.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Users</Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              You are currently not an owner
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
-              varius pulvinar diam eros in elit. Pellentesque convallis laoreet
-              laoreet.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>
-              Advanced settings
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              Filtering has been entirely disabled for whole web server
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-              amet egestas eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Typography sx={{ width: '33%', flexShrink: 0 }}>Personal data</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
-              amet egestas eros, vitae egestas augue. Duis vel est augue.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </div>
-    );
-  }
 
+    return studyList.map((study, index) => (
+        <Accordion
+            key={index}
+            expanded={expanded === `panel${index}`}
+            onChange={handleChange(`panel${index}`)}
+        >
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1bh-content"
+                id="panel1bh-header"
+            >
+                <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                    friendID: {study.friendId}
+                </Typography>
+                <Typography sx={{ color: "text.secondary" }}>
+                    {study.script}
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Typography>
+                    {study.script}
+                </Typography>
+            </AccordionDetails>
+        </Accordion>
+    ));
+}
 
-function StudyScripts() {
+function StudyScripts(props) {
+    const { selectedDate } = props;
+    const [studyList, setstudyList] = useState([]);
+
+    function getScripts({ date }) {
+        axios
+            .get(
+                "https://i8a408.p.ssafy.io/v2/api-docs/study/day",
+                { date: { date }, userEmail: "12@gmail.com" }
+            )
+            .then(function (res) {
+                setstudyList(res.data.studyList);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    useEffect(() => {
+        getScripts(selectedDate);
+    }, []);
+    // }, [selectedDate]);
+    // React Hook useEffect has a missing dependency: 'selectedDate'. Either include it or remove the dependency array ???????????????
+
     return (
         <div className="-column">
             <div>
                 <div className="subtitle">Scripts</div>
+                {moment(selectedDate).format("YYYY년 MM월 DD일")}
             </div>
-            <ScriptsAccordions/>
-
+            <ScriptsAccordions studyList={studyList} />
         </div>
     );
 }
 
-export default StudyScripts
+export default StudyScripts;

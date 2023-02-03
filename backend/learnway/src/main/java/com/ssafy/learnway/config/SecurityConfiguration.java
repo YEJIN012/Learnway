@@ -18,9 +18,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity // spring security를 구성하는 기본적인 기능을 자동으로 빌딩
@@ -116,6 +113,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
                  .and()
                  .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());  // spring securiy 에러(권한 없음)
-
      }
 }
