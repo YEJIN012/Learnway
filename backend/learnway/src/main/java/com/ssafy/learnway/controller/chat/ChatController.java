@@ -8,18 +8,19 @@ import com.ssafy.learnway.service.UserService;
 import com.ssafy.learnway.service.chat.ChatService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.JwtTokenProvider;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.Optional;
 
+@Api(tags = {"chatMessage"})
 @Slf4j
 @RequiredArgsConstructor
 @CrossOrigin(origins="*")

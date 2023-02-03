@@ -1,10 +1,7 @@
 package com.ssafy.learnway.dto;
 
 import com.ssafy.learnway.domain.Language;
-import com.ssafy.learnway.domain.user.User;
 import lombok.*;
-
-import java.util.Collections;
 
 @Setter
 @Getter
