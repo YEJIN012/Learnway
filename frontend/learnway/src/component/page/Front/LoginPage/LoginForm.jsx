@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import { useDispatch } from "react-redux";
-import { loginUser } from '../actions/userAction';
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser, accessToken } from '../actions/userAction';
+import { setRefreshToken } from '../utils/Cookie';
 
 const Owframe = styled.div`
   display: flex;
@@ -12,7 +13,7 @@ const Owframe = styled.div`
   align-items: center;
   justify-content: space-between;  
   width: 20vw;
-  heght: 3vh;
+  height: 3vh;
 `;
 
 const CheckBoxFrame = styled.div`
@@ -41,27 +42,36 @@ const BtnFrame = styled.div`
 // email : A4081004@ssafy.com
 // password : 1234
 
-
 function LoginForm (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [email, setEamil] = useState("");
-  const [pw, setPw] = useState("");
-
+  const [userEmail, setUserEmail] = useState("");
+  const [userPwd, setUserPwd] = useState("");
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    let data = {
-      userEamil: email,
-      userPwd: pw
+    let body = {
+      userEmail: userEmail,
+      userPwd: userPwd
     };
-    dispatch(loginUser(data)).payload
+    console.log(body)
+    dispatch(loginUser(body)).payload
       .then((res) =>{
-        // console.log(res)
-        if ( typeof(res) === "undefined"){
-          alert("이메일 혹은 비밀번호가 틀렸습니다.")
-        } else {
+        console.log(res)
+        const status = res.status
+        const msg = res.msg
+        if (status === 200) {
+
+          // 쿠키에 Refresh Token, store에 Access Token 저장
+          setRefreshToken(res.token.refreshToken);
+          dispatch(accessToken(res.token.accessToken));
+
+          // 성공했으면 메인 페이지로 이동
           navigate(`/`)
-          alert("가입이 정상적으로 완료되었습니다");
+          alert(msg);
+        } else if (status === 202) {
+          // 아이디 비밀번호가 틀린 경우,
+          alert(msg)
         }
       });
     };
@@ -75,8 +85,8 @@ function LoginForm (props) {
             type="email"
             title="E-mail"
             placeholder="abcdef@dfd.com"
-            onChange={(e) => {setEamil(e.target.value)}}
-            value={email}
+            onChange={(e) => {setUserEmail(e.target.value)}}
+            value={userEmail}
             // ref={userRef}
             // onKeyUp={changeButton}
           ></InputBox>
@@ -85,8 +95,8 @@ function LoginForm (props) {
             type="password"
             title="Password"
             placeholder="********"
-            onChange={(e) => {setPw(e.target.value)}}
-            value={pw}
+            onChange={(e) => {setUserPwd(e.target.value)}}
+            value={userPwd}
             // onKeyUp={changeButton}
           ></InputBox>
           <Owframe>

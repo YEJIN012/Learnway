@@ -8,22 +8,25 @@ import MainStore from './app/MainStore';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import AuthReducer from './app/AuthReducer';
+import { CookiesProvider } from 'react-cookie';
+import TokenReducer from './app/TokenReducer';
 
 const rootReducer = combineReducers({
   UserStore,
   MainStore,
   AuthReducer,
+  TokenReducer,
 });
 
 let store = createStore(rootReducer)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  
+  <CookiesProvider>
     <Provider store={store}>
-      <App />
+        <App />
     </Provider>
-  
+  </CookiesProvider>,
 );
 
 
