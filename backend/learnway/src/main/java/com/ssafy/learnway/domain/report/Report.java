@@ -29,6 +29,8 @@ public class Report extends BaseTime {
     @JoinColumn(name="report_id")
     private ReportDetail reportId;
 
+    private String etc;
+
 //    @Column(name="report_datetime")
 //    private Date regDate;
 }
