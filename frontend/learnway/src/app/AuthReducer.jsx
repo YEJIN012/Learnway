@@ -11,6 +11,8 @@ const userInfo = {
   "imgUrl":"",
   "interests":"",
   "bio":"",
+  "provider": "",
+  "providerId": "",
 };
 
 

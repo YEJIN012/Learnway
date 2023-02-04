@@ -1,10 +1,43 @@
-import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, AUTH_USER, SET_TOKEN, DELETE_TOKEN } from "./types";
+import { LOGIN_USER, LOGOUT_USER, SET_TOKEN, DELETE_TOKEN } from "./types";
+import { REGISTER_USER, GET_INTEREST, GET_LANGUAGE } from "./types";
+
 import { request } from "../utils/axios";
 
 // const USER_URL = "/api/user";
 const USER_URL = "/users";
 
-// 로그인 데이터 저장
+// language 데이터 가져오기
+export function languageLst() {
+  const URL = USER_URL + '/language'
+  const data = request("get", URL)
+  return {
+    type: GET_LANGUAGE,
+    payload: data
+  }
+}
+
+// Interst 데이터 가져오기
+export function interestLst() {
+  const URL = USER_URL + '/interest';
+  const data = request("get", URL);
+  return {
+    type: GET_INTEREST,
+    payload: data
+  }
+}
+
+// 회원가입
+export function registerUser(dataToSubmit) {
+  // const json = JSON.stringify(dataToSubmit)
+  console.log(dataToSubmit)
+  const data = request("post", USER_URL + '/sign-up', dataToSubmit);
+  return {
+    type: REGISTER_USER,
+    payload: data,
+  };
+}
+
+// 로그인
 export function loginUser(dataToSubmit) {
   const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`;
   const data = request("get", URL , dataToSubmit);
@@ -39,14 +72,6 @@ export function deleteToken(data){
   }
 }
 
-export function registerUser(dataToSubmit) {
-  const data = request("post", USER_URL + '/sign-up', dataToSubmit);
-
-  return {
-    type: REGISTER_USER,
-    payload: data,
-  };
-}
 
 // export function auth() {
 //   const data = request("post", USER_URL + "/auth");
