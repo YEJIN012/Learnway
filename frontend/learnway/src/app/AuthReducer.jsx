@@ -11,6 +11,8 @@ const userInfo = {
   "imgUrl":"",
   "interests":"",
   "bio":"",
+  "provider": "",
+  "providerId": "",
 };
 
 
@@ -44,8 +46,9 @@ export default function AuthReducer(state = userInfo, action) {
       return state;
     case LOGOUT_USER:
       return state;
-    // case REGISTER_USER:
-    //   return { ...state, success: action.payload };
+    case REGISTER_USER:
+      return state
+
     // case AUTH_USER:
     //   return { ...state, userData: action.payload };
     default:

@@ -70,7 +70,7 @@ function Btn(props){
   const {id, txt, disabled, func} = props;
   // console.log(props)
   return (
-    <Button id= {id} width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= {txt}disabled= {disabled}onClick={() => func()} />
+    <Button id= {id} width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= {txt} disabled= {disabled} onClick={() => func()} />
   )
 }
 

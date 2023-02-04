@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser, accessToken } from '../actions/userAction';
 import { setRefreshToken } from '../utils/Cookie';
 
@@ -31,14 +31,6 @@ const CheckBox = styled.input`
   left: 0vw
 `;
 
-const BtnFrame = styled.div`
-  width: 20vw;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: absolute;
-  margin: 45vh 5vw 18vh 4.9vw;
-`
 // email : A4081004@ssafy.com
 // password : 1234
 
@@ -54,11 +46,11 @@ function LoginForm (props) {
       userEmail: email,
       userPwd: pw
     };
-    /* console.log(body) */
     dispatch(loginUser(body)).payload
       .then((res) =>{
         const status = res.status
         const msg = res.msg
+        console.log(msg)
         if (status === 200) {
 
           // 쿠키에 Refresh Token, store에 Access Token 저장
@@ -67,7 +59,6 @@ function LoginForm (props) {
 
           // 성공했으면 메인 페이지로 이동
           navigate(`/`)
-          alert(msg);
         } else if (status === 202) {
           // 아이디 비밀번호가 틀린 경우,
           alert(msg)
@@ -105,12 +96,9 @@ function LoginForm (props) {
             </CheckBoxFrame>
             <NavLink to="/find_password">Forgot Password?</NavLink>
           </Owframe>
-          <button type='submit'> 버튼 </button>
-          {/* <BtnFrame>
-            <Btn name="0" txt="Login"></Btn>  
-            <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
-          </BtnFrame> */}
+          <Btn name="0" txt="Login"></Btn>  
         </form>
+        <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
       </section>
     </>
   )
@@ -130,7 +118,7 @@ function Btn(props){
       textWeight="700" 
       radius="2vh" 
       textValue= {txt}
-      // onClick={()=>{ navigate(`${nexturl}`) }}
+      onClick={()=>{ navigate(`${nexturl}`) }}
       >
     </Button>
   )

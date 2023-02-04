@@ -1,34 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InterestSelect from './InterestSelect';
+import { interestLst } from "../actions/userAction";
 
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { registerUser } from '../actions/userAction';
-export default function Interest(userinfo) {
-  console.log(userinfo)
-  const [itobj, setItobj] = useState();
 
-  const getItobj = (itobj) => {
-    setItobj(itobj)
-  }
-  // const dispatch = useDispatch();
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //  dispatch(registerUser(data))
-  //       .then((res)=>{
-  //         if(res.payload.success) {
-  //           props.history.push("/login")
-  //           alert("가입이 정상적으로 완료되었습니다.");
-  //         } else {
-  //           alert("Failed to sign up")
-  //         }
-  //       });
-  //     } else {
-  //       alert("비밀번호가 일치하지 않습니다.");
-  // }
+export default function Interest({userinfo}) {
+  const dispatch = useDispatch();
+  const [itdata, setItdata] = useState("")
+
+  // 취향 정보 서버에서 받아오기
+  useEffect(() => {
+    dispatch(interestLst()).payload
+      .then((res) => {
+        console.log(res.msg);
+        const status = res.status;
+        if (status === 202) {
+          setItdata(res.interests)
+      }
+    })
+      .catch((err) => console.log(err))
+  },[])
+  console.log(userinfo)
   return (
     <div>
       <h1>나는 취향설정이야</h1>
-      <InterestSelect getItobj={getItobj}></InterestSelect>
+      <InterestSelect userinfo={userinfo} itdata={itdata}></InterestSelect>
     </div>
   )
 }
