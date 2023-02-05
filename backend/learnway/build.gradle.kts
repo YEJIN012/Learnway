@@ -32,7 +32,7 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 	implementation("io.openvidu:openvidu-java-client:2.25.0")
 	implementation("org.jsoup:jsoup:1.15.3") //크롤링
-
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")

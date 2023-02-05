@@ -1,11 +1,8 @@
 package com.ssafy.learnway.dto.study;
 
-import com.ssafy.learnway.domain.Language;
-import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.LanguageDto;
+import com.ssafy.learnway.dto.language.LanguageDto;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Setter
