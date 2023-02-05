@@ -55,14 +55,21 @@ const Searchbtn = styled.div`
 
 //검색 공통 컴포넌트 끝 
 
-function Chatroom(){
+function Chatroom(props){
     const [text, setText] = useState("")
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
-    
     console.log(msgId)
     console.log(text)
     console.log(chatLog)
+    
+    function socketEmit(text){
+        //props에서 room id + text 를 보냅니다.
+        console.log(props.roomid, test);
+    }
+
+
+    //채팅 기록 컴포넌트 초기 렌더링 시 마지막 순서 기억
     function initMsgId(){
         if(chatLog.length === 0){
             return 0;
@@ -70,10 +77,11 @@ function Chatroom(){
             return chatLog[chatLog.length-1].id;
         }
     }
-
+    //메세지 보내는 함수(메세지를 보내고, 컴포넌트 업데이트)
     function sendMsg(value){
         //websockt emit
         console.log("socket emit");
+        socketEmit(value);
         //component renendering
         const data = {id:msgId, msg: <ChatText id={0} text={value}></ChatText>};
         setMsgId(msgId+1);
@@ -89,7 +97,7 @@ function Chatroom(){
             {chatLog.map((chatLog)=>(
                 <li key={chatLog.id}>{chatLog.msg}</li>
                 ))}
-            
+                
                 </List>
         </Body>
         <SearchBox>
