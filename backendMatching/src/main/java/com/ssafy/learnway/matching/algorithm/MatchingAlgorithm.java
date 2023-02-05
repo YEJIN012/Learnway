@@ -28,8 +28,6 @@ public class MatchingAlgorithm {
 
         // 알고리즘 작성 중 ....
 
-
-
         MatchingRequestDto user1 = matchingWaitList.getMatchingWaitList().poll();
         MatchingRequestDto user2 = matchingWaitList.getMatchingWaitList().poll();
 
@@ -44,7 +42,7 @@ public class MatchingAlgorithm {
             successed = false;
             log.info("successed: "+ successed);
         }
-        return matchingResponseDto;
+        return null;
     }
 
 }
