@@ -31,12 +31,16 @@ const CheckBox = styled.input`
   left: 0vw
 `;
 
-function LoginForm (props) {
+
+
+export default function LoginForm () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPwd] = useState("");
   
+
+  // 제출하면 이메일과 패스워드를 보내서 로그인 가능 여부 확인
   const handleSubmit = (e) => {
     e.preventDefault();
     let body = {
@@ -75,29 +79,10 @@ function LoginForm (props) {
           </CheckBoxFrame>
           <NavLink to="/find_password">Forgot Password?</NavLink>
         </Owframe>
-        <Btn name="0" txt="Login"></Btn>  
+        <Button id="0" textValue="Login" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" />
       </form>
-      <Btn clickbtn = { () => navigate('/signup') } name="1" txt="Sign Up" />
+      <Button id="1" textValue="Sign Up" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" onClick={() => navigate('/signup')} />        
     </>
   )
 }
-
-
-
-function Btn(props){
-  const {clickbtn, name, txt} = props;
-  return (
-    <Button 
-      id= {name} 
-      width="13.16vw" 
-      height="5vh" 
-      fontSize="0.83vw" 
-      textWeight="700" 
-      radius="2vh" 
-      textValue= {txt}
-      onClick={clickbtn}
-      >
-    </Button>
-  )
-}
-export default LoginForm
+      

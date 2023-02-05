@@ -3,7 +3,6 @@ import { REGISTER_USER, GET_INTEREST, GET_LANGUAGE } from "./types";
 
 import { request } from "../utils/axios";
 
-// const USER_URL = "/api/user";
 const USER_URL = "/users";
 
 // language 데이터 가져오기

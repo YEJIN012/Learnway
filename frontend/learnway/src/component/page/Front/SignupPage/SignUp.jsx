@@ -16,22 +16,8 @@ export default function Signup () {
     <BackgroundFrame
       bg={
           userinfo === ""
-          ? (
-  
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "100vh",
-              }}>
-              <SignupForm getUserinfo={getUserinfo}></SignupForm>
-            </div>
-          )
-          : (
-            <Interest userinfo={userinfo}></Interest>
-          )
+          ? <SignupForm getUserinfo={getUserinfo}></SignupForm>
+          : <Interest userinfo={userinfo}></Interest>
       }
       ment1="Sign Up">
     </BackgroundFrame>

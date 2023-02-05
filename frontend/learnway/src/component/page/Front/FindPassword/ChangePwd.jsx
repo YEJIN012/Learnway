@@ -13,13 +13,14 @@ export default function ChangePwd({email}) {
   const [confirmNewPwd, setConfirmNewPwd] = useState(""); 
   const [disabled, setDisabled] = useState(true);
 
-
+  // 비밀번호와 비밀번호 확인 모두 입력 했을 때, 버튼 활성화
   useEffect(()=> {
     if (newPwd && confirmNewPwd) {
       setDisabled(false)
     }
   },[newPwd,confirmNewPwd])
 
+  // 비밀번호와 비밀번호 확인이 같으면 비밀번호 수정 후, login 페이지 이동
   const handleSubmit = async (e) => {
     e.preventDefault();
 

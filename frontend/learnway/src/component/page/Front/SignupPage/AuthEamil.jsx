@@ -15,10 +15,10 @@ export default function AuthEamil({getEmail}) {
 
   const URL = '/users/verify'
   
-  // 서버에 인증번호 요청
+  // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
   const chkAuthcode = () => {
     request("get", URL + `?user_email=${email}`, email)
-    setAuth(true)                   // 인증번호 입력태그 보여주기
+    setAuth(true)                  
   }
   
   // 인증번호 식별 요청
@@ -42,14 +42,15 @@ export default function AuthEamil({getEmail}) {
   return (
     <>
       <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-      <Btn id="0" txt="Send" func={chkAuthcode} disabled={disabled} />
+      <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Send" disabled= {disabled} onClick={chkAuthcode} />
       <form onSubmit={handleSubmit}>
         {
           auth === true
           ? (
             <>
               <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
-              <Btn id="0" txt="confirm" onClick={null} disabled={disabled} />
+              <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Confirm" disabled= {disabled} onClick={chkAuthcode} />
+
             </>
           )
           : null
@@ -60,13 +61,6 @@ export default function AuthEamil({getEmail}) {
 }
 
 
-function Btn(props){
-  const {id, txt, disabled, func} = props;
-  // console.log(props)
-  return (
-    <Button id= {id} width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= {txt} disabled= {disabled} onClick={() => func()} />
-  )
-}
 
 
 

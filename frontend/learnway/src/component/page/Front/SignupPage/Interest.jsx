@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import InterestSelect from './InterestSelect';
 import { interestLst } from "../actions/userAction";
-
 import { useDispatch } from "react-redux";
-// import { registerUser } from '../actions/userAction';
+
+
 
 export default function Interest({userinfo}) {
   const dispatch = useDispatch();
   const [itdata, setItdata] = useState("")
+
 
   // 취향 정보 서버에서 받아오기
   useEffect(() => {
@@ -21,7 +22,8 @@ export default function Interest({userinfo}) {
     })
       .catch((err) => console.log(err))
   },[])
-  console.log(userinfo)
+
+
   return (
     <div>
       <h1>나는 취향설정이야</h1>

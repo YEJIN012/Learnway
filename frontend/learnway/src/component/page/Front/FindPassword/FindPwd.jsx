@@ -9,19 +9,11 @@ export default function FindPwd(){
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState(false);
   const [authcode, setAuthcode] = useState("")
-  const [disabled, setDisabled] = useState("")
   const [changePwd, setchangePwd] = useState(false)
 
-
-
-  // 이메일 값이 들어오면 Next button 활성화
-  useEffect(() => {
-    if (email){
-      setDisabled(false)
-    }
-  }, [email])
-
   const URL = '/users'
+
+
   
   const chkAuthcode = () => {
     // 프로필 조회 요청
@@ -43,7 +35,6 @@ export default function FindPwd(){
         const status = res.status;
         const msg = res.msg
         if(status === 200){ 
-          setDisabled(true)
           setchangePwd(true)               
           alert(msg)
         } else {
@@ -59,15 +50,15 @@ export default function FindPwd(){
         changePwd === false
         ?
         <>
-          <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-          <Button id="0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= "Send" disabled= {disabled} onClick={chkAuthcode} />
+          <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
+          <Button id="0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= "Send" onClick={chkAuthcode} />
           <form onSubmit={handleSubmit}>
             {
               auth === true
               ? (
                 <>
-                  <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
-                  <Button id="0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= "confirm" disabled= {disabled} />
+                  <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} onChange={(e) => {setAuthcode(e.target.value)}} />
+                  <Button id="0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= "confirm" />
                 </>
               )
               : null
@@ -81,13 +72,6 @@ export default function FindPwd(){
   )
 }
 
-function Btn(props){
-  const {id, txt, disabled, func} = props;
-  // console.log(props)
-  return (
-    <Button id= {id} width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= {txt} disabled= {disabled} onClick={() => func()} />
-  )
-}
 
 
 
