@@ -82,7 +82,7 @@ public class SignController {
             // DB 초기화
             userDto.setBadUser(false);
             userDto.setBio("HI");
-            userDto.setImgUrl("https://s3.ap-northeast-2.amazonaws.com/learnway8c078de680914140a37360b079c0c23e.png"); // 기본 이미지
+            userDto.setImgUrl("8c078de680914140a37360b079c0c23e.png"); // 기본 이미지
 
             userService.signUp(userDto);
 
