@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Chatlist from './Chatlist'
+import Chatlist from './Chatlist';
 import Chatroom from './Chatroom'
 
 const Frame=styled.div`
@@ -13,7 +13,7 @@ const Frame=styled.div`
 function TestPage(){
     return(
         <Frame>
-            <Chatlist></Chatlist>
+            <Chatroom></Chatroom>
         </Frame>
     );
 }export default TestPage;
