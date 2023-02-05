@@ -1,7 +1,7 @@
 import SignupForm from "./SingupForm";
 import Interest from "./Interest";
 import { useState } from "react";
-import BackroundFrame from "../Background";
+import BackgroundFrame from "../Background";
 
 export default function Signup () {
   const [userinfo, setUserinfo] = useState("")
@@ -13,10 +13,11 @@ export default function Signup () {
   }
 
   return (
-    <BackroundFrame
+    <BackgroundFrame
       bg={
           userinfo === ""
           ? (
+  
             <div
               style={{
                 display: "flex",
@@ -31,7 +32,8 @@ export default function Signup () {
           : (
             <Interest userinfo={userinfo}></Interest>
           )
-      }>
-    </BackroundFrame>
+      }
+      ment1="Sign Up">
+    </BackgroundFrame>
   )
 }

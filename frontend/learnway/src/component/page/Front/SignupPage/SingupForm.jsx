@@ -105,7 +105,7 @@ export default function SignupForm({getUserinfo}) {
 
 
 function Btn(props){
-  const {id, txt, disabled, func} = props;
+  const {id, txt, disabled} = props;
   return (
     <Button 
       id= {id} 
@@ -116,9 +116,7 @@ function Btn(props){
       radius="2vh" 
       textValue= {txt}
       disabled= {disabled}
-      // onClick={() => {
-      //   func()
-      // }}
+
     >
     </Button>
   )

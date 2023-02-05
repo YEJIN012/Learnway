@@ -4,12 +4,11 @@ import InputBox from '../Input';
 import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 
-const USER_URL = "/users";
+
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState(false);
-  const [chkauth, setChkauth] = useState("")
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
   
@@ -38,11 +37,6 @@ export default function AuthEamil({getEmail}) {
         }
       })
       .catch((err) => console.log(err))
-    // if (String(authnum) === authcode){
-    //   getEmail(email)                 // 이메일 emit
-    // } else{
-    //   alert("인증번호가 일치하지 않습니다.")
-    // }
   }
 
   return (
@@ -54,7 +48,7 @@ export default function AuthEamil({getEmail}) {
           auth === true
           ? (
             <>
-              <InputBox id="authcode" type="text" title="Authentication code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
+              <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
               <Btn id="0" txt="confirm" onClick={null} disabled={disabled} />
             </>
           )

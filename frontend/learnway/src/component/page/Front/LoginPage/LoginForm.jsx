@@ -31,9 +31,6 @@ const CheckBox = styled.input`
   left: 0vw
 `;
 
-// email : A4081004@ssafy.com
-// password : 1234
-
 function LoginForm (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,38 +65,19 @@ function LoginForm (props) {
 
   return (
     <>
-      <section>
-        <form onSubmit={handleSubmit}>
-          <InputBox 
-            id="id"
-            type="email"
-            title="E-mail"
-            placeholder="abcdef@dfd.com"
-            onChange={(e) => {setEmail(e.target.value)}}
-            value={email}
-            // ref={userRef}
-            // onKeyUp={changeButton}
-          ></InputBox>
-          <InputBox              
-            id="password"
-            type="password"
-            title="Password"
-            placeholder="********"
-            onChange={(e) => {setPwd(e.target.value)}}
-            value={pw}
-            // onKeyUp={changeButton}
-          ></InputBox>
-          <Owframe>
-            <CheckBoxFrame >
-              <CheckBox type='checkbox' />
-              <Checkboxlabel>Remember Me</Checkboxlabel>
-            </CheckBoxFrame>
-            <NavLink to="/find_password">Forgot Password?</NavLink>
-          </Owframe>
-          <Btn name="0" txt="Login"></Btn>  
-        </form>
-        <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
-      </section>
+      <form onSubmit={handleSubmit}>
+        <InputBox id="id" type="email" title="E-mail" placeholder="abcdef@dfd.com" onChange={(e) => {setEmail(e.target.value)}} value={email} />
+        <InputBox id="password" type="password" itle="Password" placeholder="********" onChange={(e) => {setPwd(e.target.value)}} value={pw} />
+        <Owframe>
+          <CheckBoxFrame >
+            <CheckBox type='checkbox' />
+            <Checkboxlabel>Remember Me</Checkboxlabel>
+          </CheckBoxFrame>
+          <NavLink to="/find_password">Forgot Password?</NavLink>
+        </Owframe>
+        <Btn name="0" txt="Login"></Btn>  
+      </form>
+      <Btn clickbtn = { () => navigate('/signup') } name="1" txt="Sign Up" />
     </>
   )
 }
@@ -107,8 +85,7 @@ function LoginForm (props) {
 
 
 function Btn(props){
-  let navigate = useNavigate();
-  const {nexturl, name, txt} = props;
+  const {clickbtn, name, txt} = props;
   return (
     <Button 
       id= {name} 
@@ -118,7 +95,7 @@ function Btn(props){
       textWeight="700" 
       radius="2vh" 
       textValue= {txt}
-      onClick={()=>{ navigate(`${nexturl}`) }}
+      onClick={clickbtn}
       >
     </Button>
   )
