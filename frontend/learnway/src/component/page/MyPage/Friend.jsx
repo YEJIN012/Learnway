@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 
 const Friends = styled.div`
     width: 11vw;
@@ -16,98 +15,44 @@ const Friends = styled.div`
     font-size: 0.5vw;
     border: solid 1px black;
 `;
-
 const FriendNumber = styled.span`
     font-size: 2vw;
     border: solid 1px black;
 `;
-
 const Text = styled.span`
     font-size: 2vw;
-    color: #7c7c7c;
+    color: #000000;
 `;
 
-function addFriend(me, oppo) {
-    axios
-        .post("/api/friend", {
-            userEmail: me,
-            friendEmail: oppo,
-        })
-        .then(function (res) {
-            const data = res.data;
-            console.log(data);
-            if (data.status === 200) {
-                alert("친구 추가 성공");
-            } else {
-                alert("친구 추가 실패 " + String(data.status));
-            }
-        })
-        .catch(function (err) {
-            alert("친구 추가 에러");
-        });
-}
+function deleteFriend() { }
 
-// Friend말고 상대방프로필로 함수명 바꿔야할듯..
-function Friend() {
-    const [userInfo, setUserInfo] = useState({
-        name: "",
-        email: "",
-        birth: "",
-        friends: "",
-        img: "",
-        lang: "",
-        interest: [],
-        bio: "",
-    });
-
-    function getUserInfo() {
-        axios
-            .get(`/api/users/profile/${"aaa@ssafy.com"}`)
-            .then(function (res) {
-                const data = res.data.profile;
-                console.log(data);
-
-                setUserInfo({
-                    name: data.name,
-                    email: data.userEmail,
-                    birth: data.birthDay,
-                    friends: "",
-                    img: data.imgUrl,
-                    lang: data.language.name,
-                    interest: data.interests,
-                    bio: data.bio,
-                });
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-    }
-    useEffect(() => {
-        getUserInfo();
-    }, []);
-
-    function interestRernderer(array) {
-        let result = "";
-
+function interestRernderer(array) {
+    let result = "";
+    if (array) {
+        
         for (let i = 0; i < array.length; i++) {
             result += "#" + array[i].field + "  ";
         }
-
-        return result;
     }
+
+    return result;
+}
+
+function Friend(props) {
+    const userInfo = props.selectedFriend
+    console.log(userInfo)
+
     return (
         <ProfileCard
             header={
                 <>
-                    <ProfileImg url={userInfo.img}></ProfileImg>
+                    <ProfileImg src={userInfo.imgUrl} />
                     <Friends>
-                        <FriendNumber>{userInfo.friends}</FriendNumber>
+                        <FriendNumber>167</FriendNumber>
                         Friends
                     </Friends>
-                    <PersonAddIcon
-                        onClick={() =>
-                            addFriend("bbb@ssafy.com", "aaa@ssafy.com")
-                        }
+                    <PersonRemoveIcon
+                        onClick={() => deleteFriend()}
                         cursor="pointer"
                     />
                 </>
@@ -171,9 +116,8 @@ function Friend() {
                     ></InputGroup>
                 </>
             }
-            width="46vw"
-            height="64vw"
         />
     );
 }
+
 export default Friend;
