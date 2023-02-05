@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { languageLst } from "../page/Front/actions/userAction";
 
 const LangSelect = styled.select`
     width : ${props=>props.width || '100px'};
@@ -13,20 +14,27 @@ const LangSelect = styled.select`
 function SelectLanguage({ language, setLanguage, width, height }){
     const [optionList, setOptionList] = useState([]);
     const [value, setValue] = useState(language);
+    const dispatch = useDispatch();
+
+    console.log(value)
     //API에서 옵션 목록 가져오는 함수
     function dropdownBoxRenderer(){
-        axios.get("api/users/language")
-        .then(function(res){
-            const data = res.data.language;            
-            const options=[];
-            for(let i = 0; i < data.length; i++){
+        dispatch(languageLst()).payload
+            .then((res) => {
+                const msg = res.msg
+                console.log(msg)
+                const data = res.language;
+                
+                const options=[];
+                for(let i = 0; i < data.length; i++){
                     options.push(<option key={data[i].languageId} value={data[i].name}>{data[i].name}</option>);
                 }
-            setOptionList(options);
-            }
-        ).catch(function(err){
-            console.log(err);
-        });
+                setOptionList(options);
+                }
+            ).catch((err) => {
+                console.log(err)
+                alert("API 접속 에러");
+            });
     }
 
     useEffect(()=> {dropdownBoxRenderer()},[]);

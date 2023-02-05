@@ -18,5 +18,8 @@ public class Language {
     @Id
     private int languageId;
     @Column(name="language_name")
-    private String name;
+    private String languageName;
+
+    @Column(name="language_code")
+    private String languageCode;
 }

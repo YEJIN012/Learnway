@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LanguageRepository extends JpaRepository<Language, Integer> {
     Language findByLanguageId(int languageId);
+
+    Language findByLanguageName(String languageName);
 }

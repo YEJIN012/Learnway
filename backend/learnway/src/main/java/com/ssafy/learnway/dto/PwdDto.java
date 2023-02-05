@@ -5,10 +5,13 @@ import lombok.*;
 @Setter
 @Getter
 @NoArgsConstructor
-@ToString
-@Builder
 @AllArgsConstructor
-public class FriendRequestDto {
+@Builder
+public class PwdDto {
+
     String userEmail;
-    String friendEmail;
+    String newPassword;
+
+    String newPasswordConfirm;
+
 }

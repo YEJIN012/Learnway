@@ -1,4 +1,4 @@
-package com.ssafy.learnway.repository;
+package com.ssafy.learnway.repository.friend;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;

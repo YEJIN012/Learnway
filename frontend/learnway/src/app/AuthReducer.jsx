@@ -1,4 +1,4 @@
-import { LOGIN_USER, REGISTER_USER, AUTH_USER } from "../component/page/Front/actions/types";
+import { LOGIN_USER, LOGOUT_USER, REGISTER_USER, AUTH_USER } from "../component/page/Front/actions/types";
 
 const userInfo = {
   "userId":"",
@@ -11,6 +11,8 @@ const userInfo = {
   "imgUrl":"",
   "interests":"",
   "bio":"",
+  "provider": "",
+  "providerId": "",
 };
 
 
@@ -42,8 +44,11 @@ export default function AuthReducer(state = userInfo, action) {
       }
       getData()
       return state;
-    // case REGISTER_USER:
-    //   return { ...state, success: action.payload };
+    case LOGOUT_USER:
+      return state;
+    case REGISTER_USER:
+      return state
+
     // case AUTH_USER:
     //   return { ...state, userData: action.payload };
     default:

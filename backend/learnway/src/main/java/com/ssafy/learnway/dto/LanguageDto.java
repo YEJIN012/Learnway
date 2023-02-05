@@ -16,9 +16,13 @@ public class LanguageDto {
     int languageId;
     String name;
 
+    String code;
+
     public Language toEntity(){
         return Language.builder().languageId(languageId)
-                .name(name).build();
+                .languageName(name)
+                .languageCode(code)
+                .build();
     }
 
 }

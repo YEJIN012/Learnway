@@ -9,13 +9,13 @@ const InputFrame = styled.div`
 
 const InputTitle = styled.div`
   width: 20vw;
-  heght: 1.84vh;
+  height: 1.84vh;
   font-size: 0.9vw;
 `;
 
 const Input = styled.input`
   width: 20vw;
-  heght: 8.1vh;
+  height: "20px"
 `;
 
 

@@ -9,6 +9,7 @@ import FindPassword from "./component/page/Front/FindPassword"
 import Loading from "./component/page/Loading/LoadingPage"
 import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
+import TestPage from "./component/chat/TestPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
                 <Route path="/" element={<Home />}></Route>
 
                 <Route path="/test" element={<Test/>}></Route>
-
+                <Route path="/testchat" element={<TestPage/>}></Route>
                 <Route path="/loading" element={<Loading />}></Route>
                 <Route path="/intro" element={<Intro />}></Route>
                 <Route path="/mypage" element={<MyPage />}></Route>

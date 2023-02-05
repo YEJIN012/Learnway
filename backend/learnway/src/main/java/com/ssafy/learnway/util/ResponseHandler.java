@@ -22,6 +22,25 @@ public class ResponseHandler {
         return new ResponseEntity<Object>(map, status);
     }
 
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, String dataName, Object responseObj, String dataName2, Object responseObj2, String flag, boolean bool) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("msg", message);
+        map.put("status", status.value());
+        map.put(dataName, responseObj);
+        map.put(dataName2, responseObj2);
+        map.put(flag, bool);
+        return new ResponseEntity<Object>(map, status);
+    }
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, String dataName, Object responseObj, String flag, boolean bool) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("msg", message);
+        map.put("status", status.value());
+        map.put(dataName, responseObj);
+        map.put(flag, bool);
+        return new ResponseEntity<Object>(map, status);
+    }
+
+
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, String dataName, Object responseObj, String dataName2, Object responseObj2) {
         Map<String, Object> map = new HashMap<>();
         map.put("msg", message);
@@ -30,6 +49,7 @@ public class ResponseHandler {
         map.put(dataName2, responseObj2);
         return new ResponseEntity<Object>(map, status);
     }
+
 
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status, Map<String, Object> args) {
         Map<String, Object> map = new HashMap<>();
