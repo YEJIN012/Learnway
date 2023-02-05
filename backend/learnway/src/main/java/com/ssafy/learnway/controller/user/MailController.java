@@ -1,7 +1,6 @@
 package com.ssafy.learnway.controller.user;
 
-import com.ssafy.learnway.dto.TokenDto;
-import com.ssafy.learnway.service.MailService;
+import com.ssafy.learnway.service.user.MailService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

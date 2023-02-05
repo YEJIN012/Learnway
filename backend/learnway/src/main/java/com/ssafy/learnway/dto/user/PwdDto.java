@@ -1,4 +1,4 @@
-package com.ssafy.learnway.dto;
+package com.ssafy.learnway.dto.user;
 
 import lombok.*;
 

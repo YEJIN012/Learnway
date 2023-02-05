@@ -1,4 +1,4 @@
-package com.ssafy.learnway.service;
+package com.ssafy.learnway.service.user;
 
 import com.ssafy.learnway.util.RedisUtil;
 import lombok.RequiredArgsConstructor;

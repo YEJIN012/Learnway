@@ -1,4 +1,4 @@
-package com.ssafy.learnway.dto;
+package com.ssafy.learnway.dto.interest;
 
 import com.ssafy.learnway.domain.Interest;
 import lombok.*;

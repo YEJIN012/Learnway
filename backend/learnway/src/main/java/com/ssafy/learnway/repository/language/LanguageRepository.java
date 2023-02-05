@@ -1,4 +1,4 @@
-package com.ssafy.learnway.repository;
+package com.ssafy.learnway.repository.language;
 
 import com.ssafy.learnway.domain.Interest;
 import com.ssafy.learnway.domain.Language;

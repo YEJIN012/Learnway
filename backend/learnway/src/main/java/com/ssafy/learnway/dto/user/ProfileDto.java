@@ -1,6 +1,8 @@
-package com.ssafy.learnway.dto;
+package com.ssafy.learnway.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.interest.InterestDto;
 import lombok.*;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.ssafy.learnway.controller;
+package com.ssafy.learnway.controller.exception;
 
 import com.ssafy.learnway.util.ResponseHandler;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.ssafy.learnway.dto;
+package com.ssafy.learnway.dto.language;
 
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.user.User;

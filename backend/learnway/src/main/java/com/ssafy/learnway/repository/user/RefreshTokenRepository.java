@@ -1,4 +1,4 @@
-package com.ssafy.learnway.repository;
+package com.ssafy.learnway.repository.user;
 
 import com.ssafy.learnway.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;

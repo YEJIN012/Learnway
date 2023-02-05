@@ -2,7 +2,7 @@ package com.ssafy.learnway.service.conversation;
 
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.dto.conversation.ConvTransDto;
-import com.ssafy.learnway.repository.LanguageRepository;
+import com.ssafy.learnway.repository.language.LanguageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.ssafy.learnway.repository;
+package com.ssafy.learnway.repository.interest;
 
 import com.ssafy.learnway.domain.Interest;
 import com.ssafy.learnway.domain.RefreshToken;

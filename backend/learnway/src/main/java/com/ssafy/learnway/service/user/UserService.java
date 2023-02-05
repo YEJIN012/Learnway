@@ -1,15 +1,20 @@
-package com.ssafy.learnway.service;
+package com.ssafy.learnway.service.user;
 
 import com.ssafy.learnway.domain.Interest;
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.domain.RefreshToken;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.domain.user.UserInterest;
-import com.ssafy.learnway.dto.*;
-import com.ssafy.learnway.exception.S3FileUploadException;
+import com.ssafy.learnway.dto.interest.InterestDto;
+import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.user.*;
 import com.ssafy.learnway.exception.TokenValidFailedException;
 import com.ssafy.learnway.exception.UserNotFoundException;
-import com.ssafy.learnway.repository.*;
+import com.ssafy.learnway.repository.interest.InterestRepository;
+import com.ssafy.learnway.repository.language.LanguageRepository;
+import com.ssafy.learnway.repository.user.RefreshTokenRepository;
+import com.ssafy.learnway.repository.user.UserInterestRepository;
+import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
