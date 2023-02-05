@@ -10,11 +10,11 @@ import EditProfile from "./EditProfile";
 
 const ContentWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr 2fr;
     justify-content: center;
     align-items: center;
-    margin-right: 30%;
-    margin-left: 30%;
+    margin-right: 20%;
+    margin-left: 20%;
     border: 1px solid;
     height: 600px;
 `;

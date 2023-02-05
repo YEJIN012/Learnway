@@ -6,7 +6,7 @@ import FriendListItem from "./FriendListItem";
 
 function FriendList(props) {
     const { handleSelectedFriend } = props;
-    const store = useSelector((state) => state.UserStore);
+    const store = useSelector((state) => state.AuthReducer);
     const [friends, setFriends] = useState(""); // 친구들의 이메일Array
 
     function getFriendList() {
@@ -17,12 +17,12 @@ function FriendList(props) {
             .then(function (res) {
                 setFriends(res.data.userEmailList);
                 console.log("getFriendList");
-                console.log(res.data.userEmailList);
             })
             .catch(function (error) {
-                console.log(error);
-            });
+                console.log(error.response.data.msg);
+            })
     }
+
     const [friendsProfile, setfriendsProfile] = useState([]);
 
     async function getFriendProfile() {
@@ -57,10 +57,10 @@ function FriendList(props) {
             }
             sx={{
                 borderRadius: "35px",
-                width: "30vw",
                 height: "50vh",
                 display: "flex",
                 flexDirection: "row",
+                alignItems: "start",
                 boxSizing: "border-box",
                 paddingX: "2vw",
                 paddingY: "5vw",
