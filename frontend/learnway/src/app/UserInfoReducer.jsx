@@ -23,6 +23,7 @@ export default function UerInfoReducer(state = initialLang, action) {
     getLang()
     return state;
     
+    // 취향 정보 저장
     case GET_INTEREST:
       const getIt = () => {
         promise.then((e) => {

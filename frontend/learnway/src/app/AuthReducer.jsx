@@ -19,7 +19,6 @@ const userInfo = {
 export default function AuthReducer(state = userInfo, action) {
   switch (action.type) {
     case LOGIN_USER:
-      // console.log('Reducer')
       // action.payload의 Promise 객체를 Object 객체로 바꾸기
       const promise = action.payload
       const getData = () => {

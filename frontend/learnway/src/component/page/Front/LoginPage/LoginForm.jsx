@@ -31,15 +31,16 @@ const CheckBox = styled.input`
   left: 0vw
 `;
 
-// email : A4081004@ssafy.com
-// password : 1234
 
-function LoginForm (props) {
+
+export default function LoginForm () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPwd] = useState("");
   
+
+  // 제출하면 이메일과 패스워드를 보내서 로그인 가능 여부 확인
   const handleSubmit = (e) => {
     e.preventDefault();
     let body = {
@@ -68,59 +69,20 @@ function LoginForm (props) {
 
   return (
     <>
-      <section>
-        <form onSubmit={handleSubmit}>
-          <InputBox 
-            id="id"
-            type="email"
-            title="E-mail"
-            placeholder="abcdef@dfd.com"
-            onChange={(e) => {setEmail(e.target.value)}}
-            value={email}
-            // ref={userRef}
-            // onKeyUp={changeButton}
-          ></InputBox>
-          <InputBox              
-            id="password"
-            type="password"
-            title="Password"
-            placeholder="********"
-            onChange={(e) => {setPwd(e.target.value)}}
-            value={pw}
-            // onKeyUp={changeButton}
-          ></InputBox>
-          <Owframe>
-            <CheckBoxFrame >
-              <CheckBox type='checkbox' />
-              <Checkboxlabel>Remember Me</Checkboxlabel>
-            </CheckBoxFrame>
-            <NavLink to="/find_password">Forgot Password?</NavLink>
-          </Owframe>
-          <Btn name="0" txt="Login"></Btn>  
-        </form>
-        <Btn nexturl='/signup' name="1" txt="Sign Up"></Btn>
-      </section>
+      <form onSubmit={handleSubmit}>
+        <InputBox id="id" type="email" title="E-mail" placeholder="abcdef@dfd.com" onChange={(e) => {setEmail(e.target.value)}} value={email} />
+        <InputBox id="password" type="password" itle="Password" placeholder="********" onChange={(e) => {setPwd(e.target.value)}} value={pw} />
+        <Owframe>
+          <CheckBoxFrame >
+            <CheckBox type='checkbox' />
+            <Checkboxlabel>Remember Me</Checkboxlabel>
+          </CheckBoxFrame>
+          <NavLink to="/find_password">Forgot Password?</NavLink>
+        </Owframe>
+        <Button id="0" textValue="Login" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" />
+      </form>
+      <Button id="1" textValue="Sign Up" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" onClick={() => navigate('/signup')} />        
     </>
   )
 }
-
-
-
-function Btn(props){
-  let navigate = useNavigate();
-  const {nexturl, name, txt} = props;
-  return (
-    <Button 
-      id= {name} 
-      width="13.16vw" 
-      height="5vh" 
-      fontSize="0.83vw" 
-      textWeight="700" 
-      radius="2vh" 
-      textValue= {txt}
-      onClick={()=>{ navigate(`${nexturl}`) }}
-      >
-    </Button>
-  )
-}
-export default LoginForm
+      
