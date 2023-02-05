@@ -75,7 +75,7 @@ public class RoomService {
 
     @Transactional
     public void updateByRoom(Room room, ChatMessage message){
-        room.updateRoom(message.getRegTime(), message.getMessage());
+//        room.updateRoom(message.getRegTime(), message.getMessage());
         roomRepository.save(room); // 최근 메시지 정보 업데이트
     }
 }

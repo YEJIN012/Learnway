@@ -37,17 +37,17 @@ public class ChatController {
      */
     @ApiOperation(value = "message, token(헤더)", notes = "/pub/chat/message로 들어오는 메시징을 처리한다.")
     @MessageMapping("/chat/message")
-    public void message(ChatMessage message, @Header("X-AUTH-TOKEN") String token) throws SQLException { //헤더에 토큰을 담아서 보낸다.
-        Long userId = jwtTokenProvider.getUserIdFromJwt(token.toString()); //access token payload 안에 있는 토큰을 가져오다.
-        Optional<User> userOp = Optional.ofNullable(userService.findById(userId));
-        log.info("ChatController : userId ",userId);
+    public void message(ChatMessage message) throws SQLException { //헤더에 토큰을 담아서 보낸다.
+//        Long userId = jwtTokenProvider.getUserIdFromJwt(token.toString()); //access token payload 안에 있는 토큰을 가져오다.
+//        Optional<User> userOp = Optional.ofNullable(userService.findById(userId));
+//        log.info("ChatController : userId ",userId);
 
-        if(userOp.isPresent()) { // 객체가 존재하는가
-            User user = userOp.get();
-            String nickname = user.getUsername();
+//        if(userOp.isPresent()) { // 객체가 존재하는가
+//            User user = userOp.get();
+//            String nickname = user.getUsername();
 
             // 로그인 회원 정보로 대화명 설정
-            message.setSender(nickname);
+//            message.setSender(nickname);
 
 //            String imgUrl = user.getImgUrl();
 //            message.setImgUrl(imgUrl);
@@ -62,6 +62,6 @@ public class ChatController {
             Room room = roomService.findByRoomId(message.getRoomId());
 
             roomService.updateByRoom(room, message);
-        }
+//        }
     }
 }

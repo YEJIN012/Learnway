@@ -13,6 +13,7 @@ import java.util.UUID;
 public class ChatRoom implements Serializable { //Redis에 저장할 때는 직렬화를 해야 한다.
     // 채팅방
     // 입장한 클라이언트의 정보를 가지고 있는다.
+    private static final long serialVersionUID = 1L;
 
     private String roomId;
 //    private String name; //채팅방이름 = 유저

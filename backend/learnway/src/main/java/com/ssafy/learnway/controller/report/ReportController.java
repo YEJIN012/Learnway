@@ -38,7 +38,7 @@ public class ReportController {
             return new ResponseEntity<>("검색되는 유저가 없습니다.", HttpStatus.ACCEPTED);
         }
 
-        if (reportService.writeReport(reportDto) != null) {
+        if (reportService.writeReport(reportDto) != null) { //신고 내역 작성
             List<Report> reportList = reportService.findByUserId(reportDto);
             if(reportList.size()>=3){
                 // bad_user로 등록!

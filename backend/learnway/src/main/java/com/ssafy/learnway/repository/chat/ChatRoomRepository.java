@@ -5,17 +5,23 @@ import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.chat.ChatRoom;
 import com.ssafy.learnway.service.chat.MessageMaxLength;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Service
+@Slf4j
 public class ChatRoomRepository {
 
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     // Redis 키
     private static final String CHAT_ROOMS = "CHAT_ROOM"; // 채팅룸 저장
@@ -105,6 +111,7 @@ public class ChatRoomRepository {
             roomMessages.put(CHAT_LIST, roomId, changeMessages);
             return;
         }
+        log.info(messages.toString());
         roomMessages.put(CHAT_LIST, roomId, messages);
     }
 
