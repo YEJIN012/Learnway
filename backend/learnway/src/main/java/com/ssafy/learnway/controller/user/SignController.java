@@ -2,11 +2,10 @@ package com.ssafy.learnway.controller.user;
 
 
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.TokenDto;
-import com.ssafy.learnway.dto.TokenRequestDto;
-import com.ssafy.learnway.dto.UserDto;
-import com.ssafy.learnway.service.UserService;
-import com.ssafy.learnway.util.JwtTokenProvider;
+import com.ssafy.learnway.dto.user.TokenDto;
+import com.ssafy.learnway.dto.user.TokenRequestDto;
+import com.ssafy.learnway.dto.user.UserDto;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -83,9 +82,12 @@ public class SignController {
             // DB 초기화
             userDto.setBadUser(false);
             userDto.setBio("HI");
-            userDto.setImgUrl("cloud.aws.s3.bucket.urlfac88aa1aaf644e28c109cfd96250b68.png"); // 기본 이미지
+            userDto.setImgUrl("https://s3.ap-northeast-2.amazonaws.com/learnway8c078de680914140a37360b079c0c23e.png"); // 기본 이미지
 
             userService.signUp(userDto);
+
+            //UserDto savedUserDto = userService.userInfo(userDto.getUserEmail());
+
             return ResponseHandler.generateResponse("회원가입에 성공하였습니다.", HttpStatus.OK, "user", userDto);
         } catch (Exception e) {
             e.printStackTrace();

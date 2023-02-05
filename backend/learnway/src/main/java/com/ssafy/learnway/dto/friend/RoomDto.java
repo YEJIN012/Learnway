@@ -1,6 +1,6 @@
 package com.ssafy.learnway.dto.friend;
 
-import com.ssafy.learnway.dto.ProfileDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import lombok.*;
 
 import java.time.LocalDateTime;

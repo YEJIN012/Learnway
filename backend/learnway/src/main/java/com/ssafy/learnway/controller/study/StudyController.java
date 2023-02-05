@@ -5,7 +5,7 @@ import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.dto.study.StudyMonthResponseDto;
 import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.study.StudyService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;

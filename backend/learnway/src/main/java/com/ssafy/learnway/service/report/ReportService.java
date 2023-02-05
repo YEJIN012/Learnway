@@ -4,7 +4,7 @@ import com.ssafy.learnway.domain.report.Report;
 import com.ssafy.learnway.domain.report.ReportDetail;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.report.ReportDto;
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.repository.report.ReportDetailRepository;
 import com.ssafy.learnway.repository.report.ReportRepository;
 import lombok.RequiredArgsConstructor;

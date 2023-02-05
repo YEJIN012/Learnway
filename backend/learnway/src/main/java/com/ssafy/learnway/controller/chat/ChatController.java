@@ -4,7 +4,7 @@ import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.repository.chat.ChatRoomRepository;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.chat.ChatService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.JwtTokenProvider;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 

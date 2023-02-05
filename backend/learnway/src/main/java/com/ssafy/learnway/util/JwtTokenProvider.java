@@ -1,8 +1,7 @@
 package com.ssafy.learnway.util;
 
-import antlr.Token;
-import com.ssafy.learnway.dto.TokenDto;
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.dto.user.TokenDto;
+import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
