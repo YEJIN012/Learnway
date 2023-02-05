@@ -3,16 +3,13 @@ import styled from "styled-components";
 import AWS from "aws-sdk";
 
 const Img = styled.img`
-    width: ${(props) => 
-        props.width || '75px'};
-    height: ${(props) => 
-        props.width || '75px'};
+    width: ${(props) => props.width || "75px"};
+    height: ${(props) => props.width || "75px"};
     border-radius: 50%;
-`
+`;
 
 function ProfileImg(props) {
-    // src : cloud.aws.s3.bucket.url~
-    const { src, width } = props;
+    const { tmpsrc, src, width } = props;
 
     // s3 bucket 이미지 읽어오기
     AWS.config.update({
@@ -22,16 +19,11 @@ function ProfileImg(props) {
     });
     const s3 = new AWS.S3();
     const [imageUrl, setImageUrl] = useState("");
-    // s3.listBuckets()
-    //     .promise()
-    //     .then((data) => {
-    //         console.log("S3 : ", JSON.stringify(data, null, 2));
-    //     });
-    
+
     useEffect(() => {
         const params = {
             Bucket: "learnway",
-            Key: "fac88aa1aaf644e28c109cfd96250b68.png",
+            Key: `${src}`,
         };
 
         s3.getSignedUrlPromise("getObject", params, (err, url) => {
@@ -44,7 +36,13 @@ function ProfileImg(props) {
             console.log(url);
         });
     }, []);
-    return <Img src={imageUrl} width={width} />;
+
+    // 이미지 편집에서 선택한 tmpImage있으면 그걸로 보여주기
+    return tmpsrc ? (
+        <Img src={tmpsrc} width={width} />
+    ) : (
+        <Img src={imageUrl} width={width} />
+    );
 }
 
-export default ProfileImg
+export default ProfileImg;

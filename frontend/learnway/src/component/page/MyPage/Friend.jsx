@@ -1,10 +1,14 @@
-import Reactm, {useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Stack from "@mui/material/Stack";
 
 const Friends = styled.div`
     display: flex;
@@ -23,23 +27,49 @@ const Text = styled.span`
     color: #000000;
 `;
 
-function deleteFriend() {}
-
-function GetFriendCnt(userEmail) {
-    const [friendCnt, setFriendCnt] = useState("");
+function DeleteFriend(friendEmail) {
+    // <Stack sx={{ width: "100%" }} spacing={2}>
+    //     <Alert severity="warning">
+    //         <AlertTitle>Delete Friend</AlertTitle>
+    //         <strong>Are you sure you want to delete your friend?</strong>
+    //         If you delete a friend, you can no longer request a chat
+    //     </Alert>
+    //     ;
+    // </Stack>;
+    alert("Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat");
+    const myInfo = useSelector((state) => state.AuthReducer);
+    console.log(myInfo);
     axios
-        .get("api/friend/count", {
-            params: { userEmail: userEmail },
+        .delete("api/friend", {
+            friendEmail: friendEmail,
+            userEmail: myInfo.userEmail,
         })
-        // handle success
         .then(function (res) {
-            console.log("getFriendsNum");
-            setFriendCnt(res.data.friendCnt);
+            console.log(res.data.msg);
+            alert("친구가 삭제되었습니다.");
         })
         .catch(function (error) {
             console.log(error);
         });
-    return friendCnt;
+}
+
+function GetFriendCnt(userEmail) {
+    const [friendCnt, setFriendCnt] = useState("");
+    if (friendCnt) {
+        axios
+            .get("api/friend/count", {
+                params: { userEmail: userEmail },
+            })
+            // handle success
+            .then(function (res) {
+                console.log("getFriendsNum");
+                setFriendCnt(res.data.friendCnt);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        return friendCnt;
+    }
 }
 
 function interestRernderer(array) {
@@ -56,83 +86,88 @@ function interestRernderer(array) {
 function Friend(props) {
     const userInfo = props.selectedFriend;
     console.log(userInfo);
+    if (userInfo === "") {
+        console.log("nothing selected");
+        return <ProfileCard width="" />;
+    } else {
+        return (
+            <ProfileCard
+                header={
+                    <>
+                        <ProfileImg src={userInfo.imgUrl} />
+                        <Friends>
+                            <FriendNumber>
+                                {GetFriendCnt(userInfo.userEmail)}
+                            </FriendNumber>
+                            Friends
+                        </Friends>
+                        <PersonRemoveIcon
+                            onClick={() => DeleteFriend(userInfo.userEmail)}
+                            cursor="pointer"
+                        />
+                    </>
+                }
+                name={userInfo.name}
+                body={
+                    <>
+                        <InputGroup
+                            flex="column"
+                            textValue="Email"
+                            fontSize="1.5vh"
+                            margin="5% 0vw 0vw 0vw"
+                            inputWidth="auto"
+                            inputHeight="auto"
+                            obj={<Text>{userInfo.userEmail}</Text>}
+                        ></InputGroup>
+                        <InputGroup
+                            flex="column"
+                            textValue="Birth"
+                            fontSize="1.5vh"
+                            margin="5% 0vw 0vw 0vw"
+                            inputWidth="auto"
+                            inputHeight="auto"
+                            obj={<Text>{userInfo.birthDay}</Text>}
+                        ></InputGroup>
 
-    return (
-        <ProfileCard
-            width="100%"
-            header={
-                <>
-                    <ProfileImg src={userInfo.imgUrl} />
-                    <Friends>
-                        <FriendNumber>
-                            {GetFriendCnt(userInfo.userEmail)}
-                        </FriendNumber>
-                        Friends
-                    </Friends>
-                    <PersonRemoveIcon
-                        onClick={() => deleteFriend()}
-                        cursor="pointer"
-                    />
-                </>
-            }
-            name={userInfo.name}
-            body={
-                <>
-                    <InputGroup
-                        flex="column"
-                        textValue="Email"
-                        fontSize="1.5vh"
-                        margin="10% 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.email}</Text>}
-                    ></InputGroup>
-                    <InputGroup
-                        flex="column"
-                        textValue="Birth"
-                        fontSize="1.5vh"
-                        margin="10% 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.birth}</Text>}
-                    ></InputGroup>
+                        <InputGroup
+                            flex="column"
+                            textValue="Language"
+                            fontSize="1.5vh"
+                            margin="5% 0vw 0vw 0vw"
+                            inputWidth="auto"
+                            inputHeight="auto"
+                            obj={<Text>{userInfo.language.name}</Text>}
+                        ></InputGroup>
 
-                    <InputGroup
-                        flex="column"
-                        textValue="Language"
-                        fontSize="1.5vh"
-                        margin="10% 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.lang}</Text>}
-                    ></InputGroup>
-
-                    <InputGroup
-                        flex="column"
-                        textValue="Bio"
-                        fontSize="1.5vh"
-                        fontColor="#000000"
-                        margin="10% 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.bio}</Text>}
-                    ></InputGroup>
-                    <InputGroup
-                        flex="column"
-                        textValue="Interests"
-                        fontSize="1.5vh"
-                        fontColor="#000000"
-                        margin="10% 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={
-                            <Text>{interestRernderer(userInfo.interest)}</Text>
-                        }
-                    ></InputGroup>
-                </>
-            }
-        />
-    );
+                        <InputGroup
+                            flex="column"
+                            textValue="Bio"
+                            fontSize="1.5vh"
+                            fontColor="#000000"
+                            margin="5% 0vw 0vw 0vw"
+                            inputWidth="auto"
+                            inputHeight="auto"
+                            obj={<Text>{userInfo.bio}</Text>}
+                        ></InputGroup>
+                        <InputGroup
+                            flex="column"
+                            textValue="Interests"
+                            fontSize="1.5vh"
+                            fontColor="#000000"
+                            margin="5% 0vw 0vw 0vw"
+                            inputWidth="auto"
+                            inputHeight="auto"
+                            obj={
+                                <Text>
+                                    {interestRernderer(userInfo.interests)}
+                                </Text>
+                            }
+                        ></InputGroup>
+                    </>
+                }
+            />
+        );
+    }
 }
 
 export default Friend;

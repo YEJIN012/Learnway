@@ -16,7 +16,6 @@ const ContentWrapper = styled.div`
     margin-right: 20%;
     margin-left: 20%;
     border: 1px solid;
-    height: 600px;
 `;
 const Subtitle = styled.div`
     margin-left: 20px;
@@ -37,7 +36,7 @@ const Side = styled.div`
 
 function MyPageContent(props) {
     const selectedContent = props.content;
-    const store = useSelector((state) => state.UserStore);
+    const store = useSelector((state) => state.AuthReducer);
 
     // FRIENDS Tab - Friend 프로필과 FriendList연결 변수와 함수
     const [selectedFriend, setSelectedFriend] = useState("");
