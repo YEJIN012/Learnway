@@ -45,7 +45,7 @@ function interestRernderer(array) {
 function EditProfile() {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.AuthReducer);
-    const languageBox = useSelector((state) => state.UerInfoReducer);
+    const languageBox = useSelector((state) => state.UserInfoReducer);
     const [username, setUsername] = useState(userInfo.name);
     // const [pw, setPw] = useState(userInfo.userPwd);
     // const [confirmPw, setConfirmPw] = useState("");

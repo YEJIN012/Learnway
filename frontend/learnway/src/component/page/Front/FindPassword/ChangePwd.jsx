@@ -5,7 +5,6 @@ import { request } from '../utils/axios';
 import { useNavigate } from "react-router-dom";
 
 
-
 export default function ChangePwd({email}) {
   const navigate = useNavigate()
   
@@ -37,7 +36,9 @@ export default function ChangePwd({email}) {
           alert(res.msg)
           navigate('/login')
         })
-        .catch((err) => alert("통신오류 잠시 후 이용해 주세요!") )
+        .catch((err) => {
+          console.log(err)
+          alert("통신오류 잠시 후 이용해 주세요!")} )
     }
     else { 
       alert("비밀번호가 다릅니다.")
@@ -52,4 +53,3 @@ export default function ChangePwd({email}) {
     </form>
   )
 }
-
