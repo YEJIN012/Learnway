@@ -70,7 +70,7 @@ public class UserController {
     public ResponseEntity modifyUser(@RequestPart UserDto userDto, @RequestPart(value = "image", required = false) final MultipartFile multipartFile) {
         // 정보 미입력시 리턴
         if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")){
-            return ResponseHandler.generateResponse("정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
+            return ResponseHandler.generateResponse("회원 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
         }
 
         // 관심 분야 3개 이상 체크

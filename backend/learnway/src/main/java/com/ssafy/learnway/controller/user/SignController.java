@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 @Api(tags = {"sign"})
 @RestController
@@ -136,15 +137,15 @@ public class SignController {
             String userEmail = oAuth2User.getAttributes().get("email").toString();
             log.info(userEmail);
             TokenDto tokenDto = userService.oAuthLogin(userEmail);
-            UserDto userDto = userService.userInfo(userEmail); // 유저확인
+            //UserDto userDto = userService.userInfo(userEmail); // 유저확인
 
             log.info("google login....");
 
             response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
                     .queryParam("accessToken", tokenDto.getAccessToken())
                     .queryParam("refreshToken", tokenDto.getRefreshToken())
-                    .queryParam("userEmail",userDto.getUserEmail())
-                    .queryParam("flag","true")
+                    .queryParam("userEmail",userEmail)
+                    .queryParam("flag",1)
                     .build()
                     .encode(StandardCharsets.UTF_8)
                     .toUriString());
@@ -167,6 +168,7 @@ public class SignController {
 
             log.info("google sign up....");
 
+
             UserDto userDto = UserDto.builder()
                     .provider(provider)
                     .providerId(providerId)
@@ -174,12 +176,17 @@ public class SignController {
                     .name(name)
                     .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
 
+
+            userDto.setUserPwd("1234");
+            userService.signUp(userDto);
+
+
             response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
                     .queryParam("userEmail",userEmail)
                     .queryParam("name",name)
                     .queryParam("provider",provider )
                     .queryParam("providerId",providerId)
-                    .queryParam("flag","false")
+                    .queryParam("flag",0)
                     .build()
                     .encode(StandardCharsets.UTF_8)
                     .toUriString());
