@@ -6,22 +6,21 @@ import com.ssafy.learnway.dto.chat.ChatRoom;
 import com.ssafy.learnway.service.chat.MessageMaxLength;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
 
-@Service
+@Repository
+@RequiredArgsConstructor
 @Slf4j
 public class ChatRoomRepository {
 
-    @Autowired
-    RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     // Redis 키
     private static final String CHAT_ROOMS = "CHAT_ROOM"; // 채팅룸 저장
@@ -29,18 +28,25 @@ public class ChatRoomRepository {
     public static final String CHAT_LIST = "CHAT_LIST"; // 채팅룸 최근 메시지 내역
     public static final String ROOM_TTL = "ROOM_TTL"; // room 삭제
 
-    @Resource(name = "redisTemplate")
+//    @Resource(name = "redisTemplate")
     private HashOperations<String, String, ChatRoom> hashOpsChatRoom; // 채팅방 ("CHAT_ROOM", 방 id, chatroom 객체)
 
-    @Resource(name = "redisTemplate")
+//    @Resource(name = "redisTemplate")
     private HashOperations<String, String, String> hashOpsEnterInfo;
 
 //    @Resource(name = "redisTemplate")
 //    private final ValueOperations<String, String> valueOps;
 
-    @Resource(name = "redisTemplate")
+//    @Resource(name = "redisTemplate")
     private HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
 
+
+    @PostConstruct
+    private void init() {
+        hashOpsChatRoom = redisTemplate.opsForHash();
+        hashOpsEnterInfo = redisTemplate.opsForHash();
+        roomMessages = redisTemplate.opsForHash();
+    }
 
     // 해당 유저의 모든 채팅방 조회
     public List<ChatRoom> findAllRoom(Long userId, List<Friend> friends) {

@@ -1,6 +1,10 @@
 package com.ssafy.learnway.dto.chat;
 
-import lombok.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
@@ -21,7 +25,9 @@ public class ChatMessage implements Serializable { // 채팅 메시지 포맷
 //    private String receiver; // 받는 사람
     private String message; //내용
 
-//    @CreatedDate
-//    private LocalDateTime regTime; //보낸 시간
+    @CreatedDate
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    private LocalDateTime regTime; //보낸 시간
 
 }
