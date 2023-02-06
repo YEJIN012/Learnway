@@ -112,7 +112,7 @@ public class JwtTokenProvider {
             throw new CAuthenticationEntryPointException();
         }
         //UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUserPk(token)); // 토큰으로 유저 확인
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject()); // pk값을 가지고 user entity 반환
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject()); // pk값을 가지고 user entity 반환. userId로 찾음
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());  // 유저 정보와 권한된 정보 리턴
     }
 

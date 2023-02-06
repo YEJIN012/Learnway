@@ -181,7 +181,7 @@ public class UserService {
         Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 
         // userPk로 유저 검섹
-        // User user = userRepository.findById(Long.parseLong(authentication.getName())).orElseThrow(() -> new Exception());// usernotfound 예외 처리로 바꿔주기
+        //User user = userRepository.findByUserId(Long.parseLong(authentication.getName()));// usernotfound 예외 처리로 바꿔주기
         User user = userRepository.findByUserEmail(authentication.getName());
         if (user == null ) {
             throw new UserNotFoundException();
