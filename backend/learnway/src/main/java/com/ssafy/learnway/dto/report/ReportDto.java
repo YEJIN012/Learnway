@@ -2,6 +2,8 @@ package com.ssafy.learnway.dto.report;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -9,7 +11,7 @@ import lombok.*;
 @ToString
 public class ReportDto { //request용
     private String userEmail;
-    private int reportId;//선택한 번호 (신고)
+    private List<Integer> reportId;//선택한 번호 (신고)
     private String etc;
 
 //    public Report toEntity(){

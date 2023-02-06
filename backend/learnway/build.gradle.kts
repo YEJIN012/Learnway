@@ -25,7 +25,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+
+	//websocket
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
+//	implementation("org.webjars:sockjs-client:1.1.2")
+//	implementation("org.webjars:stomp-websocket:2.3.3-1")
+
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -42,6 +47,10 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.amqp:spring-rabbit-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
+	//직렬화
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+	implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.withType<Test> {

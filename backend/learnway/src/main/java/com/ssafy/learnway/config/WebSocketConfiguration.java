@@ -2,6 +2,7 @@ package com.ssafy.learnway.config;
 
 import com.ssafy.learnway.util.StompHandler;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -13,7 +14,8 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @Configuration
 @EnableWebSocketMessageBroker //stomp 사용하도록 정의
 @RequiredArgsConstructor
-@CrossOrigin(origins="*")
+@Slf4j
+//@CrossOrigin(origins="*")
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer { //stomp 메시지 처리 방법
     private final StompHandler stompHandler;
 
@@ -33,9 +35,9 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     /**
      * StompHandler가 Websocket 앞단에서 우선 token 체크
      */
-    @Override
-    public void configureClientInboundChannel (ChannelRegistration registration){
-        registration.interceptors(stompHandler);
-        //사용자가 웹 소켓 연결에 연결될 때와 끊길 때 관리(인증, 세션)
-    }
+//    @Override
+//    public void configureClientInboundChannel (ChannelRegistration registration){
+//        registration.interceptors(stompHandler);
+//        //사용자가 웹 소켓 연결에 연결될 때와 끊길 때 관리(인증, 세션)
+//    }
 }

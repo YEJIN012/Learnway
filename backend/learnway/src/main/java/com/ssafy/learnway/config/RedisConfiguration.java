@@ -2,6 +2,8 @@ package com.ssafy.learnway.config;
 
 import com.ssafy.learnway.service.chat.RedisSubscriber;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -9,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -54,6 +57,13 @@ public class RedisConfiguration {
         redisTemplate.setConnectionFactory(connectionFactory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
+
+//        // Hash Operation 사용 시
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(String.class));
+//
+//        // 혹은 아래 설정으로 모든 Key / Value Serialization을 변경할 수 있음
+//        redisTemplate.setDefaultSerializer(new StringRedisSerializer());
 
         return redisTemplate;
     }

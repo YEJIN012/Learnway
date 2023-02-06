@@ -1,6 +1,7 @@
 package com.ssafy.learnway.dto.study;
 
 import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,11 +17,11 @@ public class StudyListResponseDto {
 
     private long userId;
 
-    private long friendId;
-
     private String script;
 
     private LocalDateTime createdDate;
 
     private LanguageDto language;
+    
+    private ProfileDto profileDto; //상대방 프로필
 }
