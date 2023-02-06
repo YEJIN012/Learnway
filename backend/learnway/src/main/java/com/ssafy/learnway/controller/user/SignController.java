@@ -169,16 +169,16 @@ public class SignController {
             log.info("google sign up....");
 
 
-            UserDto userDto = UserDto.builder()
-                    .provider(provider)
-                    .providerId(providerId)
-                    .userEmail(userEmail)
-                    .name(name)
-                    .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
-
-
-            userDto.setUserPwd("1234");
-            userService.signUp(userDto);
+//            upUserDto userDto = UserDto.builder()
+//                    .provider(provider)
+//                    .providerId(providerId)
+//                    .userEmail(userEmail)
+//                    .name(name)
+//                    .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
+//
+//
+//            userDto.setUserPwd("1234");
+//            userService.signUp(userDto);
 
 
             response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
