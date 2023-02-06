@@ -231,7 +231,10 @@ public class UserService {
         User user = userRepository.findByUserEmail(userEmail);
 
         Language language = user.getLanguageId();
-        LanguageDto languageDto = LanguageDto.builder().languageId(language.getLanguageId()).name(language.getLanguageName()).build();
+        LanguageDto languageDto = LanguageDto.builder()
+                .languageId(language.getLanguageId())
+                .code(language.getLanguageCode())
+                .name(language.getLanguageName()).build();
 
         List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
 
