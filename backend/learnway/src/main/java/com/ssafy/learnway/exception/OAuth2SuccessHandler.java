@@ -38,8 +38,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             response.sendRedirect("/users/oauth2/signup");
         } else {
             response.sendRedirect("/users/oauth2/login");
-        }
-
+            }
         }
 
 }

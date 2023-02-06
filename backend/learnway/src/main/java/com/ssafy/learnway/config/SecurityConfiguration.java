@@ -85,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                 .cors().disable()
                  //
                  .formLogin()// form 기반 로그인 관련 설정.
-                 .loginPage("/")// 로그인 요청 URL
+                 .loginPage("/login")// 로그인 요청 URL
                  .defaultSuccessUrl("/main")// 로그인 성공 시 연결 URL
                  //
                  .and()
