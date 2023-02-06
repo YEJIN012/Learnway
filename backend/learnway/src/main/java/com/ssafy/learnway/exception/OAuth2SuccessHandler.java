@@ -35,9 +35,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         User user = principalDetails.getUser();
 
         if(user==null){
-            response.sendRedirect("/users/oauth2/signup");
+            response.sendRedirect("/api/users/oauth2/signup");
         } else {
-            response.sendRedirect("/users/oauth2/login");
+            response.sendRedirect("/api/users/oauth2/login");
             }
         }
 
