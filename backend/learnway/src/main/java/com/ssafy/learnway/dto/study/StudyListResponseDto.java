@@ -1,7 +1,7 @@
 package com.ssafy.learnway.dto.study;
 
-import com.ssafy.learnway.dto.LanguageDto;
-import com.ssafy.learnway.dto.ProfileDto;
+import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import lombok.*;
 
 import java.time.LocalDateTime;

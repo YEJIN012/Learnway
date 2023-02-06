@@ -2,7 +2,7 @@ package com.ssafy.learnway.controller.report;
 
 import com.ssafy.learnway.domain.report.Report;
 import com.ssafy.learnway.dto.report.ReportDto;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.report.ReportService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
