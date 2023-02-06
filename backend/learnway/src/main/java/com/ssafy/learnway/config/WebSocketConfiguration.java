@@ -28,10 +28,14 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-stomp") // ex ) ws://localhost:8080/ws-stomp
                 .setAllowedOriginPatterns("*").withSockJS();
+//        registry.addEndpoint("/matching").
+//                setAllowedOriginPatterns("*")
+//                .setHandshakeHandler()
+//                .withSockJS();
     }
 
     /**
-     * StompHandler가 Websocket 앞단에서 우선 token 체크
+     * StompHandler가 Websocket 앞단에서c우선 token 체크
      */
     @Override
     public void configureClientInboundChannel (ChannelRegistration registration){
