@@ -5,12 +5,10 @@ import styled from "styled-components";
 import Button from "../../ui/Button";
 import CommonSelectLanguage from "../../ui/CommonSelectLanguage";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
 import Interest from "./Interest";
-import InterestModal from "./InterestModal"
 
 const style = {
     position: "absolute",
