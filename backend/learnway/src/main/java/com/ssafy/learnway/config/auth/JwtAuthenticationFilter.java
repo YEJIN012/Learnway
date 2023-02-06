@@ -2,6 +2,7 @@ package com.ssafy.learnway.config.auth;
 
 import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import java.io.IOException;
 // 해당 필터를 이용해서 토근 유효성 검증 후 JWT로부터 유저 정보를 받아 UsernamePasswordAuthenticationFilter로 전달
 // 해당 필터를 SecurityConfig 파일에 등록해주는 과정이 필요!
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -27,6 +29,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         // HTTP 요청의 헤더에서 JWT를 받아옴
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
+
+        log.info("[Verifying token] url : ");
+        log.info(((HttpServletRequest)request).getRequestURL().toString());
 
         // 유효한 토큰인지 확인
         if (token != null && jwtTokenProvider.validateToken(token)) {

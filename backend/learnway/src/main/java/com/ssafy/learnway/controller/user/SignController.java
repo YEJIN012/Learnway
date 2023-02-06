@@ -10,6 +10,7 @@ import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
@@ -43,6 +45,7 @@ public class SignController {
      *   }, []);
      *   cf) https://sudo-minz.tistory.com/78
      * **/
+
     @GetMapping("/login")
     public ResponseEntity login(@RequestParam String userEmail, @RequestParam String userPwd ){
 
@@ -57,6 +60,19 @@ public class SignController {
             return ResponseHandler.generateResponse("이메일, 비밀번호를 다시 확인해주세요.", HttpStatus.ACCEPTED);
         }
     }
+
+    // 로그아웃 시 refresh token 삭제
+    @GetMapping("/logout/{userEmail}")
+    public ResponseEntity logout(@PathVariable String userEmail){
+        try {
+            userService.logout(userEmail);
+            return ResponseHandler.generateResponse("로그아웃에 성공하였습니다.",HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse("로그아웃에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
     @PostMapping("/sign-up")
     public ResponseEntity signup(@RequestBody UserDto userDto) {
 
@@ -110,6 +126,20 @@ public class SignController {
         }
 
     }
+
+//    @PostMapping("/refreshToken")
+//    public ResponseEntity refreshTokenTest(HttpServletRequest request, HttpServletResponse response){
+//        try {
+//
+//
+//            TokenDto newCreatedToken = userService.refreshToken(tokenRequestDto);
+//            return ResponseHandler.generateResponse("Refresh token 재발급에 성공하였습니다.",HttpStatus.OK,"token",newCreatedToken);
+//        } catch (Exception e) {
+//            return ResponseHandler.generateResponse("Refresh token 재발급에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
+
 
     // http://localhost:8080/oauth2/authorization/google : 프론트에 사용할 구글 소셜 로그인 버튼
 //    @GetMapping("/oauth2/login")

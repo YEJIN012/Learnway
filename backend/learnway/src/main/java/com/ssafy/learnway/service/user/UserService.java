@@ -82,6 +82,11 @@ public class UserService {
     }
 
     @Transactional
+    public void logout(String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        refreshTokenRepository.deleteByUserKey(user.getUserId());
+    }
+    @Transactional
     public TokenDto oAuthLogin(String userEmail) throws SQLException {
 
         User user = userRepository.findByUserEmail(userEmail);
