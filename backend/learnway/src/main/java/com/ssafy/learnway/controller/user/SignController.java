@@ -17,7 +17,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 @Api(tags = {"sign"})
@@ -108,8 +111,25 @@ public class SignController {
     }
 
     // http://localhost:8080/oauth2/authorization/google : 프론트에 사용할 구글 소셜 로그인 버튼
+//    @GetMapping("/oauth2/login")
+//    public ResponseEntity oAuthLogin(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth){// DI(의존성주입)
+//
+//        try {
+//            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+//            String userEmail = oAuth2User.getAttributes().get("email").toString();
+//            log.info(userEmail);
+//            TokenDto tokenDto = userService.oAuthLogin(userEmail);
+//            UserDto userDto = userService.userInfo(userEmail); // 유저확인
+//
+//            return ResponseHandler.generateResponse("구글 로그인 성공", HttpStatus.OK, "token", tokenDto, "user",userDto, "flag", true);
+//        }catch (Exception e){
+//            return ResponseHandler.generateResponse("구글 로그인에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
+
     @GetMapping("/oauth2/login")
-    public ResponseEntity oAuthLogin(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth){// DI(의존성주입)
+    public void oAuthLogin(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth,  HttpServletResponse response){// DI(의존성주입)
 
         try {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
@@ -118,21 +138,34 @@ public class SignController {
             TokenDto tokenDto = userService.oAuthLogin(userEmail);
             UserDto userDto = userService.userInfo(userEmail); // 유저확인
 
-            return ResponseHandler.generateResponse("구글 로그인 성공", HttpStatus.OK, "token", tokenDto, "user",userDto, "flag", true);
+            log.info("google login....");
+
+            response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
+                    .queryParam("accessToken", tokenDto.getAccessToken())
+                    .queryParam("refreshToken", tokenDto.getRefreshToken())
+                    .queryParam("userEmail",userDto.getUserEmail())
+                    .queryParam("flag","true")
+                    .build()
+                    .encode(StandardCharsets.UTF_8)
+                    .toUriString());
+
+
         }catch (Exception e){
-            return ResponseHandler.generateResponse("구글 로그인에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
         }
 
     }
 
     @GetMapping("/oauth2/signup")
-    public ResponseEntity oAuthSignUp(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth){
+    public void oAuthSignUp(Authentication authentication , @AuthenticationPrincipal OAuth2User oauth, HttpServletResponse response){
         try {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             String userEmail = oAuth2User.getAttributes().get("email").toString();
             String name = oAuth2User.getAttributes().get("name").toString();
             String provider = "GOOGLE";
             String providerId = oAuth2User.getAttribute("sub");
+
+            log.info("google sign up....");
 
             UserDto userDto = UserDto.builder()
                     .provider(provider)
@@ -141,9 +174,18 @@ public class SignController {
                     .name(name)
                     .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
 
-            return ResponseHandler.generateResponse("구글 회원가입 진행", HttpStatus.OK, "user",userDto, "flag", false); // flag가 false면 회원가입 페이지로! 이떄 프론트에서 비밀번호 받는칸 비활성화!
+            response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
+                    .queryParam("userEmail",userEmail)
+                    .queryParam("name",name)
+                    .queryParam("provider",provider )
+                    .queryParam("providerId",providerId)
+                    .queryParam("flag","false")
+                    .build()
+                    .encode(StandardCharsets.UTF_8)
+                    .toUriString());
+
         }catch (Exception e){
-            return ResponseHandler.generateResponse("구글 회원가입에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+            e.printStackTrace();
         }
 
     }
