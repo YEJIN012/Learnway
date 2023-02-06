@@ -85,6 +85,7 @@ public class SignController {
             userDto.setImgUrl("8c078de680914140a37360b079c0c23e.png"); // 기본 이미지
 
             userService.signUp(userDto);
+            userDto.setUserPwd(null);
 
             //UserDto savedUserDto = userService.userInfo(userDto.getUserEmail());
 

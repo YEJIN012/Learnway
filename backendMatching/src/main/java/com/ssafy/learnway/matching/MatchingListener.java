@@ -2,8 +2,6 @@ package com.ssafy.learnway.matching;
 
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 
-import com.ssafy.learnway.dto.matching.MatchingResponseDto;
-import com.ssafy.learnway.matching.algorithm.MatchingAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +10,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class MatchingListener {
-
-    @Autowired
-    MatchingAlgorithm matchingAlgorithm;
 
     @Autowired
     MatchingWaitList matchingWaitList;
@@ -35,10 +30,6 @@ public class MatchingListener {
 
         // 매칭 대기자 추가
         matchingWaitList.getMatchingWaitList().add(matchingRequestDto);
-
-        // 매칭 알고리즘
-        // MatchingResponseDto matchingResponseDto = matchingAlgorithm.algorithm(matchingRequestDto);
-        matchingAlgorithm.algorithm();
 
     }
 }
