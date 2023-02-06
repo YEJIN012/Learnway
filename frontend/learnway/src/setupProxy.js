@@ -14,7 +14,7 @@ module.exports = function (app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://i8a408.p.ssafy.io',
+      target: 'https://i8a408.p.ssafy.io/api',
       pathRewrite: {
         '^/api': '',
       },
@@ -31,4 +31,17 @@ module.exports = function (app) {
       changeOrigin:true
     }),
   );
+  
+  app.use(
+    '/ws',
+    createProxyMiddleware({
+      target: 'https://i8a408.p.ssafy.io',
+      pathRewrite:{
+        '^/ws':'',
+      },
+      changeOrigin:true,
+      ws:true
+   
+    }),
+  )
 };
