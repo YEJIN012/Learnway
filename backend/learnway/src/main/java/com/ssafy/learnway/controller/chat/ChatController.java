@@ -3,7 +3,7 @@ package com.ssafy.learnway.controller.chat;
 import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.repository.chat.ChatRoomRepository;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.chat.ChatService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.JwtTokenProvider;

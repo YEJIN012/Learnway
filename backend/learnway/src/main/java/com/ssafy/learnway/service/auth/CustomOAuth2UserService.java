@@ -2,7 +2,7 @@ package com.ssafy.learnway.service.auth;
 
 import com.ssafy.learnway.domain.oauth.PrincipalDetails;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

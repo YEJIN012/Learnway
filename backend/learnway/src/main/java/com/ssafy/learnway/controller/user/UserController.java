@@ -1,11 +1,14 @@
 package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.*;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.dto.interest.InterestDto;
+import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
+import com.ssafy.learnway.dto.user.PwdDto;
+import com.ssafy.learnway.dto.user.UserDto;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
