@@ -2,6 +2,7 @@ package com.ssafy.learnway.controller;
 
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.friend.FriendRequestDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
@@ -32,21 +33,21 @@ public class FriendController {
             User user = userService.findByEmail(userEmail);
             Long userId = user.getUserId();
             List<Friend> friendList = friendService.list(user);
-            List<String> userEmailList = new ArrayList<>();
-
+//            List<String> userEmailList = new ArrayList<>();
+            List<ProfileDto> friendProfileList = new ArrayList<>();
 
             // 행 하나의 두 아이디가 검색하려는 유저의 아이디와 다르면 (자신이 아닌 친구라면)
             // 리스트에 저장
             for (Friend friend : friendList) {
                 User tmpUser = friend.getUserId();
                 User tmpFriend = friend.getFriendId();
-                if (tmpUser.getUserId() == userId) userEmailList.add(tmpFriend.getUserEmail());
-                else userEmailList.add(tmpUser.getUserEmail());
+                if (tmpUser.getUserId() == userId) friendProfileList.add(userService.getProfile(tmpFriend.getUserEmail()));
+                else friendProfileList.add(userService.getProfile(tmpUser.getUserEmail()));
             }
 
-            if(userEmailList.isEmpty()) return ResponseHandler.generateResponse("검색된 친구가 없습니다.", HttpStatus.NOT_FOUND);
+            if(friendProfileList.isEmpty()) return ResponseHandler.generateResponse("검색된 친구가 없습니다.", HttpStatus.NOT_FOUND);
 
-            return ResponseHandler.generateResponse("검색된 친구 목록입니다.", HttpStatus.OK, "userEmailList", userEmailList);
+            return ResponseHandler.generateResponse("검색된 친구 목록입니다.", HttpStatus.OK, "friendProfileList", friendProfileList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -62,6 +63,11 @@ public class FriendController {
             User friend = userService.findByEmail(dto.getFriendEmail());
 
             if (user==null || friend == null) return ResponseHandler.generateResponse("유효하지 않은 이메일입니다.", HttpStatus.NOT_FOUND);
+
+            /// 중복으로 친구 추가 방지
+            if(friendService.findById(user,friend)!=null){
+                return ResponseHandler.generateResponse("이미 추가가 된 친구입니다.", HttpStatus.NOT_FOUND);
+            }
 
             Friend newRelation = Friend.builder().userId(user).friendId(friend).build();
             friendService.make(newRelation);

@@ -21,4 +21,14 @@ module.exports = function (app) {
       changeOrigin:true
     }),
   );
+  app.use(
+    '/papagoapi',
+    createProxyMiddleware({
+      target: 'https://openapi.naver.com',
+      pathRewrite: {
+        '^/papagoapi': '',
+      },
+      changeOrigin:true
+    }),
+  );
 };

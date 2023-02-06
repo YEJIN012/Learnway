@@ -82,6 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .httpBasic().disable()
                  // csrf : post방식으로 값을 전송시, token을 사용해야되는 보안 설정 비활성화
                  .csrf().disable()
+//                 .cors().disable()
                  //
                  .formLogin()// form 기반 로그인 관련 설정.
                  .loginPage("/login")// 로그인 요청 URL

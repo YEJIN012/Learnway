@@ -2,56 +2,55 @@
 import React, { useState } from 'react';
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-// import { request } from "../utils/axios";
+import { request } from "../utils/axios";
 
-const USER_URL = "/users";
+
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState(false);
-  const [authnum, setAuthnum] = useState("")
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
+  
 
-
-  // 인증번호 받아오기
-  const getAuthcode = () => {
-    setAuthcode("123456")           // 인증번호 Code 받아오기
-    setAuth(true)                 // 인증번호 입력태그 보여주기
-
-    // request("post", USER_URL + "/verify", email)
-    // .then((res) =>{
-    //   setAuthcode(res.statusCode)   // 인증번호 Code 받아오기
-    //   setAuth(true)                 // 인증번호 입력태그 보여주기
-    // })
-    // .catch((err)=> {
-    //   console.log(err)
-    //   alert("요청실패")
-    // })
+  const URL = '/users/verify'
+  
+  // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
+  const chkAuthcode = () => {
+    request("get", URL + `?user_email=${email}`, email)
+    setAuth(true)                  
   }
-
+  
+  // 인증번호 식별 요청
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (authnum === authcode){
-      getEmail(email)                 // 이메일 emit
-      setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
-    } else{
-      alert("인증번호가 일치하지 않습니다.")
-    }
+    request("post", URL + `?code=${authcode}&user_email=${email}`, email)
+      .then((res) => {
+        const status = res.status;
+        const msg = res.msg
+        if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
+          getEmail(email)
+          setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
+          alert(msg)
+        } else {
+          alert(msg)
+        }
+      })
+      .catch((err) => console.log(err))
   }
 
   return (
     <>
       <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-      <Btn id="0" txt="Send" func={getAuthcode} disabled={disabled} />
+      <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Send" disabled= {disabled} onClick={chkAuthcode} />
       <form onSubmit={handleSubmit}>
         {
           auth === true
           ? (
             <>
-              <InputBox id="authnum" type="text" title="Authentication number" placeholder="123456" value={authnum} disabled={disabled} onChange={(e) => {setAuthnum(e.target.value)}} />
-              <Btn id="0" txt="confirm" disabled={disabled} />
+              <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
+              <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Confirm" disabled= {disabled} onClick={chkAuthcode} />
+
             </>
           )
           : null
@@ -62,25 +61,6 @@ export default function AuthEamil({getEmail}) {
 }
 
 
-function Btn(props){
-  const {id, txt, disabled, func} = props;
-  return (
-    <Button 
-      id= {id} 
-      width="13.16vw" 
-      height="5vh" 
-      fontSize="0.83vw" 
-      textWeight="700" 
-      radius="2vh" 
-      textValue= {txt}
-      disabled= {disabled}
-      onClick={() => {
-        func()
-      }}
-    >
-    </Button>
-  )
-}
 
 
 

@@ -40,6 +40,10 @@ public class StudyController {
         try {
             List<StudyListResponseDto> studyList = studyService.selectStudyList(studyListDto);
 
+            if(userService.findByEmail(studyListDto.getUserEmail()) == null){
+                return ResponseHandler.generateResponse("존재하지 않는 사용자입니다.", HttpStatus.NOT_FOUND);
+            }
+
             if(studyList.isEmpty() || studyList == null){
                 return ResponseHandler.generateResponse("검색된 학습 목록이 없습니다.", HttpStatus.ACCEPTED);
             }

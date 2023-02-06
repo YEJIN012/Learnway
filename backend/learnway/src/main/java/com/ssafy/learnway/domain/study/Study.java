@@ -6,8 +6,6 @@ import com.ssafy.learnway.domain.user.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -27,7 +25,7 @@ public class Study extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(referencedColumnName = "user_id", name="friend_id")
-    private User friendId;
+    private User friendId; //학습을 같이 한 상대방 아이디. 여기서 친구 개념이 아니다.
 
     @Column(columnDefinition = "TEXT")
     private String script;

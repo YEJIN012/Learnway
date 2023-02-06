@@ -24,7 +24,7 @@ public class CrawingService { // 오늘의 회화 크롤링
 
         // Jsoup는 정적인 페이지만 크롤링해서 받을 수 있다.
         Document document = Jsoup.connect(url).get();
-        log.info(document.toString());
+//        log.info(document.toString());
         Element title = document.select("#conv_tL1 b").first();
         List<String> list = new ArrayList<>();
 
