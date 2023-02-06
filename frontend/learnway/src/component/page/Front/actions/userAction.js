@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, SET_TOKEN, DELETE_TOKEN } from "./types";
+import { LOGIN_USER, UPDATE_USER, LOGOUT_USER, SET_TOKEN, DELETE_TOKEN } from "./types";
 import { REGISTER_USER, GET_INTEREST, GET_LANGUAGE } from "./types";
 
 import { request } from "../utils/axios";
@@ -47,6 +47,14 @@ export function loginUser(dataToSubmit) {
     payload: data,
   };
 }
+
+// // 유저 데이터 갱신
+// export function updateInfo(data) {
+//   return {
+//     type: UPDATE_USER,
+//     payload: data,
+//   }
+// }
 
 // 유저 데이터 초기화
 export function deleteInfo(data) {

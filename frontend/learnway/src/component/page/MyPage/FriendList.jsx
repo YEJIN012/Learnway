@@ -54,7 +54,7 @@ function FriendList(props) {
             elevation={3}
             children={
                 <div>
-                    "Make a friend who can have a constant language exchange
+                    "Make new friends who can have language exchange constantly
                     through our Learnway😉"
                 </div>
             }

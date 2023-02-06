@@ -163,6 +163,7 @@ function Friend(props) {
                                 </Text>
                             }
                         ></InputGroup>
+                        <></>
                     </>
                 }
             />

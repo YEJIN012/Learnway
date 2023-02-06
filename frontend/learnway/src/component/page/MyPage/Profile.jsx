@@ -7,6 +7,7 @@ import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import EditIcon from "@mui/icons-material/Edit";
+import AWS from "aws-sdk";
 
 const Friends = styled.div`
     display: flex;
@@ -30,7 +31,6 @@ const ImgIcon = styled.div`
     align-items: end;
 `;
 
-function editImg() {}
 
 function GetFriendCnt(userEmail) {
     const [friendCnt, setFriendCnt] = useState("");
@@ -54,31 +54,54 @@ function Profile() {
     const selectFile = useRef(); // Icon onClick에 input File을 달기 위한 ref
 
     const [imgBase64, setImgBase64] = useState(""); // 미리보기 파일
-    const [imgFile, setImgFile] = useState(""); // 찐 이미지 저장 파일
+    const [imgFileName, setImgFileName] = useState(""); // 선택한 이미지 파일명
 
-    const handleChangeFile = (event) => {
-        console.log(event.target.files);
-
-        if (event.target.files) {
+    // 선택이미지 미리보기
+    const handleChangePreview = (e) => {
+        console.log(e.target.files);
+        if (e.target.files) {
             let reader = new FileReader();
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(e.target.files[0]);
             // 1. 파일을 읽어 버퍼에 저장합니다.
             // 파일 상태 업데이트
             reader.onloadend = () => {
                 // 2. 읽기가 완료되면 아래코드가 실행됩니다.
                 const base64 = reader.result;
-                console.log(base64);
+                // console.log(base64);
                 if (base64) {
                     var base64Sub = base64.toString();
-
-                    setImgBase64(base64);
+                    setImgBase64(base64Sub);
                     //  setImgBase64(newObj);
                     // 파일 base64 상태 업데이트
-                    console.log(imgBase64)
+                    console.log(imgBase64);
                 }
             };
         }
     };
+
+    // save 클릭시 호출되는 form 제출함수(image 편집)
+    function EditProfileImg() {
+    const userInfo = useSelector((state) => state.AuthReducer);
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(userInfo)], {
+            type: "application/json"
+        })
+    formData.append('image', selectFile);
+    formData.append('userDto', blob)
+
+
+    axios
+        .put("api/users/modify", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(function (res) {
+            console.log(res.data.msg);
+            alert("Successfully edited profile image");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
     return (
         <ProfileCard
@@ -89,12 +112,12 @@ function Profile() {
                         type="file"
                         accept=".jpg, .png"
                         style={{ display: "none" }}
-                        ref={selectFile} //input에 접근 하기위해 useRef사용
-                        onChange={handleChangeFile}
+                        ref={selectFile} //EditIcon 에서 input에 접근 하기위해 useRef사용
+                        onChange={handleChangePreview}
                     />
                     <ImgIcon>
                         <ProfileImg
-                            tmpsrc={imgBase64}
+                            tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌
                             src={userInfo.imgUrl}
                             width="8vh"
                         />
@@ -116,6 +139,7 @@ function Profile() {
                             textValue={"Save"}
                             width="7.079vw"
                             radius={"5px"}
+                            onClick={() => EditProfileImg}
                         ></Button>
                     )}
                 </>
