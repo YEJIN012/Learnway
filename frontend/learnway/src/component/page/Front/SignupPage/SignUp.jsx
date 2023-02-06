@@ -2,6 +2,7 @@ import SignupForm from "./SingupForm";
 import Interest from "./Interest";
 import { useState } from "react";
 import BackgroundFrame from "../Background";
+import { NavLink } from 'react-router-dom';
 
 export default function Signup () {
   const [userinfo, setUserinfo] = useState("")
@@ -13,13 +14,19 @@ export default function Signup () {
   }
 
   return (
-    <BackgroundFrame
+    <BackgroundFrame left="35vw" right="30vw" height="90vh" top="5vh" bottom="5vh" fsize="1.3vw" mtop = "13vh"
       bg={
           userinfo === ""
-          ? <SignupForm getUserinfo={getUserinfo}></SignupForm>
+          ? (
+          <>
+            <NavLink to = "/login">Login</NavLink>
+            <SignupForm getUserinfo={getUserinfo}></SignupForm>
+          </>
+          )
           : <Interest userinfo={userinfo}></Interest>
       }
-      ment1="Sign Up">
+      ment1="Sign Up"
+      ment2="Already Member ?">
     </BackgroundFrame>
   )
 }

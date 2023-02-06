@@ -32,9 +32,4 @@ export default function Logout(params) {
     logout();
   }, [])
 
-  return (
-    <div>
-      <Link to='/login'/>
-    </div>
-  );
 }
