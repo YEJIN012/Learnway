@@ -11,6 +11,17 @@ import AuthReducer from './app/AuthReducer';
 import { CookiesProvider } from 'react-cookie';
 import TokenReducer from './app/TokenReducer';
 import UserInfoReducer from './app/UserInfoReducer';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from "redux-persist/lib/storage";
+
+
+const persistConfig = {
+  key: "root",
+  storage: storage,
+  // blacklist: ["UserStore"]
+}
+
 const rootReducer = combineReducers({
   UserStore,
   MainStore,
@@ -19,13 +30,22 @@ const rootReducer = combineReducers({
   UserInfoReducer,
 });
 
-let store = createStore(rootReducer)
+
+let persistrootReducer = persistReducer(persistConfig, rootReducer)
+
+let store = createStore(persistrootReducer)
+// let store = createStore(rootReducer)
+
+let persistor = persistStore(store)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <CookiesProvider>
     <Provider store={store}>
-        <App />
+      <PersistGate persistor={persistor}>
+          <App />
+      </ PersistGate>
     </Provider>
   </CookiesProvider>,
 );

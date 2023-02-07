@@ -10,6 +10,7 @@ import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
 import TestPage from "./component/chat/TestPage"
 import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
+import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/loading/match" element={<RandomMatch />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
+                <Route path='/logincheck' element={<LoginCheck />}></Route>
             </Routes>
         </BrowserRouter>
     );
