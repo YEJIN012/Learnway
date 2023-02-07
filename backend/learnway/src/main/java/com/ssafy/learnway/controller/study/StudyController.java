@@ -60,6 +60,7 @@ public class StudyController {
     @PostMapping
     public ResponseEntity record(@RequestBody @ApiParam(value = "기록에 관한 정보", required = true) StudyRecordRequestDto studyRecordRequestDto) throws SQLException {
         try {
+
             studyService.insertStudy(studyRecordRequestDto);
             return ResponseHandler.generateResponse("학습 기록이 완료되었습니다.", HttpStatus.OK);
         } catch (Exception e) {
