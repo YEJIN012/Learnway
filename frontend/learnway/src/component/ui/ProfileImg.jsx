@@ -10,6 +10,8 @@ const Img = styled.img`
 
 function ProfileImg(props) {
     const { tmpsrc, src, width } = props;
+    //tmpsrc : 클라이언트에서 바로 가져오는 이미지src
+    //src : s3에서 불러오는 이미지 키값
 
     // s3 bucket 이미지 읽어오기
     AWS.config.update({
