@@ -10,12 +10,13 @@ import EditProfile from "./EditProfile";
 
 const ContentWrapper = styled.div`
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 3fr;
     justify-content: center;
     align-items: center;
-    margin-right: 20%;
-    margin-left: 20%;
+    margin-right: 30%;
+    margin-left: 30%;
     border: 1px solid;
+    height: 600px;
 `;
 const Subtitle = styled.div`
     margin-left: 20px;
@@ -36,7 +37,7 @@ const Side = styled.div`
 
 function MyPageContent(props) {
     const selectedContent = props.content;
-    const store = useSelector((state) => state.AuthReducer);
+    const store = useSelector((state) => state.UserStore);
 
     // FRIENDS Tab - Friend 프로필과 FriendList연결 변수와 함수
     const [selectedFriend, setSelectedFriend] = useState("");

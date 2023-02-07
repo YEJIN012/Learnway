@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { accessToken, loginUser, registerUser } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
 
-
 const SelectFrame = styled.div`
   width: 382px;
   height: 599px;
@@ -16,7 +15,6 @@ const SelectFrame = styled.div`
 `;
 
 
-
 export default function InterestSelect({userinfo, itdata}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,11 +22,12 @@ export default function InterestSelect({userinfo, itdata}) {
   let [lst, setLst] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
   let itobj = []
 
-  // 취향을 선택하고 버튼을 클릭하면 회원가입 요청 후, 자동 로그인
+  console.log(itdata)
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(itobj)
     
-    // 설정된 취향 데이터를 정제한다.
     for (let i = 0; i < itdata.length; i++) {
       if (lst[i]){
         const tmp = {
@@ -38,17 +37,17 @@ export default function InterestSelect({userinfo, itdata}) {
         itobj.push(tmp)
       }
     }
+    
     function add(key, value) {
       return { ...userinfo, [key]: value }
     }
+
     const userDto = add('interests', itobj)
-    
-    // 회원가입 요청 후, 로그인     
+    console.log(userDto)
     dispatch(registerUser(userDto)).payload
       .then((res) =>{
         const status = res.status
         const msg = res.msg
-        console.log(msg)
         if (status === 200) {
           console.log(msg)
           dispatch(loginUser({userEmail: userinfo.userEmail, userPwd: userinfo.userPwd})).payload
@@ -56,7 +55,7 @@ export default function InterestSelect({userinfo, itdata}) {
               const status = res.status
               const msg = res.msg
               if (status === 200) {
-                console.log(1111)
+      
                 // 쿠키에 Refresh Token, store에 Access Token 저장
                 setRefreshToken(res.token.refreshToken);
                 dispatch(accessToken(res.token.accessToken));

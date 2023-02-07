@@ -25,7 +25,8 @@ const SendTime = styled.div`
     color:#C5C5C5;
 `
 function ChatText({...props}) {
-    if(props.id===0){
+    console.log(props.id)
+    if(props.id==='0'){
         return (
             <Frame id={props.id}>
                 <Msg id={props.id}>{props.text}</Msg>
@@ -33,7 +34,7 @@ function ChatText({...props}) {
             </Frame>
         );
     }
-    else if(props.id === 1){
+    else if(props.id === '1'){
         return (
             <Frame id={props.id}>
                 <Msg id={props.id}>{props.text}</Msg>
@@ -41,4 +42,4 @@ function ChatText({...props}) {
             </Frame>
         );
     }
-} export default ChatText;
+} export default React.memo(ChatText);
