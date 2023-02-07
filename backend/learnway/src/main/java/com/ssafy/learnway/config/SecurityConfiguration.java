@@ -48,7 +48,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/*/users/dupName",
             "/*/users/interest",
             "/*/users/language",
-            "/main"
+            "/main",
+            "https://i8a408.p.ssafy.io/**"
     };
     @Autowired
     private final JwtTokenProvider jwtTokenProvider;
@@ -107,9 +108,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                  //.antMatchers().permitAll()
                  .antMatchers(PERMIT_URL_ARRAY).permitAll() // swagger api 접근
                  //.antMatchers("/").permitAll()
-                 .anyRequest().hasRole("USER")
+                 //.anyRequest().hasRole("USER")
                  //.antMatchers("/**").hasRole("USER") // 특정 role 유저 접근 가능
-                 //.anyRequest().permitAll() // 나머지 path는 모두 접근 가능
+                 .anyRequest().permitAll() // 나머지 path는 모두 접근 가능
                  //
                  .and()
                  .logout()
