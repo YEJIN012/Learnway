@@ -40,15 +40,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             /* 모든 사용자 접근 페이지 => front와 맞춰보기*/
-            "/*/login",
+            "/*/users/login",
             "/*/sign-up",
-            "/*/intro",
-            "/api/users/oauth2/signup",
-            "/api/users/oauth2/login",
-            "/users/oauth2/login",
-            "/users/oauth2/signup",
-            "/users/logout/**",
-            "/intro",
+            "/*/users/logout/**",
+            "/*/users/oauth2/login",
+            "/*/users/oauth2/signup",
+            "/*/users/dupName",
+            "/*/users/interest",
+            "/*/users/language",
             "/main"
     };
     @Autowired
