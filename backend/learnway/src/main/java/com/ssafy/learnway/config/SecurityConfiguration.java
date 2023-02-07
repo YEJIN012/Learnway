@@ -77,7 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/")
-                .antMatchers("/swagger/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/configuration/**", "/v3/api-docs/**");
+                .antMatchers("/api/swagger/**", "/api/swagger-ui/**", "/api/swagger-ui.html", "/api/webjars/**", "/api/swagger-resources/**", "/api/configuration/**", "/api/v3/api-docs/**");
         ;
     }
 
@@ -107,7 +107,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.antMatchers().permitAll()
                 .antMatchers(PERMIT_URL_ARRAY).permitAll() // swagger api 접근
                 //.antMatchers("/").permitAll()
-                .anyRequest().hasRole("USER")
+//                .anyRequest().hasRole("USER")
+                .anyRequest().permitAll()
                 //.antMatchers("/**").hasRole("USER") // 특정 role 유저 접근 가능
                 //.anyRequest().permitAll() // 나머지 path는 모두 접근 가능
                 //
@@ -133,4 +134,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
     }
 }
-
