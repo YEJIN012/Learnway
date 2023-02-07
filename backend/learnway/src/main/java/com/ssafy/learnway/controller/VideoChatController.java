@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/video")
 @CrossOrigin(origins = "*")
 @Api(tags = {"videochat"})
 public class VideoChatController {
