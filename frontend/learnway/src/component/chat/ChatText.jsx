@@ -42,4 +42,4 @@ function ChatText({...props}) {
             </Frame>
         );
     }
-} export default ChatText;
+} export default React.memo(ChatText);

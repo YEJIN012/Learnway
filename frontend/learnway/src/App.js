@@ -10,8 +10,10 @@ import Loading from "./component/page/Loading/LoadingPage"
 import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
 import TestPage from "./component/chat/TestPage"
+import OpenV from "./component/VideoChat/VideoChatMain"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+//<Route path="/testchat" element={<TestPage/>}></Route>
 function App() {
     return (
         <BrowserRouter>
@@ -19,7 +21,6 @@ function App() {
                 <Route path="/" element={<Home />}></Route>
 
                 <Route path="/test" element={<Test/>}></Route>
-                <Route path="/testchat" element={<TestPage/>}></Route>
                 <Route path="/loading" element={<Loading />}></Route>
                 <Route path="/intro" element={<Intro />}></Route>
                 <Route path="/mypage" element={<MyPage />}></Route>
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPassword />}></Route>
                 <Route path="/loading/match" element={<RandomMatch />}></Route>
+                <Route path="/openvidu" element={<OpenV />}></Route>
             </Routes>
         </BrowserRouter>
     );

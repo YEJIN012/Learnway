@@ -58,9 +58,9 @@ background-size:cover;
 
 //검색 공통 컴포넌트 끝 
 
-let ws;
+
 const socket = new SockJS('/api/ws-stomp');
-ws = Stomp.over(socket);
+const ws = Stomp.over(socket);
 function Chatroom(props) {
     const [text, setText] = useState("")
     const [chatLog, setChatLog] = useState([]);
@@ -81,17 +81,23 @@ function Chatroom(props) {
         setMsgId(msgId + 1);
         setChatLog([...chatLog, data]);
     }
-    ws.connect({}, (frame) => {
-        console.log("connected to server:", frame);
-        subscribe();
-    })
-    useEffect(() => {
-        console.log("아무스트링")
-    }, []);
-
+    useEffect(()=>{
+        ws.connect({}, (frame) => {
+             console.log("connected to server:", frame);
+             subscribe();
+         })
+        
+    },[])
     function subscribe() {
         ws.subscribe('/sub/chat/room/be73b328-835e-4042-9e9d-862a38b1694b', (event) => {
-            updateComponent('1', JSON.parse(event.body).message);   
+            const received = JSON.parse(event.body)
+            if(received.sender === "bbb@ssafy.com"){
+                //console.log("subscribe")
+                //updateComponent('1', JSON.parse(event.body).message);   
+                const data = { id: msgId, msg: <ChatText id={1} text={received.message}></ChatText> };
+                setMsgId(msgId + 1);
+                setChatLog([...chatLog, data]);
+            }
         })
     }
     
@@ -101,12 +107,15 @@ function Chatroom(props) {
         const da = {
             type: "TALK",
             roomId: "be73b328-835e-4042-9e9d-862a38b1694b",
-            sender: "hi",
+            sender: "aaa@ssafy.com",
             message: text
         }
         ws.send('/pub/chat/message', {}, JSON.stringify(da));
-
-        updateComponent('0', text);
+        console.log("sendMsg")
+        //updateComponent('0', text);
+        const data = { id: msgId, msg: <ChatText id={1} text={text}></ChatText> };
+                setMsgId(msgId + 1);
+                setChatLog([...chatLog, data]);
     }
 
     return (
@@ -127,4 +136,4 @@ function Chatroom(props) {
             </SearchBox>
         </RoomFrame>
     );
-} export default React.memo(Chatroom);   
+} export default Chatroom;   

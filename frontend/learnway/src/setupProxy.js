@@ -33,15 +33,13 @@ module.exports = function (app) {
   );
   
   app.use(
-    '/ws',
+    '/videochat',
     createProxyMiddleware({
       target: 'https://i8a408.p.ssafy.io',
       pathRewrite:{
-        '^/ws':'',
+        '^/videochat':'',
       },
       changeOrigin:true,
-      ws:true
-   
     }),
   )
 };
