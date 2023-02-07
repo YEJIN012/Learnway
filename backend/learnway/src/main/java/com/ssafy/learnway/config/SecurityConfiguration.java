@@ -78,7 +78,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/")
-                .antMatchers("/swagger/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**", "/configuration/**", "/v3/api-docs/**");
+                .antMatchers("/api/swagger/**", "/api/swagger-ui/**", "/api/swagger-ui.html", "/api/webjars/**", "/api/swagger-resources/**", "/api/configuration/**", "/api/v3/api-docs/**");
         ;
     }
 
@@ -123,14 +123,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                  .and()
                  .successHandler(oAuth2SuccessHandler) // 인증을 성공적으로 마친 경우 처리할 클래스
                  //.failureHandler(oAuth2AuthenticationFailureHandler);
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
+                .and()
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
 
-                 .and()
-                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
-                 .and()
-                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
-
-                 .and()
-                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
-                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-     }
+                .and()
+                // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+    }
 }

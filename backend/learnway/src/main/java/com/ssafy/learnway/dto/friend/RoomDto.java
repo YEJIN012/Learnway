@@ -20,6 +20,6 @@ public class RoomDto implements Comparable<RoomDto> {
 
     @Override
     public int compareTo(RoomDto o) {
-        return o.dateTime.compareTo(o.dateTime); //최근 받은 메시지 별로 정렬
+        return this.dateTime.compareTo(o.dateTime); //최근 받은 메시지 별로 정렬
     }
 }
