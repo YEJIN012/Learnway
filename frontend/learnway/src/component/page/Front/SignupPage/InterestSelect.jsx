@@ -60,12 +60,14 @@ export default function InterestSelect({userinfo, itdata}) {
                 // 쿠키에 Refresh Token, store에 Access Token 저장
                 setRefreshToken(res.token.refreshToken);
                 dispatch(accessToken(res.token.accessToken));
-      
+                console.log(userDto)
                 // 성공했으면 메인 페이지로 이동
                 navigate(`/`)
                 alert("환영쓰");
               } else if (status === 202) {
                 // 아이디 비밀번호가 틀린 경우,
+                alert(msg)
+              } else{
                 alert(msg)
               }
             });

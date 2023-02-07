@@ -55,10 +55,8 @@ export default function LoginForm () {
         console.log(msg)
         if (status === 200) {
           console.log(res)
-          /* console.log(refreshToken) */
+          
           // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
-          /* const refreshToken = { refreshToken: res.token.refreshToken , userEmail: res.user.userEmail } */
-          /* setRefreshToken(refreshToken); */
           setRefreshToken(res.token.refreshToke);          
           dispatch(accessToken(res.token.accessToken));
 

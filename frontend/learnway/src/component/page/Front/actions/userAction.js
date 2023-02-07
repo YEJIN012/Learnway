@@ -5,7 +5,6 @@ import { request } from "../utils/axios";
 
 const USER_URL = "/users";
 
-
 // language 데이터 가져오기
 export function languageLst() {
   const URL = USER_URL + '/language'
@@ -48,7 +47,18 @@ export function loginUser(dataToSubmit) {
   };
 }
 
-// // 로그 아웃 (유저 데이터 초기화)
+// 유저정보 조회
+export function findUserInfo(dataToSubmit) {
+  const URL = USER_URL + `/${dataToSubmit.userEmail}`;
+  const data = request("get", URL , dataToSubmit);
+  console.log(data)
+  return {
+    type: LOGIN_USER,
+    payload: data,
+  };
+}
+
+// 로그 아웃 (유저 데이터 초기화)
 export function deleteInfo(dataToSubmit) {
   const URL = USER_URL + `/logout/${dataToSubmit}`;
   const data = request("get", URL);
