@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "../../ui/NavBar";
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 
 const Frame=styled.div`
     display:flex;
@@ -68,7 +69,7 @@ function Loading(params) {
                 <SubFrame2>
                     <Box>
                         <TitleFrame>
-                            <Img></Img>
+                            <FlightTakeoffIcon></FlightTakeoffIcon>
                         </TitleFrame>
                         <BodyFrame>
                             

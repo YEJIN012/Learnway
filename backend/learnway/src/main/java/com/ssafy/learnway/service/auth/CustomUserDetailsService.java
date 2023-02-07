@@ -1,6 +1,6 @@
 package com.ssafy.learnway.service.auth;
 
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

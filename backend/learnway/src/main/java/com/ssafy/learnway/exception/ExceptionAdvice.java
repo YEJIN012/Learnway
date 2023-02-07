@@ -37,4 +37,9 @@ public class ExceptionAdvice {
     protected ResponseEntity userNotFoundException(HttpServletRequest request, UserNotFoundException e){
         return ResponseHandler.generateResponse("유저를 못 찾음",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @ExceptionHandler(S3FileUploadException.class)
+    protected ResponseEntity s3FileUploadException(HttpServletRequest request, UserNotFoundException e){
+        return ResponseHandler.generateResponse("S3 파일 저장 중 오류 발생",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

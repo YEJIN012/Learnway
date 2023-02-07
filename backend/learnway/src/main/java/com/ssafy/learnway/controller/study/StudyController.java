@@ -1,17 +1,18 @@
 package com.ssafy.learnway.controller.study;
 
-import com.ssafy.learnway.domain.study.Study;
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.study.StudyListRequestDto;
 import com.ssafy.learnway.dto.study.StudyListResponseDto;
 import com.ssafy.learnway.dto.study.StudyMonthResponseDto;
 import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.study.StudyService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,15 @@ import java.util.Date;
 import java.util.List;
 
 @Api(tags = {"study"})
-@RestController
 @Slf4j
+@RequiredArgsConstructor
+@RestController
 @RequestMapping("/study")
 public class StudyController {
 
-    @Autowired
-    private StudyService studyService;
+    private final StudyService studyService;
+
+    private final UserService userService;
 
     //날짜별 채팅내역 조회
     @ApiOperation(value = "학습 정보", notes = "날짜에 대한 학습 기록을 리턴한다.")
@@ -36,6 +39,10 @@ public class StudyController {
     public ResponseEntity list(@RequestBody @ApiParam(value = "학습 정보 (userId, date(선택한 날짜))", required = true) StudyListRequestDto studyListDto) throws SQLException {
         try {
             List<StudyListResponseDto> studyList = studyService.selectStudyList(studyListDto);
+
+            if(userService.findByEmail(studyListDto.getUserEmail()) == null){
+                return ResponseHandler.generateResponse("존재하지 않는 사용자입니다.", HttpStatus.NOT_FOUND);
+            }
 
             if(studyList.isEmpty() || studyList == null){
                 return ResponseHandler.generateResponse("검색된 학습 목록이 없습니다.", HttpStatus.ACCEPTED);
@@ -66,7 +73,11 @@ public class StudyController {
     @GetMapping("/month")
     public ResponseEntity listCount(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "study_month") @DateTimeFormat(pattern = "yyyy-MM") Date day) throws SQLException {
         try {
-            List<StudyMonthResponseDto> monthCountList = studyService.selectStudyMonthList(userEmail, day);
+            User user = userService.findByEmail(userEmail);
+            if(user == null){
+                return ResponseHandler.generateResponse("없는 유저입니다", HttpStatus.BAD_REQUEST);
+            }
+            List<StudyMonthResponseDto> monthCountList = studyService.selectStudyMonthList(user, day);
 
 //            for(int i=0; i<monthCountList.size(); i++){
 //                System.out.println(monthCountList.get(i));
