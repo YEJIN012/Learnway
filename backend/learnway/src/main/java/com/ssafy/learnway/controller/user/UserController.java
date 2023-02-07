@@ -8,7 +8,7 @@ import com.ssafy.learnway.dto.user.PwdDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Api(tags = {"users"})
+@Tag(name = "users")
 
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함

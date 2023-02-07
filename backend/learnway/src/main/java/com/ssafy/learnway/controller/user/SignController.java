@@ -7,7 +7,7 @@ import com.ssafy.learnway.dto.user.TokenRequestDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
-@Api(tags = {"sign"})
+@Tag(name = "sign")
 @RestController
 @RequestMapping("/users")
 @Slf4j
