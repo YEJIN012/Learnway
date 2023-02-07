@@ -6,6 +6,7 @@ import com.ssafy.learnway.dto.matching.MatchingResponseDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
-@Api(tags = {"matching"})
+@Tag(name = "matching")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/matching")

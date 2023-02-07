@@ -8,7 +8,7 @@ import com.ssafy.learnway.dto.user.PwdDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Api(tags = {"users"})
+@Tag(name = "users")
 
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
@@ -70,7 +70,7 @@ public class UserController {
     public ResponseEntity modifyUser(@RequestPart UserDto userDto, @RequestPart(value = "image", required = false) final MultipartFile multipartFile) {
         // 정보 미입력시 리턴
         if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")){
-            return ResponseHandler.generateResponse("정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
+            return ResponseHandler.generateResponse("회원 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
         }
 
         // 관심 분야 3개 이상 체크

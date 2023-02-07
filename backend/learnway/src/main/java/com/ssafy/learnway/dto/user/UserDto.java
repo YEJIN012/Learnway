@@ -58,6 +58,8 @@ public class UserDto {
                 .badUser(badUser)
                 .imgUrl(imgUrl)
                 .bio(bio)
+                .provider(provider)
+                .providerId(providerId)
                 .build();
     }
 

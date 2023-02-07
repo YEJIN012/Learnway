@@ -1,7 +1,8 @@
 package com.ssafy.learnway.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.openvidu.java.client.*;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,16 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/video")
 @CrossOrigin(origins = "*")
-@Api(tags = {"videochat"})
+@Tag(name = "video")
 public class VideoChatController {
 
 //    @Value("${OPENVIDU_URL}")
@@ -36,7 +37,7 @@ public class VideoChatController {
     // role associated)
     private Map<String, Map<String, OpenViduRole>> mapSessionNamesTokens = new ConcurrentHashMap<>();
     // Collection to pair session names and recording objects
-    private Map<String, Boolean> sessionRecordings = new ConcurrentHashMap<>();
+    private Map<String, String> sessionRecordings = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void init() {
@@ -46,6 +47,56 @@ public class VideoChatController {
     /*******************/
     /*** Session API ***/
     /*******************/
+
+    /**
+     * @param params The Session properties
+     * @return The Session ID
+     */
+    @RequestMapping(value="/api/sessions", method = RequestMethod.POST)
+    public ResponseEntity<Map> initializeSession(@RequestBody(required = false) Map<String, Object> params)
+            throws OpenViduJavaClientException, OpenViduHttpException {
+        System.out.println(params.get("customSessionId"));
+        Map<String,String> map = new HashMap<>();
+        if(openVidu.getActiveSession((String)params.get("customSessionId")) != null){
+            map.put("isSecond", "true");
+        } else{
+            map.put("iseSecond", "false");
+        }
+        SessionProperties properties = SessionProperties.fromJson(params).build();
+        Session session = openVidu.createSession(properties);
+        map.put("sessionId",session.getSessionId());
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    /**
+     * @param sessionId The Session in which to create the Connection
+     * @param params    The Connection properties
+     * @return The Token associated to the Connection
+     */
+    @RequestMapping(value="/api/sessions/{sessionId}/connections", method = RequestMethod.POST)
+    public ResponseEntity<String> createConnection(@PathVariable("sessionId") String sessionId,
+                                                   @RequestBody(required = false) Map<String, Object> params)
+            throws OpenViduJavaClientException, OpenViduHttpException {
+        Session session = openVidu.getActiveSession(sessionId);
+        // Role associated to this user
+        OpenViduRole role = OpenViduRole.PUBLISHER;
+
+        if (session == null) {
+            System.out.println("no session found");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+        ConnectionProperties properties = ConnectionProperties.fromJson(params).build();
+        Connection connection = session.createConnection(properties);
+        String token = connection.getToken();
+        // Store the session and the token in our collections
+        this.mapSessions.put(sessionId, session);
+        this.mapSessionNamesTokens.put(sessionId, new ConcurrentHashMap<>());
+        this.mapSessionNamesTokens.get(sessionId).put(token, role);
+
+
+        return new ResponseEntity<>(token, HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/get-token", method = RequestMethod.POST)
     public ResponseEntity<JsonObject> getToken(@RequestBody Map<String, Object> sessionNameParam) {
@@ -63,6 +114,7 @@ public class VideoChatController {
                 .role(role).data("user_data").build();
 
         JsonObject responseJson = new JsonObject();
+        ObjectMapper mapper = new ObjectMapper();
 
         if (this.mapSessions.get(sessionName) != null) {
             // Session already exists
@@ -110,7 +162,8 @@ public class VideoChatController {
 
             // Prepare the response with the sessionId and the token
             responseJson.addProperty("0", token);
-
+//            String value = mapper.readValue(token, String);
+//            System.out.println(responseJson.toString());
             // Return the response to the client
             return new ResponseEntity<>(responseJson, HttpStatus.OK);
 
@@ -278,26 +331,32 @@ public class VideoChatController {
 
         System.out.println("Starting recording for session " + sessionId + " with properties {outputMode=" + outputMode
                 + ", hasAudio=" + hasAudio + ", hasVideo=" + hasVideo + "}");
-
         try {
+            if(this.sessionRecordings.containsKey(sessionId)){
+                System.out.println("Second");
+                System.out.println(this.sessionRecordings.get(sessionId));
+                return new ResponseEntity<>(this.sessionRecordings.get(sessionId), HttpStatus.OK);
+            }
+            System.out.println("First");
             Recording recording = this.openVidu.startRecording(sessionId, properties);
-            this.sessionRecordings.put(sessionId, true);
-            return new ResponseEntity<>(recording, HttpStatus.OK);
+
+            this.sessionRecordings.put(sessionId,  recording.getId());
+            return new ResponseEntity<>(recording.getId(), HttpStatus.OK);
         } catch (OpenViduJavaClientException | OpenViduHttpException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = "/recording/stop", method = RequestMethod.POST)
-    public ResponseEntity<?> stopRecording(@RequestBody Map<String, Object> params) {
-        String recordingId = (String) params.get("recording");
+    public ResponseEntity<?> stopRecording(@RequestBody Map<String, String> params) {
+        String recordingId =params.get("recording");
 
         System.out.println("Stoping recording | {recordingId}=" + recordingId);
 
         try {
             Recording recording = this.openVidu.stopRecording(recordingId);
             this.sessionRecordings.remove(recording.getSessionId());
-            return new ResponseEntity<>(recording, HttpStatus.OK);
+            return new ResponseEntity<>(recording.getUrl(), HttpStatus.OK);
         } catch (OpenViduJavaClientException | OpenViduHttpException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
