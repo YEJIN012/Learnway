@@ -53,6 +53,7 @@ export default function LoginForm () {
         const status = res.status
         const msg = res.msg
         console.log(msg)
+        
         if (status === 200) {
 
           // 쿠키에 Refresh Token, store에 Access Token 저장

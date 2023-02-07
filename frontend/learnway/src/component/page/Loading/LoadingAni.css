@@ -4,7 +4,7 @@
   width: 100%;
   background: #ffffff transparent;
   position: relative;
-  top: 50%;
+  top: 35%;
   left: 50%;
   
   -webkit-transform: translate(-50%, -50%);
@@ -25,9 +25,9 @@
   animation: move 1.2s infinite;
 }
 .suitcase {
-  height: 10.61vw;
+  height:15.61vw;
   width: 24.65vw;
-  background: #262626;
+  background: #005aa7;
   border-radius: 11.2px;
   float: left;
 }
@@ -37,7 +37,7 @@
 .suitcase::after,
 .suitcase::before {
   content: '';
-  background: #ffff02;
+  background: #ffffff;
   height: 24.65vw;
   width: 1.31vw;
   position: absolute;
@@ -49,7 +49,7 @@
   margin-left: 3.27vw;
 }
 .handle {
-  background: #262626;
+  background: #005aa7;
   height: 4.9vw;
   width: 9.47vw;
   border-top-right-radius: 1.63vw;
@@ -60,7 +60,7 @@
 }
 .handle::after {
   content: '';
-  background: #ffff02;
+  background: #ffffff;
   width: 5.55vw;
   height: 2.78vw;
   position: absolute;
@@ -71,7 +71,7 @@
   height: 4.73vw;
   width: 4.73vw;
   border-radius: 50%;
-  background: #262626;
+  background: #005aa7;
   position: absolute;
   bottom: 2.94vw;
 }
@@ -92,65 +92,65 @@
 }
 @-moz-keyframes move {
   0% {
-    -webkit-transform: translateX(-24.49);
-    -moz-transform: translateX(-24.49);
-    -o-transform: translateX(-24.49);
-    -ms-transform: translateX(-24.49);
-    transform: translateX(-24.49);
+    -webkit-transform: translateX(-24.49vw);
+    -moz-transform: translateX(-24.49vw);
+    -o-transform: translateX(-24.49vw);
+    -ms-transform: translateX(-24.49vw);
+    transform: translateX(-24.49vw);
   }
   100% {
-    -webkit-transform: translateX(7.84);
-    -moz-transform: translateX(7.84);
-    -o-transform: translateX(7.84);
-    -ms-transform: translateX(7.84);
-    transform: translateX(7.84);
+    -webkit-transform: translateX(7.84vw);
+    -moz-transform: translateX(7.84vw);
+    -o-transform: translateX(7.84vw);
+    -ms-transform: translateX(7.84vw);
+    transform: translateX(7.84vw);
   }
 }
 @-webkit-keyframes move {
   0% {
-    -webkit-transform: translateX(-24.49);
-    -moz-transform: translateX(-24.49);
-    -o-transform: translateX(-24.49);
-    -ms-transform: translateX(-24.49);
-    transform: translateX(-24.49);
+    -webkit-transform: translateX(-24.49vw);
+    -moz-transform: translateX(-24.49vw);
+    -o-transform: translateX(-24.49vw);
+    -ms-transform: translateX(-24.49vw);
+    transform: translateX(-24.49vw);
   }
   100% {
-    -webkit-transform: translateX(7.84);
-    -moz-transform: translateX(7.84);
-    -o-transform: translateX(7.84);
-    -ms-transform: translateX(7.84);
-    transform: translateX(7.84);
+    -webkit-transform: translateX(7.84vw);
+    -moz-transform: translateX(7.84vw);
+    -o-transform: translateX(7.84vw);
+    -ms-transform: translateX(7.84vw);
+    transform: translateX(7.84vw);
   }
 }
 @-o-keyframes move {
   0% {
-    -webkit-transform: translateX(-24.49);
-    -moz-transform: translateX(-24.49);
-    -o-transform: translateX(-24.49);
-    -ms-transform: translateX(-24.49);
-    transform: translateX(-24.49);
+    -webkit-transform: translateX(-24.49vw);
+    -moz-transform: translateX(-24.49vw);
+    -o-transform: translateX(-24.49vw);
+    -ms-transform: translateX(-24.49vw);
+    transform: translateX(-24.49vw);
   }
   100% {
-    -webkit-transform: translateX(7.84);
-    -moz-transform: translateX(7.84);
-    -o-transform: translateX(7.84);
-    -ms-transform: translateX(7.84);
-    transform: translateX(7.84);
+    -webkit-transform: translateX(7.84vw);
+    -moz-transform: translateX(7.84vw);
+    -o-transform: translateX(7.84vw);
+    -ms-transform: translateX(7.84vw);
+    transform: translateX(7.84vw);
   }
 }
 @keyframes move {
   0% {
-    -webkit-transform: translateX(-24.49);
-    -moz-transform: translateX(-24.49);
-    -o-transform: translateX(-24.49);
-    -ms-transform: translateX(-24.49);
-    transform: translateX(-24.49);
+    -webkit-transform: translateX(-24.49vw);
+    -moz-transform: translateX(-24.49vw);
+    -o-transform: translateX(-24.49vw);
+    -ms-transform: translateX(-24.49vw);
+    transform: translateX(-24.49vw);
   }
   100% {
-    -webkit-transform: translateX(7.84);
-    -moz-transform: translateX(7.84);
-    -o-transform: translateX(7.84);
-    -ms-transform: translateX(7.84);
-    transform: translateX(7.84);
+    -webkit-transform: translateX(7.84vw);
+    -moz-transform: translateX(7.84vw);
+    -o-transform: translateX(7.84vw);
+    -ms-transform: translateX(7.84vw);
+    transform: translateX(7.84vw);
   }
 }
