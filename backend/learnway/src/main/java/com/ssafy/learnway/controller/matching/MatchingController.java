@@ -1,5 +1,6 @@
 package com.ssafy.learnway.controller.matching;
 
+import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.interest.InterestDto;
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 import com.ssafy.learnway.dto.matching.MatchingResponseDto;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -36,6 +38,8 @@ public class MatchingController {
     private final UserService userService;
 
     private final RabbitTemplate rabbitTemplate;
+
+    private final SimpMessageSendingOperations messagingTemplate;
 
     //매칭 요청을 한다.
     @GetMapping("/{userEmail}")
@@ -81,7 +85,7 @@ public class MatchingController {
 
 
     @PostMapping("/result")
-    public ResponseEntity matching(@RequestBody MatchingResponseDto matchingResponseDto) {
+    public ResponseEntity matching(@RequestBody MatchingResponseDto matchingResponseDto) throws SQLException {
 
         log.info(matchingResponseDto.toString());
 
@@ -90,9 +94,15 @@ public class MatchingController {
 
         // TODO 중간에 나간 유저인지 확인
 
+        User matchingUser1 = userService.findByEmail(user1.getUserEmail());
+        User matchingUser2 = userService.findByEmail(user2.getUserEmail());
+
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user1.getSocket(), matchingUser2);
+
         // user2 socket을 통해 user1의 이메일 전송(profile을 전송 할 수도!)
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser1);
 
         return ResponseHandler.generateResponse("화상채팅이 성사되었습니다.", HttpStatus.ACCEPTED);
     }
