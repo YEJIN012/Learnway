@@ -1,4 +1,4 @@
-import SignupForm from "./SingupForm";
+import SignupForm from "./SignupForm";
 import Interest from "./Interest";
 import { useState } from "react";
 import BackgroundFrame from "../Background";
