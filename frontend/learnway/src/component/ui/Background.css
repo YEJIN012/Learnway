@@ -1,8 +1,0 @@
-.background {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  background-size: cover;
-  justify-content: center;
-  background-image: url('../page/Front/img/backgroundImage.jpg');
-}
