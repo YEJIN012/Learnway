@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication // Exclude the automatic configuration of JACKSON
-@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL"), @Server(url="/api/" ,description = "Api Server URL")})
+@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
 //@EnableAutoConfiguration의 exclude 속성을 이용해서 SecurityAutoConfiguration 잠시 중지 가능
 // @EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class LearnwayApplication {
