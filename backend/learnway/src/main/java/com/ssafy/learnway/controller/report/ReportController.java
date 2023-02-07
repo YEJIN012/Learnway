@@ -5,9 +5,10 @@ import com.ssafy.learnway.dto.report.ReportDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.report.ReportService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Api(tags = {"reports"})
+@Tag(name = "reports")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -30,9 +31,9 @@ public class ReportController {
 
     private final UserService userService;
 
-    @ApiOperation(value = "신고 내용 등록", notes = "유저 신고를 한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+    @Operation(summary = "신고 내용 등록", description = "유저 신고를 한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.")
     @PostMapping
-    public ResponseEntity writeArticle(@RequestBody @ApiParam(value = "신고 내역 정보.", required = true) ReportDto reportDto) throws Exception {
+    public ResponseEntity writeArticle(@RequestBody @Parameter(name = "신고 내역 정보.", required = true) ReportDto reportDto) throws Exception {
 
         if(userService.findByEmail(reportDto.getUserEmail()) == null){
             return new ResponseEntity<>("검색되는 유저가 없습니다.", HttpStatus.ACCEPTED);
