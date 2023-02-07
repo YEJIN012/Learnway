@@ -43,7 +43,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             "/webjars/**",
             /* swagger v3 */
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            /* 모든 사용자 접근 페이지 => front와 맞춰보기*/
+            "/*/login",
+            "/*/sign-up",
+            "/*/intro",
+            "/api/users/oauth2/signup",
+            "/api/users/oauth2/login",
+            "/users/oauth2/login",
+            "/users/oauth2/signup",
+            "/users/logout/**",
+            "/intro",
+            "/main"
     };
 
     // 저장소에서 가져온 인코딩된 암호(encodedPassword)가 인코딩 된 후 제출된 원시 암호(raw password)와 일치하는지 확인
@@ -82,7 +93,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .httpBasic().disable()
                  // csrf : post방식으로 값을 전송시, token을 사용해야되는 보안 설정 비활성화
                  .csrf().disable()
-//                 .cors().disable()
+                 .cors().disable()
                  //
                  .formLogin()// form 기반 로그인 관련 설정.
                  .loginPage("/login")// 로그인 요청 URL
@@ -90,29 +101,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  //
                  .and()
                  .authorizeRequests() //antMatchers()를 통해 접근 URL에 대한 권한을 설정
-                 .antMatchers("/*/login","/*/sign-up","/*/oauth2/sign-up","/login/**").permitAll()
+                 //.antMatchers().permitAll()
                  .antMatchers(PERMIT_URL_ARRAY).permitAll() // swagger api 접근
                  //.antMatchers("/").permitAll()
-                 //.anyRequest().hasRole("USER")
+                 .anyRequest().hasRole("USER")
                  //.antMatchers("/**").hasRole("USER") // 특정 role 유저 접근 가능
-                 .anyRequest().permitAll() // 나머지 path는 모두 접근 가능
+                 //.anyRequest().permitAll() // 나머지 path는 모두 접근 가능
                  //
                  .and()
                  .logout()
-                 .logoutUrl("/logout") // 로그아웃 후 세션 모두 삭제 후
+                 .logoutUrl("/users/logout") // 로그아웃 후 세션 모두 삭제 후
                  .logoutSuccessUrl("/intro")// 해당 path로 redirect
                  .and()
                  .oauth2Login()
                  .userInfoEndpoint()// 로그인 성공 후 사용자 정보를 가져올 때의 설정 담당 즉, 후처리 진행. 구글 로그인 완료된 후 엑세스 토큰 + 사용자 프로필 정보 받음
                  .userService(customOAuth2UserService)//소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
                  .and()
-                 .successHandler(oAuth2SuccessHandler); // 인증을 성공적으로 마친 경우 처리할 클래스
+                 .successHandler(oAuth2SuccessHandler) // 인증을 성공적으로 마친 경우 처리할 클래스
                  //.failureHandler(oAuth2AuthenticationFailureHandler);
 
-                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
-                 http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                 .and()
                  .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
                  .and()
-                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());  // spring securiy 에러(권한 없음)
+                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
+
+                 .and()
+                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
+                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
      }
 }

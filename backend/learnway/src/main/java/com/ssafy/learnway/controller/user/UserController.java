@@ -9,6 +9,8 @@ import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,13 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     // 회원 조회
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name= "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
     @GetMapping("/{userEmail}")
     public ResponseEntity findUserByEmail(@PathVariable String userEmail){
         if(userEmail==null) {

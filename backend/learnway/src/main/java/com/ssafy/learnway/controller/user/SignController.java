@@ -15,13 +15,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -63,9 +66,20 @@ public class SignController {
 
     // 로그아웃 시 refresh token 삭제
     @GetMapping("/logout/{userEmail}")
-    public ResponseEntity logout(@PathVariable String userEmail){
+    public ResponseEntity logout(@PathVariable String userEmail,HttpServletRequest request, HttpServletResponse response){
         try {
             userService.logout(userEmail);
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null) {
+                new SecurityContextLogoutHandler().logout(request, response, authentication);
+
+                HttpSession session = request.getSession();
+                if (session != null) {
+                    session.invalidate();
+                }
+            }
+
             return ResponseHandler.generateResponse("로그아웃에 성공하였습니다.",HttpStatus.OK);
         } catch (Exception e) {
             return ResponseHandler.generateResponse("로그아웃에 실패하였습니다.", HttpStatus.BAD_REQUEST);

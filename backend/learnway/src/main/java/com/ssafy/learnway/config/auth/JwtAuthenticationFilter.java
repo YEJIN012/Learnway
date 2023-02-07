@@ -1,5 +1,6 @@
 package com.ssafy.learnway.config.auth;
 
+import com.ssafy.learnway.exception.TokenValidFailedException;
 import com.ssafy.learnway.util.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     // request로 들어오는 Jwt 유효성 검증
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+
         // HTTP 요청의 헤더에서 JWT를 받아옴
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) request);
 
@@ -34,12 +37,15 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         log.info(((HttpServletRequest)request).getRequestURL().toString());
 
         // 유효한 토큰인지 확인
-        if (token != null && jwtTokenProvider.validateToken(token)) {
-            // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옴
-            Authentication authentication = jwtTokenProvider.getAuthentication(token);
-            // SecurityContext 에 Authentication 객체를 저장
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+        if(token != null ){
+                if (jwtTokenProvider.validateToken(token)) {
+                    // 토큰이 유효하면 토큰으로부터 유저 정보를 받아옴
+                    Authentication authentication = jwtTokenProvider.getAuthentication(token);
+                    // SecurityContext 에 Authentication 객체를 저장
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
         }
+
         // JwtTokenProvider.validateToken()을 필터로 FilterChain에 추가
         chain.doFilter(request, response);
     }

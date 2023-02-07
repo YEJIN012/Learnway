@@ -25,7 +25,7 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
     private String ROLES = "roles";
-    private long accesstokenValidTime = 60 * 60 * 1000L; // 1 hour
+    private long accesstokenValidTime = 3 * 60 * 60 * 1000L; // 3 hour
     private long refreshtokenValidTime =  14 * 24 * 60 * 60 * 1000L; // 14 days
 
     @Autowired
@@ -139,6 +139,7 @@ public class JwtTokenProvider {
            return true;
         } catch (JwtException | IllegalArgumentException e) {
             e.printStackTrace();
+
             return false;
         }
     }
