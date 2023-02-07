@@ -47,6 +47,23 @@ function addFriend(me, oppo) {
         });
 }
 
+function GetFriendCnt(userEmail) {
+    const [friendCnt, setFriendCnt] = useState("");
+    axios
+        .get("api/friend/count", {
+            params: { userEmail: userEmail },
+        })
+        // handle success
+        .then(function (res) {
+            console.log("getFriendsNum");
+            setFriendCnt(res.data.friendCnt);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    return friendCnt;
+}
+
 // Friend말고 상대방프로필로 함수명 바꿔야할듯..
 function Friend() {
     const [userInfo, setUserInfo] = useState({
@@ -62,6 +79,7 @@ function Friend() {
 
     function getUserInfo() {
         axios
+            // 화상 상대방 Info
             .get(`/api/users/profile/${"aaa@ssafy.com"}`)
             .then(function (res) {
                 const data = res.data.profile;
@@ -101,9 +119,12 @@ function Friend() {
                 <>
                     <ProfileImg url={userInfo.img}></ProfileImg>
                     <Friends>
-                        <FriendNumber>{userInfo.friends}</FriendNumber>
+                        <FriendNumber>
+                            {GetFriendCnt(userInfo.email)}
+                        </FriendNumber>
                         Friends
                     </Friends>
+                    {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                     <PersonAddIcon
                         onClick={() =>
                             addFriend("bbb@ssafy.com", "aaa@ssafy.com")

@@ -75,6 +75,11 @@ public class UserService {
     }
 
     @Transactional
+    public void logout(String userEmail) {
+        User user = userRepository.findByUserEmail(userEmail);
+        refreshTokenRepository.deleteByUserKey(user.getUserId());
+    }
+    @Transactional
     public TokenDto oAuthLogin(String userEmail) throws SQLException {
 
         User user = userRepository.findByUserEmail(userEmail);
@@ -169,7 +174,7 @@ public class UserService {
         Authentication authentication = jwtTokenProvider.getAuthentication(accessToken);
 
         // userPk로 유저 검섹
-        // User user = userRepository.findById(Long.parseLong(authentication.getName())).orElseThrow(() -> new Exception());// usernotfound 예외 처리로 바꿔주기
+        //User user = userRepository.findByUserId(Long.parseLong(authentication.getName()));// usernotfound 예외 처리로 바꿔주기
         User user = userRepository.findByUserEmail(authentication.getName());
         if (user == null ) {
             throw new UserNotFoundException();

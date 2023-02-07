@@ -72,4 +72,7 @@ export default function AuthEamil({getEmail}) {
   4-2. 인증번호가 실패하면 alert (o)
 
   => axios 요청만 받아오면 된다.
+  -------------------------------------
+
+  이메일 중복여부 검사해줘야해!!
 */
