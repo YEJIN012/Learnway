@@ -2,7 +2,7 @@ import { GET_LANGUAGE, GET_INTEREST} from "../component/page/Front/actions/types
 
 const initialLang = {}
 
-export default function UerInfoReducer(state = initialLang, action) {
+export default function UserInfoReducer(state = initialLang, action) {
   const promise = action.payload
   switch (action.type) {
     // 언어 정보 저장

@@ -3,16 +3,15 @@ import styled from "styled-components";
 import axios from "axios";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
-import { Fab } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
+axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
+axios.defaults.withCredentials = true;
 
 // import Button from '../../../ui/Button';
 const Frame = styled.div`
-    margin: 10vw
     width: 100%;
     display: grid;
-    grid-template-rows: 1fr 1fr
-    top: 20vw;
+    grid-template-rows: 1fr 1fr;
 `;
 const InnerFrame = styled.div`
     border: 1px solid;
@@ -23,31 +22,32 @@ const TranslateBtn = styled.div`
     justify-content: end;
 `;
 const TextFrame = styled.textarea`
-    radius: 5px;
+    width: 95%;
+    height: 100%;
+    border-radius: 5px;
 `;
 
-const languageCode = {
-
-}
-
 function Translate() {
-    const [value, setValue] = useState("");
-    const [translatedContent, setTranslatedContent] = useState("");
+    const [value, setValue] = useState(""); // 검색 내용
+    const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
+    const languageCode = {}; ////// source target 언어 코드 매칭 dic 생성필요
 
     async function getTranslate(props) {
-        console.log(props)
+        console.log(props);
         try {
+            console.log(process.env.PAPAGO_Client_Id);
             const response = await axios.post(
                 "papagoapi/v1/papago/n2mt",
                 {
+                    ////// user정보를 바탕으로 언어코드 변경 필요
                     source: "ko",
                     target: "en",
                     text: props,
                 },
                 {
                     headers: {
-                        "X-Naver-Client-Id": "6I2yVts_Y4w2l3KgivdN",
-                        "X-Naver-Client-Secret": "KyR4gJtOdH",
+                        "X-Naver-Client-Id": `${process.env.REACT_APP_NAVER_ID}`,
+                        "X-Naver-Client-Secret": `${process.env.REACT_APP_NAVER_SECRET}`,
                         // "Access-Control-Allow-Origin": "*",
                     },
                 }
@@ -70,8 +70,8 @@ function Translate() {
     };
 
     const onCheckEnter = (e) => {
-        if(e.key === 'Enter') {
-          getTranslate(value)
+        if (e.key === "Enter") {
+            getTranslate(value);
         }
     };
 
@@ -96,7 +96,6 @@ function Translate() {
                         </form>
                     </InnerFrame>
                     <InnerFrame>{translatedContent}</InnerFrame>
-                    
                 </Frame>
             }
         ></CommonFrame>

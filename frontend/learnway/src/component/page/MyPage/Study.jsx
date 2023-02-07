@@ -7,7 +7,7 @@ import "react-calendar/dist/Calendar.css";
 
 function Study(props) {
     const { handleSelectedDate } = props;
-    const store = useSelector((state) => state.UserStore);
+    const store = useSelector((state) => state.AuthReducer);
 
     // value : 선택된 일자
     const [value, setValue] = useState(new Date());

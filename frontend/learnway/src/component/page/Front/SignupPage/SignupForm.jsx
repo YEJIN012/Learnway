@@ -24,7 +24,7 @@ const InputTitle = styled.div`
 export default function SignupForm({getUserinfo}) {
 
   // 언어정보 받아오기
-  const languageBox = useSelector(state => state.UerInfoReducer)
+  const languageBox = useSelector(state => state.UserInfoReducer)
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState();
@@ -101,7 +101,6 @@ export default function SignupForm({getUserinfo}) {
           <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
         </InputFrame>
         <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-        {/* <InputBox id="lagnguae" type="text" title="Lagnguae" placeholder="Korean" value={lagnguae} onChange={(e) => {setlagnguae(e.target.value)}}></InputBox> */}
         <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
 
       </form>
