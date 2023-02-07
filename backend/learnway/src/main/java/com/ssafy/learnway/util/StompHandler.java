@@ -5,7 +5,9 @@ import com.ssafy.learnway.service.chat.ChatService;
 import com.ssafy.learnway.service.matching.MatchingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -24,7 +26,12 @@ public class StompHandler implements ChannelInterceptor {
     private final JwtTokenProvider jwtTokenProvider;
     private final ChatRoomRepository chatRoomRepository;
     private final ChatService chatService;
-    private final MatchingService matchingService;
+
+//    private final MatchingService matchingService;
+
+//    public StompHandler(@Lazy MatchingService matchingService) {
+//        this.matchingService = matchingService;
+//    }
 
     /**
      * interceptor 역할
@@ -55,7 +62,7 @@ public class StompHandler implements ChannelInterceptor {
             String sessionId = (String) message.getHeaders().get("simpSessionId");
 
             if(sp.length == 2){
-                matchingService.addMatchingUser(roomId,sessionId);
+//                matchingService.addMatchingUser(roomId,sessionId);
             }else{
                 chatRoomRepository.setUserEnterInfo(sessionId, roomId);
             }

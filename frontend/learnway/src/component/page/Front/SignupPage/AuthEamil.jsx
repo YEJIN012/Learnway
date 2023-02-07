@@ -4,21 +4,22 @@ import InputBox from '../Input';
 import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 
-
+const USER_URL = "/users";
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState(false);
+  const [chkauth, setChkauth] = useState("")
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
   
 
   const URL = '/users/verify'
   
-  // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
+  // 서버에 인증번호 요청
   const chkAuthcode = () => {
     request("get", URL + `?user_email=${email}`, email)
-    setAuth(true)                  
+    setAuth(true)                   // 인증번호 입력태그 보여주기
   }
   
   // 인증번호 식별 요청
@@ -37,20 +38,24 @@ export default function AuthEamil({getEmail}) {
         }
       })
       .catch((err) => console.log(err))
+    // if (String(authnum) === authcode){
+    //   getEmail(email)                 // 이메일 emit
+    // } else{
+    //   alert("인증번호가 일치하지 않습니다.")
+    // }
   }
 
   return (
     <>
       <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-      <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Send" disabled= {disabled} onClick={chkAuthcode} />
+      <Btn id="0" txt="Send" func={chkAuthcode} disabled={disabled} />
       <form onSubmit={handleSubmit}>
         {
           auth === true
           ? (
             <>
-              <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
-              <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Confirm" disabled= {disabled} onClick={chkAuthcode} />
-
+              <InputBox id="authcode" type="text" title="Authentication code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
+              <Btn id="0" txt="confirm" onClick={null} disabled={disabled} />
             </>
           )
           : null
@@ -61,6 +66,13 @@ export default function AuthEamil({getEmail}) {
 }
 
 
+function Btn(props){
+  const {id, txt, disabled, func} = props;
+  // console.log(props)
+  return (
+    <Button id= {id} width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue= {txt} disabled= {disabled} onClick={() => func()} />
+  )
+}
 
 
 
@@ -72,7 +84,4 @@ export default function AuthEamil({getEmail}) {
   4-2. 인증번호가 실패하면 alert (o)
 
   => axios 요청만 받아오면 된다.
-  -------------------------------------
-
-  이메일 중복여부 검사해줘야해!!
 */

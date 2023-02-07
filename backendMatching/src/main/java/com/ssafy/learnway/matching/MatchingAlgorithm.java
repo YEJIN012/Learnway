@@ -50,7 +50,7 @@ public class MatchingAlgorithm {
 
             MatchingRequestDto subject = matchingWaitList.getMatchingList().get(i);
 
-            for(int j=0; j<matchingWaitList.getMatchingList().size(); j++){
+            out : for(int j=0; j<matchingWaitList.getMatchingList().size(); j++){
 
                 MatchingRequestDto candidate = matchingWaitList.getMatchingList().get(j);
 
@@ -84,6 +84,19 @@ public class MatchingAlgorithm {
 
                 // TODO 중간에 나간 유저인지 확인
 
+                for (String sessionId: matchingWaitList.getBadList())
+                {
+                    if(subject.getSessionId().equals(sessionId)){
+                        matchingWaitList.getMatchingList().remove(i); // subject 지우기
+                        i--;
+                        break out;
+                    }else if(candidate.getSessionId().equals(sessionId)){
+                        matchingWaitList.getMatchingList().remove(j); // candidate 지우기
+                        j--;
+                        break out;
+                    }
+                }
+
                 //모든 조건을 만족하면 서로 매칭
                 matchingWaitList.getMatchingResultList().add(subject);
                 matchingWaitList.getMatchingResultList().add(candidate);
@@ -101,7 +114,6 @@ public class MatchingAlgorithm {
 
             }
         }
-
 
         // 매칭 성사
         if(matchingWaitList.getMatchingResultList().size()>=2){

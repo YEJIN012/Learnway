@@ -1,8 +1,7 @@
-import SignupForm from "./SignupForm";
+import SignupForm from "./SingupForm";
 import Interest from "./Interest";
 import { useState } from "react";
-import BackgroundFrame from "../Background";
-import { NavLink } from 'react-router-dom';
+import BackroundFrame from "../Background";
 
 export default function Signup () {
   const [userinfo, setUserinfo] = useState("")
@@ -14,19 +13,25 @@ export default function Signup () {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="30vw" height="90vh" top="5vh" bottom="5vh" fsize="1.3vw" mtop = "13vh"
+    <BackroundFrame
       bg={
           userinfo === ""
           ? (
-          <>
-            <NavLink to = "/login">Login</NavLink>
-            <SignupForm getUserinfo={getUserinfo}></SignupForm>
-          </>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100vh",
+              }}>
+              <SignupForm getUserinfo={getUserinfo}></SignupForm>
+            </div>
           )
-          : <Interest userinfo={userinfo}></Interest>
-      }
-      ment1="Sign Up"
-      ment2="Already Member ?">
-    </BackgroundFrame>
+          : (
+            <Interest userinfo={userinfo}></Interest>
+          )
+      }>
+    </BackroundFrame>
   )
 }

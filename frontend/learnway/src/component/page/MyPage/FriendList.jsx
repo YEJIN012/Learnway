@@ -6,9 +6,8 @@ import FriendListItem from "./FriendListItem";
 
 function FriendList(props) {
     const { handleSelectedFriend } = props;
-    const store = useSelector((state) => state.AuthReducer);
+    const store = useSelector((state) => state.UserStore);
     const [friends, setFriends] = useState(""); // 친구들의 이메일Array
-    const [status, setStatus] = useState("");
 
     function getFriendList() {
         axios
@@ -18,13 +17,12 @@ function FriendList(props) {
             .then(function (res) {
                 setFriends(res.data.userEmailList);
                 console.log("getFriendList");
+                console.log(res.data.userEmailList);
             })
             .catch(function (error) {
-                console.log(error.response.data.msg);
-                setStatus(error.response.data.status);
-            })
+                console.log(error);
+            });
     }
-
     const [friendsProfile, setfriendsProfile] = useState([]);
 
     async function getFriendProfile() {
@@ -48,52 +46,27 @@ function FriendList(props) {
         getFriendProfile();
     }, [friends]);
 
-    if (status === 404) {
-        return (
-            <Paper
-            elevation={3}
-            children={
-                <div>
-                    "Make new friends who can have language exchange constantly
-                    through our Learnway😉"
-                </div>
-            }
-            sx={{
-                borderRadius: "35px",
-                height: "50vh",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "start",
-                boxSizing: "border-box",
-                paddingX: "5vw",
-                paddingY: "5vw",
-                fontSize: "2vw",
-            }}
-            />
-            )
-        } else {
-        return (
-            <Paper
+    return (
+        <Paper
             elevation={3}
             children={
                 <FriendListItem
-                friendsProfile={friendsProfile}
-                handleSelectedFriend={handleSelectedFriend}
+                    friendsProfile={friendsProfile}
+                    handleSelectedFriend={handleSelectedFriend}
                 />
             }
             sx={{
                 borderRadius: "35px",
+                width: "30vw",
                 height: "50vh",
                 display: "flex",
                 flexDirection: "row",
-                alignItems: "start",
                 boxSizing: "border-box",
                 paddingX: "2vw",
                 paddingY: "5vw",
             }}
-            />
-            );
-        }
-    }
+        />
+    );
+}
 
 export default FriendList;

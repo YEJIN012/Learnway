@@ -45,7 +45,7 @@ function ScriptsAccordions(props) {
 }
 
 function StudyScripts(props) {
-    const store = useSelector((state) => state.AuthReducer);
+    const store = useSelector((state) => state.UserStore);
     const { selectedDate } = props;
     const [studyList, setstudyList] = useState([]);
 

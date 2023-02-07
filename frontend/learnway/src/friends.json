@@ -1,0 +1,38 @@
+[
+    {
+        "user_id":1,
+        "name" : "John",
+        "email" : "12@gmail.com",
+        "imgUrl":"",
+        "bio":"자기소개",
+        "birthDay":20230125,
+        "language":"English",
+        "interests": [
+            "IT", "Football"
+        ]
+    },
+    {
+        "user_id":2,
+        "name" : "Ann",
+        "email" : "34@gmail.com",
+        "imgUrl":"",
+        "bio":"자기소개",
+        "birthDay":20230125,
+        "language":"English",
+        "interests": [
+            "IT", "Football"
+        ]
+    },
+    {
+        "user_id":3,
+        "name" : "Kevin",
+        "email" : "56@gmail.com",
+        "imgUrl":"",
+        "bio":"자기소개",
+        "birthDay":20230125,
+        "language":"English",
+        "interests": [
+            "IT", "Football"
+        ]
+    }
+]

@@ -36,6 +36,8 @@ public class MatchingRequestDto implements Serializable, Comparable<MatchingRequ
     String socket;
     LocalDateTime enterTime;
 
+    String sessionId;
+
     @Override
     public int compareTo(MatchingRequestDto o) {
         return this.enterTime.compareTo(o.enterTime);

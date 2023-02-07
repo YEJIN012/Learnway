@@ -31,7 +31,7 @@ public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer 
                 .setAllowedOriginPatterns("*").withSockJS();
 //        registry.addEndpoint("/matching").
 //                setAllowedOriginPatterns("*")
-//                .setHandshakeHandler()
+//                .setHandshakeHadler()
 //                .withSockJS();
     }
 
