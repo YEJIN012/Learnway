@@ -1,0 +1,9 @@
+.highlight-low {
+    font-weight: 500;
+    color: aquamarine;
+ }
+
+ .highlight-high {
+    font-weight: 900;
+    color: blueviolet;
+ }
