@@ -1,10 +1,8 @@
 package com.ssafy.learnway.dto.matching;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,8 +19,7 @@ public class MatchingRequestDto implements Serializable {
     private static final long serialVersionUID = 6529685098267757690L;
     String userEmail;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    LocalDate birthDay;
+    int age; // 나이
 
     int languageId; //본인의 언어
 

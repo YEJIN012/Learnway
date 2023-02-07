@@ -15,9 +15,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 @Api(tags = {"matching"})
 @RestController
@@ -34,6 +37,7 @@ public class MatchingController {
 
     private final RabbitTemplate rabbitTemplate;
 
+    //매칭 요청을 한다.
     @GetMapping("/{userEmail}")
     public ResponseEntity matching(@PathVariable String userEmail, @RequestParam(name = "studyLanguageId") int studyLanguageId) throws SQLException {
 
@@ -49,21 +53,30 @@ public class MatchingController {
             interests.add(interest.getInterestId());
         }
 
-        // TODO : socket 정보 넣어주기
+        Calendar now = Calendar.getInstance();
+        Integer currentYear = now.get(Calendar.YEAR);
+
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy");
+        int year = Integer.parseInt(sf.format(user.getBirthDay()));
+
+        // socket 방 생성 (대기방을 구독하고 있는 개념)
+        String roomId = UUID.randomUUID().toString();
+
         MatchingRequestDto matchingRequestDto = MatchingRequestDto.builder()
                 .userEmail(user.getUserEmail())
-                .birthDay(user.getBirthDay())
+                .age(currentYear - year)
                 .languageId(user.getLanguage().getLanguageId())
                 .studyId(studyLanguageId)
                 .interestId(interests)
                 .enterTime(LocalDateTime.now())
+                .socket(roomId)
                 .build();
 
 
         log.info("send message.....");
 
         rabbitTemplate.convertAndSend(EXCAHGE_NAME, routingKey, matchingRequestDto); // rabbit MQ 전송
-        return ResponseHandler.generateResponse("성공", HttpStatus.ACCEPTED);
+        return ResponseHandler.generateResponse("대기방이 생성되었습니다", HttpStatus.ACCEPTED,"roomId",roomId);
     }
 
 
@@ -71,6 +84,11 @@ public class MatchingController {
     public ResponseEntity matching(@RequestBody MatchingResponseDto matchingResponseDto) {
 
         log.info(matchingResponseDto.toString());
+
+        MatchingRequestDto user1 = matchingResponseDto.getUser1();
+        MatchingRequestDto user2 = matchingResponseDto.getUser2();
+
+        // TODO 중간에 나간 유저인지 확인
 
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)
