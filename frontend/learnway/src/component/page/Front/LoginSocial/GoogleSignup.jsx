@@ -21,7 +21,7 @@ const InputTitle = styled.div`
   font-size: 0.9vw;
 `;
 
-export default function GoogleSignupForm({userEmail, username, provider, providerId }) {
+export default function GoogleSignup({userEmail, username, provider, providerId }) {
   const languageBox = useSelector(state => state.UserInfoReducer)
 
   const [birthday, setbirthday] = useState("");

@@ -56,8 +56,8 @@ export function deleteInfo(data) {
 }
 
 // export function deleteInfo(dataToSubmit) {
-//   const URL = USER_URL + '/logout';
-//   const data = request("get", URL , dataToSubmit);
+//   const URL = USER_URL + `/logout/${dataToSubmit}`;
+//   const data = request("get", URL);
 //   return {
 //     type: LOGOUT_USER,
 //     payload: data,
