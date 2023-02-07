@@ -16,5 +16,5 @@ public class MatchingWaitList {
 
     Queue<MatchingRequestDto> matchingResultList = new LinkedList<>(); //매칭 성사된 대기자들을 관리
 
-//    Queue<MatchingRequestDto> matchingLongWaitList = new LinkedList<>(); // 오래 기다린 매칭 대기자들 관리
+    List<String> badList = new LinkedList<>(); // 오래 기다린 매칭 대기자들 관리
 }

@@ -76,10 +76,6 @@ public class MatchingController {
                 .socket(roomId)
                 .build();
 
-
-        log.info("send message.....");
-
-        rabbitTemplate.convertAndSend(EXCAHGE_NAME, routingKey, matchingRequestDto); // rabbit MQ 전송
         return ResponseHandler.generateResponse("대기방이 생성되었습니다", HttpStatus.ACCEPTED,"roomId",roomId);
     }
 
