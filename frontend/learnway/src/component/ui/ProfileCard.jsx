@@ -18,14 +18,13 @@ const CardTop = styled.div`
 `;
 const CardBottom = styled.div`
     box-sizing: border-box;
-    padding: 4vw 8vw;
+    padding: 5% 15%;
     display: flex;
     flex-direction: column;
 `;
 const Name = styled.div`
-    font-size: 2vw;
+    font-size: 2vh;
     font-weight: 700;
-    margin-bottom: 0vh;
 `
 
 function ProfileCard({ header,name,body,width,height }) {
@@ -44,7 +43,7 @@ function ProfileCard({ header,name,body,width,height }) {
                     </CardBottom>
                 </>
             }
-            sx={{ borderRadius: "35px", width: width || "30vw", height: height ||"50vh" }}
+            sx={{ borderRadius: "35px", width: width || "100%", height: height ||"50vh" }}
         />
     );
     

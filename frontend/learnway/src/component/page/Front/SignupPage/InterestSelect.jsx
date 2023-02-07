@@ -48,6 +48,7 @@ export default function InterestSelect({userinfo, itdata}) {
       .then((res) =>{
         const status = res.status
         const msg = res.msg
+        console.log(msg)
         if (status === 200) {
           console.log(msg)
           dispatch(loginUser({userEmail: userinfo.userEmail, userPwd: userinfo.userPwd})).payload
@@ -55,7 +56,7 @@ export default function InterestSelect({userinfo, itdata}) {
               const status = res.status
               const msg = res.msg
               if (status === 200) {
-      
+                console.log(1111)
                 // 쿠키에 Refresh Token, store에 Access Token 저장
                 setRefreshToken(res.token.refreshToken);
                 dispatch(accessToken(res.token.accessToken));

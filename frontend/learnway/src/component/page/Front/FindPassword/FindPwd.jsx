@@ -9,22 +9,27 @@ export default function FindPwd(){
   const [email, setEmail] = useState("");
   const [auth, setAuth] = useState(false);
   const [authcode, setAuthcode] = useState("")
-  const [changePwd, setchangePwd] = useState(false)
+  const [changePwd, setchangePwd] = useState(true)
 
   const URL = '/users'
 
 
   
   const chkAuthcode = () => {
-    // 프로필 조회 요청
-    request("get", URL + `/profile/${email}` )
+    // 회원 조회 요청
+    request("get", URL + `/${email}` )
       .then ((rst) => {
+        console.log(rst)
+        if (rst.status === 200){
         // 서버에 인증번호 요청 & 인증번호창 활성화
         request("get", URL + `/verify?user_email=${email}`, email)
         setAuth(true)                   
         console.log(rst)
+        } else {
+          alert(rst.msg)
+        }
       })
-      .catch((err) => console.log)
+      .catch((err) => console.log(err))
   }
 
   // 인증번호 식별 요청
@@ -35,7 +40,7 @@ export default function FindPwd(){
         const status = res.status;
         const msg = res.msg
         if(status === 200){ 
-          setchangePwd(true)               
+          setchangePwd(false)               
           alert(msg)
         } else {
           alert(msg)
@@ -47,7 +52,7 @@ export default function FindPwd(){
   return(
     <BackgroundFrame
       bg = {
-        changePwd === false
+        changePwd === true
         ?
         <>
           <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
@@ -66,8 +71,8 @@ export default function FindPwd(){
           </form>
         </>
         : <ChangePwd email={email} />
-      } ment1 = "Forgot"
-        ment2 = "Your Password?"
+      } ment1 = {changePwd ? "Forgot" : "Change"}
+        ment2 = {changePwd ? "Your Password ?" : "Your Password !"}
     />
   )
 }

@@ -10,16 +10,21 @@ import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -34,15 +39,6 @@ public class SignController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     *   프론트 단 예시 => 급하게 찾아본거라 확인 필요!
-     *   useEffect(() => {
-     *     localStorage.clear();
-     *     localStorage.setItem("X-AUTH-TOKEN", 받은accesstoken); // 토큰 저장
-     *     window.location.replace("/");
-     *   }, []);
-     *   cf) https://sudo-minz.tistory.com/78
-     * **/
     @GetMapping("/login")
     public ResponseEntity login(@RequestParam String userEmail, @RequestParam String userPwd ){
 
@@ -57,6 +53,30 @@ public class SignController {
             return ResponseHandler.generateResponse("이메일, 비밀번호를 다시 확인해주세요.", HttpStatus.ACCEPTED);
         }
     }
+
+    // 로그아웃 시 refresh token 삭제
+    @GetMapping("/logout/{userEmail}")
+    public ResponseEntity logout(@PathVariable String userEmail,HttpServletRequest request, HttpServletResponse response){
+        try {
+            userService.logout(userEmail);
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null) {
+                new SecurityContextLogoutHandler().logout(request, response, authentication);
+
+                HttpSession session = request.getSession();
+                if (session != null) {
+                    session.invalidate();
+                }
+            }
+
+            return ResponseHandler.generateResponse("로그아웃에 성공하였습니다.",HttpStatus.OK);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse("로그아웃에 실패하였습니다.", HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
     @PostMapping("/sign-up")
     public ResponseEntity signup(@RequestBody UserDto userDto) {
 
@@ -110,6 +130,7 @@ public class SignController {
         }
 
     }
+
 
     // http://localhost:8080/oauth2/authorization/google : 프론트에 사용할 구글 소셜 로그인 버튼
 //    @GetMapping("/oauth2/login")
@@ -169,16 +190,16 @@ public class SignController {
             log.info("google sign up....");
 
 
-            UserDto userDto = UserDto.builder()
-                    .provider(provider)
-                    .providerId(providerId)
-                    .userEmail(userEmail)
-                    .name(name)
-                    .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
-
-
-            userDto.setUserPwd("1234");
-            userService.signUp(userDto);
+//            upUserDto userDto = UserDto.builder()
+//                    .provider(provider)
+//                    .providerId(providerId)
+//                    .userEmail(userEmail)
+//                    .name(name)
+//                    .build(); // 비밀번호에 따른 변수 넣어서 프론트에서 쉽게 처리가능하다면 바꾸기!!
+//
+//
+//            userDto.setUserPwd("1234");
+//            userService.signUp(userDto);
 
 
             response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")

@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import React, { useState } from 'react';
+import styled from "styled-components";
+import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import InputBox from '../Input';
-import Button from '../../../ui/Button';
+import InputBox from "../Input";
+import Button from "../../../ui/Button";
 import { useDispatch } from "react-redux";
-import { loginUser, accessToken } from '../actions/userAction';
-import { setRefreshToken } from '../utils/Cookie';
+import { loginUser, accessToken } from "../actions/userAction";
+import { setRefreshToken } from "../utils/Cookie";
 
 const Owframe = styled.div`
   display: flex;
@@ -33,6 +33,7 @@ const CheckBox = styled.input`
 
 
 
+
 export default function LoginForm () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -53,9 +54,12 @@ export default function LoginForm () {
         const msg = res.msg
         console.log(msg)
         if (status === 200) {
-
-          // 쿠키에 Refresh Token, store에 Access Token 저장
-          setRefreshToken(res.token.refreshToken);
+          console.log(res)
+          /* console.log(refreshToken) */
+          // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
+          /* const refreshToken = { refreshToken: res.token.refreshToken , userEmail: res.user.userEmail } */
+          /* setRefreshToken(refreshToken); */
+          setRefreshToken(res.token.refreshToke);          
           dispatch(accessToken(res.token.accessToken));
 
           // 성공했으면 메인 페이지로 이동
@@ -68,7 +72,7 @@ export default function LoginForm () {
     };
 
   return (
-    <>
+    <div>
       <form onSubmit={handleSubmit}>
         <InputBox id="id" type="email" title="E-mail" placeholder="abcdef@dfd.com" onChange={(e) => {setEmail(e.target.value)}} value={email} />
         <InputBox id="password" type="password" itle="Password" placeholder="********" onChange={(e) => {setPwd(e.target.value)}} value={pw} />
@@ -79,10 +83,10 @@ export default function LoginForm () {
           </CheckBoxFrame>
           <NavLink to="/find_password">Forgot Password?</NavLink>
         </Owframe>
-        <Button id="0" textValue="Login" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" />
-      </form>
-      <Button id="1" textValue="Sign Up" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" onClick={() => navigate('/signup')} />        
-    </>
+        <Button id="0" textValue="Login" width="8vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" />
+        <Button id="1" textValue="Sign Up" width="8vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" onClick={() => navigate('/signup')} />        
+        </form>
+    </div>
   )
 }
       
