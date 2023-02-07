@@ -29,5 +29,7 @@ public class MatchingRequestDto implements Serializable {
 
     String socket;
 
+    String sessionId;
+
     LocalDateTime enterTime;
 }

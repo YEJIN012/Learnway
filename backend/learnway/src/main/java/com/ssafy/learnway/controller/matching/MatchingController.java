@@ -51,30 +51,8 @@ public class MatchingController {
             return ResponseHandler.generateResponse("존재하지 않는 사용자입니다.", HttpStatus.BAD_REQUEST);
         }
 
-        List<Integer> interests = new ArrayList<>();
-
-        for(InterestDto interest : user.getInterests()){
-            interests.add(interest.getInterestId());
-        }
-
-        Calendar now = Calendar.getInstance();
-        Integer currentYear = now.get(Calendar.YEAR);
-
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-        int year = Integer.parseInt(sf.format(user.getBirthDay()));
-
         // socket 방 생성 (대기방을 구독하고 있는 개념)
-        String roomId = UUID.randomUUID().toString();
-
-        MatchingRequestDto matchingRequestDto = MatchingRequestDto.builder()
-                .userEmail(user.getUserEmail())
-                .age(currentYear - year)
-                .languageId(user.getLanguage().getLanguageId())
-                .studyId(studyLanguageId)
-                .interestId(interests)
-                .enterTime(LocalDateTime.now())
-                .socket(roomId)
-                .build();
+        String roomId = user.getUserEmail() + "/" +studyLanguageId; //socket 방을 [userEmail/학습언어]로 지정ß
 
         return ResponseHandler.generateResponse("대기방이 생성되었습니다", HttpStatus.ACCEPTED,"roomId",roomId);
     }
