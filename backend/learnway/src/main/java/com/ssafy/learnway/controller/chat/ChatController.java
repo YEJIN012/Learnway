@@ -7,8 +7,9 @@ import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.chat.ChatService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.JwtTokenProvider;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-@Api(tags = {"chatMessage"})
+@Tag(name = "chatMessage")
 @Slf4j
 @RequiredArgsConstructor
 @CrossOrigin(origins="*")
@@ -33,7 +34,7 @@ public class ChatController {
     /**
      * websocket "/pub/chat/message"로 들어오는 메시징을 처리한다.
      */
-    @ApiOperation(value = "message, //token(헤더)", notes = "/pub/chat/message로 들어오는 메시징을 처리한다.")
+    @Operation(summary = "message, //token(헤더)", description = "/pub/chat/message로 들어오는 메시징을 처리한다.")
     @MessageMapping("/chat/message")
     public void message(ChatMessage message) throws SQLException { //헤더에 토큰을 담아서 보낸다.
 //        Long userId = jwtTokenProvider.getUserIdFromJwt(token.toString()); //access token payload 안에 있는 토큰을 가져오다.
