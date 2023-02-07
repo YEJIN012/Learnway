@@ -39,16 +39,6 @@ public class SignController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    /**
-     *   프론트 단 예시 => 급하게 찾아본거라 확인 필요!
-     *   useEffect(() => {
-     *     localStorage.clear();
-     *     localStorage.setItem("X-AUTH-TOKEN", 받은accesstoken); // 토큰 저장
-     *     window.location.replace("/");
-     *   }, []);
-     *   cf) https://sudo-minz.tistory.com/78
-     * **/
-
     @GetMapping("/login")
     public ResponseEntity login(@RequestParam String userEmail, @RequestParam String userPwd ){
 
@@ -140,19 +130,6 @@ public class SignController {
         }
 
     }
-
-//    @PostMapping("/refreshToken")
-//    public ResponseEntity refreshTokenTest(HttpServletRequest request, HttpServletResponse response){
-//        try {
-//
-//
-//            TokenDto newCreatedToken = userService.refreshToken(tokenRequestDto);
-//            return ResponseHandler.generateResponse("Refresh token 재발급에 성공하였습니다.",HttpStatus.OK,"token",newCreatedToken);
-//        } catch (Exception e) {
-//            return ResponseHandler.generateResponse("Refresh token 재발급에 실패하였습니다.", HttpStatus.BAD_REQUEST);
-//        }
-//
-//    }
 
 
     // http://localhost:8080/oauth2/authorization/google : 프론트에 사용할 구글 소셜 로그인 버튼
