@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -30,11 +31,10 @@ public class MatchingService {
 
     private final RabbitTemplate rabbitTemplate;
 
-    private final SimpMessageSendingOperations messagingTemplate;
-
     public void addMatchingUser(String roomId, String sessionId){
 
-        String[] sp = roomId.split("/"); //userEmail/studyId
+        String[] sp = roomId.split("-"); //userEmail/studyId
+        log.info("userEmail : " + sp[0]);
         UserDto user = userService.userInfo(sp[0]);
 
         if(user == null){
@@ -51,7 +51,8 @@ public class MatchingService {
         Integer currentYear = now.get(Calendar.YEAR);
 
         SimpleDateFormat sf = new SimpleDateFormat("yyyy");
-        int year = Integer.parseInt(sf.format(user.getBirthDay()));
+//        int year = Integer.parseInt(sf.format(user.getBirthDay().format(DateTimeFormatter.ofPattern("yyyy"))));
+        int year = Integer.parseInt(user.getBirthDay().format(DateTimeFormatter.ofPattern("yyyy")));
 
 
         MatchingRequestDto matchingRequestDto = MatchingRequestDto.builder()

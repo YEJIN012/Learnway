@@ -19,7 +19,7 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 public class WebSocketEventListener {
 
     private static final String EXCAHGE_NAME = "learnway.exchange";
-    private static String routingKey = "learnway.routing.#";
+    private static String routingKey = "learnway.bad.routing.#";
     private final RabbitTemplate rabbitTemplate;
     private final SimpMessageSendingOperations messagingTemplate;
 
