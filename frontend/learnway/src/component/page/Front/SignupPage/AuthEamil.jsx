@@ -18,7 +18,16 @@ export default function AuthEamil({getEmail}) {
   // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
   const chkAuthcode = () => {
     request("get", URL + `?user_email=${email}`, email)
-    setAuth(true)                  
+      .then ((res) => {
+        const status = res.status;
+        const msg = res.msg;
+        if (status === 200) {
+          setAuth(true)                  
+        } else if (status === 202) {
+          alert(msg)
+        }
+      })
+      .catch((err) => console.log(err))
   }
   
   // 인증번호 식별 요청
@@ -26,16 +35,16 @@ export default function AuthEamil({getEmail}) {
     e.preventDefault();
     request("post", URL + `?code=${authcode}&user_email=${email}`, email)
       .then((res) => {
-        const status = res.status;
-        const msg = res.msg
-        if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
-          getEmail(email)
-          setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
-          alert(msg)
-        } else {
-          alert(msg)
-        }
-      })
+          const status = res.status;
+          const msg = res.msg
+          if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
+            getEmail(email)
+            setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
+            alert(msg)
+          }  else {
+            alert(msg)
+          }
+        })
       .catch((err) => console.log(err))
   }
 

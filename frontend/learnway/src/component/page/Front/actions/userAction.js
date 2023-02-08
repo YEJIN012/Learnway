@@ -47,22 +47,26 @@ export function loginUser(dataToSubmit) {
   };
 }
 
+// 유저정보 조회
+export function findUserInfo(dataToSubmit) {
+  const URL = USER_URL + `/${dataToSubmit.userEmail}`;
+  const data = request("get", URL , dataToSubmit);
+  console.log(data)
+  return {
+    type: LOGIN_USER,
+    payload: data,
+  };
+}
+
 // 로그 아웃 (유저 데이터 초기화)
-export function deleteInfo(data) {
+export function deleteInfo(dataToSubmit) {
+  const URL = USER_URL + `/logout/${dataToSubmit}`;
+  const data = request("get", URL);
   return {
     type: LOGOUT_USER,
     payload: data,
   };
 }
-
-// export function deleteInfo(dataToSubmit) {
-//   const URL = USER_URL + `/logout/${dataToSubmit}`;
-//   const data = request("get", URL);
-//   return {
-//     type: LOGOUT_USER,
-//     payload: data,
-//   };
-// }
 
 
 // 토큰 저장

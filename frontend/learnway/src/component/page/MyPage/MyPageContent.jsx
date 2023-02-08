@@ -36,7 +36,6 @@ const Side = styled.div`
 
 function MyPageContent(props) {
     const selectedContent = props.content;
-    const store = useSelector((state) => state.AuthReducer);
 
     // FRIENDS Tab - Friend 프로필과 FriendList연결 변수와 함수
     const [selectedFriend, setSelectedFriend] = useState("");
