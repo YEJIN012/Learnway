@@ -9,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 public class SendMatching {
-    final String url = "http://localhost:8080/matching/result"; // 서버에 올리면 바꾸기
-
+    //final String url = "http://localhost:8080/matching/result"; // local
+    final String url = "https://i8a408.p.ssafy.io/api/matching/result";
     public void sendMatching(MatchingResponseDto matchingResponseDto) {
 
         log.info("send main server : "+matchingResponseDto.toString());
