@@ -79,15 +79,16 @@ const StartBtn = styled.button`
   color: #FFFFFF;
   border: none; 
   border-radius: 1.02vh;
+  cursor: pointer;
 `;
 
 
 export default function Intro () {
   return (
-    <body className="background">
+    <div className="background">
       <LeftBox />
       <RightBox />
-    </body>
+    </div>
   )
 }
 

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import './VideoChatMain.css';
 import UserVideoComponent from './UserVideoComponent';
 
-const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '/api/video/';
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : 'https://demos.openvidu.io/';
 
 class VideoChatMain extends Component {
     constructor(props) {
@@ -91,7 +91,6 @@ class VideoChatMain extends Component {
 
                 // On every new Stream received...
                 mySession.on('streamCreated', (event) => {
-                    console.log("event"+event)
                     // Subscribe to the Stream to receive it. Second parameter is undefined
                     // so OpenVidu doesn't create an HTML video by its own
                     var subscriber = mySession.subscribe(event.stream, undefined);
@@ -120,7 +119,6 @@ class VideoChatMain extends Component {
 
                 // Get a token from the OpenVidu deployment
                 this.getToken().then((token) => {
-                    console.log("token" + token)
                     // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
                     // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
                     mySession.connect(token, { clientData: this.state.myUserName })
@@ -338,16 +336,13 @@ class VideoChatMain extends Component {
         const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { customSessionId: sessionId }, {
             headers: { 'Content-Type': 'application/json', },
         });
-        console.log(response.data.sessionId)
-        return response.data.sessionId; // The sessionId
+        return response.data; // The sessionId
     }
 
     async createToken(sessionId) {
         const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections', {}, {
             headers: { 'Content-Type': 'application/json', },
         });
-        console.log("token:"+response.data)
-    
         return response.data; // The token
     }
 }

@@ -3,7 +3,6 @@ import { REGISTER_USER, GET_INTEREST, GET_LANGUAGE } from "./types";
 
 import { request } from "../utils/axios";
 
-// const USER_URL = "/api/user";
 const USER_URL = "/users";
 
 // language 데이터 가져오기
@@ -48,13 +47,23 @@ export function loginUser(dataToSubmit) {
   };
 }
 
-// 유저 데이터 초기화
+// 로그 아웃 (유저 데이터 초기화)
 export function deleteInfo(data) {
   return {
     type: LOGOUT_USER,
     payload: data,
   };
 }
+
+// export function deleteInfo(dataToSubmit) {
+//   const URL = USER_URL + `/logout/${dataToSubmit}`;
+//   const data = request("get", URL);
+//   return {
+//     type: LOGOUT_USER,
+//     payload: data,
+//   };
+// }
+
 
 // 토큰 저장
 export function accessToken(data) {

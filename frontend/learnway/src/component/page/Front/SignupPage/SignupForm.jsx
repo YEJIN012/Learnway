@@ -18,9 +18,13 @@ const InputTitle = styled.div`
   height: 1.84vh;
   font-size: 0.9vw;
 `;
+
+
+
 export default function SignupForm({getUserinfo}) {
+
   // 언어정보 받아오기
-  const languageBox = useSelector(state => state.UerInfoReducer)
+  const languageBox = useSelector(state => state.UserInfoReducer)
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState();
@@ -29,12 +33,13 @@ export default function SignupForm({getUserinfo}) {
   const [birthday, setbirthday] = useState("");
   const [languageName, setLanguageName] = useState("KOREAN");  // 초기값 userInfo.languageId로 수정
   const [disabled, setDisabled] = useState(true);
-  // const [language, setLanguage] = useState();
+
 
   // 이메일 인증이 되면 email 갱신
   const getEmail = (email) => {
     setEmail(email)
   }
+
 
   // 이메일 값이 들어오면 Next button 활성화
   useEffect(() => {
@@ -96,30 +101,9 @@ export default function SignupForm({getUserinfo}) {
           <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
         </InputFrame>
         <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-        {/* <InputBox id="lagnguae" type="text" title="Lagnguae" placeholder="Korean" value={lagnguae} onChange={(e) => {setlagnguae(e.target.value)}}></InputBox> */}
-        <Btn id="0" txt="Next" disabled={disabled}></Btn>
+        <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
+
       </form>
     </div>
-  )
-}
-
-
-function Btn(props){
-  const {id, txt, disabled, func} = props;
-  return (
-    <Button 
-      id= {id} 
-      width="13.16vw" 
-      height="5vh" 
-      fontSize="0.83vw" 
-      textWeight="700" 
-      radius="2vh" 
-      textValue= {txt}
-      disabled= {disabled}
-      // onClick={() => {
-      //   func()
-      // }}
-    >
-    </Button>
   )
 }

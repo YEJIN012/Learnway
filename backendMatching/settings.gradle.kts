@@ -1,1 +1,1 @@
-rootProject.name = "learnwayMatching"
+rootProject.name = "demo"
