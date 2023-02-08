@@ -48,6 +48,7 @@ export default function AuthReducer(state = userInfo, action) {
                 });
             };
             getData();
+            console.log("loginanduserinfo")
             return state;
 
         case LOGOUT_USER:
