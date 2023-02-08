@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, SET_TOKEN, DELETE_TOKEN } from "./types";
+import { LOGIN_USER, LOGOUT_USER, SET_TOKEN, DELETE_TOKEN, GET_TOKEN } from "./types";
 import { REGISTER_USER, GET_INTEREST, GET_LANGUAGE } from "./types";
 
 import { request } from "../utils/axios";
@@ -66,7 +66,7 @@ export function deleteInfo(dataToSubmit) {
 }
 
 
-// 토큰 저장
+// accessToken 저장
 export function accessToken(token) {
   const expireTime = token.accessTokenExprireDate ? token.accessTokenExprireDate : 3600000 
   const data = {
@@ -80,14 +80,23 @@ export function accessToken(token) {
   }
 }
 
-// // 토큰 삭제
-// export function deleteToken(data){
-//   return {
-//     type: DELETE_TOKEN,
-//     payload: data
-//   }
-// }
+// accessToken 토큰 삭제
+export function deleteToken(data){
+  return {
+    type: DELETE_TOKEN,
+    payload: data
+  }
+}
 
+// Token 재발급
+export function requestToken(token){
+  const URL = USER_URL + '/refresh';
+  const data = request("post", URL, token);
+  return {
+    type: GET_TOKEN,
+    payload: data
+  }
+} 
 
 // export function auth() {
 //   const data = request("post", USER_URL + "/auth");

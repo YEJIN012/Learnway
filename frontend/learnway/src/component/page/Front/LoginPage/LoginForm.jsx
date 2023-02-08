@@ -62,7 +62,7 @@ export default function LoginForm () {
           dispatch({type: userInfo.type, payload: res.user});
 
           // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
-          setRefreshToken(res.token.refreshToke);
+          setRefreshToken(res.token.refreshToken);
           const getaccessToken = accessToken(res.token);
           dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
 

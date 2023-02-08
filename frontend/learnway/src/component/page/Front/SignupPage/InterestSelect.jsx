@@ -9,7 +9,6 @@ import {
     registerUser,
 } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
-import { LOGIN_USER } from "../actions/types";
 
 const SelectFrame = styled.div`
     width: 382px;

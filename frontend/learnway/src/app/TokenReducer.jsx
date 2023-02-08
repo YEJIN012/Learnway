@@ -13,6 +13,9 @@ export default function TokenReducer(state=initialState, action) {
       state = action.payload
       return state;
 
+    case DELETE_TOKEN:
+      return initialState;
+
     case DELETE_INFO:
       state = initialState
       return state;
