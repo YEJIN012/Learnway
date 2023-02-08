@@ -3,7 +3,7 @@ package com.ssafy.learnway.controller.matching;
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 import com.ssafy.learnway.dto.matching.MatchingResponseDto;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-@Api(tags = {"matching"})
+@Tag(name = "matching")
 @RestController
 @RequestMapping("/matching")
 @Slf4j

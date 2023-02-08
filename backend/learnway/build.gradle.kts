@@ -32,7 +32,9 @@ dependencies {
 //	implementation("org.webjars:stomp-websocket:2.3.3-1")
 
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
-	implementation("io.springfox:springfox-boot-starter:3.0.0")
+// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+	implementation("org.springdoc:springdoc-openapi-ui:1.6.14")
+
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 	implementation("io.openvidu:openvidu-java-client:2.25.0")

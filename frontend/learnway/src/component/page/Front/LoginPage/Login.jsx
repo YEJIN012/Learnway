@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import BackgroundFrame from '../Background';
 import icon from '../img/googleIcon.jpg'
 import { useDispatch } from "react-redux";
-import GoogleSignupForm from "../LoginSocial/GoogleSignupForm";
+import GoogleSignupForm from "../LoginSocial/GoogleSignup";
 import { setRefreshToken } from "../utils/Cookie";
 import { useNavigate } from "react-router-dom";
 
@@ -40,8 +40,8 @@ export default function Login () {
   const OpenForm = () => {  
     window.location.href = "https://i8a408.p.ssafy.io/api/oauth2/authorization/google"
     
-      const searchParams = new URLSearchParams(document.location.search);
-      const flag = searchParams.get("flag");
+    const searchParams = new URLSearchParams(document.location.search);
+    const flag = searchParams.get("flag");
     const userEmail = searchParams.get("userEmail");
   
     // 쿠키에 Refresh Token, store에 Access Token 저장
