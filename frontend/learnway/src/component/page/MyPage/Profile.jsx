@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import Button from "../../ui/Button";
@@ -38,7 +38,6 @@ function GetFriendCnt(userEmail) {
         })
         // handle success
         .then(function (res) {
-            console.log("getFriendsNum");
             setFriendCnt(res.data.friendCnt);
         })
         .catch(function (error) {
@@ -47,43 +46,14 @@ function GetFriendCnt(userEmail) {
     return friendCnt;
 }
 
-
-// save 클릭시 호출되는 form 제출함수(image 편집)
-function EditProfileImg({imgFile, userInfo}) {
-    console.log(imgFile);
-    userInfo.userPwd = ""
-    console.log(userInfo)
-    const formData = new FormData();
-    const blob = new Blob([JSON.stringify(userInfo)], {
-        type: "application/json",
-    });
-    formData.append("image", imgFile);
-    formData.append("userDto", blob);
-
-    axios
-        .put("api/users/modify", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then(function (res) {
-            console.log(res.data.msg);
-            alert("Successfully edited profile image");
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-function handleSave(props) {
-    EditProfileImg(props);
-}
-
 function Profile() {
+    const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.AuthReducer);
-    console.log(userInfo)
     const selectFile = useRef(); // Icon onClick에 input File을 달기 위한 ref
 
+    const [imgUrl, setImgUrl] = useState(userInfo.imgUrl)
     const [imgBase64, setImgBase64] = useState(""); // 미리보기 파일
-    const [imgFile, setImgFile] = useState(""); // 선택한 이미지 파일명
+    const [imgFile, setImgFile] = useState(""); // 선택한 이미지 파일
 
     // 선택이미지 미리보기
     const handleChangePreview = (e) => {
@@ -110,6 +80,33 @@ function Profile() {
         }
     };
 
+    // save 클릭시 호출되는 form 제출함수(image 편집)
+    function handleSubmit() {
+    console.log(imgFile);
+    userInfo.userPwd = ""
+    console.log(userInfo)
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(userInfo)], {
+        type: "application/json",
+    });
+    formData.append("image", imgFile);
+    formData.append("userDto", blob);
+
+    axios
+        .put("api/users/modify", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(function (res) {
+            console.log(res.data.msg);
+            alert("Successfully edited profile image");
+            // 회원정보 수정 api 완료시, redux userInfo state 갱신.
+            dispatch({ type: "UPDATE_USER", payload: res.data.user });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
     return (
         <ProfileCard
             width="100%"
@@ -122,10 +119,12 @@ function Profile() {
                         ref={selectFile} //EditIcon 에서 input에 접근 하기위해 useRef사용
                         onChange={handleChangePreview}
                     />
+                    {/* <>{imgBase64}</> */}
+                    {/* <>{userInfo.imgUrl}</> */}
                     <ImgIcon>
                         <ProfileImg
                             tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌
-                            src={userInfo.imgUrl}
+                            src={imgUrl}
                             width="8vh"
                         />
                         <EditIcon
@@ -146,9 +145,7 @@ function Profile() {
                             textValue={"Save"}
                             width={"5vh"}
                             radius={"5px"}
-                            onClick={() =>
-                                handleSave({ imgFile, userInfo })
-                            }
+                            onClick={handleSubmit}
                         ></Button>
                     )}
                 </>

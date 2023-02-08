@@ -55,16 +55,6 @@ export default function AuthReducer(state = userInfo, action) {
             return state;
 
         case UPDATE_USER:
-            // const promiseData = action.payload;
-            // console.log(promiseData)
-            // const getRealData = () => {
-            //   promiseData.then((appData) => {
-            //     console.log(appData)
-            //     state = appData;
-            //   })
-            // }
-            //   getRealData()
-            //     return state;
             state = action.payload;
             return state;
 

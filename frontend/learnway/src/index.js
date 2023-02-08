@@ -23,11 +23,11 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  UserStore,
-  MainStore,
-  AuthReducer,
-  TokenReducer,
-  UserInfoReducer,
+    UserStore,
+    MainStore,
+    AuthReducer,
+    TokenReducer,
+    UserInfoReducer,
 });
 
 
@@ -49,7 +49,6 @@ root.render(
     </Provider>
   </CookiesProvider>,
 );
-
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
