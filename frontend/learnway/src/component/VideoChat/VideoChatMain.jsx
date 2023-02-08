@@ -1,9 +1,20 @@
 import { OpenVidu } from 'openvidu-browser';
-
+import styled from 'styled-components';
 import axios from 'axios';
 import React, { Component } from 'react';
 import './VideoChatMain.css';
 import UserVideoComponent from './UserVideoComponent';
+
+
+const Frame = styled.div`
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:yellow;
+    border:solid 1px black;
+`;
 
 const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '/api/video/';
 
@@ -13,7 +24,7 @@ class VideoChatMain extends Component {
 
         // These properties are in the state's component in order to re-render the HTML whenever their values change
         this.state = {
-            mySessionId: 'SessionA',
+            mySessionId: 'SessionB',
             myUserName: 'Participant' + Math.floor(Math.random() * 100),
             session: undefined,
             mainStreamManager: undefined,  // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
@@ -28,10 +39,12 @@ class VideoChatMain extends Component {
         this.handleChangeUserName = this.handleChangeUserName.bind(this);
         this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
         this.onbeforeunload = this.onbeforeunload.bind(this);
+        this.joinSession = this.joinSession.bind(this);
     }
-
+    
     componentDidMount() {
         window.addEventListener('beforeunload', this.onbeforeunload);
+        this.joinSession();
     }
 
     componentWillUnmount() {
@@ -91,7 +104,7 @@ class VideoChatMain extends Component {
 
                 // On every new Stream received...
                 mySession.on('streamCreated', (event) => {
-                    console.log("event"+event)
+                    console.log("event" + event)
                     // Subscribe to the Stream to receive it. Second parameter is undefined
                     // so OpenVidu doesn't create an HTML video by its own
                     var subscriber = mySession.subscribe(event.stream, undefined);
@@ -131,11 +144,11 @@ class VideoChatMain extends Component {
                             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
                             // element: we will manage it on our own) and with the desired properties
                             let publisher = await this.OV.initPublisherAsync(undefined, {
-                                audioSource: undefined, // The source of audio. If undefined default microphone
+                                audioSource: undefined, // T+he source of audio. If undefined default microphone
                                 videoSource: undefined, // The source of video. If undefined default webcam
                                 publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
                                 publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                                resolution: '640x480', // The resolution of your video
+                                resolution: `${window.screen.availWidth}x${window.screen.availHeight}`, // The resolution of your video
                                 frameRate: 30, // The frame rate of your video
                                 insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
                                 mirror: false, // Whether to mirror your local video or not
@@ -224,92 +237,39 @@ class VideoChatMain extends Component {
     }
 
     render() {
-        const mySessionId = this.state.mySessionId;
+        const mySessionId =  this.state.mySessionId;
         const myUserName = this.state.myUserName;
-
+        
         return (
-            <div className="container">
-                {this.state.session === undefined ? (
-                    <div id="join">
-                        <div id="img-div">
-                            <img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />
-                        </div>
-                        <div id="join-dialog" className="jumbotron vertical-center">
-                            <h1> Join a video session </h1>
-                            <form className="form-group" onSubmit={this.joinSession}>
-                                <p>
-                                    <label>Participant: </label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        id="userName"
-                                        value={myUserName}
-                                        onChange={this.handleChangeUserName}
-                                        required
-                                    />
-                                </p>
-                                <p>
-                                    <label> Session: </label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        id="sessionId"
-                                        value={mySessionId}
-                                        onChange={this.handleChangeSessionId}
-                                        required
-                                    />
-                                </p>
-                                <p className="text-center">
-                                    <input className="btn btn-lg btn-success" name="commit" type="submit" value="JOIN" />
-                                </p>
-                            </form>
-                        </div>
-                    </div>
-                ) : null}
+            <Frame>
+                
 
-                {this.state.session !== undefined ? (
-                    <div id="session">
-                        <div id="session-header">
-                            <h1 id="session-title">{mySessionId}</h1>
-                            <input
-                                className="btn btn-large btn-danger"
-                                type="button"
-                                id="buttonLeaveSession"
-                                onClick={this.leaveSession}
-                                value="Leave session"
-                            />
-                            <input
-                                className="btn btn-large btn-success"
-                                type="button"
-                                id="buttonSwitchCamera"
-                                onClick={this.switchCamera}
-                                value="Switch Camera"
-                            />
-                        </div>
+                <div className="container">
+                    {this.state.session === undefined ? (
+                        
+                        <span>세션 없음</span>
+                    ) : null}
 
-                        {this.state.mainStreamManager !== undefined ? (
-                            <div id="main-video" className="col-md-6">
-                                <UserVideoComponent streamManager={this.state.mainStreamManager} />
-
+                    {this.state.session !== undefined ? (
+                        <div id="session">
+                            <div id="video-container" className="col-md-6">
+                                {this.state.publisher !== undefined ? (
+                                    <div className="stream-container col-md-6 col-xs-6" onClick={() => this.handleMainVideoStream(this.state.publisher)}>
+                                        <UserVideoComponent
+                                            streamManager={this.state.publisher} size={{width:"100vw", height:"100vh"}}/>
+                                    </div>
+                                ) : null}
+                                {this.state.subscribers.map((sub, i) => (
+                                    <div key={sub.id} className="stream-container col-md-6 col-xs-6" onClick={() => this.handleMainVideoStream(sub)}>
+                                        <span>{sub.id}</span>
+                                        <UserVideoComponent streamManager={sub} size={{width:"100vw", height:"100vh"}}/>
+                                    </div>
+                                ))}
                             </div>
-                        ) : null}
-                        <div id="video-container" className="col-md-6">
-                            {this.state.publisher !== undefined ? (
-                                <div className="stream-container col-md-6 col-xs-6" onClick={() => this.handleMainVideoStream(this.state.publisher)}>
-                                    <UserVideoComponent
-                                        streamManager={this.state.publisher} />
-                                </div>
-                            ) : null}
-                            {this.state.subscribers.map((sub, i) => (
-                                <div key={sub.id} className="stream-container col-md-6 col-xs-6" onClick={() => this.handleMainVideoStream(sub)}>
-                                    <span>{sub.id}</span>
-                                    <UserVideoComponent streamManager={sub} />
-                                </div>
-                            ))}
                         </div>
-                    </div>
-                ) : null}
-            </div>
+                    ) : null}
+                </div>
+            </Frame>
         );
     }
 
@@ -346,8 +306,8 @@ class VideoChatMain extends Component {
         const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions/' + sessionId + '/connections', {}, {
             headers: { 'Content-Type': 'application/json', },
         });
-        console.log("token:"+response.data)
-    
+        console.log("token:" + response.data)
+
         return response.data; // The token
     }
 }
