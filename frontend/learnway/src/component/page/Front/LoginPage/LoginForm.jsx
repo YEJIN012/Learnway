@@ -6,6 +6,7 @@ import Button from "../../../ui/Button";
 import { useDispatch } from "react-redux";
 import { loginUser, accessToken } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
+import { LOGIN_USER } from "../actions/types";
 
 const Owframe = styled.div`
     display: flex;
@@ -31,41 +32,43 @@ const CheckBox = styled.input`
     left: 0vw;
 `;
 
-export default function LoginForm() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [pw, setPwd] = useState("");
+export default function LoginForm () {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [pw, setPwd] = useState("");
+  
 
-    // 제출하면 이메일과 패스워드를 보내서 로그인 가능 여부 확인
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        let body = {
-            userEmail: email,
-            userPwd: pw,
-        };
-        dispatch(loginUser(body)).payload.then((res) => {
-            console.log('dispatch')
-            const status = res.status;
-            const msg = res.msg;
-            console.log(msg);
+  // 제출하면 이메일과 패스워드를 보내서 로그인 가능 여부 확인
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let body = {
+      userEmail: email,
+      userPwd: pw
+    };
+    loginUser(body).payload
+      .then((res) =>{
+        const status = res.status
+        const msg = res.msg
+        console.log(msg)
+        
+        if (status === 200) {
+          console.log(res)
+          
+          // 스토어에 유저정보 넣기
+          dispatch({type: LOGIN_USER, payload: res.user})
 
-            if (status === 200) {
-                console.log(res);
-                /* console.log(refreshToken) */
-                // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
-                /* const refreshToken = { refreshToken: res.token.refreshToken , userEmail: res.user.userEmail } */
-                /* setRefreshToken(refreshToken); */
-                setRefreshToken(res.token.refreshToke);
-                dispatch(accessToken(res.token.accessToken));
+          // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
+          setRefreshToken(res.token.refreshToke);          
+          dispatch(accessToken(res.token.accessToken));
 
-                // 성공했으면 메인 페이지로 이동
-                navigate(`/`);
-            } else if (status === 202) {
-                // 아이디 비밀번호가 틀린 경우,
-                alert(msg);
-            }
-        });
+          // 성공했으면 메인 페이지로 이동
+          navigate(`/`)
+        } else if (status === 202) {
+          // 아이디 비밀번호가 틀린 경우,
+          alert(msg)
+        }
+      });
     };
 
     return (
