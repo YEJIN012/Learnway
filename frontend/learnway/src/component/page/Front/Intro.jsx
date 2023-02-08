@@ -5,7 +5,8 @@ import { useNavigate  } from "react-router-dom";
 import '../../ui/Background.css';
 import logo from '../Front/img/intro_logo.png';
 import learnway from '../Front/img/learnway.png'
-import picture from '../Front/img/intro_picture.png';
+// import picture from '../Front/img/intro_picture.png';
+import picture from '../Front/img/intro_our.png';
 import subment from '../Front/img/subtitle.png';
 
 
