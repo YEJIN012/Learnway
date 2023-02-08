@@ -49,29 +49,31 @@ export default function LoginForm () {
       userEmail: email,
       userPwd: pw
     };
-    loginUser(body).payload
+    const userInfo = loginUser(body)
+    userInfo.payload
       .then((res) =>{
         const status = res.status
         const msg = res.msg
         console.log(msg)
         
         if (status === 200) {
-          console.log(res)
           
           // 스토어에 유저정보 넣기
-          dispatch({type: LOGIN_USER, payload: res.user})
+          dispatch({type: userInfo.type, payload: res.user});
 
           // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
-          setRefreshToken(res.token.refreshToke);          
-          dispatch(accessToken(res.token.accessToken));
+          setRefreshToken(res.token.refreshToke);
+          const getaccessToken = accessToken(res.token);
+          dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
 
           // 성공했으면 메인 페이지로 이동
-          navigate(`/`)
+          navigate('/');
         } else if (status === 202) {
           // 아이디 비밀번호가 틀린 경우,
           alert(msg)
         }
-      });
+      })
+      .catch((err) => alert("서버 연결 실패"));
     };
 
   return (

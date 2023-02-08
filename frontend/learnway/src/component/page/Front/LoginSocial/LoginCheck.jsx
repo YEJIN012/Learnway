@@ -29,13 +29,16 @@ export default function LoginCheck()  {
         navigate('/googlesignup', {state: data});
     } else { 
     // 구글 로그인 가입자면 토큰을 받아오고
-        const getaccessToken = searchParams.get("accessToken");
-        const getrefreshToken = searchParams.get("refreshToken");
+        const catchaccessToken = searchParams.get("accessToken");
+        const catchrefreshToken = searchParams.get("refreshToken");
         
         // 회원 정보를 조회하여 스토어에 회원 정보를 넣고 토큰을 저장
-        dispatch(findUserInfo({userEmail: userEmail}))
-        setRefreshToken(getrefreshToken);
-        dispatch(accessToken(getaccessToken));
+        const userInfo = findUserInfo({userEmail: userEmail})
+        userInfo.payload
+          .then((res) => dispatch({type: userInfo.type, payload: res.user}))
+        setRefreshToken(catchrefreshToken);
+        const getaccessToken = accessToken({accessToken: catchaccessToken});
+        dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
 
         // 성공했으면 메인 페이지로 이동
         navigate(`/`)

@@ -1,5 +1,5 @@
 
-import { SET_TOKEN, DELETE_TOKEN } from "../component/page/Front/actions/types";
+import { SET_TOKEN, DELETE_TOKEN, DELETE_INFO } from "../component/page/Front/actions/types";
 
 const initialState= {
   authenticated: false,
@@ -10,18 +10,13 @@ const initialState= {
 export default function TokenReducer(state=initialState, action) {
   switch (action.type) {
     case SET_TOKEN:
-      const TOKEN_TIME_OUT = 600*1000;
-      state.authenticated = true;
-      state.accessToken = action.payload;
-      state.expireTime = new Date().getTime() + TOKEN_TIME_OUT;
+      state = action.payload
       return state;
 
-    case DELETE_TOKEN:  
-      state.authenticated = false;
-      state.accessToken = null;
-      state.expireTime = null;
+    case DELETE_INFO:
+      state = initialState
       return state;
-      
+
     default:
       return state
   }

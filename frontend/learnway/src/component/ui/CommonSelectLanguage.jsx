@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { languageLst } from "../page/Front/actions/userAction";
+import { useSelector } from "react-redux";
 
 const LangSelect = styled.select`
     width : ${props=>props.width || '100px'};
@@ -19,25 +18,16 @@ const InputTitle = styled.div`
 function SelectLanguage({ title, language, setLanguage, width, height }){
     const [optionList, setOptionList] = useState([]);
     const [value, setValue] = useState(language);
-    const dispatch = useDispatch();
-    //API에서 옵션 목록 가져오는 함수
+    
+    // redux store에서 언어 정보를 가져온다.
+    const data = useSelector(state => state.UserInfoReducer.language)
+
     function dropdownBoxRenderer(){
-        dispatch(languageLst()).payload
-            .then((res) => {
-                const msg = res.msg
-                console.log(msg)
-                const data = res.language;
-                
-                const options=[];
-                for(let i = 0; i < data.length; i++){
-                    options.push(<option key={data[i].languageId} value={data[i].name}>{data[i].name}</option>);
-                }
-                setOptionList(options);
-                }
-            ).catch((err) => {
-                console.log(err)
-                alert("API 접속 에러");
-            });
+        const options=[];
+        for(let i = 0; i < data.length; i++){
+            options.push(<option key={data[i].languageId} value={data[i].name}>{data[i].name}</option>);
+        }
+        setOptionList(options);
     }
 
     useEffect(()=> {dropdownBoxRenderer()},[]);
