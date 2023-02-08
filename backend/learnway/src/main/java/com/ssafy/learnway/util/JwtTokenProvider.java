@@ -6,6 +6,7 @@ import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
@@ -138,8 +140,7 @@ public class JwtTokenProvider {
            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
            return true;
         } catch (JwtException | IllegalArgumentException e) {
-            e.printStackTrace();
-
+            log.error("유효하지 않은 토큰입니다. {}", e.getMessage());
             return false;
         }
     }

@@ -40,9 +40,17 @@ public class MailController {
 
     @PostMapping("/verify")
     @ResponseBody
-    public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String email, @RequestParam(name = "code") String value) throws Exception {
+    public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "code") String value) throws Exception {
+
+        User user = userService.findByEmail(userEmail);
+
+        if(user != null){
+            return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
+        }
+
         try {
-            boolean isEmail = mailService.verifyEmail(email, value);
+
+            boolean isEmail = mailService.verifyEmail(userEmail, value);
 //            log.info("인증여부 : " + isEmail);
             if(isEmail){
                 return ResponseHandler.generateResponse("인증번호가 일치합니다.", HttpStatus.OK);
