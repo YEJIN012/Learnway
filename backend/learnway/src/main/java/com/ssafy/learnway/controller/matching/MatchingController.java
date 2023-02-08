@@ -4,6 +4,7 @@ import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.interest.InterestDto;
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 import com.ssafy.learnway.dto.matching.MatchingResponseDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
@@ -68,8 +69,8 @@ public class MatchingController {
 
         // TODO 중간에 나간 유저인지 확인
 
-        User matchingUser1 = userService.findByEmail(user1.getUserEmail());
-        User matchingUser2 = userService.findByEmail(user2.getUserEmail());
+        ProfileDto matchingUser1 = userService.getProfile(user1.getUserEmail());
+        ProfileDto matchingUser2 = userService.getProfile(user2.getUserEmail());
 
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)

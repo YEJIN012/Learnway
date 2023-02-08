@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Component
 public class SendMatching {
-    final String url = "http://localhost:8080/matching/result";
+    final String url = "http://localhost:8080/matching/result"; // 서버에 올리면 바꾸기
 
     public void sendMatching(MatchingResponseDto matchingResponseDto) {
 

@@ -43,7 +43,7 @@ public class UserDto {
     public UserDto(User user){
         this.userEmail = user.getUserEmail();
         this.name = user.getName();
-        this.name = user.getUserPwd();
+        this.userPwd = user.getUserPwd();
     }
 
     public User toEntity(){
