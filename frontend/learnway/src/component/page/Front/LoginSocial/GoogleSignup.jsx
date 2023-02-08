@@ -45,12 +45,10 @@ export default function GoogleSignup() {
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(languageBox)
 
     // 해당 언어 데이터를 정제하기
     const asyncFor =  () => {
       for (let i = 0; i < languageBox.language.length; i++) {
-        console.log(i)
         if (languageBox.language[i].name === languageName){
           // console.log(languageBox.language[i])
           return languageBox.language[i]

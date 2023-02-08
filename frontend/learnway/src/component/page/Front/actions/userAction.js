@@ -28,7 +28,6 @@ export function interestLst() {
 // 회원가입
 export function registerUser(dataToSubmit) {
   // const json = JSON.stringify(dataToSubmit)
-  console.log(dataToSubmit)
   const data = request("post", USER_URL + '/sign-up', dataToSubmit);
   return {
     type: REGISTER_USER,
@@ -40,7 +39,6 @@ export function registerUser(dataToSubmit) {
 export function loginUser(dataToSubmit) {
   const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`;
   const data = request("get", URL , dataToSubmit);
-  console.log(data)
   return {
     type: LOGIN_USER,
     payload: data,
@@ -51,7 +49,6 @@ export function loginUser(dataToSubmit) {
 export function findUserInfo(dataToSubmit) {
   const URL = USER_URL + `/${dataToSubmit.userEmail}`;
   const data = request("get", URL , dataToSubmit);
-  console.log(data)
   return {
     type: LOGIN_USER,
     payload: data,
@@ -70,20 +67,26 @@ export function deleteInfo(dataToSubmit) {
 
 
 // 토큰 저장
-export function accessToken(data) {
+export function accessToken(token) {
+  const expireTime = token.accessTokenExprireDate ? token.accessTokenExprireDate : 3600000 
+  const data = {
+    authenticated: true,
+    accessToken: token.accessToken,
+    expireTime: new Date().getTime() + expireTime
+  }
   return {
     type: SET_TOKEN,
     payload: data
   }
 }
 
-// 토큰 삭제
-export function deleteToken(data){
-  return {
-    type: DELETE_TOKEN,
-    payload: data
-  }
-}
+// // 토큰 삭제
+// export function deleteToken(data){
+//   return {
+//     type: DELETE_TOKEN,
+//     payload: data
+//   }
+// }
 
 
 // export function auth() {
