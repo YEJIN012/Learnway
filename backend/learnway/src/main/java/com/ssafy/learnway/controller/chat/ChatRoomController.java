@@ -13,7 +13,8 @@ import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.ApiParam;
+
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class ChatRoomController {
 
     // 채팅방 생성
     @PostMapping("/room")
-    public ResponseEntity createRoom(@RequestBody @ApiParam(value = "내 이메일, 채팅 걸 친구 이메일", required = true) FriendRequestDto friendRequestDto) throws SQLException {
+    public ResponseEntity createRoom(@RequestBody @Parameter(name = "내 이메일, 채팅 걸 친구 이메일", required = true) FriendRequestDto friendRequestDto) throws SQLException {
         User user = userService.findByEmail(friendRequestDto.getUserEmail());
         User opponent = userService.findByEmail(friendRequestDto.getFriendEmail());
         Friend friend = friendService.findById(user,opponent);

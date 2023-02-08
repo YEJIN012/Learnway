@@ -1,6 +1,7 @@
 package com.ssafy.learnway.util;
 
 import com.ssafy.learnway.dto.user.TokenDto;
+import com.ssafy.learnway.exception.CAuthenticationEntryPointException;
 import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.service.auth.CustomUserDetailsService;
 import io.jsonwebtoken.*;
@@ -21,10 +22,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class JwtTokenProvider {
-    @Value("jwt.secret")
+    @Value("${jwt.secret}")
     private String secretKey;
     private String ROLES = "roles";
-    private long accesstokenValidTime = 60 * 60 * 1000L; // 1 hour
+    private long accesstokenValidTime = 3 * 60 * 60 * 1000L; // 3 hour
     private long refreshtokenValidTime =  14 * 24 * 60 * 60 * 1000L; // 14 days
 
     @Autowired
@@ -62,7 +63,7 @@ public class JwtTokenProvider {
         // Claims에 user구분을 위해 값 세팅
         Claims claims = Jwts.claims().setSubject(String.valueOf(userPk)); // JWT payload 에 저장되는 정보단위 (sub)
         claims.put(ROLES, roles); // 정보는 key / value 쌍으로 저장
-        claims.put("user_id",userPk); // user_id 값 저장
+        //claims.put("user_id",userPk); // user_id 값 저장
 
         Date now = new Date(); // 생성 날짜, 만료 날짜를 위한 Date
 
@@ -108,9 +109,10 @@ public class JwtTokenProvider {
         // 권한 정보 없음
         if(claims.get(ROLES) == null) {
             // 예외 던지기
+            throw new CAuthenticationEntryPointException();
         }
         //UserDetails userDetails = customUserDetailsService.loadUserByUsername(this.getUserPk(token)); // 토큰으로 유저 확인
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject()); // pk값을 가지고 user entity 반환
+        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject()); // pk값을 가지고 user entity 반환. userId로 찾음
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());  // 유저 정보와 권한된 정보 리턴
     }
 
@@ -137,6 +139,7 @@ public class JwtTokenProvider {
            return true;
         } catch (JwtException | IllegalArgumentException e) {
             e.printStackTrace();
+
             return false;
         }
     }

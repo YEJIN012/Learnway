@@ -7,7 +7,7 @@ import com.ssafy.learnway.dto.friend.FriendRequestDto;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(tags = {"friend"})
+@Tag(name = "friend")
 @RestController
 @RequestMapping("/friend")
 @RequiredArgsConstructor
