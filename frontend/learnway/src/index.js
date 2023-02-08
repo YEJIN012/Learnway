@@ -10,13 +10,13 @@ import { combineReducers, createStore } from 'redux';
 import AuthReducer from './app/AuthReducer';
 import { CookiesProvider } from 'react-cookie';
 import TokenReducer from './app/TokenReducer';
-import UerInfoReducer from './app/UserInfoReducer';
+import UserInfoReducer from './app/UserInfoReducer';
 const rootReducer = combineReducers({
   UserStore,
   MainStore,
   AuthReducer,
   TokenReducer,
-  UerInfoReducer,
+  UserInfoReducer,
 });
 
 let store = createStore(rootReducer)

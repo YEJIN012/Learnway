@@ -2,19 +2,18 @@ package com.ssafy.learnway.matching;
 
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
 @Slf4j
 @Component
 public class MatchingListener {
 
-    private final MatchingWaitList matchingWaitList;
+    @Autowired
+    MatchingWaitList matchingWaitList;
 
 
     //  String 타입의 메세지를 전송받을 때 사용하는 코드
@@ -32,7 +31,7 @@ public class MatchingListener {
         log.info("receive message : " + matchingRequestDto.toString());
 
         // 매칭 대기자 추가
-        matchingWaitList.getMatchingWaitList().add(matchingRequestDto); //매칭 성사되길 기다리는 대기자들 명단
+        matchingWaitList.getMatchingWaitList().add(matchingRequestDto);
 
     }
 }

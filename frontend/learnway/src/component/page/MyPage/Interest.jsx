@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import InterestSelect from './InterestSelect';
-import { interestLst } from "../actions/userAction";
+import { interestLst } from "../../page/Front/actions/userAction";
 import { useDispatch } from "react-redux";
 
 
 
-export default function Interest({userinfo}) {
+export default function Interest({ flag, ChangeInterest, handleClose, userinfo}) {
   const dispatch = useDispatch();
   const [itdata, setItdata] = useState("")
 
@@ -27,7 +27,13 @@ export default function Interest({userinfo}) {
   return (
     <div>
       <h1>나는 취향설정이야</h1>
-      <InterestSelect userinfo={userinfo} itdata={itdata}></InterestSelect>
+      <InterestSelect
+        flag={flag}
+        ChangeInterest={ChangeInterest}
+        handleClose={handleClose}
+        userinfo={userinfo}
+        itdata={itdata}>
+      </InterestSelect>
     </div>
   )
 }

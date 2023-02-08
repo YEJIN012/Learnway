@@ -16,7 +16,7 @@ import com.ssafy.learnway.repository.user.RefreshTokenRepository;
 import com.ssafy.learnway.repository.user.UserInterestRepository;
 import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.util.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,24 +28,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
 @Service
 public class UserService {
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    private final UserInterestRepository userInterestRepository;
+    @Autowired
+    private UserInterestRepository userInterestRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
-    private final RefreshTokenRepository refreshTokenRepository;
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
 
-    private final InterestRepository interestRepository;
+    @Autowired
+    private InterestRepository interestRepository;
 
-    private final LanguageRepository languageRepository;
+    @Autowired
+    private LanguageRepository languageRepository;
 
-    private final S3FileUploadService s3FileUploadService;
+    @Autowired
+    private S3FileUploadService s3FileUploadService;
 
     @Transactional
     public TokenDto login(String userEmail, String userPwd) throws SQLException {

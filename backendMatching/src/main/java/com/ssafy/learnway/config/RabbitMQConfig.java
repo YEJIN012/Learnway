@@ -1,7 +1,6 @@
 package com.ssafy.learnway.config;
 
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
@@ -21,7 +20,6 @@ import java.io.ObjectInputStream;
  * 역직렬화를 할 수 있도록 Config 설정
  * **/
 
-@RequiredArgsConstructor
 @Configuration
 public class RabbitMQConfig {
 
