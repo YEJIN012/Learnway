@@ -7,47 +7,29 @@ import FriendListItem from "./FriendListItem";
 function FriendList(props) {
     const { handleSelectedFriend } = props;
     const store = useSelector((state) => state.AuthReducer);
-    const [friends, setFriends] = useState(""); // 친구들의 이메일Array
+    // const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const [status, setStatus] = useState("");
+    const [friendsProfile, setFriendsProfile] = useState([]);
 
-    function getFriendList() {
-        axios
-            .get("api/friend/list",
+    async function getFriendList() {
+        try{
+            const res = await axios.get(
+                "api/friend/list",
                 { params: { userEmail: store["userEmail"]}})
             // handle success
-            .then(function (res) {
-                setFriends(res.data.userEmailList);
-                console.log("getFriendList");
-            })
-            .catch(function (error) {
+            console.log("getFriendList");
+            setFriendsProfile(res.data.friendProfileList);
+            }
+        catch(error) {
                 console.log(error.response.data.msg);
                 setStatus(error.response.data.status);
-            })
-    }
-
-    const [friendsProfile, setfriendsProfile] = useState([]);
-
-    async function getFriendProfile() {
-        const tmp = [];
-        for await (const friend of friends) {
-            try {
-                const response = await axios.get(`api/users/profile/${friend}`);
-                tmp.push(response);
-                console.log("getFriendProfile");
-            } catch (error) {
-                console.log(error);
             }
-        }
-        setfriendsProfile(tmp);
     }
 
     useEffect(() => {
         getFriendList();
     }, []);
-    useEffect(() => {
-        getFriendProfile();
-    }, [friends]);
-
+    
     if (status === 404) {
         return (
             <Paper
