@@ -6,6 +6,7 @@ import Button from "../../../ui/Button";
 import { useDispatch } from "react-redux";
 import { loginUser, accessToken } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
+import { LOGIN_USER } from "../actions/types";
 
 const Owframe = styled.div`
   display: flex;
@@ -48,7 +49,7 @@ export default function LoginForm () {
       userEmail: email,
       userPwd: pw
     };
-    dispatch(loginUser(body)).payload
+    loginUser(body).payload
       .then((res) =>{
         const status = res.status
         const msg = res.msg
@@ -57,6 +58,9 @@ export default function LoginForm () {
         if (status === 200) {
           console.log(res)
           
+          // 스토어에 유저정보 넣기
+          dispatch({type: LOGIN_USER, payload: res.user})
+
           // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
           setRefreshToken(res.token.refreshToke);          
           dispatch(accessToken(res.token.accessToken));
