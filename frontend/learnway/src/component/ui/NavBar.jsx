@@ -43,40 +43,29 @@ function NavBar(params) {
 
     const Logout = () => {
 
-        deleteInfo()
-        dispatch(deleteToken())
+        // user Info 삭제
+        deleteInfo(userEmail).payload
+            .then((res) => {
+                const status = res.status
+                console.log(res.message)
+                console.log(res.status)
+                if ( status === 200 ){
+                    console.log(res)
+                    // access 토큰 삭제
+                    dispatch(deleteToken())
                     
-        // refresh 토큰 삭제
-        removeCookieToken();
-    
-        // logout 시 login 창으로
-        navigate('/intro');
-
-        // // user Info 삭제
-        // deleteInfo(userEmail).payload
-        //     .then((res) => {
-        //         const status = res.status
-        //         console.log(res.message)
-        //         if ( status === 200 ){
-        //             console.log(res)
-        //             // access 토큰 삭제
-        //             dispatch(deleteToken())
-                    
-        //             // refresh 토큰 삭제
-        //             removeCookieToken();
+                    // refresh 토큰 삭제
+                    removeCookieToken();
                 
-        //             // logout 시 login 창으로
-        //             navigate('/intro');
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         console.log(err)
-        //         alert("서버통신 실패")
-        //     })
+                    // logout 시 login 창으로
+                    navigate('/intro');
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+                alert("서버통신 실패")
+            })
         }
-    // useEffect( () => {
-    //     Logout();
-    // }, [])
 
     return (
         <Wrapper>
