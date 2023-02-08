@@ -36,7 +36,7 @@ public class Matching {
 
         result = matchingAlgorithm.algorithm(); // 매칭 알고리즘
 
-        successed = (boolean) result.get("successed"); // 성사 여부
+        successed = (boolean) result.get("succeed"); // 성사 여부
         if(successed){ // 성사되면 main server 전송
             matchingResponseDto = (MatchingResponseDto)result.get("matchingResponseDto");
             sendMatching.sendMatching(matchingResponseDto);
