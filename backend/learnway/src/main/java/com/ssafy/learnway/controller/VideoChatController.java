@@ -1,8 +1,12 @@
 package com.ssafy.learnway.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.learnway.dto.study.StudyRecordRequestDto;
+import com.ssafy.learnway.service.study.StudyService;
 import io.openvidu.java.client.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +15,16 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import javax.annotation.PostConstruct;
+import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/video")
 @CrossOrigin(origins = "*")
 @Tag(name = "video")
@@ -39,6 +47,8 @@ public class VideoChatController {
     // Collection to pair session names and recording objects
     private Map<String, String> sessionRecordings = new ConcurrentHashMap<>();
 
+
+    private final StudyService studyService;
     @PostConstruct
     public void init() {
         this.openVidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
@@ -347,6 +357,16 @@ public class VideoChatController {
         }
     }
 
+    @RequestMapping(value = "/recording/test", method = RequestMethod.POST)
+    public ResponseEntity<?> stopRecording(@RequestBody StudyRecordRequestDto studyRecordRequestDto) {
+
+        try {
+            studyService.insertStudy(studyRecordRequestDto);
+        } catch (SQLException | URISyntaxException | UnsupportedEncodingException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
     @RequestMapping(value = "/recording/stop", method = RequestMethod.POST)
     public ResponseEntity<?> stopRecording(@RequestBody Map<String, String> params) {
         String recordingId =params.get("recording");
