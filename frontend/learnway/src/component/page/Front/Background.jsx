@@ -30,7 +30,6 @@ const MentFrame = styled.div`
   margin-top: ${props => props.txttop || '90px'};
   margin-left: ${props => props.txtleft || props.align_items ? null : '60px'};
   align-items: ${props => props.align_items || null }
-  /* justify-content: ${props => props.justify_content || null } */
 `;
 
 const MentText = styled.div`
@@ -59,14 +58,14 @@ const InputWrapper = styled.div`
 `;
 
 
-export default function BackgroundFrame ({bg, icon, ment1, ment2, width, height, left, top, right, bottom, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items}) {
+export default function BackgroundFrame ({bg, ment1, ment2, width, height, left, top, right, bottom, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items}) {
   return(
     <Bg >
       <LoginBackground width={width} height={height} left={left} top={top} right={right} bottom={bottom}>
         <LogoFrame>
           <Logo src={logo} />
         </LogoFrame>
-        <MentFrame align_items={align_items}>
+        <MentFrame txttop={txttop} txtleft={txtleft} align_items={align_items}>
           <MentText>{ment1}</MentText>
           <MentText fsize={fsize}>{ment2}</MentText>
         </MentFrame>

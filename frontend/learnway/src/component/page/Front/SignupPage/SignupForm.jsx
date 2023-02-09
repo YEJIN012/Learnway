@@ -7,22 +7,24 @@ import Button from '../../../ui/Button';
 import SelectLanguage from '../../../ui/CommonSelectLanguage';
 import { useSelector } from 'react-redux';
 import { request } from '../utils/axios';
+
 import Alert from '@mui/joy/Alert';
-import BackgroundFrame from "../Background";
+import Stack from '@mui/material/Stack';
+import CakeIcon from '@mui/icons-material/Cake';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import LanguageIcon from '@mui/icons-material/Language';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const InputFrame = styled.div`
-  width: 20vw;
-  height: 6.2vh;
-  margin-bottom: 3vh;
+  width: 380px;
+  margin-top: 20px;
 `;
 
-const InputTitle = styled.div`
-  width: 20vw;
-  height: 1.84vh;
-  font-size: 0.9vw;
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  margin-bottom: 20px;  
 `;
-
-
 
 export default function SignupForm({getUserinfo}) {
 
@@ -101,16 +103,29 @@ export default function SignupForm({getUserinfo}) {
       <div>
         <AuthEamil getEmail = {getEmail}></AuthEamil>
         <form onSubmit={handleSubmit}>
-          <InputBox id="username" type="txt" title="User Name(ENG)" placeholder="hanbin" value={username} onChange={(e) => {setUsername(e.target.value)}}></InputBox>
-          <Alert>{msg}</Alert>
-          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}}></InputBox>
-          <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} onChange={(e) => {setconfirmPw(e.target.value)}}></InputBox>
-          <InputFrame>
-            <InputTitle>Language</InputTitle>
-            <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
+          <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} inputWidth="300px" inputHeight="25px" margin="10px 0px 10px 0px" onChange={(e) => {setUsername(e.target.value)}}
+            icon= {<AccountCircleIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
+          />
+          <Stack sx={{ width: '100%' }} spacing={2}>
+            <Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right" }} severity="warning">{msg}</Alert>
+          </Stack>
+          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="10px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
+            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
+          />
+          <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
+            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
+          />
+          <InputFrame >
+            <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = {languageName} setLanguage={setLanguageName} width="312px" height="30px" 
+              icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
+            />            
           </InputFrame>
-          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-          <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
+          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
+            icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
+          />
+          <Frame>
+            <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px" disabled= {disabled} />
+          </Frame>
         </form>
       </div>
   )
