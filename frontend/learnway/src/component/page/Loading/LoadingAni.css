@@ -1,4 +1,3 @@
-
 .sign {
   scale: 0.7;
   height:100%;
@@ -31,10 +30,10 @@
   animation: move 1.2s infinite;
 }
 .suitcase {
-  height:15vw;
+  height: 15vw;
   width: 24.65vw;
   background: #005aa7;
-  border-radius: 11.2px;
+  border-radius: 2vw;
   float: left;
 }
 .suitcase:nth-child(2) {
