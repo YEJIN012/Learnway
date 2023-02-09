@@ -1,16 +1,17 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "pretendard";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: #fffde4; */
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "pretendard";
+}
+
+* {
+  font-family: "pretendard";
 }
 
 @font-face {
@@ -18,6 +19,37 @@ code {
   src: url(./fonts/Kreon/Kreon-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: "nanumSquareNeo";
+  src: url(./fonts/Kreon/static/NanumSquareNeo-bRg.ttf);
+}
+
+@font-face {
+  font-family: "efDiary";
+  src: url(./fonts/Kreon/static/EF_Diary.ttf);
+}
+
+@font-face {
+  font-family: "elice";
+  src: url(./fonts/Kreon/static/EliceDigitalBaeum_Regular.ttf);
+}
+
+@font-face {
+  font-family: "coding";
+  src: url(./fonts/Kreon/static/D2Coding.ttf);
+}
+
+@font-face {
+  font-family: "pretendard";
+  src: url(./fonts/Kreon/static/Pretendard-Light.otf);
+}
+
+
 :root {
   --font-googleKreon: "googleKreon";
+  --font-nanumSquareNeo : "nanumSquareNeo";
+  --font-nanumSquareNeo : "efDiary";
+  --font-nanumSquareNeo : "elice";
+  --font-nanumSquareNeo : "coding";
+  --font-nanumSquareNeo : "pretendard";
 }
