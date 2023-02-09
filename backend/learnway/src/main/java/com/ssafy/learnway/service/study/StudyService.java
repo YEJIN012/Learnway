@@ -20,6 +20,7 @@ import com.ssafy.learnway.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -88,7 +89,10 @@ public class StudyService {
         Language language = languageRepository.findByLanguageId(studyRecordRequestDto.getLanguageId());
 
         String recordUri = URLEncoder.encode(studyRecordRequestDto.getRecordUri());
-        RestTemplate restTemplate = new RestTemplate();
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setReadTimeout(0);
+        requestFactory.setConnectTimeout(0);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
         String requestURL = whisperServerUri+ "?audio_url={audio_url}";
 
         String script = restTemplate.getForObject(requestURL, String.class, recordUri);
