@@ -11,14 +11,11 @@ import Modal from '@mui/material/Modal';
 import Webcam from 'react-webcam';
 import Button from '../../ui/Button';
 
-import styles from './css/Body2.module.css';
-
 import { useSelector } from 'react-redux';
 
 const Frame = styled.div`
     width: 40vmax;
-    height: 22vmax;
-    border:1px solid black;
+    height: 20vmax;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
@@ -33,7 +30,7 @@ const Frame = styled.div`
 const Header = styled.div`
     background: linear-gradient(to bottom, #36475f, #2c394f);
     padding: 12px 20px;
-    height: 53px;
+    height: 5vh;
 `;
 
 const Img = styled.div`
@@ -54,15 +51,26 @@ const Small = styled.div`
 
 const Component = styled.div`
     height:24vmax;
-    border:1px solid black;
 `;
 
 const SelectSection = styled.div`
     display:flex;
     flex-direction:row;
-    border:1px solid black;
     position: relative;
-    float: right;
+
+	&::after {
+		content: '';
+		display: table;
+		clear: both;
+	}
+`;
+
+const SelectFrame = styled.div`
+	float:right;
+    width:40%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
 `;
 
 const BtnSection = styled.div`
@@ -72,13 +80,6 @@ const BtnSection = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-`;
-
-const SelectFrame = styled.div`
-    width:40%;
-    display: flex;
-    justify-content:center;
-    align-items: center;
 `;
 
 const ChkCamera = styled.div`
@@ -116,17 +117,16 @@ const move = keyframes`
     }
 `;
 
-const airplaneStyle = {
-    position: 'absolute',
-    width: "30px",
-    height: "25px",
-    top: "57%",
-    left: "30%",
-    // opacity: "0",
-    transform: "translate(-50%, -50%)",
-    // animation: `${move} 4s infinite`,
-};
-
+const Airplane = styled.svg`
+	position: absolute;
+	width: 30px;
+	height: 25px;
+	top: 57%;
+	left: 30%;
+	opacity: 0;
+	transform: translate(-50%, -50%);
+	animation: ${move} 4s infinite;
+`;
 
 
 function startMatching(lang1, lang2) {
@@ -143,10 +143,12 @@ function Body() {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+	const handleClose = () => setOpen(false);
+	
     return (
         <Frame>
-            <Header>
+			<Component>
+			<Header>
                 {/* <Img>
                     <img src="/logo.png" alt="" />
                 </Img> */}
@@ -164,9 +166,9 @@ function Body() {
                     <SelectLanguage></SelectLanguage>
                 </SelectFrame>
 
-                <svg className="airplane" style={airplaneStyle}>
+                <Airplane>
                     <use xlinkHref="#airplane"></use>
-                </svg>
+                </Airplane>
                 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" >
                     <symbol  id="airplane" viewBox="243.5 245.183 25 21.633">
                         <g>
@@ -178,28 +180,42 @@ function Body() {
                     </symbol>
                 </svg>
             </SelectSection>
-            <section class="infos">
-                <div class="places">
-                <div class="box">
-                    <small>Terminal</small>
-                    <strong><em>W</em></strong>
-                </div>
-                <div class="box">
-                    <small>Gate</small>
-                    <strong><em>C3</em></strong>
-                </div>
-                </div>
-                <div class="times">
-                <div class="box">
-                    <small>Boarding</small>
-                    <strong>19:50</strong>
-                </div>
-                <div class="box">
-                    <small>Departure</small>
-                    <strong>20:20</strong>
-                </div>
-                </div>
-            </section>
+
+			<BtnSection>
+                    <Button
+                        id="6"
+                        width="20vw"
+                        height="5vw"
+                        fontSize="2.5vw"
+                        radius="5px"
+                        textValue="GO TO CHAT"
+                        onClick={() => startMatching(mylang.languageId, oppolang)} />
+                    <ChkCamera onClick={handleOpen}></ChkCamera>
+                    <Modal
+                        open={open}
+
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h5" component="h2">
+                                대화 입장 전, 웹캠 상태 확인 및 점검을 할 수 있습니다.
+                            </Typography>
+                            <Typography id="modal-modal-description"
+                                sx={{
+                                    mt: 2,
+                                    'display': 'flex',
+                                    'flex-direction': 'column',
+                                    'align-items': 'center'
+                                }}>
+                                <Webcam style={webcamStyle} />
+                                <Button id="4" width="5vw" height="2vw" onClick={handleClose}>확인 완료</Button>
+                            </Typography>
+                        </Box>
+
+                    </Modal>
+                </BtnSection>
+			</Component>
         </Frame>
             
     );
