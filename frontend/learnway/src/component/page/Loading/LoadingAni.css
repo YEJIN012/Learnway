@@ -1,23 +1,29 @@
 
 .sign {
-  height: 100%;
-  width: 100%;
+  scale: 0.7;
+  height:100%;
+  width:100%;
   background: #ffffff transparent;
   position: relative;
-  top: 35%;
-  left: 50%;
-  
-  -webkit-transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* /* left: 50%; */
+  /* -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   overflow: hidden;
+  /* border: solid 1px red; */
 }
 .moving {
+  /* border: solid 1px blue; */
   width: 56.98vw;
-  position: absolute;
-  bottom: 10.61vw;
+  /* position: absolute; */
+  /* bottom: 11.17vh; */
+  /* top: 16vh; */
+
   -webkit-animation: move 1.2s infinite;
   -moz-animation: move 1.2s infinite;
   -o-animation: move 1.2s infinite;
@@ -25,7 +31,7 @@
   animation: move 1.2s infinite;
 }
 .suitcase {
-  height:15.61vw;
+  height:15vw;
   width: 24.65vw;
   background: #005aa7;
   border-radius: 11.2px;
@@ -38,7 +44,7 @@
 .suitcase::before {
   content: '';
   background: #ffffff;
-  height: 24.65vw;
+  height: 15.61vw;
   width: 1.31vw;
   position: absolute;
 }
@@ -49,6 +55,7 @@
   margin-left: 3.27vw;
 }
 .handle {
+  /* border: solid 1px rgb(55, 255, 0); */
   background: #005aa7;
   height: 4.9vw;
   width: 9.47vw;
@@ -67,13 +74,19 @@
   margin-top: 1.96vw;
   margin-left: 1.96vw;
 }
+.rollBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 3vw;
+}
 .rollthingy {
   height: 4.73vw;
   width: 4.73vw;
   border-radius: 50%;
   background: #005aa7;
-  position: absolute;
-  bottom: 2.94vw;
+  /* position: absolute; */
+  /* bottom:  46vh; */
 }
 .rollthingy:nth-child(2) {
   left: 2.94vw;
