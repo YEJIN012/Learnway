@@ -3,6 +3,7 @@ body {
   font-family: "pretendard";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-color: #fffde4; */
 }
 
 code {
