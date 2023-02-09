@@ -15,6 +15,11 @@ const menuList = {
     3: <Translate></Translate>,
     4: <Youtube></Youtube>
   };
+
+  const Frame = styled.div`
+    width:40vw;
+    height:90vh
+  `;
 function TestPage(){
     const [menu, setMenu] = useState("")
 
@@ -27,9 +32,9 @@ function TestPage(){
     }
     return(
         <>
-            <div>
+            <Frame>
                 {menuList[menu]}
-            </div>
+            </Frame>
             <FloatingBtn handleSetMenu={handleSetMenu}></FloatingBtn>
         </>
         //화상 카메라가 들어갈 영역
