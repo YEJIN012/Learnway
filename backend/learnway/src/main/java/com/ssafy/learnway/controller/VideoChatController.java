@@ -46,9 +46,9 @@ public class VideoChatController {
     private Map<String, Map<String, OpenViduRole>> mapSessionNamesTokens = new ConcurrentHashMap<>();
     // Collection to pair session names and recording objects
     private Map<String, String> sessionRecordings = new ConcurrentHashMap<>();
+    @Autowired
+    private StudyService studyService;
 
-
-    private final StudyService studyService;
     @PostConstruct
     public void init() {
         this.openVidu = new OpenVidu(OPENVIDU_URL, OPENVIDU_SECRET);
