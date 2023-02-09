@@ -8,6 +8,7 @@ import SelectLanguage from '../../../ui/CommonSelectLanguage';
 import { useSelector } from 'react-redux';
 import { request } from '../utils/axios';
 import Alert from '@mui/joy/Alert';
+import BackgroundFrame from "../Background";
 
 const InputFrame = styled.div`
   width: 20vw;
@@ -97,21 +98,20 @@ export default function SignupForm({getUserinfo}) {
   };
 
   return(
-    <div>
-      <AuthEamil getEmail = {getEmail}></AuthEamil>
-      <form onSubmit={handleSubmit}>
-        <InputBox id="username" type="txt" title="User Name(ENG)" placeholder="hanbin" value={username} onChange={(e) => {setUsername(e.target.value)}}></InputBox>
-        <Alert>{msg}</Alert>
-        <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}}></InputBox>
-        <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} onChange={(e) => {setconfirmPw(e.target.value)}}></InputBox>
-        <InputFrame>
-          <InputTitle>Language</InputTitle>
-          <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
-        </InputFrame>
-        <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-        <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
-
-      </form>
-    </div>
+      <div>
+        <AuthEamil getEmail = {getEmail}></AuthEamil>
+        <form onSubmit={handleSubmit}>
+          <InputBox id="username" type="txt" title="User Name(ENG)" placeholder="hanbin" value={username} onChange={(e) => {setUsername(e.target.value)}}></InputBox>
+          <Alert>{msg}</Alert>
+          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}}></InputBox>
+          <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} onChange={(e) => {setconfirmPw(e.target.value)}}></InputBox>
+          <InputFrame>
+            <InputTitle>Language</InputTitle>
+            <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
+          </InputFrame>
+          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
+          <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
+        </form>
+      </div>
   )
 }

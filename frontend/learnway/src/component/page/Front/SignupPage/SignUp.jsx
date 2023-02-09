@@ -18,15 +18,16 @@ export default function Signup () {
       bg={
           userinfo === ""
           ? (
-          <>
-            <NavLink to = "/login">Login</NavLink>
-            <SignupForm getUserinfo={getUserinfo}></SignupForm>
-          </>
-          )
-          : <Interest userinfo={userinfo}></Interest>
+            <div>
+              <NavLink to = "/login">Login</NavLink>
+              <SignupForm getUserinfo={getUserinfo}></SignupForm>
+            </div>
+            )
+            : <Interest userinfo={userinfo} />
       }
-      ment1="Sign Up"
-      ment2="Already Member ?">
-    </BackgroundFrame>
+      ment1 = {userinfo ? "Selection" : "Sign Up"}
+      ment2 = {userinfo ? "What do you do in your free time?" : "Already Member ?"}
+      align_items = "center"
+    />
   )
 }

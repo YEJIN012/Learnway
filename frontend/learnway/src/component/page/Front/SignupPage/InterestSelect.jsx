@@ -116,7 +116,6 @@ export default function InterestSelect({
 
     return (
         <form onSubmit={handleSubmit}>
-            <h4>선택창</h4>
             <SelectFrame>
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
