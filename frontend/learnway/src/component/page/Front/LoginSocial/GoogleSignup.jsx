@@ -14,6 +14,13 @@ import EmailIcon from '@mui/icons-material/Email';
 import LanguageIcon from '@mui/icons-material/Language';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+const InputbtmFrame = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end;
+  margin-bottom: 30px;
+`;
+
 const InputFrame = styled.div`
   width: 380px;
   margin-top: 20px;
@@ -79,7 +86,7 @@ export default function GoogleSignup() {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="35vw" width="470px" height="680px" top="13vh" bottom="5vh" fsize="15px" mtop = "13vh"
+    <BackgroundFrame left="35vw" right="35vw" width="470px" top="13vh" bottom="5vh" fsize="15px" mtop = "13vh"
       bg={
         userinfo === ""
         ? (
@@ -91,12 +98,30 @@ export default function GoogleSignup() {
             <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled="true" inputWidth="300px" margin="20px 0px 10px 0px"
               icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
             />
-            <InputBox id="email" type="email" title="E-mail" placeholder={userEmail} value={userEmail} disabled="true" inputWidth="300px"
-              icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
-            />
-            <Frame>
-              <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Send" margin="20px 0px 0px 0px" disabled="true" />
-            </Frame>
+            <InputbtmFrame>
+              <InputBox 
+                id="email" 
+                type="email" 
+                title="E-mail" 
+                inputWidth="220px"
+                placeholder={userEmail}
+                value={userEmail}
+                margin="20px 0px 0px 0px "
+                disabled="true" 
+                icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+              />
+              <Button 
+                id="0" 
+                width="80px" 
+                height="39px" 
+                fontSize="12px" 
+                textWeight="700" 
+                radius="10px" 
+                textValue= "Send" 
+                margin= "20px 0px 0px 0px"
+                disabled="true"
+              />
+            </InputbtmFrame>
             <InputFrame>
               <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = {languageName} setLanguage={setLanguageName} width="312px" height="37px" 
                 icon= {<LanguageIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
@@ -106,7 +131,7 @@ export default function GoogleSignup() {
               icon= {<CakeIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
             />
             <Frame>
-              <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px" disabled= {disabled} />
+              <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="30px 0px 50px 0px" disabled= {disabled} />
             </Frame>
           </form>
           </>
