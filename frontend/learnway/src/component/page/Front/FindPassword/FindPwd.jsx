@@ -39,7 +39,9 @@ export default function FindPwd(){
         if (rst.status === 200){
           // 서버에 인증번호 요청 & 인증번호창 활성화
           console.log(rst)
-          console.log(request("get", URL + `/verify?user_email=${email}`, email))
+          // console.log(request("get", URL + `/verify?user_email=${email}`, email))
+          // request("get", URL + `/verify?user_email=${email}&find_code=0`, email)
+          request("get", URL + `/verify?user_email=${email}`, email)
           setAuth(true)                   
         } else {
           alert(rst.msg)

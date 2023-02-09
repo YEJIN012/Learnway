@@ -17,6 +17,7 @@ export default function AuthEamil({getEmail}) {
   
   // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
   const chkAuthcode = () => {
+    // request("get", URL + `?user_email=${email}&find_code=1`, email)
     request("get", URL + `?user_email=${email}`, email)
       .then ((res) => {
         const status = res.status;
