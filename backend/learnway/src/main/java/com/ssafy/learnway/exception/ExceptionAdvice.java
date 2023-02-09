@@ -45,11 +45,11 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(CAuthenticationEntryPointException.class)
     protected ResponseEntity cAuthenticationEntryPointException(HttpServletRequest request, UserNotFoundException e){
-        return ResponseHandler.generateResponse("유효하지 않은 token입니다.", HttpStatus.BAD_REQUEST);
+        return ResponseHandler.generateResponse("유효하지 않은 token입니다.", HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     protected ResponseEntity accessDeniedException(HttpServletRequest request, UserNotFoundException e){
-        return ResponseHandler.generateResponse("권한이 없습니다.", HttpStatus.BAD_REQUEST);
+        return ResponseHandler.generateResponse("권한이 없습니다.", HttpStatus.FORBIDDEN);
     }
 }

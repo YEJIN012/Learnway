@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteInfo, deleteToken } from "../page/Front/actions/userAction";
+import { deleteInfo } from "../page/Front/actions/userAction";
 import { removeCookieToken } from "../page/Front/utils/Cookie";
+import { DELETE_INFO } from "../page/Front/actions/types";
 
 const Wrapper = styled.div`
     background-color: #fffde4;
@@ -39,7 +39,6 @@ function NavBar(params) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userEmail = useSelector(state => state.AuthReducer.userEmail)
-    console.log(userEmail)
 
     const Logout = () => {
 
@@ -47,16 +46,12 @@ function NavBar(params) {
         deleteInfo(userEmail).payload
             .then((res) => {
                 const status = res.status
-                console.log(res.message)
-                console.log(res.status)
                 if ( status === 200 ){
-                    console.log(res)
-                    // access 토큰 삭제
-                    dispatch(deleteToken())
-                    
                     // refresh 토큰 삭제
                     removeCookieToken();
-                
+                    // 취향정보, 언어정보 초기화, 유저정보, access 토큰 모두 삭제
+                    dispatch({type: DELETE_INFO, payload: null})
+
                     // logout 시 login 창으로
                     navigate('/intro');
                 }

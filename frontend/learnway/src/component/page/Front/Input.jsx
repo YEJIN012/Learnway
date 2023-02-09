@@ -4,13 +4,13 @@ import styled from 'styled-components';
 const InputFrame = styled.div`
   width: 20vw;
   height: 6.2vh;
-  margin-bottom: 3vh;
+  margin: ${(props) => props.margin || "0px 0px 3vh 0px"};
 `;
 
 const InputTitle = styled.div`
   width: ${(props) => props.titleWidth || "20vw"};
   height: ${(props) => props.titleHeight || "1.84vh"};
-  font-size: ${(props) => props.titleFontSize || "0.9vw"};
+  font-size: ${(props) => props.titleFontSize || "2vw"};
 `;
 
 const Input = styled.input`
@@ -23,11 +23,17 @@ export default function InputBox({title, id, type, placeholder, onChange, onKeyU
   ,titleHeight
   ,titleFontSize
   ,inputWidth
-  ,inputHeight }){
+  ,inputHeight
+  ,margin }){
   
   return (
-    <InputFrame>
-      <InputTitle>{title}</InputTitle>
+    <InputFrame margin={margin}>
+      <InputTitle 
+        titleWidth={titleWidth}
+        titleHeight={titleHeight}
+        titleFontSize={titleFontSize}
+      >{title}
+      </InputTitle>
       <Input 
         id={id}
         type={type}
@@ -39,11 +45,8 @@ export default function InputBox({title, id, type, placeholder, onChange, onKeyU
         autoComplete="off"
         required
         disabled={disabled}
-        titleWidth
-        titleHeight
-        titleFontSize
-        inputWidth
-        inputHeight
+        inputWidth={inputWidth}
+        inputHeight={inputHeight}
       />
     </InputFrame>
   )

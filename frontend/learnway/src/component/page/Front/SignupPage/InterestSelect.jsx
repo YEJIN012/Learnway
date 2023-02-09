@@ -74,34 +74,39 @@ export default function InterestSelect({
                 const userDto = add("interests", itobj);
                 
                 // 회원가입 요청 후, 로그인
-                dispatch(registerUser(userDto))
-                .payload.then((res) => {
-                    const status = res.status;
-                    const msg = res.msg;
-                    if (status === 200) {
-                        console.log(msg);
-                        dispatch(
-                            loginUser({
-                                userEmail: userinfo.userEmail,
-                                userPwd: userinfo.userPwd,
-                            })
-                            ).payload.then((res) => {
-                                const status = res.status;
-                                const msg = res.msg;
-                                if (status === 200) {
-                                    // 쿠키에 Refresh Token, store에 Access Token 저장
-                                    setRefreshToken(res.token.refreshToken);
-                                    dispatch(accessToken(res.token.accessToken));
-                                    
-                                    // 성공했으면 메인 페이지로 이동
-                                    navigate(`/`);
-                                    alert("환영쓰");
-                                } else if (status === 202) {
-                                    // 아이디 비밀번호가 틀린 경우,
-                                    alert(msg);
-                                }
-                            });
-                        }
+                registerUser(userDto).payload
+                    .then((res) => {
+                        const status = res.status;
+                        const msg = res.msg;
+                        if (status === 200) {
+                            console.log(msg);
+                            const body = {userEmail: userinfo.userEmail, userPwd: userinfo.userPwd }
+                            const loadinfo = loginUser(body)
+                            loadinfo.payload
+                                .then((res) => {
+                                    const status = res.status;
+                                    const msg = res.msg;
+                                    console.log(msg)
+
+                                    if (status === 200) {
+                                        console.log(loadinfo, res)
+                                        // 스토어에 유저정보 넣기
+                                        dispatch({type: loadinfo.type, payload: res.user})
+
+                                        // 쿠키에 Refresh Token 과 email 저장, store에 Access Token 저장
+                                        setRefreshToken(res.token.refreshToken);
+                                        const getaccessToken = accessToken(res.token);
+                                        dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
+                                        
+                                        // 성공했으면 메인 페이지로 이동
+                                        navigate('/');
+                                        alert("환영쓰");
+                                    } else if (status === 202) {
+                                        // 아이디 비밀번호가 틀린 경우,
+                                        alert(msg);
+                                    }
+                                });
+                            }
                     })
                     .catch((err) => alert("서버 연결 실패"));
                 }
@@ -113,7 +118,6 @@ export default function InterestSelect({
         <form onSubmit={handleSubmit}>
             <h4>선택창</h4>
             <SelectFrame>
-                <div>hihihih</div>
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
                           if (itdata[idx].field === "random") {

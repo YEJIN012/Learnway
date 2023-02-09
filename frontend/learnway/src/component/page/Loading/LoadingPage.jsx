@@ -78,13 +78,14 @@ const Stn = styled.div`
 function Loading(params) {
     const useInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
-
+    console.log(useInfo)
     const [lngConv, setLngConv] = useState([])
     const [studyLngConv, setStudyLngConv] = useState([])
 
     //오늘의 회화 목록을 가져오는 함수
     function getTodayConv() {
         console.log(useInfo.language.name)
+        console.log(studyLng)
         axios
             .get("api/conv", {
                 params: { lng: useInfo.language.name, study_lng: studyLng },

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate  } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import '../../ui/Background.css';
 import logo from '../Front/img/intro_logo.png';
 import learnway from '../Front/img/learnway.png'
 import subment from '../Front/img/subtitle.png';
+import { interestLst, languageLst } from './actions/userAction';
 import IntroAnimation from './IntroAnimation';
 import BGIntro from './introbackground/BGIntro';
 
@@ -99,6 +101,16 @@ export default function Intro () {
 }
 
 function LeftBox(){
+  const dispatch = useDispatch()
+
+  // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
+  useEffect(() => {
+    const langdata = languageLst()
+    const interstdata = interestLst()
+    langdata.payload.then((res) => dispatch({type: langdata.type, payload: res.language}))
+    interstdata.payload.then((res) => dispatch({type: interstdata.type, payload: res.interests}))
+  },[])
+
   return(
     <LeftSide>
       <IntroAnimation></IntroAnimation>

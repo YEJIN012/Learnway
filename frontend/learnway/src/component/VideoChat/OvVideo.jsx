@@ -1,26 +1,21 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
-export default class OpenViduVideoComponent extends Component {
+const Video = styled.video`
+    width:inherit;
+    height:inherit;
+`;
 
-    constructor(props) {
-        super(props);
-        this.videoRef = React.createRef();
-    }
+function OpenViduVideoComponent({ streamManager, size }){
+    const videoRef = React.useRef();
 
-    componentDidUpdate(props) {
-        if (props && !!this.videoRef) {
-            this.props.streamManager.addVideoElement(this.videoRef.current);
+    useEffect(() => {
+        if (videoRef && !!videoRef.current) {
+            streamManager.addVideoElement(videoRef.current);
         }
-    }
+    }, [streamManager, videoRef]);
 
-    componentDidMount() {
-        if (this.props && !!this.videoRef) {
-            this.props.streamManager.addVideoElement(this.videoRef.current);
-        }
-    }
+    return <Video autoPlay={true} ref={videoRef} size={size}/>;
+};
 
-    render() {
-        return <video autoPlay={true} ref={this.videoRef} />;
-    }
-
-}
+export default OpenViduVideoComponent;

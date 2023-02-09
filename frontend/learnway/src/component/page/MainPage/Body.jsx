@@ -4,6 +4,8 @@ import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
 import langSelectImg from "./langSelectImg.png";
 import camIcon from "./camIcon.png";
+import Animation from "./MainAnimation";
+
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -14,7 +16,7 @@ import Button from '../../ui/Button';
 import { useSelector } from 'react-redux';
 
 const Frame = styled.div`
-    width: 50vmax;
+    width: 60vmax;
     height: 38vmax;
     border:1px solid black;
     margin: 0 auto;
@@ -97,6 +99,7 @@ function Body() {
     const handleClose = () => setOpen(false);
     return (
         <Frame>
+
             <Component>
                 <SelectSection>
                     <MyLanguage></MyLanguage>
