@@ -6,12 +6,14 @@ const MyLang = styled.div`
     width:40%;
     font-family: 'Poppins';
     font-style: normal;
-    font-weight: 600;
-    font-size: 4vw;
+    font-weight: 300;
+    font-size: 3vw;
     display: flex;
     justify-content:center;
     align-items: center;
     text-align: center;
+    padding: 20px 18px;
+    float: left;
 `;
 
 function MyLanguage(){
