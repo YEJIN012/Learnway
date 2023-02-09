@@ -3,11 +3,11 @@ package com.ssafy.learnway.service.friend;
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.ProfileDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.friend.RoomDto;
 import com.ssafy.learnway.repository.friend.RoomRepository;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static java.time.LocalDateTime.now;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +28,7 @@ public class RoomService {
 
     @Transactional
     public Room createRoom(Friend friend, String roomId){
-        Room room = Room.builder().friend(friend).roomId(roomId).build();
+        Room room = Room.builder().friend(friend).roomId(roomId).msg("").time(now()).build();
         return roomRepository.save(room);
     }
 
@@ -49,6 +51,8 @@ public class RoomService {
                         .relationId(room.getRelationId())
                         .roomId(room.getRoomId())
                         .profileDto(profileDto)
+                        .msg(room.getMsg())
+                        .dateTime(room.getTime())
                         .build()
                 );
             }

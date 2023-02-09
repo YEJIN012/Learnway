@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate  } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 
 import '../../ui/Background.css';
 import logo from '../Front/img/intro_logo.png';
 import learnway from '../Front/img/learnway.png'
 import picture from '../Front/img/intro_picture.png';
 import subment from '../Front/img/subtitle.png';
+import { interestLst, languageLst } from './actions/userAction';
 
 
 const LeftSide = styled.div`
@@ -79,19 +81,30 @@ const StartBtn = styled.button`
   color: #FFFFFF;
   border: none; 
   border-radius: 1.02vh;
+  cursor: pointer;
 `;
 
 
 export default function Intro () {
   return (
-    <body className="background">
+    <div className="background">
       <LeftBox />
       <RightBox />
-    </body>
+    </div>
   )
 }
 
 function LeftBox(){
+  const dispatch = useDispatch()
+
+  // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
+  useEffect(() => {
+    const langdata = languageLst()
+    const interstdata = interestLst()
+    langdata.payload.then((res) => dispatch({type: langdata.type, payload: res.language}))
+    interstdata.payload.then((res) => dispatch({type: interstdata.type, payload: res.interests}))
+  },[])
+
   return(
     <LeftSide>
       <Picture src={picture} />

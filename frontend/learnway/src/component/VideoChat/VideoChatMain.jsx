@@ -228,7 +228,6 @@ class VideoChatMain extends Component {
                 
                 // Get a token from the OpenVidu deployment
                 this.getToken().then((token) => {
-                    console.log("token" + token)
                     // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
                     // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
                     mySession.connect(token, { clientData: this.state.myUserName })
@@ -395,8 +394,7 @@ class VideoChatMain extends Component {
         const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { customSessionId: sessionId }, {
             headers: { 'Content-Type': 'application/json', },
         });
-        console.log(response.data.sessionId)
-        return response.data.sessionId; // The sessionId
+        return response.data; // The sessionId
     }
 
     async createToken(sessionId) {

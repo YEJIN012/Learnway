@@ -3,17 +3,18 @@ package com.ssafy.learnway.controller.chat;
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.ProfileDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.chat.ChatRoom;
 import com.ssafy.learnway.dto.friend.FriendRequestDto;
 import com.ssafy.learnway.dto.friend.RoomDto;
 import com.ssafy.learnway.repository.chat.ChatRoomRepository;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.ApiParam;
+
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,7 @@ public class ChatRoomController {
 
     // 채팅방 생성
     @PostMapping("/room")
-    public ResponseEntity createRoom(@RequestBody @ApiParam(value = "내 이메일, 채팅 걸 친구 이메일", required = true) FriendRequestDto friendRequestDto) throws SQLException {
+    public ResponseEntity createRoom(@RequestBody @Parameter(name = "내 이메일, 채팅 걸 친구 이메일", required = true) FriendRequestDto friendRequestDto) throws SQLException {
         User user = userService.findByEmail(friendRequestDto.getUserEmail());
         User opponent = userService.findByEmail(friendRequestDto.getFriendEmail());
         Friend friend = friendService.findById(user,opponent);
@@ -93,9 +94,15 @@ public class ChatRoomController {
     // 채팅방 파괴
     @DeleteMapping("/room/{roomId}")
     public ResponseEntity deleteRoom(@PathVariable String roomId) {
-        chatRoomRepository.deleteChatRoom(roomId); //redis
-        roomService.deleteByRoomId(roomId); //mysql에 있는 chatRoom도 삭제
-        return ResponseHandler.generateResponse("채팅방 삭제 완료", HttpStatus.OK);
+        Room room = roomService.findByRoomId(roomId);
+
+        if(room != null){
+            chatRoomRepository.deleteChatRoom(roomId); //redis
+            roomService.deleteByRoomId(roomId); //mysql에 있는 chatRoom도 삭제
+            return ResponseHandler.generateResponse("채팅방 삭제 완료", HttpStatus.OK);
+        }else{
+            return ResponseHandler.generateResponse("검색된 채팅방이 없습니다.", HttpStatus.ACCEPTED);
+        }
     }
 
     // 특정 채팅방 들어갔을때 채팅방 관련 정보를 전달

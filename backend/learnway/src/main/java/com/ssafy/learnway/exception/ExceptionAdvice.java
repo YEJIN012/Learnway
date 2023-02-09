@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 
 @RequiredArgsConstructor
 @RestControllerAdvice
@@ -42,4 +43,13 @@ public class ExceptionAdvice {
         return ResponseHandler.generateResponse("S3 파일 저장 중 오류 발생",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(CAuthenticationEntryPointException.class)
+    protected ResponseEntity cAuthenticationEntryPointException(HttpServletRequest request, UserNotFoundException e){
+        return ResponseHandler.generateResponse("유효하지 않은 token입니다.", HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    protected ResponseEntity accessDeniedException(HttpServletRequest request, UserNotFoundException e){
+        return ResponseHandler.generateResponse("권한이 없습니다.", HttpStatus.FORBIDDEN);
+    }
 }

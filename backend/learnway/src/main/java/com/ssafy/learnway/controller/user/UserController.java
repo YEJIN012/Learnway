@@ -1,11 +1,15 @@
 package com.ssafy.learnway.controller.user;
 
 import com.ssafy.learnway.domain.user.User;
-import com.ssafy.learnway.dto.*;
-import com.ssafy.learnway.service.UserService;
+import com.ssafy.learnway.dto.interest.InterestDto;
+import com.ssafy.learnway.dto.language.LanguageDto;
+import com.ssafy.learnway.dto.user.ProfileDto;
+import com.ssafy.learnway.dto.user.PwdDto;
+import com.ssafy.learnway.dto.user.UserDto;
+import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.util.ResponseHandler;
-import io.swagger.annotations.Api;
-import lombok.extern.slf4j.Slf4j;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Api(tags = {"users"})
+@Tag(name = "users")
 
 @RestController
 @RequestMapping("/users") // 추후에 user로 바꿔야함
@@ -27,6 +31,13 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
 
     // 회원 조회
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(
+//                    name= "X-AUTH-TOKEN",
+//                    value = "로그인 성공 후 AccessToken",
+//                    required = true, dataType = "String", paramType = "header"
+//            )
+//    })
     @GetMapping("/{userEmail}")
     public ResponseEntity findUserByEmail(@PathVariable String userEmail){
         if(userEmail==null) {
@@ -66,8 +77,8 @@ public class UserController {
     @PutMapping("/modify")
     public ResponseEntity modifyUser(@RequestPart UserDto userDto, @RequestPart(value = "image", required = false) final MultipartFile multipartFile) {
         // 정보 미입력시 리턴
-        if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")||userDto.getUserPwd().equals("")){
-            return ResponseHandler.generateResponse("회원가입 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
+        if(userDto.getInterests()==null||userDto.getLanguage()==null||userDto.getName().equals("")||userDto.getUserEmail().equals("")){
+            return ResponseHandler.generateResponse("회원 정보를 모두 입력해주세요.", HttpStatus.ACCEPTED);
         }
 
         // 관심 분야 3개 이상 체크

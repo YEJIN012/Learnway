@@ -5,7 +5,6 @@ import SockJS from 'sockjs-client';
 
 import UserProfile from './UserProfile';
 import ChatText from './ChatText';
-import { connect } from 'net';
 
 const RoomFrame = styled.div`
     display:flex;
@@ -45,15 +44,15 @@ const SearchBox = styled.div`
 `;
 
 const Input = styled.input`
-width:19vw;
-height:2.5vw;
+    width:19vw;
+    height:2.5vw;
 `;
 
 const Searchbtn = styled.div`
-width:3vw;
-height:3vw;
-background-image: url(${props => props.url || ""});
-background-size:cover;
+    width:3vw;
+    height:3vw;
+    background-image: url(${props => props.url || ""});
+    background-size:cover;
 `;
 
 //검색 공통 컴포넌트 끝 
@@ -61,11 +60,14 @@ background-size:cover;
 
 const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
+
 function Chatroom(props) {
     const [text, setText] = useState("")
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
-    console.log(chatLog)
+
+    console.log(chatLog);
+
     //채팅 기록 컴포넌트 초기 렌더링 시 마지막 순서 기억
     function initMsgId() {
         if (chatLog.length === 0) {
@@ -75,12 +77,6 @@ function Chatroom(props) {
         }
     }
 
-    function updateComponent(cid, value) {
-        console.log("cid : " + cid)
-        const data = { id: msgId, msg: <ChatText id={cid} text={value}></ChatText> };
-        setMsgId(msgId + 1);
-        setChatLog([...chatLog, data]);
-    }
     useEffect(()=>{
         ws.connect({}, (frame) => {
              console.log("connected to server:", frame);
@@ -89,18 +85,29 @@ function Chatroom(props) {
         
     },[])
     function subscribe() {
+        let num = msgId;
+        
         ws.subscribe('/sub/chat/room/be73b328-835e-4042-9e9d-862a38b1694b', (event) => {
             const received = JSON.parse(event.body)
             if(received.sender === "bbb@ssafy.com"){
-                //console.log("subscribe")
-                //updateComponent('1', JSON.parse(event.body).message);   
-                const data = { id: msgId, msg: <ChatText id={1} text={received.message}></ChatText> };
-                setMsgId(msgId + 1);
-                setChatLog([...chatLog, data]);
+                const data = { id: num, msg: <ChatText id={1} text={received.message}></ChatText> };
+                setMsgId((msgId) => msgId+1);
+                num = num + 1;
+                // setChatLog([...chatLog, data]);
+                setChatLog((chatLog) => [...chatLog, data]);
+            }else{
+                const data = { id: num, msg: <ChatText id={0} text={received.message}></ChatText> };
+                setMsgId((msgId) => msgId+1);
+                num = num + 1;
+                setChatLog((chatLog) => [...chatLog, data]);
+                console.log(num);
+                // setChatLog([...chatLog, data]);
             }
         })
     }
-    
+    useEffect(()=>{
+        console.log('값이 바뀜')
+      }, [msgId])
 
     async function sendMsg() {
         //websockt emit
@@ -111,23 +118,16 @@ function Chatroom(props) {
             message: text
         }
         ws.send('/pub/chat/message', {}, JSON.stringify(da));
-        console.log("sendMsg")
-        //updateComponent('0', text);
-        const data = { id: msgId, msg: <ChatText id={1} text={text}></ChatText> };
-                setMsgId(msgId + 1);
-                setChatLog([...chatLog, data]);
     }
 
     return (
         <RoomFrame>
-
             <UserProfile id={0}></UserProfile>
             <Body>
                 <List>
                     {chatLog.map((chatLog) => (
                         <li key={chatLog.id}>{chatLog.msg}</li>
                     ))}
-
                 </List>
             </Body>
             <SearchBox>
@@ -136,4 +136,4 @@ function Chatroom(props) {
             </SearchBox>
         </RoomFrame>
     );
-} export default Chatroom;   
+} export default Chatroom; 

@@ -4,7 +4,7 @@ import com.ssafy.learnway.domain.report.Report;
 import com.ssafy.learnway.domain.report.ReportDetail;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.report.ReportDto;
-import com.ssafy.learnway.repository.UserRepository;
+import com.ssafy.learnway.repository.user.UserRepository;
 import com.ssafy.learnway.repository.report.ReportDetailRepository;
 import com.ssafy.learnway.repository.report.ReportRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +26,17 @@ public class ReportService {
     @Transactional
     public Report writeReport(ReportDto reportDto) throws Exception {
         User user = userRepository.findByUserEmail(reportDto.getUserEmail());
-        ReportDetail reportDetail = reportDetailRepository.findByReportId(reportDto.getReportId()+1); //front단보다 +1
-        Report report = Report.builder().userId(user).reportId(reportDetail)
-                .etc(reportDto.getEtc()).build();
-        return reportRepository.save(report);
+
+        Report result = null;
+        List<Integer> reportId = reportDto.getReportId();
+        for(Integer id : reportId){
+            ReportDetail reportDetail = reportDetailRepository.findByReportId(id+1); //front단보다 +1
+            Report report = Report.builder().userId(user).reportId(reportDetail)
+                    .etc(reportDto.getEtc()).build();
+            result = reportRepository.save(report);
+        }
+
+        return result;
 //        return reportRepository.save(reportDto.toEntity()); // Report 객체를 반환해준다.
     }
 

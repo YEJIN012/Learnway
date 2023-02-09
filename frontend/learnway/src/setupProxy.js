@@ -31,15 +31,4 @@ module.exports = function (app) {
       changeOrigin:true
     }),
   );
-  
-  app.use(
-    '/videochat',
-    createProxyMiddleware({
-      target: 'https://i8a408.p.ssafy.io',
-      pathRewrite:{
-        '^/videochat':'',
-      },
-      changeOrigin:true,
-    }),
-  )
 };

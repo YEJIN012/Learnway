@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,20 +19,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity // spring security를 구성하는 기본적인 기능을 자동으로 빌딩
 @RequiredArgsConstructor
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-    @Autowired
-    private final JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private final CustomUserDetailsService customUserDetailsService;
-    @Autowired
-    private final CustomOAuth2UserService customOAuth2UserService;
-
-    private final OAuth2SuccessHandler oAuth2SuccessHandler;
-
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] PERMIT_URL_ARRAY = {
             /* swagger v2 */
             "/v2/api-docs",
@@ -43,8 +38,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             "/webjars/**",
             /* swagger v3 */
             "/v3/api-docs/**",
-            "/swagger-ui/**"
+            "/swagger-ui/**",
+            /* 모든 사용자 접근 페이지 => front와 맞춰보기*/
+            "/users/login",
+            "/sign-up",
+            "/users/logout/**",
+            "/users/oauth2/login",
+            "/users/oauth2/signup",
+            "/users/dupName",
+            "/users/interest",
+            "/users/language",
+            "/main",
+            "https://i8a408.p.ssafy.io/**"
     };
+    @Autowired
+    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private final CustomOAuth2UserService customOAuth2UserService;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     // 저장소에서 가져온 인코딩된 암호(encodedPassword)가 인코딩 된 후 제출된 원시 암호(raw password)와 일치하는지 확인
     // 일치하면 true 반환. 불일치하면 false 반환.
@@ -57,21 +70,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Bean
     @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception{
+    public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-     // 인증, 인가가 필요없는 페이지 설정
-     @Override
-     public void configure(WebSecurity web) throws Exception {
-          web.ignoring().antMatchers();
-     }
+    // 인증, 인가가 필요없는 페이지 설정
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/")
+                .antMatchers("/api/swagger/**", "/api/swagger-ui/**", "/api/swagger-ui.html", "/api/webjars/**", "/api/swagger-resources/**", "/api/configuration/**", "/api/v3/api-docs/**");
+        ;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         // userDetailsService() : 인증 과정에서 사용할 UserDetailsService를 설정
-         // passwordEncoder() : 인증 과정에서 사용할 passwordEncoder를 설정
-         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+        // userDetailsService() : 인증 과정에서 사용할 UserDetailsService를 설정
+        // passwordEncoder() : 인증 과정에서 사용할 passwordEncoder를 설정
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
      // 인증, 인가가 필요한 페이지 설정
@@ -82,14 +97,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  .httpBasic().disable()
                  // csrf : post방식으로 값을 전송시, token을 사용해야되는 보안 설정 비활성화
                  .csrf().disable()
+                 .cors().disable()
                  //
                  .formLogin()// form 기반 로그인 관련 설정.
-                 .loginPage("/")// 로그인 요청 URL
+                 .loginPage("/login")// 로그인 요청 URL
                  .defaultSuccessUrl("/main")// 로그인 성공 시 연결 URL
                  //
                  .and()
                  .authorizeRequests() //antMatchers()를 통해 접근 URL에 대한 권한을 설정
-                 .antMatchers("/*/login","/*/sign-up","/*/oauth2/sign-up","/login/**").permitAll()
+                 //.antMatchers().permitAll()
                  .antMatchers(PERMIT_URL_ARRAY).permitAll() // swagger api 접근
                  //.antMatchers("/").permitAll()
                  //.anyRequest().hasRole("USER")
@@ -98,20 +114,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                  //
                  .and()
                  .logout()
-                 .logoutUrl("/logout") // 로그아웃 후 세션 모두 삭제 후
+                 .logoutUrl("/users/logout") // 로그아웃 후 세션 모두 삭제 후
                  .logoutSuccessUrl("/intro")// 해당 path로 redirect
                  .and()
                  .oauth2Login()
                  .userInfoEndpoint()// 로그인 성공 후 사용자 정보를 가져올 때의 설정 담당 즉, 후처리 진행. 구글 로그인 완료된 후 엑세스 토큰 + 사용자 프로필 정보 받음
                  .userService(customOAuth2UserService)//소셜 로그인 성공 시 후속 조치를 진행할 UserService 인터페이스의 구현체를 등록
                  .and()
-                 .successHandler(oAuth2SuccessHandler); // 인증을 성공적으로 마친 경우 처리할 클래스
+                 .successHandler(oAuth2SuccessHandler) // 인증을 성공적으로 마친 경우 처리할 클래스
                  //.failureHandler(oAuth2AuthenticationFailureHandler);
-
-                 // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
-                 http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
-                 .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
-                 .and()
-                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());  // spring securiy 에러(권한 없음)
-     }
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // spring securiy 에러(비정상적인 token)
+                                    .accessDeniedHandler(new CustomAccessDeniedHandler())  // spring securiy 에러(권한 없음)
+                .and()
+                // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 앞에 설정
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+    }
 }

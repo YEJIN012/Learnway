@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 const LangSelect = styled.select`
@@ -13,10 +13,14 @@ function SelectLanguage() {
     const [value, setValue] = useState("");
     const dispatch = useDispatch();
 
+    // const TokenReducer = useSelector((state) => state.TokenReducer);
+
     //API에서 옵션 목록 가져오는 함수
     function dropdownBoxRenderer() {
         axios
-            .get("api/users/language")
+            .get("api/users/language", 
+            // {headers : TokenReducer.accessToken}
+            )
             .then(function (res) {
                 const data = res.data.language;
                 console.log(data);

@@ -2,8 +2,9 @@ package com.ssafy.learnway.service.conversation;
 
 import com.ssafy.learnway.domain.Language;
 import com.ssafy.learnway.dto.conversation.ConvTransDto;
-import com.ssafy.learnway.repository.LanguageRepository;
+import com.ssafy.learnway.repository.language.LanguageRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class TransService {
@@ -43,19 +45,15 @@ public class TransService {
 
         for(int i=0; i<sentences.size(); i++){
             // 한국어가 아닐때만 번역 진행 (파파고 api)
-            if(!lng.equals("ko")){
+            if(!language.getLanguageCode().equals("ko")){
                 lngList.add(response(sentences.get(i),language.getLanguageCode()));
             }else{
-                for(int j=0; j<sentences.size(); j++){
-                    lngList.add(sentences.get(j));
-                }
+                lngList.add(sentences.get(i));
             }
-            if(!studyLng.equals("ko")){
+            if(!studyLanguage.getLanguageCode().equals("ko")){
                 studyLngList.add(response(sentences.get(i), studyLanguage.getLanguageCode()));
             }else{
-                for(int j=0; j<sentences.size(); j++){
-                    studyLngList.add(sentences.get(j));
-                }
+                studyLngList.add(sentences.get(i));
             }
         }
 
@@ -81,6 +79,7 @@ public class TransService {
 
         String responseBody = post(apiURL, requestHeaders, text, language);
 
+        log.info(responseBody);
         return responseBody;
     }
 
@@ -131,6 +130,8 @@ public class TransService {
 
             String line;
             while ((line = lineReader.readLine()) != null) {
+                line = line.substring(line.indexOf("translatedText") +17);
+                line = line.substring(0, line.indexOf("engineType") - 3);
                 responseBody.append(line);
             }
 

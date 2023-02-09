@@ -23,12 +23,12 @@ const CircleONBtn = styled.div`
   border-radius: 50%;
   opacity : ${props => props.disabled? "0.3": "0.7"};
   cursor : ${props => props.disabled? null :"pointer"};
-  /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5)); */
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 1);
   flex: 1 1 30%;
   margin: 10px 15px 10px 15px;
+`;
 
-`
+
 export default function SelectBtn ({disabled, id, icon, chk, onClick}) {
 
   // disabled 되면 투명도를 키우고 커서 포인터 none
