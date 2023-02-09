@@ -5,16 +5,20 @@ import { useNavigate  } from "react-router-dom";
 import '../../ui/Background.css';
 import logo from '../Front/img/intro_logo.png';
 import learnway from '../Front/img/learnway.png'
-// import picture from '../Front/img/intro_picture.png';
-import picture from '../Front/img/intro_our.png';
 import subment from '../Front/img/subtitle.png';
-
+import IntroAnimation from './IntroAnimation';
+import BGIntro from './introbackground/BGIntro';
 
 const LeftSide = styled.div`
   width: 58vw;
-  height: 100vh;
+  height: 100%;
   left: 0vw;
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index : -1;
 `;
 
 const Picture = styled.img`
@@ -86,9 +90,10 @@ const StartBtn = styled.button`
 
 export default function Intro () {
   return (
-    <div className="background">
+    <div>
       <LeftBox />
-      <RightBox />
+      <RightBox /> 
+      <BGIntro/>
     </div>
   )
 }
@@ -96,7 +101,7 @@ export default function Intro () {
 function LeftBox(){
   return(
     <LeftSide>
-      <Picture src={picture} />
+      <IntroAnimation></IntroAnimation>
     </LeftSide>
   )
 }
@@ -106,11 +111,11 @@ function RightBox(){
     <RightSide>
       <Frame>
         <Title>
-          <Learnway src={learnway} />
-          <Logo src={logo} />
+          {/* <Learnway src={learnway} />
+          <Logo src={logo} /> */}
         </Title>
-        <Subtitle src={subment}>
-        </Subtitle>
+        {/* <Subtitle src={subment}>
+        </Subtitle>  */}
         <Btn/>
       </Frame>
     </RightSide>
