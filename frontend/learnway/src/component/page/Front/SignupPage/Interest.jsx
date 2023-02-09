@@ -12,9 +12,6 @@ export default function Interest({
     const itdata = useSelector(state => state.UserInfoReducer.interests)
     
     return (
-        <div>
-            <h1>나는 취향설정이야</h1>
             <InterestSelect flag={flag} userinfo={userinfo} itdata={itdata} handleclose={handleclose} ChangeInterest={ChangeInterest}></InterestSelect>
-        </div>
     );
 }

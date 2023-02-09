@@ -1,9 +1,16 @@
+import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
 import InputBox from "../Input"
 import Button from '../../../ui/Button';
 import { request } from '../utils/axios';
 import { useNavigate } from "react-router-dom";
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
+const BtnFrame = styled.div`
+  text-align : right;
+  margin-right: 0px;
+  margin-bottom: 20px;  
+`;
 
 export default function ChangePwd({email}) {
   const navigate = useNavigate()
@@ -47,9 +54,40 @@ export default function ChangePwd({email}) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputBox id="New Password" type="password" title="New Password" placeholder="********" value={newPwd} onChange={(e) => {setNewPwd(e.target.value)}}></InputBox>
-      <InputBox id="Confirm New Password" type="password" title="Confirm New Password" placeholder="********" value={confirmNewPwd} onChange={(e) => {setConfirmNewPwd(e.target.value)}}></InputBox>
-      <Button id = "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Change" disabled={disabled} ></Button>
+      <InputBox 
+        id="New Password" 
+        type="password" 
+        title="New Password" 
+        placeholder="********" 
+        value={newPwd} 
+        onChange={(e) => {
+          setNewPwd(e.target.value)}}
+        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+        margin = "30px 0px 40px 0px"
+      ></InputBox>
+      <InputBox 
+        id="Confirm New Password" 
+        type="password" 
+        title="Confirm New Password"
+        placeholder="********" 
+        value={confirmNewPwd} 
+        onChange={
+          (e) => {setConfirmNewPwd(e.target.value)}}
+        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+      />
+      <BtnFrame>
+        <Button
+          id = "0"
+          width="185px"
+          height="39px"
+          fontSize="12px"
+          textWeight="700"
+          radius="10px"
+          textValue="Change"
+          margin="30px 0px 0px 0px"
+          disabled={disabled}
+        />
+      </BtnFrame>
     </form>
   )
 }
