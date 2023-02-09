@@ -24,16 +24,28 @@ public class MailController {
     private final UserService userService;
 
     @GetMapping("/verify")
-    public ResponseEntity mailConfirm(@RequestParam(value = "user_email") String userEmail) throws Exception {
+    public ResponseEntity mailConfirm(@RequestParam(value = "user_email") String userEmail, @RequestParam(value = "find_code") int findCode) throws Exception {
 
         User user = userService.findByEmail(userEmail);
 
-        if(user != null){
-            return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.ACCEPTED); //202를 보낸다.
-        }else{
-            String code = mailService.sendSimpleMessage(userEmail);
-            //log.info("인증코드 : " + code);
-            return ResponseHandler.generateResponse("인증번호가 발급되었습니다.", HttpStatus.OK);
+        if(findCode == 0){ //비밀번호 찾기
+            if(user != null){
+                String code = mailService.sendSimpleMessage(userEmail);
+                //log.info("인증코드 : " + code);
+                return ResponseHandler.generateResponse("인증번호가 발급되었습니다.", HttpStatus.OK);
+            }else {
+                return ResponseHandler.generateResponse("현재 회원이 아닙니다.", HttpStatus.ACCEPTED); //202를 보낸다.
+            }
+        }else if(findCode == 1){ //중복이메일 검사
+            if(user != null){
+                return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.ACCEPTED); //202를 보낸다.
+            }else {
+                String code = mailService.sendSimpleMessage(userEmail);
+                //log.info("인증코드 : " + code);
+                return ResponseHandler.generateResponse("인증번호가 발급되었습니다.", HttpStatus.OK);
+            }
+        }else{ //잘못보낸 요청
+            return ResponseHandler.generateResponse("요청에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -43,13 +55,10 @@ public class MailController {
     public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "code") String value) throws Exception {
 
         User user = userService.findByEmail(userEmail);
-
         if(user != null){
             return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
         }
-
         try {
-
             boolean isEmail = mailService.verifyEmail(userEmail, value);
 //            log.info("인증여부 : " + isEmail);
             if(isEmail){
@@ -61,6 +70,5 @@ public class MailController {
             return ResponseHandler.generateResponse("요청에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
     }
-
 
 }
