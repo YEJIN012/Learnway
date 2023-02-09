@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const InputFrame = styled.div`
-  width: 300x;
+  /* width: 300px; */
   /* height: 63px;  */
   margin: ${(props) => props.margin || "20px 0px 10px 0px"};
   display: flex;
@@ -11,7 +11,7 @@ const InputFrame = styled.div`
 `;
 
 const InputTitle = styled.div`
-  width: ${(props) => props.titleWidth || "262px"};
+  width: ${(props) => props.titleWidth || "200px"};
   height: ${(props) => props.titleHeight || "18.8416px"};
   font-size: ${(props) => props.titleFontSize || "13px"};
   opacity: 0.5;

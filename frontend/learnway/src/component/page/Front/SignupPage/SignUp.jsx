@@ -1,8 +1,15 @@
+import styled from 'styled-components';
 import SignupForm from "./SignupForm";
 import Interest from "./Interest";
 import { useState } from "react";
 import BackgroundFrame from "../Background";
 import { NavLink } from 'react-router-dom';
+
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  margin-bottom: 20px;  
+`;
 
 export default function Signup () {
   const [userinfo, setUserinfo] = useState("")
@@ -14,12 +21,14 @@ export default function Signup () {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="30vw" height="90vh" top="5vh" bottom="5vh" fsize="1.3vw" mtop = "13vh"
+    <BackgroundFrame left="35vw" right="35vw" width="470px"  top="13vh" bottom="5vh" fsize="15px" mtop = "13vh"
       bg={
           userinfo === ""
           ? (
             <div>
-              <NavLink to = "/login">Login</NavLink>
+              <Frame>
+                <NavLink to = "/login">Login</NavLink>
+              </Frame>
               <SignupForm getUserinfo={getUserinfo}></SignupForm>
             </div>
             )
@@ -28,6 +37,7 @@ export default function Signup () {
       ment1 = {userinfo ? "Selection" : "Sign Up"}
       ment2 = {userinfo ? "What do you do in your free time?" : "Already Member ?"}
       align_items = "center"
+      txttop="60px"
     />
   )
 }
