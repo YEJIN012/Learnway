@@ -19,13 +19,9 @@ const ContentWrapper = styled.div`
 `;
 const Subtitle = styled.div`
     margin-left: 20px;
-    left: 6.43%;
-    right: 34.05%;
-    height: 60px;
-    bottom: 91.04%;
+    margin-bottom: 10px;
     font-weight: 300px;
-    font-size: 30px;
-    line-height: 32px;
+    font-size: 1.5em;
     display: flex;
     align-items: center;
 `;

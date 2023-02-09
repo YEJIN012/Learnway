@@ -6,7 +6,6 @@ import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
 
 const Wrapper = styled.div`
-    background-color: #fffde4;
     height: 30px;
     padding: 15px;
     display: flex;
