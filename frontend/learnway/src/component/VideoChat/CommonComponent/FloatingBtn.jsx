@@ -9,7 +9,7 @@ import { Action, Fab } from "react-tiny-fab";
 
 export default function FloatingBtn(props) {
     const { handleSetMenu } = props;
-    const [selected, setSelected] = useState("");
+    const [selected, setSelected] = useState(9);
     const handleSetSelected = (props) => {
         handleSetMenu(props);
         if (props === selected) {
