@@ -7,13 +7,14 @@ import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "users")
-@RequiredArgsConstructor
 @RestController
+@RequiredArgsConstructor
 @Slf4j
 @RequestMapping("/users")
 public class MailController {
@@ -28,13 +29,14 @@ public class MailController {
         User user = userService.findByEmail(userEmail);
 
         if(user != null){
-            return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
+            return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.ACCEPTED); //202를 보낸다.
         }else{
             String code = mailService.sendSimpleMessage(userEmail);
             //log.info("인증코드 : " + code);
             return ResponseHandler.generateResponse("인증번호가 발급되었습니다.", HttpStatus.OK);
         }
     }
+
 
     @PostMapping("/verify")
     @ResponseBody

@@ -8,7 +8,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
-import Interest from "./Interest";
+import Interest from "../Front/SignupPage/Interest";
+import { Settings } from "@mui/icons-material";
 
 const style = {
     position: "absolute",
@@ -19,6 +20,7 @@ const style = {
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
+    borderRadius: "35px",
     p: 4,
 };
 
@@ -30,6 +32,7 @@ const BtnWrapper = styled.div`
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: flex-end;
 `;
 
 function interestRernderer(array) {
@@ -47,30 +50,28 @@ function EditProfile() {
     const userInfo = useSelector((state) => state.AuthReducer);
     const languageBox = useSelector((state) => state.UserInfoReducer);
     const [username, setUsername] = useState(userInfo.name);
+    const [language, setLanguage] = useState(userInfo.language.name); // language.name
+    const [bio, setBio] = useState(userInfo.bio);
     // const [pw, setPw] = useState(userInfo.userPwd);
     // const [confirmPw, setConfirmPw] = useState("");
-    const [interests, setInterests] = useState(
-        interestRernderer(userInfo.interests)
-    );
+    const [interests, setInterests] = useState(userInfo.interests);
+    console.log(interests);
 
     // Interest Modal
-     const [open, setOpen] = useState(false);
-     const handleOpen = () => setOpen(true);
-     const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     // ChangeInterestComp 완료시 setInterest 호출하는 함수
     function ChangeInterest(props) {
-        setInterests(interestRernderer(props))
+        setInterests(props);
     }
-
-    const [language, setLanguage] = useState(userInfo.language.name); // language.name
-    const [bio, setBio] = useState(userInfo.bio);
 
     // cancel 클릭시 호출되는 form reset함수
     function handleResetForm(e) {
         e.preventDefault();
         setUsername(userInfo.name);
-        setInterests(interestRernderer(userInfo.interests));
+        setInterests(userInfo.interests);
         setLanguage(userInfo.language.name);
         setBio(userInfo.bio);
     }
@@ -97,7 +98,7 @@ function EditProfile() {
             language: makeLanguageData(),
             bio: bio,
             name: username,
-            interests: userInfo.interests,
+            interests: interests,
             // 고정 정보
             imgUrl: "",
             userEmail: userInfo.userEmail,
@@ -108,13 +109,12 @@ function EditProfile() {
             userId: userInfo.userId,
             userPwd: "",
         };
-        console.log(data)
+        console.log(data);
         const blob = new Blob([JSON.stringify(data)], {
             type: "application/json",
         });
         formData.append("image", "");
         formData.append("userDto", blob);
-
 
         axios
             .put("api/users/modify", formData, {
@@ -124,6 +124,7 @@ function EditProfile() {
             })
             .then(function (res) {
                 console.log(res.data);
+                alert("Successfully edited profile Info");
                 // 회원정보 수정 api 완료시, redux userInfo state 갱신.
                 dispatch({ type: "UPDATE_USER", payload: res.data.user });
             })
@@ -137,7 +138,10 @@ function EditProfile() {
             elevation={3}
             children={
                 <>
-                    <form onSubmit={handleSubmit}>
+                    <form
+                        onSubmit={handleSubmit}
+                        style={{height:"100%", display:"flex", flexDirection:"column", justifyContent:"space-evenly"}}
+                        >
                         <InputBox
                             id="username"
                             type="text"
@@ -146,6 +150,9 @@ function EditProfile() {
                             onChange={(e) => {
                                 setUsername(e.target.value);
                             }}
+                            titleFontSize="0.9vh"
+                            inputWidth="20vw"
+                            margin="0px"
                         ></InputBox>
                         {/* <RowWrapper>
                             <InputBox
@@ -167,48 +174,49 @@ function EditProfile() {
                                 }}
                             ></InputBox>
                         </RowWrapper> */}
-                        <CommonSelectLanguage
-                            title="Language"
-                            language={language}
-                            setLanguage={setLanguage}
-                            height={"20px"}
-                        />
                         <RowWrapper>
                             <InputBox
                                 id="interests"
                                 type="text"
                                 title="Interests"
-                                value={interests}
+                                value={interestRernderer(interests)}
                                 disabled="disabled"
+                                margin="0px"
+                                titleFontSize={"0.9vh"}
                             ></InputBox>
-                            {/* <Button
-                                id="1"
-                                type="button"
-                                fontSize={"1vw"}
-                                textValue={"Change"}
-                                width="7.079vw"
-                                radius={"5px"}
-                                onClick={() => (
-                                    <InterestModal
-                                        changeInterest={changeInterest}
-                                        openswitch="true"
-                                    />
-                                )} */}
-                            {/* ></Button> */}
-                            <button
-                                // 폼태그 내부에 있는 버튼이므로 submit을 막기 위해 type 버튼 지정.
-                                type="button"
-                                onClick={() => { handleOpen() }}
-                            ></button>
+                            <Settings
+                                sx={{
+                                    display:"flex",
+                                    marginLeft:"10px",
+                                    marginBottom:"0.9vh",
+                                    width: "20px",
+                                    height: "20px",
+                                }}
+                                onClick={() => {
+                                    handleOpen();
+                                }}
+                                cursor="pointer"
+                            />
                         </RowWrapper>
-                        <div>Bio</div>
+                        <CommonSelectLanguage
+                            title="Language"
+                            language={language}
+                            selectHeight={"1.84vh"}
+                            setLanguage={setLanguage}
+                        />
+                        <div>
+                        <div style={{ width: "20vw", height: "1.84vh", fontSize: "0.9vh" }}>
+                            Bio
+                        </div>
                         <textarea
+                            style={{ width: "20vw" }}
                             name="Bio"
                             onChange={(e) => {
                                 setBio(e.target.value);
                             }}
                             value={bio}
-                        ></textarea>
+                            ></textarea>
+                            </div> 
                         <BtnWrapper>
                             <Button
                                 id="5"
@@ -240,7 +248,7 @@ function EditProfile() {
                             <Interest
                                 flag="edit"
                                 ChangeInterest={ChangeInterest}
-                                handleClose={handleClose}
+                                handleclose={handleClose}
                             />
                         </Box>
                     </Modal>
@@ -249,11 +257,13 @@ function EditProfile() {
             sx={{
                 borderRadius: "35px",
                 height: "50vh",
+                boxSizing: "border-box",
+                paddingX: "5vw",
+                paddingY: "4vh",
                 display: "flex",
                 flexDirection: "column",
-                boxSizing: "border-box",
-                paddingX: "2vw",
-                paddingY: "5vw",
+                justifyContent: "center",
+                width: "100%",
             }}
         />
     );

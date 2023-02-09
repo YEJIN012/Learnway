@@ -10,24 +10,29 @@ import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
 import TestPage from "./component/chat/TestPage"
 import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
+import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
+import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home />}></Route>
+                <Route element={<PrivateRoute />}>
+                    <Route path="/" element={<Home />}></Route>
+                    <Route path="/test" element={<Test/>}></Route>
+                    <Route path="/testchat" element={<TestPage/>}></Route>
+                    <Route path="/mypage" element={<MyPage />}></Route>
+                </Route>
 
-                <Route path="/test" element={<Test/>}></Route>
-                <Route path="/testchat" element={<TestPage/>}></Route>
                 <Route path="/loading" element={<Loading />}></Route>
+                <Route path="/loading/match" element={<RandomMatch />}></Route>
                 <Route path="/intro" element={<Intro />}></Route>
-                <Route path="/mypage" element={<MyPage />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPwd />}></Route>
-                <Route path="/loading/match" element={<RandomMatch />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
+                <Route path='/logincheck' element={<LoginCheck />}></Route>
             </Routes>
         </BrowserRouter>
     );
