@@ -29,7 +29,7 @@ function App() {
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPassword />}></Route>
                 <Route path="/loading/match" element={<RandomMatch />}></Route>
-                <Route path="/openvidu" element={<OpenV />}></Route>
+                <Route path="/openvidu" element={<OpenV matchData={{sessionId : 'qwertyuiop', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
             </Routes>
         </BrowserRouter>
     );

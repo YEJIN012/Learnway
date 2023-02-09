@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const Video = styled.video`
-    width: ${props => props.size.width || "90vw"};
-    height: ${props => props.size.height || "90vh"};
-    float: left;
-    cursor: pointer;
+    width:inherit;
+    height:inherit;
 `;
 
 function OpenViduVideoComponent({ streamManager, size }){
@@ -17,7 +15,7 @@ function OpenViduVideoComponent({ streamManager, size }){
         }
     }, [streamManager, videoRef]);
 
-    return <Video autoPlay={true} ref={videoRef} size={size} />;
+    return <Video autoPlay={true} ref={videoRef} size={size}/>;
 };
 
 export default OpenViduVideoComponent;
