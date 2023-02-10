@@ -4,6 +4,8 @@ import Calendar from "react-calendar";
 import axios from "axios";
 import moment from "moment/moment";
 import "react-calendar/dist/Calendar.css";
+import "../../ui/Calendar.css"
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
 
 function Study(props) {
     const { handleSelectedDate } = props;
@@ -67,19 +69,50 @@ function Study(props) {
 
     return (
         <Calendar
-            style={{ height: 500 }}
+            locale="en"
+            className={"all"}
             onChange={setValue}
             onActiveStartDateChange={setViewValue} // 유저의 action으로 인해 바뀌는 캘린더view정보 -> { action, activeStartDate, value, view }
             value={value} // 선택된 일자
             showNeighboringMonth={false}
-            tileClassName={({ date }) => {
+            tileClassName={"tile-default"}
+            // tileClassName={({ date }) => {
+            //     // 해당 달의 일자에만 표시
+            //     const day = moment(date).format("YYYY-MM-DD");
+            //     if (day in mark) {
+            //         if (mark[day] < 3) {
+            //             return "highlight-low";
+            //         } else if (mark[day] >= 3) {
+            //             return "highlight-high";
+            //         }
+            //     }
+            // }}
+            tileContent={({ date }) => {
                 // 해당 달의 일자에만 표시
                 const day = moment(date).format("YYYY-MM-DD");
                 if (day in mark) {
                     if (mark[day] < 3) {
-                        return "highlight-low";
+                        return (
+                            <AirplanemodeActiveIcon
+                                sx={{
+                                    fontSize: "large",
+                                    rotate: "90deg",
+                                    color: " #0059a79b",
+                                    marginBottom: "2vh",
+                                }}
+                            />
+                        );
                     } else if (mark[day] >= 3) {
-                        return "highlight-high";
+                        return (
+                            <AirplanemodeActiveIcon
+                                sx={{
+                                    fontSize: "large",
+                                    rotate: "90deg",
+                                    color: " #005aa7;",
+                                    marginBottom: "2vh",
+                                }}
+                            />
+                        );
                     }
                 }
             }}

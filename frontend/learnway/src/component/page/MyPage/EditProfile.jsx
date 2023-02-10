@@ -32,7 +32,7 @@ const BtnWrapper = styled.div`
 const RowWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: end;
 `;
 
 function interestRernderer(array) {
@@ -140,8 +140,13 @@ function EditProfile() {
                 <>
                     <form
                         onSubmit={handleSubmit}
-                        style={{height:"100%", display:"flex", flexDirection:"column", justifyContent:"space-evenly"}}
-                        >
+                        style={{
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "space-evenly",
+                        }}
+                    >
                         <InputBox
                             id="username"
                             type="text"
@@ -186,9 +191,9 @@ function EditProfile() {
                             ></InputBox>
                             <Settings
                                 sx={{
-                                    display:"flex",
-                                    marginLeft:"10px",
-                                    marginBottom:"0.9vh",
+                                    display: "flex",
+                                    marginLeft: "1.333vh",
+                                    marginBottom: "16px",
                                     width: "20px",
                                     height: "20px",
                                 }}
@@ -205,18 +210,24 @@ function EditProfile() {
                             setLanguage={setLanguage}
                         />
                         <div>
-                        <div style={{ width: "20vw", height: "1.84vh", fontSize: "0.9vh" }}>
-                            Bio
-                        </div>
-                        <textarea
-                            style={{ width: "20vw" }}
-                            name="Bio"
-                            onChange={(e) => {
-                                setBio(e.target.value);
-                            }}
-                            value={bio}
+                            <div
+                                style={{
+                                    width: "20vw",
+                                    height: "1.84vh",
+                                    fontSize: "0.9vh",
+                                }}
+                            >
+                                Bio
+                            </div>
+                            <textarea
+                                style={{ width: "20vw" }}
+                                name="Bio"
+                                onChange={(e) => {
+                                    setBio(e.target.value);
+                                }}
+                                value={bio}
                             ></textarea>
-                            </div> 
+                        </div>
                         <BtnWrapper>
                             <Button
                                 id="5"
@@ -263,7 +274,7 @@ function EditProfile() {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                width: "100%",
+                width: "37.65vw",
             }}
         />
     );
