@@ -56,25 +56,30 @@ function FriendList(props) {
         } else {
         return (
             <Paper
-            elevation={3}
-            children={
-                <FriendListItem
-                friendsProfile={friendsProfile}
-                handleSelectedFriend={handleSelectedFriend}
-                />
-            }
-            sx={{
-                borderRadius: "35px",
-                height: "50vh",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "start",
-                boxSizing: "border-box",
-                paddingX: "2vw",
-                paddingY: "5vw",
-            }}
+                elevation={3}
+                children={
+                    <>
+                        <FriendListItem
+                            friendsProfile={friendsProfile}
+                            handleSelectedFriend={handleSelectedFriend}
+                        />
+                    </>
+                }
+                sx={{
+                    borderRadius: "35px",
+                    height: "50vh",
+                    boxSizing: "border-box",
+                    paddingX: "4vw",
+                    paddingY: "4vh",
+                    display: "flex",
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    // justifyContent:"space-evenly",
+                    width: "37.65vw",
+                }}
             />
-            );
+        );
         }
     }
 

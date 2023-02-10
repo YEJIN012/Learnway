@@ -93,7 +93,6 @@ const BTN3_UNFILL = styled.button`
     font-weight: ${props=>props.textWeight || '700'};
     font-size: ${props=>props.fontSize || '20px'};
     color: #005AA7;
-    line-height: 18px;
     text-align: center;
     cursor: pointer;
 `;
