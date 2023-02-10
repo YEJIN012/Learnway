@@ -18,9 +18,7 @@ public class StudyRecordRequestDto {
 
     private String friendEmail;
 
-    private String recordingID;
-    private String script;
-
+    private String recordUri;
 //    private LocalDateTime studyDatetime;
 
     private int languageId;

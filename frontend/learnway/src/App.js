@@ -13,21 +13,23 @@ import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
 import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
+    const token = useSelector(state=>state.TokenReducer.accessToken)
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoute />}>
-                    <Route path="/" element={<Home />}></Route>
                     <Route path="/test" element={<Test/>}></Route>
                     <Route path="/testchat" element={<TestPage/>}></Route>
                     <Route path="/mypage" element={<MyPage />}></Route>
                 </Route>
 
+                <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
                 <Route path="/loading" element={<Loading />}></Route>
                 <Route path="/loading/match" element={<RandomMatch />}></Route>
-                <Route path="/intro" element={<Intro />}></Route>
+                {/* <Route path="/intro" element={<Intro />}></Route> */}
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPwd />}></Route>

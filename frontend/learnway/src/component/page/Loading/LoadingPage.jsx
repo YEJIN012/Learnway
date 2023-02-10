@@ -10,47 +10,17 @@ const Frame = styled.div`
     padding-top: 10vh;
     display: flex;
     flex-direction: row;
-    border: solid 1px black;
+    /* border: solid 1px black; */
 `;
 const SubFrame1 = styled.div`
+    margin-left: 3vw;
     width: 40vw;
     height: 70vh;
-    border: solid 1px black;
+    /* border: solid 1px black; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-`;
-
-const SubFrame2 = styled.div`
-    width: 60vw;
-    height: 70vh;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border: solid 1px black;
-`;
-
-const Box = styled.div`
-    width: 45vw;
-    height: 30vw;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: solid 1px black;
-    background-color: rgba(0, 52, 96, 1);
-    padding: 3vw;
-`;
-
-const TitleFrame = styled.div`
-    width: 100%;
-    border: solid 1px black;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    font-weight: 600;
-    font-size: 2vw;
 `;
 
 const Text = styled.div`
@@ -61,10 +31,41 @@ const Text = styled.div`
     justify-content: center;
 `;
 
+const SubFrame2 = styled.div`
+    margin-right: 5vw;
+    width: 60vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: solid 1px black; */
+`;
+
+const Box = styled.div`
+    width: 45vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: solid 1px black; */
+    background-color: rgba(0, 52, 96, 1);
+    color: white;
+    padding: 3vw;
+`;
+
+const TitleFrame = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 600;
+    font-size: 2vw;
+    margin-bottom: 0.5vw;
+`;
+
 const BodyFrame = styled.div`
     width: 100%;
-    height: 100%;
-    border: solid 1px black;
+    height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -73,16 +74,25 @@ const BodyFrame = styled.div`
 
 const ConvFrame = styled.div`
     box-sizing: border-box;
+    height: 10vh;
     width: 100%;
-    background-color: #ffffff82;
-    padding: 1vw;
+    background-color: #9d9d9da0;
+    padding: 1.5vh 2vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
-const Stn = styled.div`
+const Stn1 = styled.div`
+    /* padding: 1%; */
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.5vw;
+`;
+const Stn2 = styled.div`
     /* padding: 1%; */
     width: 100%;
     font-size: 1vw;
-    margin-top: 0.3vh;
-    margin-bottom: 0.3vh;
+    color: #acacacbd;
 `;
 
 function Loading(params) {
@@ -165,11 +175,12 @@ function Loading(params) {
                             ></FlightTakeoffIcon>
                             Today's Conversation
                         </TitleFrame>
+                        <hr style={{width:"100%", height:2 , backgroundColor:"white"}}/>
                         <BodyFrame>
                             {lngConv.map((lng, i) => (
                                 <ConvFrame key={i}>
-                                    <Stn>{lng}</Stn>
-                                    <Stn>{studyLngConv[i]}</Stn>
+                                    <Stn1>{lng}</Stn1>
+                                    <Stn2>{studyLngConv[i]}</Stn2>
                                 </ConvFrame>
                             ))}
                         </BodyFrame>

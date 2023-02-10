@@ -40,8 +40,8 @@ export default function FindPwd(){
           // 서버에 인증번호 요청 & 인증번호창 활성화
           console.log(rst)
           // console.log(request("get", URL + `/verify?user_email=${email}`, email))
-          // request("get", URL + `/verify?user_email=${email}&find_code=0`, email)
-          request("get", URL + `/verify?user_email=${email}`, email)
+          request("get", URL + `/verify?user_email=${email}&find_code=0`, email)
+          // request("get", URL + `/verify?user_email=${email}`, email)
           setAuth(true)                   
         } else {
           alert(rst.msg)
@@ -123,7 +123,7 @@ export default function FindPwd(){
                       fontSize="12px"
                       textWeight="700"
                       radius="10px"
-                      textValue="Change"
+                      textValue="Search"
                       margin="40px 0px 0px 0px"
                     />
                   </BtnFrame>                

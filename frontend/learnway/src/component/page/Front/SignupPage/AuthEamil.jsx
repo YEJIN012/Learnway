@@ -25,8 +25,8 @@ export default function AuthEamil({getEmail}) {
   
   // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
   const chkAuthcode = () => {
-    // request("get", URL + `?user_email=${email}&find_code=1`, email)
-    request("get", URL + `?user_email=${email}`, email)
+    request("get", URL + `?user_email=${email}&find_code=1`, email)
+    // request("get", URL + `?user_email=${email}`, email)
       .then ((res) => {
         const status = res.status;
         const msg = res.msg;
@@ -69,6 +69,7 @@ export default function AuthEamil({getEmail}) {
           placeholder="abcdef@dfd.com" 
           margin="5px 0px 5px 0px"
           value={email} 
+          disabled={disabled}
           onChange={(e) => {
             setEmail(e.target.value)
           }}
@@ -82,7 +83,9 @@ export default function AuthEamil({getEmail}) {
           textWeight="700" 
           radius="10px" 
           textValue= "Send" 
+          disabled={disabled}
           margin="5px 0px 5px 0px"
+          
           onClick={chkAuthcode}
           />
       </InputbtmFrame>
@@ -99,6 +102,7 @@ export default function AuthEamil({getEmail}) {
                 inputHeight="25px"
                 placeholder="123456" 
                 margin="5px 0px 5px 0px"
+                disabled={disabled}
                 value={authcode} 
                 onChange={(e) => {
                   setAuthcode(e.target.value)
@@ -114,6 +118,7 @@ export default function AuthEamil({getEmail}) {
                 radius="10px"
                 textValue="Confirm"
                 margin="5px 0px 5px 0px"
+                disabled={disabled}
                 />
             </InputbtmFrame>
           )
