@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { useSelector } from 'react-redux';
 
 const MyLang = styled.div`
-    width:40%;
-    font-family: 'Poppins';
+    width:50%;
+    // font-family: 'Poppins';
     font-style: normal;
     font-weight: 300;
-    font-size: 3vw;
+    font-size: 2vw;
     display: flex;
     justify-content:center;
     align-items: center;
