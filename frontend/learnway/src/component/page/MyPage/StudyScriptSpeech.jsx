@@ -1,15 +1,15 @@
-import React, { useState, useRef } from "react";
+// import React, { useState, useRef } from "react";
 
-function StudyScriptSpeech(sentence) {
+// function StudyScriptSpeech(sentence) {
     
     
 
     
 
-    return (
-        <>
+//     return (
+//         <>
             
-        </>
-    );
-}
-export default StudyScriptSpeech;
+//         </>
+//     );
+// }
+// export default StudyScriptSpeech;

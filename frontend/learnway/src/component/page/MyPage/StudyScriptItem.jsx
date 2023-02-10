@@ -12,24 +12,28 @@ border-bottom: 1px solid #cccccc;
 font-size: 1.5vh;
 cursor:pointer;
 `
-// GOOGLE KEY 인증 및 tts api 실행 함수
-var gapi = require("gapi");
-function authenticate() {
-    return gapi.auth2.getAuthInstance()
-        .signIn({scope: "https://www.googleapis.com/auth/cloud-platform"})
-        .then(function() { console.log("Sign-in successful"); },
-              function(err) { console.error("Error signing in", err); });
-  }
-  function loadClient() {
-    gapi.client.setApiKey(`${process.env.REACT_APP_GOOGLE_KEY}`);
-    return gapi.client.load("googleapi/$discovery/rest?version=v1")
-        .then(function() { console.log("GAPI client loaded for API"); },
-              function(err) { console.error("Error loading GAPI client for API", err); });
-  }
-  // Make sure the client is loaded and sign-in is complete before calling this method.
-  function getSpeech(props) {
-    return gapi.client.texttospeech.text
-        .synthesize({
+
+// function authenticate() {
+    //     return gapi.auth2.getAuthInstance()
+    //         .signIn({scope: "https://www.googleapis.com/auth/cloud-platform"})
+//         .then(function() { console.log("Sign-in successful"); },
+//               function(err) { console.error("Error signing in", err); });
+//   }
+//   function loadClient() {
+    //     gapi.client.setApiKey(`${process.env.REACT_APP_GOOGLE_KEY}`);
+    //     return gapi.client.load("googleapi/$discovery/rest?version=v1")
+    //         .then(function() { console.log("GAPI client loaded for API"); },
+    //               function(err) { console.error("Error loading GAPI client for API", err); });
+//   }
+
+
+
+// tts api axios실행 함수
+async function getSpeech(props) {
+      try {
+    const response = await axios.post(
+        "googleapi/v1/text:synthesize",
+        {
             resource: {
                 input: {
                     text: `${props}`,
@@ -43,20 +47,50 @@ function authenticate() {
                     audioEncoding: "MP3",
                 },
             },
-        })
-        .then(
-            function (response) {
-                // Handle the results here (response.result has the parsed body).
-                console.log("Response", response);
+        },
+        {
+            headers: {
+                "Authorization": `Bearer ${process.env.REACT_APP_GOOGLE_KEY}`,
+                "Content-Type": "application/json",
+                "X-Goog-Auth": `OAuth ${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
             },
-            function (err) {
-                console.error("Execute error", err);
-            }
-        );
+        }
+    );
+
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
   }
-  gapi.load("client:auth2", function() {
-    gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
-  });
+};
+//     const request =  gapi.client.texttospeech.text
+//         .synthesize({
+//             resource: {
+//                 input: {
+//                     text: `${props}`,
+//                 },
+//                 voice: {
+//                     languageCode: "ko-KR",
+//                     name: "ko-KR-Wavenet-A",
+//                     ssmlGender: "FEMALE",
+//                 },
+//                 audioConfig: {
+//                     audioEncoding: "MP3",
+//                 },
+//             },
+//         })
+//         .then(
+//             function (response) {
+//                 // Handle the results here (response.result has the parsed body).
+//                 console.log("Response", response);
+//             },
+//             function (err) {
+//                 console.error("Execute error", err);
+//             }
+//         );
+//   }
+//   gapi.load("client:auth2", function() {
+//     gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
+//   });
 // async function getSpeech(sentence) {
 
 //     try {
@@ -89,7 +123,6 @@ function authenticate() {
 
 
 function StudyScriptItem({ script }) {
-
     const [selectedSent, setSelectedSent] = useState("");
     function handleSetSelectedSent(props) {
         setSelectedSent(props);
@@ -100,25 +133,25 @@ function StudyScriptItem({ script }) {
     const [base64EncodedAudio, setBase64EncodedAudio] = useState("");
 
     // AudioPlay handler
-    const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef(null);
+    // const [isPlaying, setIsPlaying] = useState(false);
+    // const audioRef = useRef(null);
 
-    function handlePlay() {
-        console.log("play");
-        if (!base64EncodedAudio) {
-            setBase64EncodedAudio(getSpeech(selectedSent));
-            audioRef.current.play();
-            setIsPlaying(true);
-        } else {
-            audioRef.current.play();
-            setIsPlaying(true);
-        }
-    }
-    function handlePause() {
-        console.log("pause");
-        audioRef.current.pause();
-        setIsPlaying(false);
-    }
+    // function handlePlay() {
+    //     console.log("play");
+    //     if (!base64EncodedAudio) {
+    //         setBase64EncodedAudio(getSpeech(selectedSent));
+    //         audioRef.current.play();
+    //         setIsPlaying(true);
+    //     } else {
+    //         audioRef.current.play();
+    //         setIsPlaying(true);
+    //     }
+    // }
+    // function handlePause() {
+    //     console.log("pause");
+    //     audioRef.current.pause();
+    //     setIsPlaying(false);
+    // }
     // const handleEnded = () => {
     //   setIsPlaying(false);
     // };
@@ -127,13 +160,13 @@ function StudyScriptItem({ script }) {
         <>
             {/* <audio
                 ref={audioRef}
-                // onEnded={handleEnded}
+                onEnded={handleEnded}
                 src={`data:audio/mpeg;base64,${base64EncodedAudio}`}
             /> */}
             <Sentence
                 key={index}
-                onClick={() => handleSetSelectedSent(sentence)}
-                sentence={selectedSent}
+                // onClick={() => handleSetSelectedSent(sentence)}
+                onClick={() => getSpeech(sentence)}
             >
                 {sentence}
 

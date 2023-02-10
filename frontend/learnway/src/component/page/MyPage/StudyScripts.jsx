@@ -36,8 +36,8 @@ function ScriptsAccordions(props) {
             >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
+                    aria-controls={`panel${index}a-content`}
+                    id={`panel${index}a-header`}
                     sx={{
                         display: "flex",
                         flexDirection: "row",
@@ -80,8 +80,11 @@ function ScriptsAccordions(props) {
                         {moment(study.createDate).format("YYYY년 MM월 DD일")}
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                    <Typography sx={{ height: "30vh" }} overflow={"scroll"}>
+                <AccordionDetails key={index}>
+                    <Typography
+                        sx={{ height: "30vh" }}
+                        overflow={"scroll"}
+                    >
                         {/* {study.script} */}
                         <StudyScriptItem script={study.script} />
                     </Typography>
