@@ -156,7 +156,7 @@ function Profile() {
                     <InputGroup
                         flex="column"
                         textValue="Email"
-                        fontSize="1.5vh"
+                        fontSize="2vh"
                         margin="10% 0vw 0vw 0vw"
                         inputWidth="auto"
                         inputHeight="auto"
@@ -165,7 +165,7 @@ function Profile() {
                     <InputGroup
                         flex="column"
                         textValue="Birthday"
-                        fontSize="1.5vh"
+                        fontSize="2vh"
                         margin="10% 0vw 0vw 0vw"
                         inputWidth="auto"
                         inputHeight="auto"

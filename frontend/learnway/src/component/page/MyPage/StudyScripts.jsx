@@ -12,7 +12,7 @@ import styled from "styled-components";
 import moment from "moment/moment";
 
 const Scripts = styled.div`
-    height: 50vh;
+    height: 55vh;
     display: flex;
     flex-direction: column;
 `;
