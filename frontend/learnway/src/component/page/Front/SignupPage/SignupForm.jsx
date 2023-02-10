@@ -23,7 +23,7 @@ const InputFrame = styled.div`
 const Frame = styled.div`
   text-align : right;
   margin-right: 5px;
-  margin-bottom: 20px;  
+  margin-bottom: 30px;  
 `;
 
 export default function SignupForm({getUserinfo}) {
@@ -116,7 +116,7 @@ export default function SignupForm({getUserinfo}) {
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
           />
           <InputFrame >
-            <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = {languageName} setLanguage={setLanguageName} width="312px" height="30px" 
+            <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = "Choose" setLanguage={setLanguageName} width="312px" height="30px" 
               icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
             />            
           </InputFrame>

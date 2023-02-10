@@ -52,7 +52,7 @@ function NavBar(params) {
                     dispatch({type: DELETE_INFO, payload: null})
 
                     // logout 시 login 창으로
-                    navigate('/intro');
+                    navigate('/');
                 }
             })
             .catch((err) => {

@@ -123,7 +123,7 @@ export default function GoogleSignup() {
               />
             </InputbtmFrame>
             <InputFrame>
-              <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = {languageName} setLanguage={setLanguageName} width="312px" height="37px" 
+              <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = "Choose" setLanguage={setLanguageName} width="312px" height="37px" 
                 icon= {<LanguageIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
               />            
             </InputFrame>
