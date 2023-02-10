@@ -17,7 +17,7 @@ const LoginBackground = styled.div`
   width:${props => props.width || '500px'};
   height:${props => props.height || null };
   
-  top:${props => props.top || '21.19vh'};
+  top:${props => props.top || '14vh'};
   right:${props => props.right || props.frame_justify === "center" ? null : '140px'};
 
   filter: drop-shadow(0px 0.1vw 5vw rgba(0, 0, 0, 0.4));
