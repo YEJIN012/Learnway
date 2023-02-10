@@ -31,4 +31,14 @@ module.exports = function (app) {
       changeOrigin:true
     }),
   );
+  app.use(
+      '/googleapi',
+      createProxyMiddleware({
+          target: 'https://texttospeech.googleapis.com',
+          pathRewrite: {
+              '^/googleapi': '',
+          },
+          changeOrigin: true,
+      })
+  );
 };

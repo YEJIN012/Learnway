@@ -158,9 +158,10 @@ function EditProfile() {
                             titleFontSize="1.8vh"
                             titleHeight="2.5vh"
                             titleWidth="20vw"
-                            inputWidth="20vw"
-                            inputHeight="5vh"
+                            inputWidth="17vw"
+                            inputHeight="4.8vh"
                             margin="0px"
+                            border="solid 0.6px black"
                         ></InputBox>
                         {/* <RowWrapper>
                             <InputBox
@@ -192,14 +193,14 @@ function EditProfile() {
                                 titleFontSize="1.8vh"
                                 titleHeight="2.5vh"
                                 titleWidth="20vw"
-                                inputWidth="20vw"
-                                inputHeight="5vh"
+                                inputWidth="17vw"
+                                inputHeight="4.8vh"
                                 margin="0px"
                             ></InputBox>
                             <Settings
                                 sx={{
                                     marginBottom: "1.25vh",
-                                    marginLeft: "0.5vw",
+                                    marginLeft: "-1vw",
                                     width: "20px",
                                     height: "20px",
                                 }}
@@ -215,7 +216,7 @@ function EditProfile() {
                             opacity="0.5"
                             selectFontSize="1.8vh"
                             inputWidth="20vw"
-                            width="20vw"
+                            width="21vw"
                             height="5vh"
                             margin="0px"
                             language={language}
@@ -235,7 +236,7 @@ function EditProfile() {
                                 Bio
                             </div>
                             <textarea
-                                style={{ width: "20vw", height:"6vh" }}
+                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px" }}
                                 name="Bio"
                                 onChange={(e) => {
                                     setBio(e.target.value);

@@ -19,7 +19,7 @@ const Scripts = styled.div`
 
 function ScriptsAccordions(props) {
     const studyList = props.studyList;
-    console.log(studyList);
+    // console.log(studyList);
     const [expanded, setExpanded] = useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -82,6 +82,7 @@ function ScriptsAccordions(props) {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography sx={{ height: "30vh" }} overflow={"scroll"}>
+                        {/* {study.script} */}
                         <StudyScriptItem script={study.script} />
                     </Typography>
                 </AccordionDetails>
@@ -96,10 +97,10 @@ function StudyScripts(props) {
     const [studyList, setstudyList] = useState([]);
 
     function getScripts(props) {
-        console.log("getScripts");
-        console.log(props);
+        // console.log("getScripts");
+        // console.log(props);
         const date = moment(props).format("YYYY-MM-DD");
-        console.log(date, typeof date);
+        // console.log(date, typeof date);
         axios
             .post("api/study/day", {
                 date: date,
