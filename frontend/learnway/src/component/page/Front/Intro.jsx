@@ -10,9 +10,11 @@ import subment from '../Front/img/subtitle.png';
 import { interestLst, languageLst } from './actions/userAction';
 import IntroAnimation from './IntroAnimation';
 import BGIntro from './introbackground/BGIntro';
+import Welcome from './Welcome';
+import IntroButton from '../Front/button/IntroButton'
 
 const LeftSide = styled.div`
-  width: 58vw;
+  width: 100%;
   height: 100%;
   left: 0vw;
   position: absolute;
@@ -21,6 +23,7 @@ const LeftSide = styled.div`
   align-items: center;
   justify-content: center;
   z-index : -1;
+  border:1px solid black;
 `;
 
 const Picture = styled.img`
@@ -29,17 +32,14 @@ const Picture = styled.img`
   margin-left: 11vw;
   margin-top: 22.7vh;
   position: absolute;
+  
 `;
 
 const RightSide = styled.div`
-  width: 42vw;
-  height: 100vh;
-  margin-left: 50vw;
+  width: 100%;
+  height: 100%;
   position: absolute;
-`;
-
-const Frame = styled.div`
-  padding: 40vh 8.4vw 40vh 2.1vw;
+  border:1px solid black;
 `;
 
 
@@ -71,36 +71,28 @@ const Subtitle = styled.img`
 `;
 
 const StartBtn = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 14vw;
-  height: 4.9vh;
-  background-color: #0971BC;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 3.5vh;
-  align-items: center;
-  text-align: center;
-  color: #FFFFFF;
   border: none; 
-  border-radius: 1.02vh;
-  cursor: pointer;
+  background-color: transparent;
+  height: 5%;
+  width: 40%;
+  border-radius: 20px;
+  // position:absolute;
+  // top: 25%;
+  border:1px solid black;
 `;
 
 
 export default function Intro () {
   return (
     <div>
-      <LeftBox />
-      <RightBox /> 
+      <Top />
+      <Btn /> 
       <BGIntro/>
     </div>
   )
 }
 
-function LeftBox(){
+function Top(){
   const dispatch = useDispatch()
 
   // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
@@ -112,33 +104,26 @@ function LeftBox(){
   },[])
 
   return(
-    <LeftSide>
+    <Top>
+      <Welcome/>
       <IntroAnimation></IntroAnimation>
-    </LeftSide>
+    </Top>
   )
 }
 
-function RightBox(){
-  return(
-    <RightSide>
-      <Frame>
-        <Title>
-          {/* <Learnway src={learnway} />
-          <Logo src={logo} /> */}
-        </Title>
-        {/* <Subtitle src={subment}>
-        </Subtitle>  */}
-        <Btn/>
-      </Frame>
-    </RightSide>
-  )
-}
+// function RightBox(){
+//   return(
+//     <RightSide>
+//         <Btn/>
+//     </RightSide>
+//   )
+// }
 
 function Btn(){
   let navigate = useNavigate()
   return (
     <StartBtn onClick={()=>{ navigate('/login') }}>
-      START
+      <IntroButton/>
     </StartBtn>
   )
 }

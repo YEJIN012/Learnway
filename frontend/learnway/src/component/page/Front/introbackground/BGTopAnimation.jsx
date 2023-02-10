@@ -12,7 +12,7 @@ const AniImg = styled.div`
 
 const Wrapper = styled.div`
     width: 60%;
-    height: 90%;
+    height: 80%;
     text-align: center;
     right: 0px;
     top: 0px;

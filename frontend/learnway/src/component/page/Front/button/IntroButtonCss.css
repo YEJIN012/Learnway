@@ -1,0 +1,31 @@
+.intro-button {
+    display: inline-block;
+    /* margin: 50px auto 0; */
+    /* padding: 10px 25px; */
+    font-family: 'Roboto', sans-serif;
+    background: #fff;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+}
+
+.intro-button span {
+    background: linear-gradient(to right, #F7CAC9, #91a8d0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.intro-button:hover {
+    background: linear-gradient(to right,  #F7CAC9, #91a8d0);
+}
+
+.intro-button:hover span {
+    background: none;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+}

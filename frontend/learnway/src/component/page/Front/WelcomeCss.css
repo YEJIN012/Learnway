@@ -1,0 +1,26 @@
+
+.center {
+  font-family: "pretendard";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 50px;
+  font-weight: bold;
+  color :  #3F474F;
+  border:1px solid black;
+  text-align: center;
+  z-index : 1;
+  position:absolute;
+  top: 11%;
+}
+
+
+.middle-blue-font {
+  background-clip: text;
+  background: linear-gradient(to right,  #F7CAC9, #91a8d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "pretendard";
+  font-weight: bolder;
+  font-size: 60px;
+}
+
