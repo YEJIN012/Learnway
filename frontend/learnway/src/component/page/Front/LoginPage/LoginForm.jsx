@@ -6,31 +6,23 @@ import Button from "../../../ui/Button";
 import { useDispatch } from "react-redux";
 import { loginUser, accessToken } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
-import { LOGIN_USER } from "../actions/types";
+import EmailIcon from '@mui/icons-material/Email';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
-const Owframe = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 20vw;
-    height: 3vh;
-`;
 
 const CheckBoxFrame = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  text-align : right;
+  margin-top: 15px;
 `;
 
-const Checkboxlabel = styled.p`
-    font-size: 0.5vw;
+const BtnFrame = styled.div`
+  width: 380px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-const CheckBox = styled.input`
-    display: flex;
-    left: 0vw;
-`;
+
 
 export default function LoginForm () {
   const dispatch = useDispatch();
@@ -74,55 +66,59 @@ export default function LoginForm () {
     };
 
     return (
-        <div>
+        <>
             <form onSubmit={handleSubmit}>
                 <InputBox
                     id="id"
                     type="email"
                     title="E-mail"
                     placeholder="abcdef@dfd.com"
+                    color="primary"
                     onChange={(e) => {
                         setEmail(e.target.value);
                     }}
                     value={email}
+                    icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />}
                 />
                 <InputBox
                     id="password"
                     type="password"
-                    itle="Password"
+                    title="Password"
                     placeholder="********"
+                    color="primary"
                     onChange={(e) => {
                         setPwd(e.target.value);
                     }}
                     value={pw}
+                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />}
                 />
-                <Owframe>
-                    <CheckBoxFrame>
-                        <CheckBox type="checkbox" />
-                        <Checkboxlabel>Remember Me</Checkboxlabel>
-                    </CheckBoxFrame>
-                    <NavLink to="/find_password">Forgot Password?</NavLink>
-                </Owframe>
-                <Button
-                    id="0"
-                    textValue="Login"
-                    width="8vw"
-                    height="5vh"
-                    fontSize="0.83vw"
-                    textWeight="700"
-                    radius="2vh"
-                />
-                <Button
-                    id="1"
-                    textValue="Sign Up"
-                    width="8vw"
-                    height="5vh"
-                    fontSize="0.83vw"
-                    textWeight="700"
-                    radius="2vh"
-                    onClick={() => navigate("/signup")}
-                />
+                <CheckBoxFrame>
+                    <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">Forgot Password?</NavLink>
+                </CheckBoxFrame>
+                <BtnFrame>
+                    <Button
+                        id="0"
+                        textValue="Login"
+                        width="185px"
+                        height="39px"
+                        fontSize="12px"
+                        textWeight="700"
+                        radius="10px"
+                        margin= "0px"
+                    />
+                    <Button
+                        id="1"
+                        textValue="Sign Up"
+                        width="185px"
+                        height="39px"
+                        fontSize="12px"
+                        textWeight="700"
+                        radius="10px"
+                        margin= "0px"
+                        onClick={() => navigate("/signup")}
+                    />
+                </BtnFrame>
             </form>
-        </div>
+        </>
     );
 }

@@ -1,9 +1,17 @@
-// import styled from 'styled-components';
+import styled from 'styled-components';
 import React, { useState } from 'react';
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
+import EmailIcon from '@mui/icons-material/Email';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
+const InputbtmFrame = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end;
+  /* margin-bottom: 10px; */
+`;
 
 
 export default function AuthEamil({getEmail}) {
@@ -17,6 +25,7 @@ export default function AuthEamil({getEmail}) {
   
   // 서버에 인증번호 요청이 되면 인증번호 입력 인풋창 보여주기
   const chkAuthcode = () => {
+    // request("get", URL + `?user_email=${email}&find_code=1`, email)
     request("get", URL + `?user_email=${email}`, email)
       .then ((res) => {
         const status = res.status;
@@ -50,17 +59,63 @@ export default function AuthEamil({getEmail}) {
 
   return (
     <>
-      <InputBox id="email" type="email" title="E-mail" placeholder="abcdef@dfd.com" value={email} disabled={disabled} onChange={(e) => {setEmail(e.target.value)}}></InputBox>
-      <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Send" disabled= {disabled} onClick={chkAuthcode} />
+      <InputbtmFrame>
+        <InputBox 
+          id="email" 
+          type="email" 
+          title="E-mail" 
+          inputWidth="220px"
+          inputHeight="25px"
+          placeholder="abcdef@dfd.com" 
+          margin="5px 0px 5px 0px"
+          value={email} 
+          onChange={(e) => {
+            setEmail(e.target.value)
+          }}
+          icon= {<EmailIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}}  />} 
+        />
+        <Button 
+          id="0" 
+          width="80px" 
+          height="28px" 
+          fontSize="12px" 
+          textWeight="700" 
+          radius="10px" 
+          textValue= "Send" 
+          margin="5px 0px 5px 0px"
+          onClick={chkAuthcode}
+          />
+      </InputbtmFrame>
       <form onSubmit={handleSubmit}>
         {
           auth === true
           ? (
-            <>
-              <InputBox id="authcode" type="text" title="Verification code" placeholder="123456" value={authcode} disabled={disabled} onChange={(e) => {setAuthcode(e.target.value)}} />
-              <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Confirm" disabled= {disabled} onClick={chkAuthcode} />
-
-            </>
+            <InputbtmFrame>
+              <InputBox 
+                id="authcode" 
+                type="text"
+                title="Verification code" 
+                inputWidth="220px"
+                inputHeight="25px"
+                placeholder="123456" 
+                margin="5px 0px 5px 0px"
+                value={authcode} 
+                onChange={(e) => {
+                  setAuthcode(e.target.value)
+                  }}
+                icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}}  />}
+                />
+              <Button
+                id = "0"
+                width="80px"
+                height="28px" 
+                fontSize="12px"
+                textWeight="700"
+                radius="10px"
+                textValue="Confirm"
+                margin="5px 0px 5px 0px"
+                />
+            </InputbtmFrame>
           )
           : null
         }
