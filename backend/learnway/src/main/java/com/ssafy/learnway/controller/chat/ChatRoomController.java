@@ -64,6 +64,10 @@ public class ChatRoomController {
         User opponent = userService.findByEmail(friendRequestDto.getFriendEmail());
         Friend friend = friendService.findById(user,opponent);
 
+        if(friend == null){
+            return ResponseHandler.generateResponse("현재 친구 관계가 아닙니다. 생성하실 수 없습니다.", HttpStatus.ACCEPTED);
+        }
+
         ProfileDto profileDto = userService.getProfile(opponent.getUserEmail());
 
         Room room = roomService.findByRelationId(friend);
