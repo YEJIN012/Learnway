@@ -1,23 +1,26 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import lottie from "lottie-web";
-import data from '../Front/img/callandvideo.json';
+import data from './animation/BGCenter.json';
 
 const AniImg = styled.div`
     width: 100%;
     height: 100%;
+    position: absolute;
+    z-index : -1;
 `;
 
 const Wrapper = styled.div`
-    width: 40%;
-    height: 40%;
-    text-align: center;
-    z-index : -1;
-    position:absolute;
-    top: 35%;
+    width: 68%;
+    height: 65%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -45%) rotate(1deg);
+    z-index : 1;
 `;
 
-function IntroAnimation(){
+function BGCenterAnimation(){
     const aniBox = useRef();
 
     useEffect(()=>{
@@ -38,4 +41,4 @@ function IntroAnimation(){
     );
 };
 
-export default IntroAnimation;
+export default BGCenterAnimation;

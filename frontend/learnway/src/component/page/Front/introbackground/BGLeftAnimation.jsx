@@ -8,6 +8,7 @@ const AniImg = styled.div`
     height: 100%;
     position: absolute;
     bottom : -25%;
+    z-index : -1;
 `;
 
 const Wrapper = styled.div`

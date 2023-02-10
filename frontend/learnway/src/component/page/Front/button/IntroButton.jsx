@@ -4,7 +4,7 @@ function IntroButton(){
     const aniBox = useRef();
 
     return(
-        <div class="intro-button"><span>MEET UP</span></div>
+        <div><span class="intro-button"><span>MEET UP</span><span class = "imogi" role="img" aria-label="writing hand">  🔍</span></span></div>
     );
 };
 

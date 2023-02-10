@@ -4,14 +4,13 @@ import { useNavigate  } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import '../../ui/Background.css';
-import logo from '../Front/img/intro_logo.png';
-import learnway from '../Front/img/learnway.png'
-import subment from '../Front/img/subtitle.png';
+import logo from '../Front/img/intro_our.png';
 import { interestLst, languageLst } from './actions/userAction';
 import IntroAnimation from './IntroAnimation';
 import BGIntro from './introbackground/BGIntro';
 import Welcome from './Welcome';
 import IntroButton from '../Front/button/IntroButton'
+import picture from '../Front/img/intro_picture.png';
 
 const LeftSide = styled.div`
   width: 100%;
@@ -23,15 +22,17 @@ const LeftSide = styled.div`
   align-items: center;
   justify-content: center;
   z-index : -1;
-  border:1px solid black;
+  // border:1px solid black;
 `;
 
 const Picture = styled.img`
-  width: 35vw;
-  height: 65vh;
-  margin-left: 11vw;
-  margin-top: 22.7vh;
+  width: 25%;
+  height: 45%;
   position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index : 3;
   
 `;
 
@@ -39,7 +40,7 @@ const RightSide = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  border:1px solid black;
+  // border:1px solid black;
 `;
 
 
@@ -68,31 +69,37 @@ const Subtitle = styled.img`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
 `;
 
 const StartBtn = styled.button`
   border: none; 
   background-color: transparent;
-  height: 5%;
-  width: 40%;
+  height: 25px;
+  width: 20%;
   border-radius: 20px;
-  // position:absolute;
-  // top: 25%;
-  border:1px solid black;
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // border:1px solid black;
+  margin: auto;
+  
 `;
 
 
 export default function Intro () {
   return (
     <div>
-      <Top />
+      <Welcome/>
+      <Picture src={logo}></Picture>
       <Btn /> 
       <BGIntro/>
     </div>
   )
 }
 
-function Top(){
+function LeftBox(){
   const dispatch = useDispatch()
 
   // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
@@ -104,10 +111,10 @@ function Top(){
   },[])
 
   return(
-    <Top>
-      <Welcome/>
-      <IntroAnimation></IntroAnimation>
-    </Top>
+    <LeftSide>
+      {/* <Welcome/> */}
+      {/* <IntroAnimation></IntroAnimation> */}
+    </LeftSide>
   )
 }
 
