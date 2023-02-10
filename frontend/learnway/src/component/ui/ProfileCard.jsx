@@ -43,7 +43,7 @@ function ProfileCard({ header,name,body,width,height }) {
                     </CardBottom>
                 </>
             }
-            sx={{ borderRadius: "35px", width: width || "100%", height: height ||"50vh" }}
+            sx={{ borderRadius: "35px", width: width || "100%", height: height ||"55vh" }}
         />
     );
     
