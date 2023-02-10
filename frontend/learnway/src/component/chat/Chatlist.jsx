@@ -35,7 +35,9 @@ function Chatlist() {
                 const data = res.Rooms;
 
                 for (let i = 0; i < data.length; i++) {
-                    // setRoomList((e) => [...e, data[i]]);
+                    const tmp = [...roomList]
+                    tmp.push(data[i])
+                    setRoomList(tmp);
                     // setroomlist   [{id:  body:   }]
                 }
             })

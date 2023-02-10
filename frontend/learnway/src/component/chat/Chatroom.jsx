@@ -70,7 +70,7 @@ const dumy = {
         "roomId": "8144cb00-2513-4d69-9bea-b4f202c57e99",
         "profileDto": {
           "userEmail": "ccc@ssafy.com",
-          "name": "ccc",
+          "name": "GoodBoy",
           "birthDay": "1998-06-29",
           "language": {
             "languageId": 1,
@@ -91,11 +91,11 @@ const dumy = {
               "field": "music"
             }
           ],
-          "imgUrl": "8c078de680914140a37360b079c0c23e.png",
+          "imgUrl": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTNfMjAx%2FMDAxNjcwODcyNzQ0MzU5.0sQ_hLUIFuuGv3aJGGMKvb0neXFONpV4tqRhC8wWeH4g.Ih-0Puz1PxdVhjjUAj6EDX2yRj_SMIu4tEIeFzku5yIg.PNG.dhkddbswls2%2F1670872732237.png&type=a340",
           "bio": "HI"
         },
         "dateTime": null,
-        "msg": null
+        "msg": "Hello, Nice you to meet you"
       }
     ]
 }
@@ -162,7 +162,7 @@ function Chatroom(props) {
             // 유저 프로필에 마지막 수신 정보 상속 
     return (
         <RoomFrame> 
-            <UserProfile id={0} ></UserProfile>
+            <UserProfile id={0} Room={dumy.Rooms[0]} ></UserProfile>
             <Body>
                 <List>
                     {chatLog.map((chatLog) => (

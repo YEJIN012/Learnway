@@ -90,10 +90,10 @@ function UserProfile(props) {
         return (
             <Frame>
                 <UserFrame>
-                    <ProfileImg></ProfileImg>
+                    <ProfileImg url={props.Room.profileDto.imgUrl}></ProfileImg>
                     <DetailBox>
-                        <UserName>{'USERUSER'}</UserName>
-                        <Info>{'MESSSAdddddddddddddGE'.substr(0, 15)+' ...'}</Info>
+                        <UserName>{props.Room.profileDto.name}</UserName>
+                        <Info>{props.Room.msg.substr(0, 15)+' ...'}</Info>
                     </DetailBox>
                 </UserFrame>
                 <Func>
@@ -106,9 +106,9 @@ function UserProfile(props) {
         return (
             <Frame>
                 <UserFrame>
-                    <ProfileImg></ProfileImg>
+                    <ProfileImg url={props.Room.profileDto.imgUrl}></ProfileImg>
                     <DetailBox>
-                        <UserName>{'USERUSER'}</UserName>
+                        <UserName>{props.Room.profileDto.name}</UserName>
                         <Info>{'Offlilne - Last seen. 1 month ago'}</Info>
                     </DetailBox>
                 </UserFrame>

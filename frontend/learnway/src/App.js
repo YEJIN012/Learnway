@@ -24,12 +24,12 @@ function App() {
                     <Route path="/test" element={<Test/>}></Route>
                     <Route path="/testchat" element={<TestPage/>}></Route>
                     <Route path="/mypage" element={<MyPage />}></Route>
+                    <Route path="/loading" element={<Loading />}></Route>
+                    <Route path="/loading/match" element={<RandomMatch />}></Route>
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
-                <Route path="/loading" element={<Loading />}></Route>
-                <Route path="/loading/match" element={<RandomMatch />}></Route>
-                {/* <Route path="/intro" element={<Intro />}></Route> */}
+                <Route path="/intro" element={<Intro />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPwd />}></Route>
