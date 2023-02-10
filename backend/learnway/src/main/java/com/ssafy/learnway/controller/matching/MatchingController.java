@@ -4,6 +4,7 @@ import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.interest.InterestDto;
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 import com.ssafy.learnway.dto.matching.MatchingResponseDto;
+import com.ssafy.learnway.dto.matching.Result;
 import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.user.UserDto;
 import com.ssafy.learnway.service.user.UserService;
@@ -12,9 +13,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -41,6 +44,9 @@ public class MatchingController {
     private final RabbitTemplate rabbitTemplate;
 
     private final SimpMessageSendingOperations messagingTemplate;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     //매칭 요청을 한다.
     @GetMapping("/{userEmail}")
@@ -72,12 +78,18 @@ public class MatchingController {
         ProfileDto matchingUser1 = userService.getProfile(user1.getUserEmail());
         ProfileDto matchingUser2 = userService.getProfile(user2.getUserEmail());
 
+        // 방 이름 생성
+        String roomId = passwordEncoder.encode(matchingUser1.getUserEmail()+matchingUser2.getUserEmail());
+
+        Result matchingUser1Result = Result.builder().profileDto(matchingUser2).roomId(roomId).build();
+        Result matchingUser2Result = Result.builder().profileDto(matchingUser1).roomId(roomId).build();
+
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)
-        messagingTemplate.convertAndSend("/sub/chat/room/" + user1.getSocket(), matchingUser2);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user1.getSocket(), matchingUser2Result);
 
         // user2 socket을 통해 user1의 이메일 전송(profile을 전송 할 수도!)
-        messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser1);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser1Result);
 
         return ResponseHandler.generateResponse("화상채팅이 성사되었습니다.", HttpStatus.ACCEPTED);
     }
