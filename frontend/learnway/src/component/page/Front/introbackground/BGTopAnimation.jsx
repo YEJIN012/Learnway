@@ -3,16 +3,16 @@ import styled from "styled-components";
 import lottie from "lottie-web";
 import data from './animation/BGTop.json';
 
-const AniImg = styled.div`
-    width: 100%;
-    height: 100%;
+const AniImg = styled.div`    
     position: absolute;
-    top : -200px;
+    z-index : -1;
+    max-width: initial;
+    width: 100%;
 `;
 
 const Wrapper = styled.div`
-    width: 60%;
-    height: 90%;
+    width: 50%;
+    height: 50%;
     text-align: center;
     right: 0px;
     top: 0px;

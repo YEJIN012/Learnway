@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import logo from './img/logo_skyblue.png'
+import BGAll from "./introbackground/BGAll";
+
 const Bg = styled.div`
   width: 100vw;
   height: 100vh;
@@ -8,8 +10,6 @@ const Bg = styled.div`
   justify-content: ${ props => props.frame_justify || 'center' };
   align-items: center;
   background-size: cover;
-  background-image: linear-gradient(to right, #005aa7,#fffde4);
-  
 `;
 
 const LoginBackground = styled.div`
@@ -76,6 +76,7 @@ export default function BackgroundFrame ({bg, ment1, ment2, width, height, left,
         {bg}
         </InputWrapper>
       </LoginBackground>
+      <BGAll></BGAll>
     </Bg>
   )
 }

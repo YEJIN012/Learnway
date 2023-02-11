@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import BackgroundFrame from '../Background';
 import icon from '../img/googleIcon.jpg'
-
 /*
 1. location.search : 쿼리스트링에서 ? 뒤에 있는 값을 가져옴
 2. 즉 여기서는 url? 'token= "queryString" 에서 queryString을 가져온다는 말임

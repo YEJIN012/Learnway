@@ -15,6 +15,7 @@
     "aws-sdk": "^2.1309.0",
     "axios": "^1.2.4",
     "http-proxy-middleware": "^2.0.6",
+    "jquery": "^3.6.3",
     "lottie-web": "^5.10.2",
     "moment": "^2.29.4",
     "net": "^1.0.2",
@@ -30,7 +31,9 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "react-simple-typewriter": "^5.0.1",
     "react-tiny-fab": "^4.0.4",
+    "react-typing": "^1.0.0",
     "react-webcam": "^7.0.1",
     "react-youtube": "^10.1.0",
     "redux": "^4.2.1",
@@ -38,6 +41,7 @@
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
     "styled-components": "^5.3.6",
+    "typewriter-effect": "^2.19.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
