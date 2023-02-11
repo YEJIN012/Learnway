@@ -19,13 +19,18 @@ const Img = styled.div`
 `;
 const Menu = styled.div`
     display: flex;
-    font-size: 20px;
+    font-size: 23px;
+    color : #91a8d0;
+    font-weight : bolder;
 `;
 const MenuBtn = styled.div`
+    &:hover{  
+        color : #DAAAA9
+    }
     display: flex;
     margin-right: 30px;
     margin-left: 20px;
-    text-decoration:  underline; 
+    text-decoration:  none; 
     cursor: pointer;
 `;
 
