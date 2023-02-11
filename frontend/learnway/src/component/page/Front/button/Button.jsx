@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import './IntroButtonCss.css';
 
-function IntroButton(){
+function Button({length}){
 
     return(
         <div>
@@ -13,4 +13,4 @@ function IntroButton(){
 
 };
 
-export default IntroButton;
+export default Button;

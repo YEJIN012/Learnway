@@ -1,8 +1,6 @@
 
 .center {
-  font-family: "pretendard";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "Raleway", sans-serif;
   font-size: 50px;
   font-weight: bold;
   /* color :   #615e5f; */
@@ -18,13 +16,19 @@
   width: 70%;
 }
 
+div {
+  font-family:"Raleway", sans-serif;
+}
 
+.typewriter{
+  font-family: "Raleway", sans-serif;
+}
 .middle-blue-font {
   background-clip: text;
-  background: linear-gradient(to right,  #F7CAC9, #91a8d0);
+  background: linear-gradient(to right,  #91a8d0, #91a8d0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-family: "pretendard";
+  font-family: "Raleway", sans-serif;
   font-weight: bolder;
   font-size: 60px;
 }

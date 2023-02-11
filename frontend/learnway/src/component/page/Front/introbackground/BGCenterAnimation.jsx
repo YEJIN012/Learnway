@@ -11,10 +11,10 @@ const AniImg = styled.div`
 `;
 
 const Wrapper = styled.div`
-    width: 68%;
-    height: 65%;
+    width: 70%;
+    height: 68%;
     position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -45%) rotate(1deg);
     z-index : 1;

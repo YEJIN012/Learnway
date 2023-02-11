@@ -2,17 +2,18 @@ import React, { Component, useEffect, useRef } from "react";
 import "./WelcomeCss.css";
 // import {Typewriter} from 'typewriter-effect';
 import { Typewriter, Cursor , useTypewriter} from 'react-simple-typewriter';
+import { fontFamily, style } from "@mui/system";
 
 const Welcome = () => {
     
     return(
             <div className="center">
-           
                 <div>Welcome to 
                     <span className="middle-blue-font">
                     <Typewriter
                         words={[' LEARNWAY',' RUNWAY']}
-                        loop= {50}
+                        fontFamily = {"Raleway"}
+                        loop
                         cursor
                         cursorStyle='|'
                         typeSpeed={70}
