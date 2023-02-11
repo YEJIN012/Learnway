@@ -26,6 +26,14 @@ const LoginBackground = styled.div`
   border-radius: 2.5vh;
 `;
 
+const MentFrame = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: ${props => props.txttop || '90px'};
+  margin-left: ${props => props.txtleft || props.align_items ? null : '60px'};
+  align-items: ${props => props.align_items || null }
+`;
+
 const MentText = styled.div`
   font-size: ${props => props.fsize || '40px'};
   font-weight: 700;
