@@ -1,0 +1,34 @@
+
+.center {
+  font-family: "Raleway", sans-serif;
+  font-size: 3vw;
+  font-weight: bold;
+  /* color :   #615e5f; */
+  color : black;
+  text-align: center;
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  z-index : 1;
+  width: 70%;
+  /* border:1px solid black; */
+}
+
+div {
+  font-family:"Raleway", sans-serif;
+}
+
+.typewriter{
+  font-family: "Raleway", sans-serif;
+}
+.middle-blue-font {
+  background-clip: text;
+  background: linear-gradient(to right,  #91a8d0, #91a8d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Raleway", sans-serif;
+  font-weight: bolder;
+  font-size: 1.2em;
+}
+

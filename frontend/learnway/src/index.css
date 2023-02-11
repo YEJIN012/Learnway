@@ -1,17 +1,17 @@
 body {
   margin: 0;
-  font-family: "pretendard";
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: #fffde4; */
 }
 
 code {
-  font-family: "pretendard";
+  font-family:  "Raleway", sans-serif;
 }
 
 * {
-  font-family: "pretendard";
+  font-family:  "Raleway", sans-serif;
 }
 
 @font-face {

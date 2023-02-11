@@ -7,7 +7,7 @@ import SelectLanguage from '../../../ui/CommonSelectLanguage';
 import { useSelector } from 'react-redux';
 import Interest from '../SignupPage/Interest';
 import BackgroundFrame from '../Background';
-import { useLocation, NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import CakeIcon from '@mui/icons-material/Cake';
 import EmailIcon from '@mui/icons-material/Email';
@@ -86,14 +86,10 @@ export default function GoogleSignup() {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="35vw" width="470px" top="13vh" bottom="5vh" fsize="15px" mtop = "13vh"
+    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"} top= {userinfo ? "5vh" : "13vh"} bottom="5vh" fsize="15px" mtop = "13vh"
       bg={
         userinfo === ""
         ? (
-          <>
-          <Frame >
-            <NavLink  to = "/login">Login</NavLink>
-          </Frame>
           <form onSubmit={handleSubmit}>
             <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled="true" inputWidth="300px" margin="20px 0px 10px 0px"
               icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
@@ -134,7 +130,6 @@ export default function GoogleSignup() {
               <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="30px 0px 50px 0px" disabled= {disabled} />
             </Frame>
           </form>
-          </>
         )
         : <Interest userinfo={userinfo}></Interest>
       }

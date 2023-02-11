@@ -12,14 +12,14 @@ import styled from "styled-components";
 import moment from "moment/moment";
 
 const Scripts = styled.div`
-    height: 50vh;
+    height: 55vh;
     display: flex;
     flex-direction: column;
 `;
 
 function ScriptsAccordions(props) {
     const studyList = props.studyList;
-    console.log(studyList);
+    // console.log(studyList);
     const [expanded, setExpanded] = useState(false);
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -36,16 +36,16 @@ function ScriptsAccordions(props) {
             >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2a-content"
-                    id="panel2a-header"
+                    aria-controls={`panel${index}a-content`}
+                    id={`panel${index}a-header`}
                     sx={{
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        // borderRadius: "35px",
                     }}
                 >
                     <Typography
+                        component={"div"}
                         sx={{
                             width: "5vw",
                             fontSize: "1vw",
@@ -59,6 +59,7 @@ function ScriptsAccordions(props) {
                         {study.profileDto.name}
                     </Typography>
                     <Typography
+                        component={"div"}
                         sx={{
                             color: "text.secondary",
                             fontSize: "1vw",
@@ -70,6 +71,7 @@ function ScriptsAccordions(props) {
                         {study.script.slice(0, 10)}
                     </Typography>
                     <Typography
+                        component={"div"}
                         sx={{
                             fontSize: "1vw",
                             display: "flex",
@@ -80,8 +82,12 @@ function ScriptsAccordions(props) {
                         {moment(study.createDate).format("YYYY년 MM월 DD일")}
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                    <Typography sx={{ height: "30vh" }} overflow={"scroll"}>
+                <AccordionDetails key={index}>
+                    <Typography
+                        component={"div"}
+                        sx={{ height: "30vh" }}
+                        overflow={"scroll"}
+                    >
                         <StudyScriptItem script={study.script} />
                     </Typography>
                 </AccordionDetails>
@@ -96,10 +102,10 @@ function StudyScripts(props) {
     const [studyList, setstudyList] = useState([]);
 
     function getScripts(props) {
-        console.log("getScripts");
-        console.log(props);
+        // console.log("getScripts");
+        // console.log(props);
         const date = moment(props).format("YYYY-MM-DD");
-        console.log(date, typeof date);
+        // console.log(date, typeof date);
         axios
             .post("api/study/day", {
                 date: date,
