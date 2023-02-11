@@ -69,6 +69,7 @@ function Study(props) {
 
     return (
         <Calendar
+            style={{width:"10vw"}}
             locale="en"
             className={"all"}
             onChange={setValue}
@@ -110,6 +111,7 @@ function Study(props) {
                                     rotate: "90deg",
                                     color: " #005aa7;",
                                     marginBottom: "2vh",
+                                    borderColor:"white",
                                 }}
                             />
                         );

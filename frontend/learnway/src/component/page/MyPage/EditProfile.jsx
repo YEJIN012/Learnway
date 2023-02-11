@@ -24,14 +24,15 @@ const style = {
     p: 4,
 };
 
+const RowWrapper = styled.div`
+    display: flex;
+    align-items: end;
+`;
+
 const BtnWrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-`;
-const RowWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
     align-items: end;
 `;
 
@@ -55,7 +56,6 @@ function EditProfile() {
     // const [pw, setPw] = useState(userInfo.userPwd);
     // const [confirmPw, setConfirmPw] = useState("");
     const [interests, setInterests] = useState(userInfo.interests);
-    console.log(interests);
 
     // Interest Modal
     const [open, setOpen] = useState(false);
@@ -155,9 +155,13 @@ function EditProfile() {
                             onChange={(e) => {
                                 setUsername(e.target.value);
                             }}
-                            titleFontSize="0.9vh"
-                            inputWidth="20vw"
+                            titleFontSize="1.8vh"
+                            titleHeight="2.5vh"
+                            titleWidth="20vw"
+                            inputWidth="17vw"
+                            inputHeight="4.8vh"
                             margin="0px"
+                            border="solid 0.6px black"
                         ></InputBox>
                         {/* <RowWrapper>
                             <InputBox
@@ -186,14 +190,17 @@ function EditProfile() {
                                 title="Interests"
                                 value={interestRernderer(interests)}
                                 disabled="disabled"
+                                titleFontSize="1.8vh"
+                                titleHeight="2.5vh"
+                                titleWidth="20vw"
+                                inputWidth="17vw"
+                                inputHeight="4.8vh"
                                 margin="0px"
-                                titleFontSize={"0.9vh"}
                             ></InputBox>
                             <Settings
                                 sx={{
-                                    display: "flex",
-                                    marginLeft: "1.333vh",
-                                    marginBottom: "16px",
+                                    marginBottom: "1.25vh",
+                                    marginLeft: "-1vw",
                                     width: "20px",
                                     height: "20px",
                                 }}
@@ -205,22 +212,31 @@ function EditProfile() {
                         </RowWrapper>
                         <CommonSelectLanguage
                             title="Language"
+                            radius="6px"
+                            opacity="0.5"
+                            selectFontSize="1.8vh"
+                            inputWidth="20vw"
+                            width="21vw"
+                            height="5vh"
+                            margin="0px"
                             language={language}
-                            selectHeight={"1.84vh"}
+                            selectHeight="2.5vh"
                             setLanguage={setLanguage}
+                            
                         />
                         <div>
                             <div
                                 style={{
                                     width: "20vw",
-                                    height: "1.84vh",
-                                    fontSize: "0.9vh",
+                                    height: "2.5vh",
+                                    fontSize: "1.8vh",
+                                    opacity:"0.5",
                                 }}
                             >
                                 Bio
                             </div>
                             <textarea
-                                style={{ width: "20vw" }}
+                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px" }}
                                 name="Bio"
                                 onChange={(e) => {
                                     setBio(e.target.value);
@@ -231,18 +247,20 @@ function EditProfile() {
                         <BtnWrapper>
                             <Button
                                 id="5"
-                                fontSize={"1vw"}
-                                textValue={"Cancel"}
+                                fontSize="1vw"
+                                textValue="Cancel"
                                 width="7.079vw"
-                                radius={"5px"}
+                                margin="10px 10px 0px 10px"
+                                radius="5px"
                                 onClick={handleResetForm}
                             ></Button>
                             <Button
                                 id="4"
-                                fontSize={"1vw"}
-                                textValue={"Save"}
+                                fontSize="1vw"
+                                textValue="Save"
                                 width="7.079vw"
-                                radius={"5px"}
+                                margin="10px 10px 0px 10px"
+                                radius="5px"
                                 onClick={handleSubmit}
                             ></Button>
                         </BtnWrapper>
@@ -267,7 +285,7 @@ function EditProfile() {
             }
             sx={{
                 borderRadius: "35px",
-                height: "50vh",
+                height: "55vh",
                 boxSizing: "border-box",
                 paddingX: "5vw",
                 paddingY: "4vh",

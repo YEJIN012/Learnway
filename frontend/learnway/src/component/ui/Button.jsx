@@ -120,8 +120,8 @@ const BTN4_UNFILL = styled.button`
     border-radius: ${props=>props.radius || '999px'};
     border: 3px solid transparent;
     color: #005aa7;
-    background-image: linear-gradient(#fffde4, #fffde4),
-        linear-gradient(to left, #005aa7, #fffde4);
+    background-image: linear-gradient(#ffff, #ffff),
+        linear-gradient(to left, #005aa7, #fdfceb);
     background-origin: border-box;
     background-clip: content-box, border-box;
     cursor: pointer;
