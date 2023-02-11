@@ -24,14 +24,13 @@ const LeftSide = styled.div`
 `;
 
 const Picture = styled.img`
-  width: 27%;
-  height: 48%;
+  width: 30vw;
+  height: auto;
   position: absolute;
   top: 52%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index : 3;
-  
 `;
 
 // const RightSide = styled.div`

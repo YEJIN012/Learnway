@@ -10,7 +10,7 @@
 	position: relative;
 	-webkit-backface-visibility: hidden;
 	-moz-osx-font-smoothing: grayscale;
-    font-size: 28px;
+    font-size: 1.5vw;
 }
 
 .button--text-thick {
@@ -18,7 +18,7 @@
 }
 
 .button--round-l {
-	border-radius: 30px;
+	border-radius: 15px;
 }
 
 .button--nina {

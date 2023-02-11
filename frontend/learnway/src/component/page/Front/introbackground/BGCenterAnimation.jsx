@@ -7,17 +7,17 @@ const AniImg = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index : -1;
+    z-index : -2;
 `;
 
 const Wrapper = styled.div`
-    width: 70%;
-    height: 68%;
+    width: 72%;
+    height: 70%;
     position: absolute;
     top: 47%;
     left: 50%;
     transform: translate(-50%, -45%) rotate(1deg);
-    z-index : 1;
+    z-index :-2;
 `;
 
 function BGCenterAnimation(){

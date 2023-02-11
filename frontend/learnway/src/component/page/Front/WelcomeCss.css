@@ -1,19 +1,18 @@
 
 .center {
   font-family: "Raleway", sans-serif;
-  font-size: 50px;
+  font-size: 3vw;
   font-weight: bold;
   /* color :   #615e5f; */
   color : black;
-  /* border:1px solid black; */
   text-align: center;
-  z-index : 1;
   position: absolute;
   top: 5%;
   left: 50%;
   transform: translate(-50%, 0%);
   z-index : 1;
   width: 70%;
+  /* border:1px solid black; */
 }
 
 div {
@@ -30,6 +29,6 @@ div {
   -webkit-text-fill-color: transparent;
   font-family: "Raleway", sans-serif;
   font-weight: bolder;
-  font-size: 60px;
+  font-size: 1.2em;
 }
 

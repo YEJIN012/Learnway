@@ -21,10 +21,13 @@ const Welcome = () => {
                         delaySpeed={1000}
                     /></span><Cursor/>
                 </div>
-                <div>Fly over the <strong className="middle-blue-font"> RUNWAY </strong> with our <strong className="middle-blue-font"> LEARNWAY</strong>.</div>
-     
-            </div>
-       
+                <div>Fly over the 
+                    <strong className="middle-blue-font"> RUNWAY </strong>
+                     with our 
+                    <strong className="middle-blue-font"> LEARNWAY</strong>
+                    .
+                </div>    
+            </div>   
         );
 }
 
