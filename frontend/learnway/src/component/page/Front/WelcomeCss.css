@@ -32,3 +32,12 @@ div {
   font-size: 1.2em;
 }
 
+.middle-pink-font {
+  background-clip: text;
+  background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Raleway", sans-serif;
+  font-weight: bolder;
+  font-size: 1.2em;
+}
