@@ -23,13 +23,13 @@ function SelectLanguage() {
             )
             .then(function (res) {
                 const data = res.data.language;
-                console.log(data);
+                // console.log(data);
 
                 const options = [];
                 for (let i = 0; i < data.length; i++) {
                     options.push(
                         <option key={data[i].languageId} value={data[i].name}>
-                            {data[i].name}
+                            {data[i].code}
                         </option>
                     );
                 }

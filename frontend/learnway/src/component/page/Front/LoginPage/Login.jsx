@@ -9,15 +9,34 @@ import icon from '../img/googleIcon.jpg'
 4. queryString이 붙어서 오지 않은 경우는 회원이 아니므로 회원가입 폼으로 옮겨주자.
 5. 
 */
+const LineFrame = styled.div`
+  width: 380px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Line = styled.p`
+  size: 10px;
+  opacity: 0.3;
+`;
+
+const GooFrame = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
 
 const GooIcon = styled.button`
+  border-color: white;
   background-image: url(${icon});
   background-size: cover;
   width: 40px;
   height: 40px;
   cursor: pointer;
 `;
-
 
 export default function Login () {
   
@@ -27,10 +46,19 @@ export default function Login () {
       bg = {
         <>
           <LoginForm />
-          <GooIcon onClick={OpenForm} text="로그인"/>
+          <LineFrame>
+            <Line style={{ fontSize: "10px"}}>---------------------------------</Line>
+            <Line style={{ fontSize: "10px"}}> Or Login Using </Line>
+            <Line style={{ fontSize: "10px"}}>---------------------------------</Line>
+          </LineFrame>
+          <GooFrame>
+            <GooIcon onClick={OpenForm} text="로그인"/>
+          </GooFrame>
         </>
       } ment1= "Sign Into"
-      ment2 = "Your Account" />
+        ment2 = "Your Account"
+        height= "570px" 
+    />
   )
 }
     

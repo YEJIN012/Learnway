@@ -10,6 +10,7 @@ export const GET_TOKEN = "GET_TOKEN"
 export const DELETE_TOKEN = "DELETE_TOKEN";
 
 export const UPDATE_USER = "UPDATE_USER";
+export const CHAT_INFO = "CHAT_INFO";
 
 export const DELETE_INFO = "DELETE_INFO";
 
