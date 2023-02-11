@@ -1,5 +1,5 @@
 import { PersonPinSharp } from '@mui/icons-material';
-import react from 'react';
+import react,{useState} from 'react';
 import styled from 'styled-components';
 
 const Frame=styled.div`
@@ -9,6 +9,7 @@ const Frame=styled.div`
     flex-direction:row;
     margin:2vw 0 2vw 0;
     border:1px solid black;
+    cursor:pointer;
 `;
 
 const Snapshot = styled.div`
@@ -59,8 +60,11 @@ const UserName = styled.span`
 `;
 
 function ResultComponent({...props}){
+
+
+
     return(
-        <Frame>
+        <Frame onClick={()=>{props.click(props.id)}}>
             <Snapshot url={props.imgUrl}></Snapshot>
             <DetailBox>
                 <Title>{(props.title).substr(0, 10)+" ..."}</Title>

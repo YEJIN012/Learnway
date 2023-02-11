@@ -9,10 +9,12 @@ const AniImg = styled.div`
 `;
 
 const Wrapper = styled.div`
-    width: 700px;
-    height: 700px;
+    width: 40%;
+    height: 40%;
     text-align: center;
     z-index : -1;
+    position:absolute;
+    top: 35%;
 `;
 
 function IntroAnimation(){

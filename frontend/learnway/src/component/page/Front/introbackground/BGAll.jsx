@@ -3,22 +3,22 @@ import styled from "styled-components";
 
 import BGTopAnimation from './BGTopAnimation';
 import BGLeftAnimation from './BGLeftAnimation';
-import BGCenterAnimation from './BGCenterAnimation';
 
 const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
     z-index : -1;
+    display: flex;
+    background-size: cover;
 `;
 
-function BGIntro () {
+function BGAll () {
     return (
         <Wrapper>
           <BGTopAnimation />
-          <BGCenterAnimation/>
           <BGLeftAnimation />
         </Wrapper>
       )
 };
 
-export default BGIntro;
+export default BGAll;

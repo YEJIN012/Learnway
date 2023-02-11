@@ -12,9 +12,14 @@ import TestPage from "./component/chat/TestPage"
 import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
 import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
+import OpenV from "./component/VideoChat/VideoChatMain"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+const a={
+    "aaa@ssafy.com": "bbb@ssafy.com",
+    "bbb@ssafy.com":"aaa@ssafy.com"
+}
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
     return (
@@ -35,6 +40,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'qweriop', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
             </Routes>
         </BrowserRouter>
     );
