@@ -1,185 +1,132 @@
-import React, { useState, useRef } from "react";
-import styled from "styled-components";
-import HearingIcon from "@mui/icons-material/Hearing";
-import { Pause } from "@mui/icons-material";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import StudyScriptSpeech from "./StudyScriptSpeech";
 
-const Sentence = styled.div`
-padding-bottom: 1vh;
-margin: 1vh;
-border-bottom: 1px solid #cccccc;
-font-size: 1.5vh;
-cursor:pointer;
-`
-
-// function authenticate() {
-    //     return gapi.auth2.getAuthInstance()
-    //         .signIn({scope: "https://www.googleapis.com/auth/cloud-platform"})
-//         .then(function() { console.log("Sign-in successful"); },
-//               function(err) { console.error("Error signing in", err); });
-//   }
-//   function loadClient() {
-    //     gapi.client.setApiKey(`${process.env.REACT_APP_GOOGLE_KEY}`);
-    //     return gapi.client.load("googleapi/$discovery/rest?version=v1")
-    //         .then(function() { console.log("GAPI client loaded for API"); },
-    //               function(err) { console.error("Error loading GAPI client for API", err); });
-//   }
-
-
-
-// tts api axios실행 함수
-async function getSpeech(props) {
-      try {
-    const response = await axios.post(
-        "googleapi/v1/text:synthesize",
-        {
-            resource: {
-                input: {
-                    text: `${props}`,
-                },
-                voice: {
-                    languageCode: "ko-KR",
-                    name: "ko-KR-Wavenet-A",
-                    ssmlGender: "FEMALE",
-                },
-                audioConfig: {
-                    audioEncoding: "MP3",
-                },
-            },
-        },
-        {
-            headers: {
-                "Authorization": `Bearer ${process.env.REACT_APP_GOOGLE_KEY}`,
-                "Content-Type": "application/json",
-                "X-Goog-Auth": `OAuth ${process.env.REACT_APP_GOOGLE_CLIENT_ID}`,
-            },
-        }
-    );
-
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
-//     const request =  gapi.client.texttospeech.text
-//         .synthesize({
-//             resource: {
-//                 input: {
-//                     text: `${props}`,
-//                 },
-//                 voice: {
-//                     languageCode: "ko-KR",
-//                     name: "ko-KR-Wavenet-A",
-//                     ssmlGender: "FEMALE",
-//                 },
-//                 audioConfig: {
-//                     audioEncoding: "MP3",
-//                 },
-//             },
-//         })
-//         .then(
-//             function (response) {
-//                 // Handle the results here (response.result has the parsed body).
-//                 console.log("Response", response);
-//             },
-//             function (err) {
-//                 console.error("Execute error", err);
-//             }
-//         );
-//   }
-//   gapi.load("client:auth2", function() {
-//     gapi.auth2.init({client_id: "YOUR_CLIENT_ID"});
-//   });
-// async function getSpeech(sentence) {
-
-//     try {
-//         const response = await axios.post(
-//             "googleapi/v1/text:synthesize?key=9f3f4a40a8164a68e24d1eafde13cddb517cbd16",
-//             {
-//                 "input": {
-//                     "text" : sentence,
-//                 },
-//                 "voice": {
-//                     "languageCode": "en-gb",
-//                     "name": "en-GB-Standard-A",
-//                     "ssmlGender": "FEMALE",
-//                 },
-//                 "audioConfig": {
-//                     "audioEncoding" : "MP3",
-//                 },
-//             }
-//         );
-//         // handle success
-//         console.log(response);
-//         console.log("getSpeech");
-//         return response.audioContent;
-//     } catch (error) {
-//         // handle error
-//         console.log(error);
-//     }
-// }
-
-
-
 function StudyScriptItem({ script }) {
+    const sentenceList = script.split("./");
+
+    const langCode = {
+        ko: "ko-KR", //korea
+        ja: "ja-JP", //japanese
+        "zh-CN": "cmn-Hans-CN", //chinese
+        en: "es-US", //english
+        es: "es-ES", //spanish
+        fr: "fr-FR", //franch
+        de: "de-DE", //german
+        vi: "vi-VN", //vietnamese
+        id: "id-ID", //indonesian
+        th: "th-TH", //thai
+        ru: "ru-RU", //russian
+        it: "it-IT", //italian
+    };
+
     const [selectedSent, setSelectedSent] = useState("");
     function handleSetSelectedSent(props) {
         setSelectedSent(props);
     }
+    console.log(selectedSent);
 
-    const sentenceList = script.split("./");
+    const [blob, setBlob] = useState("");
 
-    const [base64EncodedAudio, setBase64EncodedAudio] = useState("");
+    // 발음 듣기 함수
+    async function getSpeech(props) {
+        // 1. Papago 언어감지 api axios
+        try {
+            const response = await axios.post(
+                "papagoapi/v1/papago/detectLangs",
+                {
+                    query: `${props}`,
+                },
+                {
+                    headers: {
+                        "X-Naver-Client-Id": `${process.env.REACT_APP_NAVER_ID2}`,
+                        "X-Naver-Client-Secret": `${process.env.REACT_APP_NAVER_SECRET2}`,
+                    },
+                }
+            );
+            console.log(response.data);
+
+            // papago langcode -> google langcode
+            const lang = langCode[response.data.langCode];
+            console.log(lang)
+            // 2. google TTS api axios
+            try {
+                const response = await axios.post(
+                    `googleapi/v1/text:synthesize?key=${process.env.REACT_APP_GOOGLE_KEY}`,
+                    {
+                        input: {
+                            text: `${props}`,
+                        },
+                        voice: {
+                            languageCode: `${lang}`,
+                            name: `${lang}-Standard-A`,
+                            // name: `${lang}-Wavenet-A`,
+                        },
+                        audioConfig: {
+                            audioEncoding: "MP3",
+                        },
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                console.log(response.data);
+
+                // 3. decode the base64 encoded string to a Uint8Array
+                const binary = atob(response.data.audioContent);
+                const byteArray = new Uint8Array(binary.length);
+                for (let i = 0; i < binary.length; i++) {
+                    byteArray[i] = binary.charCodeAt(i);
+                }
+                const tmp = new Blob([byteArray], { type: "audio/mp3" });
+                setBlob(URL.createObjectURL(tmp));
+            } catch (error) {
+                console.error(`tts error : ${error}`);
+                setBlob("");
+            }
+        } catch (error) {
+            console.log(`detectLangs error : ${error}`);
+        }
+    }
+
+    useEffect(() => {
+        getSpeech(selectedSent);
+    }, [selectedSent]);
 
     // AudioPlay handler
-    // const [isPlaying, setIsPlaying] = useState(false);
-    // const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(null);
 
-    // function handlePlay() {
-    //     console.log("play");
-    //     if (!base64EncodedAudio) {
-    //         setBase64EncodedAudio(getSpeech(selectedSent));
-    //         audioRef.current.play();
-    //         setIsPlaying(true);
-    //     } else {
-    //         audioRef.current.play();
-    //         setIsPlaying(true);
-    //     }
-    // }
-    // function handlePause() {
-    //     console.log("pause");
-    //     audioRef.current.pause();
-    //     setIsPlaying(false);
-    // }
-    // const handleEnded = () => {
-    //   setIsPlaying(false);
-    // };
+    function handlePlay() {
+        console.log("play");
+        audioRef.current.play();
+        setIsPlaying(true);
+    }
+    function handlePause() {
+        console.log("pause");
+        audioRef.current.pause();
+        setIsPlaying(false);
+    }
+    const handleEnded = () => {
+        setIsPlaying(false);
+    };
+    ///
 
     return sentenceList.map((sentence, index) => (
         <>
-            {/* <audio
-                ref={audioRef}
-                onEnded={handleEnded}
-                src={`data:audio/mpeg;base64,${base64EncodedAudio}`}
-            /> */}
-            <Sentence
+            <StudyScriptSpeech
                 key={index}
-                // onClick={() => handleSetSelectedSent(sentence)}
-                onClick={() => getSpeech(sentence)}
-            >
-                {sentence}
-
-                {/* {isPlaying ? (
-                    <Pause onClick={handlePause} sx={{ scale: 0.8 }}>
-                        Pause
-                    </Pause>
-                ) : (
-                    <HearingIcon onClick={handlePlay} sx={{ scale: 0.8 }}>
-                        Play
-                    </HearingIcon>
-                )} */}
-            </Sentence>
+                selectedSent={selectedSent}
+                sentence={sentence}
+                handleSetSelectedSent={handleSetSelectedSent}
+                isPlaying={isPlaying}
+                handleEnded={handleEnded}
+                handlePlay={handlePlay}
+                handlePause={handlePause}
+            />
+            <audio ref={audioRef} onEnded={handleEnded} src={blob} />
         </>
     ));
 }
