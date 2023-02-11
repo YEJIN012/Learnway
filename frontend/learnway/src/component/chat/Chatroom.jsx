@@ -5,6 +5,7 @@ import SockJS from 'sockjs-client';
 
 import UserProfile from './UserProfile';
 import ChatText from './ChatText';
+import { chatRoomLst } from './actions/profileAction';
 
 const RoomFrame = styled.div`
     display:flex;
@@ -60,11 +61,50 @@ const Searchbtn = styled.div`
 
 const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
+const dumy = {
+    "msg": "해당 유저의 모든 채팅방 목록입니다",
+    "status": 200,
+    "Rooms": [
+      {
+        "relationId": 2,
+        "roomId": "8144cb00-2513-4d69-9bea-b4f202c57e99",
+        "profileDto": {
+          "userEmail": "ccc@ssafy.com",
+          "name": "GoodBoy",
+          "birthDay": "1998-06-29",
+          "language": {
+            "languageId": 1,
+            "name": "Korean",
+            "code": "ko"
+          },
+          "interests": [
+            {
+              "interestId": 1,
+              "field": "travel"
+            },
+            {
+              "interestId": 3,
+              "field": "sports"
+            },
+            {
+              "interestId": 2,
+              "field": "music"
+            }
+          ],
+          "imgUrl": "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjEyMTNfMjAx%2FMDAxNjcwODcyNzQ0MzU5.0sQ_hLUIFuuGv3aJGGMKvb0neXFONpV4tqRhC8wWeH4g.Ih-0Puz1PxdVhjjUAj6EDX2yRj_SMIu4tEIeFzku5yIg.PNG.dhkddbswls2%2F1670872732237.png&type=a340",
+          "bio": "HI"
+        },
+        "dateTime": null,
+        "msg": "Hello, Nice you to meet you"
+      }
+    ]
+}
 
 function Chatroom(props) {
     const [text, setText] = useState("")
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
+
 
     console.log(chatLog);
 
@@ -76,13 +116,12 @@ function Chatroom(props) {
             return chatLog[chatLog.length - 1].id;
         }
     }
-
+    
     useEffect(()=>{
         ws.connect({}, (frame) => {
              console.log("connected to server:", frame);
              subscribe();
-         })
-        
+        })
     },[])
     function subscribe() {
         let num = msgId;
@@ -120,9 +159,10 @@ function Chatroom(props) {
         ws.send('/pub/chat/message', {}, JSON.stringify(da));
     }
 
+            // 유저 프로필에 마지막 수신 정보 상속 
     return (
-        <RoomFrame>
-            <UserProfile id={0}></UserProfile>
+        <RoomFrame> 
+            <UserProfile id={0} Room={dumy.Rooms[0]} ></UserProfile>
             <Body>
                 <List>
                     {chatLog.map((chatLog) => (

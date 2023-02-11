@@ -9,14 +9,24 @@ import {
     registerUser,
 } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
+import Button from "../../../ui/Button";
+
 
 const SelectFrame = styled.div`
-    width: 382px;
-    height: 599px;
+    width: 400px;
+    height: 600px;
     display: flex;
     flex-wrap: wrap;
-    margin: 138px 71px 0px 0px;
+    justify-content: space-evenly;
+    margin: 50px 0px 0px 0px;
 `;
+
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  margin-bottom: 30px;  
+`;
+
 
 export default function InterestSelect({
     flag,
@@ -116,7 +126,6 @@ export default function InterestSelect({
 
     return (
         <form onSubmit={handleSubmit}>
-            <h4>선택창</h4>
             <SelectFrame>
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
@@ -141,9 +150,13 @@ export default function InterestSelect({
                     : null}
             </SelectFrame>
             {flag === "edit" ? (
-                <button>selected</button>
+                <Frame>
+                    <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Selected" margin="20px 0px 0px 0px"  />
+                </Frame>
             ) : (
-                <button button> Next</button>
+                <Frame>
+                    <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px"  />
+                </Frame>
             )}
         </form>
     );

@@ -7,18 +7,29 @@ import SelectLanguage from '../../../ui/CommonSelectLanguage';
 import { useSelector } from 'react-redux';
 import Interest from '../SignupPage/Interest';
 import BackgroundFrame from '../Background';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 
-const InputFrame = styled.div`
-  width: 20vw;
-  height: 6.2vh;
-  margin-bottom: 3vh;
+import CakeIcon from '@mui/icons-material/Cake';
+import EmailIcon from '@mui/icons-material/Email';
+import LanguageIcon from '@mui/icons-material/Language';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+const InputbtmFrame = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-end;
+  margin-bottom: 30px;
 `;
 
-const InputTitle = styled.div`
-  width: 20vw;
-  height: 1.84vh;
-  font-size: 0.9vw;
+const InputFrame = styled.div`
+  width: 380px;
+  margin-top: 20px;
+`;
+
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  margin-bottom: 20px;  
 `;
 
 export default function GoogleSignup() {
@@ -75,25 +86,62 @@ export default function GoogleSignup() {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="30vw" height="90vh" top="5vh" bottom="5vh" fsize="1.3vw" mtop = "13vh"
+    <BackgroundFrame left="35vw" right="35vw" width="470px" top="13vh" bottom="5vh" fsize="15px" mtop = "13vh"
       bg={
         userinfo === ""
         ? (
+          <>
+          <Frame >
+            <NavLink  to = "/login">Login</NavLink>
+          </Frame>
           <form onSubmit={handleSubmit}>
-            <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled="true"></InputBox>
-            <InputBox id="email" type="email" title="E-mail" placeholder={userEmail} value={userEmail} disabled="true" ></InputBox>
-            <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Send" disabled="true" />
+            <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled="true" inputWidth="300px" margin="20px 0px 10px 0px"
+              icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
+            />
+            <InputbtmFrame>
+              <InputBox 
+                id="email" 
+                type="email" 
+                title="E-mail" 
+                inputWidth="220px"
+                placeholder={userEmail}
+                value={userEmail}
+                margin="20px 0px 0px 0px "
+                disabled="true" 
+                icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+              />
+              <Button 
+                id="0" 
+                width="80px" 
+                height="39px" 
+                fontSize="12px" 
+                textWeight="700" 
+                radius="10px" 
+                textValue= "Send" 
+                margin= "20px 0px 0px 0px"
+                disabled="true"
+              />
+            </InputbtmFrame>
             <InputFrame>
-              <InputTitle>Language</InputTitle>
-              <SelectLanguage language = {languageName} setLanguage={setLanguageName} width={"21vw"} height={"20px"} />
+              <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = "Choose" setLanguage={setLanguageName} width="312px" height="37px" 
+                icon= {<LanguageIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
+              />            
             </InputFrame>
-            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" onChange={(e) => {setbirthday(e.target.value)}}></InputBox>
-            <Button id= "0" width="13.16vw" height="5vh" fontSize="0.83vw" textWeight="700" radius="2vh" textValue="Next" disabled= {disabled} />
+            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" onChange={(e) => {setbirthday(e.target.value)}} 
+              icon= {<CakeIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}} />} 
+            />
+            <Frame>
+              <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="30px 0px 50px 0px" disabled= {disabled} />
+            </Frame>
           </form>
+          </>
         )
         : <Interest userinfo={userinfo}></Interest>
       }
       ment1="Sign Up"
-      ment2="Already Member ?" />
+      ment2="Already Member ?" 
+      align_items="center"
+      txttop="80px"
+    />
   )
 }

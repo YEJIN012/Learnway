@@ -14,24 +14,26 @@ import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
 import OpenV from "./component/VideoChat/VideoChatMain"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const a={
     "aaa@ssafy.com": "bbb@ssafy.com",
     "bbb@ssafy.com":"aaa@ssafy.com"
 }
 function App() {
+    const token = useSelector(state=>state.TokenReducer.accessToken)
     return (
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoute />}>
-                    <Route path="/" element={<Home />}></Route>
                     <Route path="/test" element={<Test/>}></Route>
                     <Route path="/testchat" element={<TestPage/>}></Route>
                     <Route path="/mypage" element={<MyPage />}></Route>
+                    <Route path="/loading" element={<Loading />}></Route>
+                    <Route path="/loading/match" element={<RandomMatch />}></Route>
                 </Route>
 
-                <Route path="/loading" element={<Loading />}></Route>
-                <Route path="/loading/match" element={<RandomMatch />}></Route>
+                <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
                 <Route path="/intro" element={<Intro />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
