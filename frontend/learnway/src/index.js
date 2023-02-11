@@ -11,6 +11,7 @@ import AuthReducer from './app/AuthReducer';
 import { CookiesProvider } from 'react-cookie';
 import TokenReducer from './app/TokenReducer';
 import UserInfoReducer from './app/UserInfoReducer';
+import ChatInfoReducer from './app/ChatInfoReducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from "redux-persist/lib/storage";
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     AuthReducer,
     TokenReducer,
     UserInfoReducer,
+    ChatInfoReducer,
 });
 
 

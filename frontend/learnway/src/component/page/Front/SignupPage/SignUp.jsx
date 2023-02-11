@@ -21,7 +21,7 @@ export default function Signup () {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "5vh" : "13vh"} bottom="5vh" fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
+    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "5vh" : "10vh"} bottom="5vh" fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
       bg={<>
           <Frame>
             <NavLink to = "/login">Login</NavLink>
