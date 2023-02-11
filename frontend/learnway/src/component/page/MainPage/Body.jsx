@@ -10,6 +10,7 @@ import Modal from '@mui/material/Modal';
 //호출 시 npm i react-webcam 필수
 import Webcam from 'react-webcam';
 
+import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -101,13 +102,6 @@ const BtnSection = styled.div`
     align-items: center;
     justify-content: center;
     padding: 2vw 1vw;
-`;
-
-const MatchingButton = styled.div`
-    box-shadow: 0px 5px 0px 0px #1E8185;
-    background: #FFE69A;
-    width:15vw;
-    height:4vw;
 `;
 
 const ChkCamera = styled.div`
@@ -257,9 +251,15 @@ function Body() {
                         radius="5px"
                         textValue="GO TO CHAT"
                         onClick={() => startMatching(mylang.languageId, oppolang)} /> */}
-                    <MatchingButton onClick={() => startMatching(mylang.languageId, oppolang)} >
-                        Push
-                    </MatchingButton>
+                    <AllButton
+                        textValue="Maching Start"
+                        width="80%"
+                        height="5vw"
+                        fontSize="1.5vw"
+                        textWeight="900"
+                        radius="15px"
+                        margin="0px"
+                        onClick={() => startMatching(mylang.languageId, oppolang)} />
                     <ChkCamera onClick={handleOpen}></ChkCamera>
                     <Modal
                         open={open}
