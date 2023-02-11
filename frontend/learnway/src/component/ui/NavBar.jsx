@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteInfo } from "../page/Front/actions/userAction";
 import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
+import logo from "../page/Front/img/logo_skyblue.png";
 
 const Wrapper = styled.div`
     height: 30px;
@@ -65,7 +66,7 @@ function NavBar(params) {
         <Wrapper>
             <NavLink to="/">
                 <Img>
-                    <img src="/logo.png" alt="" />
+                    <img src={logo} alt="" />
                 </Img>
             </NavLink>
             <Menu>

@@ -8,7 +8,7 @@ import { loginUser, accessToken } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
 import EmailIcon from '@mui/icons-material/Email';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-
+import AllButton from "../../../ui/AllButton";
 
 const CheckBoxFrame = styled.div`
   text-align : right;
@@ -16,8 +16,9 @@ const CheckBoxFrame = styled.div`
 `;
 
 const BtnFrame = styled.div`
-  width: 380px;
+  width: 350px;
   margin-top: 20px;
+  margin-left: 20px;
   display: flex;
   justify-content: space-between;
 `;
@@ -78,7 +79,7 @@ export default function LoginForm () {
                         setEmail(e.target.value);
                     }}
                     value={email}
-                    icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />}
+                    icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
                 />
                 <InputBox
                     id="password"
@@ -90,30 +91,30 @@ export default function LoginForm () {
                         setPwd(e.target.value);
                     }}
                     value={pw}
-                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />}
+                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
                 />
                 <CheckBoxFrame>
                     <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">Forgot Password?</NavLink>
                 </CheckBoxFrame>
                 <BtnFrame>
-                    <Button
+                    <AllButton
                         id="0"
                         textValue="Login"
-                        width="185px"
+                        width="150px"
                         height="39px"
                         fontSize="12px"
-                        textWeight="700"
-                        radius="10px"
+                        textWeight="900"
+                        radius="15px"
                         margin= "0px"
                     />
-                    <Button
-                        id="1"
-                        textValue="Sign Up"
-                        width="185px"
+                    <AllButton
+                        // id="1"
+                        textValue="SignUp"
+                        width="150px"
                         height="39px"
                         fontSize="12px"
-                        textWeight="700"
-                        radius="10px"
+                        textWeight="900"
+                        radius="15px"
                         margin= "0px"
                         onClick={() => navigate("/signup")}
                     />

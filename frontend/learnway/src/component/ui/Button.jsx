@@ -5,7 +5,7 @@ const BTN1_FILL = styled.button`
     width:${props=>props.width || '70px'};
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
-    background: ${props=>props.disabled? 'gray': `linear-gradient(90.17deg, #09A7BC 0.19%, #2EC0EE 99.77%)`};
+    background: ${props=>props.disabled? 'gray': `#91a8d0`};
     border-radius: ${props=>props.radius || '0px'};
     font-family: 'Poppins';
     font-style: normal;
