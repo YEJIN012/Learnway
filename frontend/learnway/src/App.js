@@ -26,7 +26,6 @@ function App() {
             <Routes>
                 <Route element={<PrivateRoute />}>
                     <Route path="/test" element={<Test/>}></Route>
-                    <Route path="/testchat" element={<TestPage/>}></Route>
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
                     <Route path="/loading/match" element={<RandomMatch />}></Route>
