@@ -10,6 +10,7 @@ import {
 } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
 import Button from "../../../ui/Button";
+import iconLst from '../img/icon.json'
 
 
 const SelectFrame = styled.div`
@@ -18,7 +19,7 @@ const SelectFrame = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin: 50px 0px 0px 0px;
+    margin: 20px 0px 0px 0px;
 `;
 
 const Frame = styled.div`
@@ -37,7 +38,12 @@ export default function InterestSelect({
 }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    let [lst, setLst] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
+    const initLst = new Array(itdata.length - 1).fill(0);
+
+    let [lst, setLst] = useState(initLst);
+    const [isHovering, setIsHovering] = useState(0);
+
     let itobj = [];
 
     // (회원가입시->2)취향을 선택하고 버튼을 클릭하면 회원가입 요청 후, 자동 로그인
@@ -126,24 +132,29 @@ export default function InterestSelect({
 
     return (
         <form onSubmit={handleSubmit}>
-            <SelectFrame>
+            <SelectFrame >
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
-                          if (itdata[idx].field === "random") {
-                          } else {
-                              return (
-                                  <SelectBtn
-                                      key={idx}
-                                      id={idx}
-                                      disabled=""
-                                      icon={itdata[idx].field}
-                                      chk={lst[idx]}
-                                      onClick={() => {
-                                          const tmplst = [...lst];
-                                          tmplst[idx] = (lst[idx] + 1) % 2;
-                                          setLst(tmplst);
-                                      }}
-                                  ></SelectBtn>
+                        const icontxt = itdata[idx].field
+                        const iconurl = iconLst[icontxt]
+                        const icontxt2 = icontxt.length > 12 ? icontxt.substr(0, 12)+'...': icontxt
+                        // console.log(iconurl)
+                        if (itdata[idx].field === "random") {
+                        } else {
+                            return (
+                                <SelectBtn
+                                    key={idx}
+                                    id={idx}
+                                    disabled=""
+                                    icontxt={icontxt2}
+                                    url={iconurl}
+                                    chk={lst[idx]}
+                                    onClick={() => {
+                                        const tmplst = [...lst];
+                                        tmplst[idx] = (lst[idx] + 1) % 2;
+                                        setLst(tmplst);
+                                    }}
+                                />
                               );
                           }
                       })

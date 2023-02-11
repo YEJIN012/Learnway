@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import logo from './img/logo_skyblue.png'
 import BGAll from "./introbackground/BGAll";
+import { NavLink } from 'react-router-dom';
+
 
 const Bg = styled.div`
   width: 100vw;
@@ -17,8 +19,8 @@ const LoginBackground = styled.div`
   width:${props => props.width || '500px'};
   height:${props => props.height || null };
   
-  top:${props => props.top || '14vh'};
-  right:${props => props.right || props.frame_justify === "center" ? null : '140px'};
+  top:${props => props.top || '21vh'};
+  right:${props => props.right || props.frame_justify === "center" ? null : '8vw'};
 
   filter: drop-shadow(0px 0.1vw 5vw rgba(0, 0, 0, 0.4));
   background: rgba(255, 255, 255, 0.5);
@@ -60,11 +62,16 @@ const InputWrapper = styled.div`
   margin-right: ${props=>props.ml || "60px"};
 `;
 
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  /* margin-bottom: 10px;   */
+`;
 
-export default function BackgroundFrame ({bg, ment1, ment2, width, height, left, top, right, bottom, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items, frame_justify, opacity}) {
+export default function BackgroundFrame ({bg, ment1, ment2, width, height, top, right, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items, frame_justify, opacity}) {
   return(
     <Bg frame_justify={frame_justify}>
-      <LoginBackground  width={width} height={height} left={left} top={top} right={right} bottom={bottom}>
+      <LoginBackground  width={width} height={height} top={top} right={right} >
         <LogoFrame>
           <Logo src={logo} />
         </LogoFrame>
@@ -73,6 +80,7 @@ export default function BackgroundFrame ({bg, ment1, ment2, width, height, left,
           <MentText fsize={fsize} opacity={opacity} >{ment2}</MentText>
         </MentFrame>
         <InputWrapper mtop={mtop} mr={mr} mb={mb} ml={ml}>
+        {align_items ? <Frame><NavLink to = "/login">Login</NavLink></Frame>: null}
         {bg}
         </InputWrapper>
       </LoginBackground>
