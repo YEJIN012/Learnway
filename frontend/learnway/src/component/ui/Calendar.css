@@ -86,3 +86,8 @@
   color: white;
   border-radius: 50%;
 }
+
+.react-calendar__navigation__label__labelText{
+  font-size: large;
+  font-weight: 800;
+}
