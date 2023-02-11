@@ -42,7 +42,7 @@ function FriendList(props) {
             }
             sx={{
                 borderRadius: "35px",
-                height: "50vh",
+                height: "55vh",
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "start",
@@ -67,7 +67,7 @@ function FriendList(props) {
                 }
                 sx={{
                     borderRadius: "35px",
-                    height: "50vh",
+                    height: "55vh",
                     boxSizing: "border-box",
                     paddingX: "4vw",
                     paddingY: "4vh",
