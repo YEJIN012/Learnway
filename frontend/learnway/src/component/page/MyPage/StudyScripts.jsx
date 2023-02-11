@@ -42,10 +42,10 @@ function ScriptsAccordions(props) {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
-                        // borderRadius: "35px",
                     }}
                 >
                     <Typography
+                        component={"div"}
                         sx={{
                             width: "5vw",
                             fontSize: "1vw",
@@ -59,6 +59,7 @@ function ScriptsAccordions(props) {
                         {study.profileDto.name}
                     </Typography>
                     <Typography
+                        component={"div"}
                         sx={{
                             color: "text.secondary",
                             fontSize: "1vw",
@@ -70,6 +71,7 @@ function ScriptsAccordions(props) {
                         {study.script.slice(0, 10)}
                     </Typography>
                     <Typography
+                        component={"div"}
                         sx={{
                             fontSize: "1vw",
                             display: "flex",
@@ -82,10 +84,10 @@ function ScriptsAccordions(props) {
                 </AccordionSummary>
                 <AccordionDetails key={index}>
                     <Typography
+                        component={"div"}
                         sx={{ height: "30vh" }}
                         overflow={"scroll"}
                     >
-                        {/* {study.script} */}
                         <StudyScriptItem script={study.script} />
                     </Typography>
                 </AccordionDetails>
