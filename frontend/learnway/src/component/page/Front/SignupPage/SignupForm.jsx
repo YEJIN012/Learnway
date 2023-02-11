@@ -107,9 +107,9 @@ export default function SignupForm({getUserinfo}) {
             icon= {<AccountCircleIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
           />
           <Stack sx={{ width: '100%' }} spacing={2}>
-            <Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right" }} severity="warning">{msg}</Alert>
+            <Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
           </Stack>
-          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="10px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
+          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}} />} 
           />
           <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
