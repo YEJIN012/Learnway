@@ -88,12 +88,15 @@ function Youtube({...props}){
                         console.log("connected to Youtube socket:", frame);
                         subscribe();
                     })
-                }
+        }
            
-            }
-      
+        return()=>{
+            ws.disconnect(()=>{
+                console.log("console disconnected");
+            })}
             
-        ,[])
+        }
+            ,[])
         
     //내가 동영상 조작 이벤트 발생 시, 상대방에게 조작정보 전송
     useEffect(()=>{
@@ -147,7 +150,7 @@ function Youtube({...props}){
                     setVodId(data.vodChange)
                 }
             }
-        });
+        },{});
     }
 
     //다음 페이지 호출 1, 호출 x 2

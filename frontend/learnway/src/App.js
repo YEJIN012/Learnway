@@ -8,7 +8,6 @@ import FindPwd from "./component/page/Front/FindPassword/FindPwd";
 import Loading from "./component/page/Loading/LoadingPage"
 import RandomMatch from "./component/page/Loading/RandomMatch"
 import Test from "./component/VideoChat/TestPage"
-import TestPage from "./component/chat/TestPage"
 import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
 import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
