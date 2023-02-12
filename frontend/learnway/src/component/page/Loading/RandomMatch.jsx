@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./RandomMatch.css";
@@ -6,7 +6,6 @@ import logo from "../../page/Front/img/logo_skyblue.png";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
 import { useNavigate } from "react-router-dom";
-import ProfileImgPoint from "../../ui/ProfileImgPoint";
 
 const Lang = styled.div`
     width: 30%;
@@ -42,12 +41,12 @@ const Interest = styled.div`
     font-size: 1.05em;
 `;
 
-export default function RandomMatch(props) {
+function RandomMatch(props) {
     const myInfo = useSelector((state) => state.AuthReducer);
     // const { oppoId, sessionId } = props;
-    const oppoId = "learnwaytest@gmail.com";
+    const oppoId = "bbb@ssafy.com";
     const sessionId = "eee";
-    
+
     const [oppoInfo, setOppoInfo] = useState({
         name: "",
         email: "",
@@ -60,7 +59,7 @@ export default function RandomMatch(props) {
     });
     const [friendCnt, setFriendCnt] = useState("");
 
-    const delayTime = 7000;
+    const delayTime = 4000;
     const [isTimeout, setIsTimeout] = useState(false);
     const navigate = useNavigate();
 
@@ -97,8 +96,6 @@ export default function RandomMatch(props) {
                 bio: data.bio,
             });
             console.log(oppoInfo);
-            console.log(oppoInfo.img);
-            console.log(oppoInfo.interest);
         } catch (err) {
             console.log(err);
         }
@@ -114,7 +111,7 @@ export default function RandomMatch(props) {
         return result;
     }
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         let timer = setTimeout(() => {
             setIsTimeout(true);
         }, delayTime);
@@ -189,9 +186,9 @@ export default function RandomMatch(props) {
                                         </div>
                                     </div>
                                     <div className="receipt qr-code">
-                                        <ProfileImgPoint
+                                        <ProfileImg
                                             src={oppoInfo.img}
-                                        ></ProfileImgPoint>
+                                        ></ProfileImg>
                                         <div className="description">
                                             <Text>Hi🙌</Text>
                                             <Text>Our interest is</Text>
@@ -211,3 +208,5 @@ export default function RandomMatch(props) {
         </>
     );
 }
+
+export default RandomMatch;

@@ -411,16 +411,17 @@ class VideoChatMain extends Component {
         };
         return (
             <Frame>
-     
+                <FloatingBtn
+                    handleSetMenu={this.handleSetMenu.bind(this)}
+                    func={this.leaveSession}
+                ></FloatingBtn>
 
-                <FloatingBtn handleSetMenu={this.handleSetMenu.bind(this)} func={this.leaveSession}></FloatingBtn>
-      
                 <VideoArea>
-                
                     {this.state.session === undefined ? (
                         <RouteToMain></RouteToMain>
-                        
-                        ) : null}
+                    ) : null}
+
+                    {menuList[this.state.menu]}
 
                     {this.state.session !== undefined ? (
                         <VideoFrame
@@ -428,22 +429,23 @@ class VideoChatMain extends Component {
                             fixSizeId={this.state.menu}
                         >
                             {this.state.publisher !== undefined ? (
-                                
-                                    <Video streamManager={this.state.publisher} pubsub={'pub'} size={this.state.menu} />
-                                
+                                <Video
+                                    streamManager={this.state.publisher}
+                                    pubsub={"pub"}
+                                    size={this.state.menu}
+                                />
                             ) : null}
                             {this.state.subscribers.map((sub, i) => (
-                                
-                                    <Video streamManager={sub}  pubsub={'sub'}  size = {this.state.menu}/>
-                                
+                                <Video
+                                    streamManager={sub}
+                                    pubsub={"sub"}
+                                    size={this.state.menu}
+                                />
                             ))}
                         </VideoFrame>
-
-) : null}
-               
+                    ) : null}
                 </VideoArea>
-        
-                </Frame>
+            </Frame>
         );
     }
     
