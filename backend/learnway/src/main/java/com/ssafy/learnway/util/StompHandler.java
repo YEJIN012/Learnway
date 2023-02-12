@@ -59,10 +59,18 @@ public class StompHandler implements ChannelInterceptor {
             // 채팅방에 들어온 클라이언트 sessionId를 roomId와 맵핑해 놓는다.(나중에 특정 세션이 어떤 채팅방에 들어가 있는지 알기 위함)
             String sessionId = (String) message.getHeaders().get("simpSessionId");
 
-            if(sp.length == 2){
-                matchingService.addMatchingUser(roomId,sessionId);
-            }else{
+            log.info(accessor.getDestination());
+
+            if(sp.length > 2){
+                //세션에 대한 정보 추가
+                accessor.getSessionAttributes().put("socketType", "chat");
                 chatRoomRepository.setUserEnterInfo(sessionId, roomId);
+
+            }else if(sp.length==2){
+                accessor.getSessionAttributes().put("socketType", "matching");
+                matchingService.addMatchingUser(roomId,sessionId);
+            } else{
+                accessor.getSessionAttributes().put("socketType", "youtube");
             }
 
         } else if (StompCommand.DISCONNECT == accessor.getCommand()) { // Websocket 연결 종료 (친구 끊기)
