@@ -1,14 +1,18 @@
 package com.ssafy.learnway.controller;
 
 import com.ssafy.learnway.domain.friend.Friend;
+import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.friend.FriendRequestDto;
+import com.ssafy.learnway.repository.chat.ChatRoomRepository;
+import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "friend")
+@Slf4j
 @RestController
 @RequestMapping("/friend")
 @RequiredArgsConstructor
 public class FriendController {
 
     private final FriendService friendService;
-
     private final UserService userService;
+    private final RoomService roomService;
 
     @GetMapping("/list")
     public ResponseEntity list(@RequestParam String userEmail) throws SQLException {
@@ -89,8 +94,17 @@ public class FriendController {
             if (user==null || friend == null) return ResponseHandler.generateResponse("유효하지 않은 이메일입니다.", HttpStatus.NOT_FOUND);
 
             Friend relation = friendService.findById(user, friend);
-            System.out.println(relation.toString());
-            friendService.delete(relation);
+
+            // 채팅방 삭제
+            Room room = roomService.findByRelationId(relation);
+
+            if(room != null) {
+                roomService.deleteByRoomId(room.getRoomId());
+
+            }
+
+            friendService.deleteById(relation);
+
             return ResponseHandler.generateResponse("친구가 삭제되었습니다.", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

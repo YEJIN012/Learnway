@@ -23,9 +23,9 @@ public class Room {
 
     @MapsId // @MapsId는 @id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="relation_id")
     @JsonIgnore
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private Friend friend;
 
     private String roomId;

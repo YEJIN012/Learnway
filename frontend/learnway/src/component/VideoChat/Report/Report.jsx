@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import axios from 'axios'
 import InputGroup from "../../ui/InputGroup";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
@@ -54,14 +54,29 @@ font-size: 1.2vw;
 
 const ChkBox = styled.input``;
 
-function Report() {
+function Report(props) {
     const [reportType, setReportType] = useState([]);
     const [reportDetail, setReportDetail] = useState("");
     const [reportDate, setReportDate] = useState(new Date())
+    
 
     function submit(val1, val2) {
         //paste api call logic
-        alert(String(val1) + String(val2));
+        console.log(reportType, reportDetail, props.user)
+        axios.post(`/api/reports`,
+        {
+            userEmail:props.user,
+            reportId:reportType,
+            etc:reportDetail
+        }).then(function(res){
+            alert("Your report has been received successfullly")
+            setReportType([]);
+            setReportDetail("");
+
+        }).catch(function(err){
+            alert("There was an error while sending your report. Please try again.")
+            console.log(err)
+        })
     }
 
     function cancelSubmit() {
@@ -152,7 +167,7 @@ function Report() {
                         inputWidth="41vw"
                         inputHeight="10vw"
                         obj={
-                            <LargeInput id="detailBox" onChange={(e) => { setReportDetail(e.target.value) }}></LargeInput>
+                            <LargeInput id="detailBox" onChange={(e) => { setReportDetail(e.target.value) }} value={reportDetail}></LargeInput>
                         }>
                     </InputGroup>
 
