@@ -24,7 +24,6 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoute />}>
-                   
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
                     <Route path="/loading/match" element={<RandomMatch />}></Route>
@@ -37,7 +36,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
-                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'qweriop', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'ffff', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
             </Routes>
         </BrowserRouter>
     );

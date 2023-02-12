@@ -52,12 +52,22 @@ public class MailController {
 
     @PostMapping("/verify")
     @ResponseBody
-    public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "code") String value) throws Exception {
+    public ResponseEntity verifyConfirm(@RequestParam(name = "user_email") String userEmail, @RequestParam(name = "code") String value, @RequestParam(value = "find_code") int findCode) throws Exception {
 
         User user = userService.findByEmail(userEmail);
-        if(user != null){
-            return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
+
+        if(findCode == 0) { //비밀번호 찾기
+            if(user == null){
+                return ResponseHandler.generateResponse("회원이 아닙니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
+            }
+        }else if(findCode == 1){ //중복이메일 검사
+            if(user != null){
+                return ResponseHandler.generateResponse("이미 회원가입이 된 유저입니다.", HttpStatus.CONFLICT); //409에러를 보낸다.
+            }
+        }else{
+            return ResponseHandler.generateResponse("요청에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
+
         try {
             boolean isEmail = mailService.verifyEmail(userEmail, value);
 //            log.info("인증여부 : " + isEmail);
@@ -69,6 +79,7 @@ public class MailController {
         } catch (Exception e) {
             return ResponseHandler.generateResponse("요청에 실패하였습니다.", HttpStatus.BAD_REQUEST);
         }
+
     }
 
 }

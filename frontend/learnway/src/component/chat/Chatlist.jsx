@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from './UserProfile';
 import Chatroom from './Chatroom'
+import logo from '../page/Front/img/logo_pink_airplane.png';
+import './ChatScroll.css';
 
 const RoomFrame = styled.div`
     display:flex;
@@ -12,11 +14,11 @@ const RoomFrame = styled.div`
 `;
 
 const TitleBar = styled.span`
-    font-size:2vw;
+    font-size:1.7vw;
     font-weight:700;
-    padding:1vw 1vw 1vw 1vw;
-
-    border:solid 1px black;
+    padding:1.5vw 1vw 0.5vw 1.7vw;
+    color : #4F4C4D;
+    // border:solid 1px black;
 `;
 const List = styled.ul`
     list-style:none;
@@ -25,10 +27,7 @@ const List = styled.ul`
 const Body = styled.div`
     height:inherit;
     overflow:scroll;
-
-    border:solid 1px black;
 `;
-
 
 function Chatlist() {
     //const stored  = useSelector(state => state.AuthReducer);
@@ -75,7 +74,7 @@ function Chatlist() {
             {selectUserState === undefined ? (
                 <>
                     <TitleBar>Message</TitleBar>
-                    <Body>
+                    <Body className='scroll'>
                         <List>
                             <li>{roomList}</li>
                         </List>
