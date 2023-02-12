@@ -17,7 +17,9 @@ const Frame = styled.div`
     height:45vw;
     display:flex;
     flex-direction:row;
-    border: solid 1px black;
+    border-radius:10px;
+    background:#FFFFFF;
+    box-shadow:-1px 2px 9px -1px #B5B5B5;
 `;
 
 const Search = styled.div`
@@ -25,7 +27,7 @@ const Search = styled.div`
     display:flex;
     flex-direction:column;
     align-items:center;
-    border: solid 1px black;
+
 `;
 
 const SearchBox = styled.div`
@@ -36,26 +38,50 @@ const SearchBox = styled.div`
     flex-direction:row;
     align-content:center;
     align-items:center;
-    border:solid 1px black;
+    background: #ECECEC;
+    border-radius: 6px;
+    justify-content: space-around;
+
 `;
 
-const Input = styled.input`
-    width:19vw;
-    height:2.5vw;
+const Input = styled.input.attrs({
+    placeholder:"Search Youtube Content"
+    
+})`
+background: none;
+border: none;
+margin: 0 0.5vw 0 0.5vw;
+font-size: 1.2vw;
+color: #A8A8A8;
+width: 18vw;
+outline:none;
 `;
 
 const Searchbtn = styled.div`
-    width:3vw;
-    height:3vw;
+    width: 2.1vw;
+    height: 2vw;
     background-image: url(${props => props.url || ""});
     background-size:cover;
+    onKeyPress:{(e)=>{e.key === 'Enter'?}}
+    cursor:pointer
 `;
 
 const Video = styled.div`
 width:35vw;
-border: solid 1px black;
+display:flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: center;
 `;
 
+const VodTitle = styled.div`
+width: 28vw;
+    height: 5vh;
+    font-size: 1vw;
+
+    font-weight: 600;
+    padding: 0 0 1vw 0;
+`;
 const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
 
@@ -76,10 +102,11 @@ function Youtube({...props}){
     const [vodId, setVodId] = useState(null);
     const[playState, setPlayState] = useState(null);
     const[socketE, setSocketE] = useState(null);
+    const[vodTitle, setVodTitle] = useState(null);
    console.log(vodId)
     
     //Youtube 컴포넌트 실행 시 웹 소캣 개설(1회)
-    useEffect(()=>{
+    /*useEffect(()=>{
         if(props.sockId !== null){
             //console.log("룸아이디"+props.sockId)
 
@@ -97,15 +124,15 @@ function Youtube({...props}){
             
         }
             ,[])
-        
+      */  
     //내가 동영상 조작 이벤트 발생 시, 상대방에게 조작정보 전송
-    useEffect(()=>{
+    /*useEffect(()=>{
         if(vodId !== null && playState !== null && socketE !== null){
             
             ws.send('/pub/chat/message', {}, JSON.stringify({type: "TALK",roomId: props.sockId, sender: props.myId, message: {playControl:playState}}))
         }
     },[playState]);
-
+*/
     function controlVod(event){
         switch(event.getPlayerState()){
             case 0:
@@ -122,12 +149,12 @@ function Youtube({...props}){
     }
 
     //내가 동영상을 선택하면, 동영상을 띄우고 상대방에게 조작정보 전송
-    useEffect(()=>{
+    /*useEffect(()=>{
         if(vodId !== null){
             ws.send('/pub/chat/message', {}, JSON.stringify({type: "TALK",roomId: props.sockId, sender: props.myId, message: {vodChange:vodId}}))
         }
     },[vodId]);
-    
+    */
     function subscribe(){
         ws.subscribe(`/sub/chat/room/${props.sockId}`, (event) => {
             const received = JSON.parse(event.body)
@@ -152,17 +179,19 @@ function Youtube({...props}){
             }
         },{});
     }
-
+    console.log(vodTitle)
     //다음 페이지 호출 1, 호출 x 2
     function getSearchData(query){
         
         console.log(process.env.REACT_APP_YOUTUBE_API_KEY)
-        let requestURL = `/youtubeapi/youtube/v3/search?q=${query}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${10}`
+        let requestURL = `/youtubeapi/youtube/v3/search?q=${query}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${30}`
         
 
         axios.get(requestURL
         ).then(async function(res){
-            let listData = []
+            let listData = [];
+            let titlelist = new Map();
+
             const data = res.data.items;
             console.log(data.length);
             for(let i = 0; i < data.length; i++){
@@ -170,10 +199,10 @@ function Youtube({...props}){
                 const title = data[i].snippet.title;
                 const thumb = data[i].snippet.thumbnails.high.url;
                 const channel = data[i].snippet.channelTitle;
-                
-                listData.push(<ResultComponent click={setVodId} key={vodId} id={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
+                //titlelist.set({vodId,title});
+                listData.push(<ResultComponent click={setVodId} getTitle = {setVodTitle}key={vodId} id={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
             }
-            
+            //setVodTitle(titlelist);
             setSearchData(listData);
 
             
@@ -186,19 +215,20 @@ function Youtube({...props}){
         <Frame>
             <Search>
                 <SearchBox>
-                    <Input id="queryBox" onChange={(e) => { setQuery(e.target.value) }}></Input>
+                    <Input id="queryBox" onChange={(e) => { setQuery(e.target.value) }} onKeyPress={(e)=>{if(e.key === 'Enter'){getSearchData(query)}}}></Input>
                     <Searchbtn url={SearchBtnImg} onClick={()=>{getSearchData(query)}} ></Searchbtn>
                 </SearchBox>
                 <ResultList data={searchData}></ResultList>
             </Search>
             <Video>
-            <YoutubeFrame
+                <VodTitle>{vodTitle}</VodTitle>
+                <YoutubeFrame
                 videoId={vodId}
                 opts={{
-                    width:"560",
-                    height:"315",
+                    width:"530",
+                    height:"300",
                 }}
-                onStateChange={(e)=>{setPlayState(e)}} //e.target.getCurrentTime())
+                onStateChange={(e)=>{setPlayState(e)} } //e.target.getCurrentTime())
                 />
             </Video>
         </Frame>

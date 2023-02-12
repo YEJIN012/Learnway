@@ -10,19 +10,29 @@ import Quit from "./Quit/Quit";
 import SearchProfile from "./Friend/SearchProfile";
 import Youtube from "./Youtube/Youtube";
 import FloatingBtn from "./CommonComponent/FloatingBtn";
+import RouteToMain from './RouteToMain';
 
-import UserVideoComponent from "./UserVideoComponent";
-import { TurnSharpRightSharp } from "@mui/icons-material";
-
-const Sidebar = styled.div`
-    width: 40vw;
-    height: 90vh;
+const Frame=styled.div`
+    width:100vw;
+    height:100vh;
+    display:fle;
+    flex-direction:row-reverse;
+    align-items:center;
+    justify-content:center;
 `;
-const Frame = styled.div`
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    border: solid 1px black;
+
+const FloatingBtnArea = styled.div`
+    bottom:1vw;
+    right:17vw;
+`;
+
+const VideoArea = styled.div`
+height:95vh;
+width:95vw;
+display: flex;
+flex-direction: row-reverse;
+justify-content:center;
+
 `;
 
 const VideoFrame = styled.div`
@@ -36,57 +46,46 @@ const VideoFrame = styled.div`
         `};
 `;
 const MyVideoFrame = styled.div`
-    ${(props) =>
-        props.fixSizeId === 9 &&
-        css`
-            width: 90vw;
-            height: 90vh;
-        `};
-    ${(props) =>
-        props.fixSizeId === 4 &&
-        css`
-            width: 30vw;
-            height: 30vh;
-        `}
-    ${(props) =>
-        props.fixSizeId >= 0 &&
-        props.fixSizeId <= 3 &&
-        css`
-            width: 45vw;
-            height: 45vh;
-        `}
-background:black;
+${props=> props.fixSizeId === 9 && css`
+width:95vw;
+height: 95vh;
+
+`};
+${props=> props.fixSizeId === 4 && css`
+width:30vw;
+height:30vh;
+`}
+${props=>(props.fixSizeId >= 0 && props.fixSizeId <= 3)&& css`
+width:45vw;
+height:45vh;
+`}
+background:none;
+
 `;
 
 const OppoVideoFrame = styled.div`
-    ${(props) =>
-        props.fixSizeId === 9 &&
-        css`
-            position: relative;
-            z-index: 1;
-            top: -43vw;
-            left: 2vw;
-            width: 20vw;
-            height: 20vh;
-        `}
-    ${(props) =>
-        props.fixSizeId === 4 &&
-        css`
-            position: unset;
-            width: 30vw;
-            height: 30vh;
-        `}
-${(props) =>
-        props.fixSizeId >= 0 &&
-        props.fixSizeId <= 3 &&
-        css`
-            position: unset;
-            width: 45vw;
-            height: 45vh;
-        `}
+${props=> props.fixSizeId === 9 && css`
+position:fixed;
+z-index:1;
+top:3vw;
+left:10vw;
+width:20vw;
+height:20vh;
+
+`}
+${props=> props.fixSizeId === 4 && css`
+position:unset;
+width:30vw;
+height:30vh;
+`}
+${props=>(props.fixSizeId >= 0 && props.fixSizeId <= 3)&& css`
+position:unset;
+width:45vw;
+height:45vh;
+`}
 
 
-background:black;
+background:none;
 `;
 let socketId = null;
 const APPLICATION_SERVER_URL =
@@ -278,20 +277,18 @@ class VideoChatMain extends Component {
 
                             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
                             // element: we will manage it on our own) and with the desired properties
-                            let publisher = await this.OV.initPublisherAsync(
-                                undefined,
-                                {
-                                    audioSource: undefined, // T+he source of audio. If undefined default microphone
-                                    videoSource: undefined, // The source of video. If undefined default webcam
-                                    publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                                    publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                                    resolution: `${window.screen.availWidth}x${window.screen.availHeight}`, // The resolution of your video
-                                    frameRate: 30, // The frame rate of your video
-                                    insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                                    mirror: false, // Whether to mirror your local video or not
-                                }
-                            );
-
+                            let publisher = await this.OV.initPublisherAsync(undefined, {
+                                audioSource: undefined, // T+he source of audio. If undefined default microphone
+                                videoSource: undefined, // The source of video. If undefined default webcam
+                                publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+                                publishVideo: true, // Whether you want to start publishing with your video enabled or not
+                                //resolution: `${window.screen.availWidth}x${window.screen.availHeight}`, // The resolution of your video
+                                resolution: `${'1280'}x${'720'}`, // The resolution of your video
+                                frameRate: 30, // The frame rate of your video
+                                insertMode: 'APPEND', // How the video is inserted in the target element 'video-container'
+                                mirror: false, // Whether to mirror your local video or not
+                            });
+                            
                             // --- 6) Publish your stream ---
 
                             mySession.publish(publisher);
@@ -413,17 +410,17 @@ class VideoChatMain extends Component {
             ),
         };
         return (
-            <>
-                <FloatingBtn
-                    handleSetMenu={this.handleSetMenu.bind(this)}
-                    func={this.leaveSession}
-                ></FloatingBtn>
-                <Frame>
-                    {this.state.session === undefined ? (
-                        <span>세션 없음</span>
-                    ) : null}
+            <Frame>
+     
 
-                    {menuList[this.state.menu]}
+                <FloatingBtn handleSetMenu={this.handleSetMenu.bind(this)} func={this.leaveSession}></FloatingBtn>
+      
+                <VideoArea>
+                
+                    {this.state.session === undefined ? (
+                        <RouteToMain></RouteToMain>
+                        
+                        ) : null}
 
                     {this.state.session !== undefined ? (
                         <VideoFrame
@@ -431,41 +428,26 @@ class VideoChatMain extends Component {
                             fixSizeId={this.state.menu}
                         >
                             {this.state.publisher !== undefined ? (
-                                <MyVideoFrame
-                                    onClick={() =>
-                                        this.handleMainVideoStream(
-                                            this.state.publisher
-                                        )
-                                    }
-                                    fixSizeId={this.state.menu}
-                                >
-                                    <Video
-                                        streamManager={this.state.publisher}
-                                        size={{ width: "90vw", height: "90vh" }}
-                                    />
-                                </MyVideoFrame>
+                                
+                                    <Video streamManager={this.state.publisher} pubsub={'pub'} size={this.state.menu} />
+                                
                             ) : null}
                             {this.state.subscribers.map((sub, i) => (
-                                <OppoVideoFrame
-                                    key={sub.id}
-                                    onClick={() =>
-                                        this.handleMainVideoStream(sub)
-                                    }
-                                    fixSizeId={this.state.menu}
-                                >
-                                    <Video
-                                        streamManager={sub}
-                                        size={{ width: "90vw", height: "90vh" }}
-                                    />
-                                </OppoVideoFrame>
+                                
+                                    <Video streamManager={sub}  pubsub={'sub'}  size = {this.state.menu}/>
+                                
                             ))}
                         </VideoFrame>
-                    ) : null}
+
+) : null}
+               
+                </VideoArea>
+        
                 </Frame>
-            </>
         );
     }
-
+    
+    
     async getToken() {
         console.log("gg" + this.state.mySessionId);
         console.log("gg" + this.state.myUserName);
