@@ -1,30 +1,30 @@
 import React, {useState, useEffect} from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+
 import axios from 'axios';
 import ResultComponent from './ResultComponent';
+import styled from 'styled-components'
+const Frame=styled.div`
+  width:24vw;
+  height:78vh;
+  overflow-y:scroll;
+  -ms-overflow-style: none; 
+  &::-webkit-scrollbar { 
+    display: none;
+  }
+`;
 
-export default function PinnedSubheaderList(props) {
+const List=styled.li`
+  list-style:none;
+`;
+function PinnedSubheaderList(props) {
     
   return (
-    <List
-      sx={{
-        width: '100%',
-        maxWidth: '40vw',
-        bgcolor: 'background.paper',
-        position: 'relative',
-        overflow: 'auto',
-        maxHeight: '39vw',
-        '& ul': { padding: 0 },
-      }}
-      
-    >
-        <li>
+    <Frame>
+        <List>
             {props.data}
 
-        </li> 
-    </List>
+        </List> 
+    
+  </Frame>
   );
-}
+}export default PinnedSubheaderList;
