@@ -98,7 +98,7 @@ function Study(props) {
                                 sx={{
                                     fontSize: "large",
                                     rotate: "90deg",
-                                    color: " #0059a79b",
+                                    color: " #6591dd",
                                     marginBottom: "2vh",
                                 }}
                             />
@@ -109,9 +109,8 @@ function Study(props) {
                                 sx={{
                                     fontSize: "large",
                                     rotate: "90deg",
-                                    color: " #005aa7;",
+                                    color: " #91a8d0;",
                                     marginBottom: "2vh",
-                                    borderColor:"white",
                                 }}
                             />
                         );

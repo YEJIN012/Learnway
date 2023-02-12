@@ -168,7 +168,7 @@ function startMatching(lang1, lang2) {
 
 function Body() {
     //상태 저장소에서 나의 언어 가져오기
-    const mylang = useSelector(state => state.UserStore);
+    const mylang = useSelector((state) => state.AuthReducer);
     //상태 저장소에서 상대방 언어 가져오기
     const oppolang = useSelector(state => state.MainStore);
     const dispatch = useDispatch();

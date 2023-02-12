@@ -18,11 +18,12 @@ const MyLang = styled.div`
 
 function MyLanguage(){
     //상태 저장소에서 나의 언어 가져온다.
-    const stored  = useSelector(state => state.UserStore);
+    const stored = useSelector(state => state.AuthReducer);
+    console.log(stored)
 
-    return(
+    return (
         //나의 언어를 MyLang 태그 내에 넣는다.
-        <MyLang>{stored["languageId"]}</MyLang>
+        <MyLang>{stored.language.name}</MyLang>
     );
 };
 export default MyLanguage;

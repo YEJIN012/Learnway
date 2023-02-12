@@ -43,7 +43,7 @@
 .button--nina::before {
 	content: attr(data-text);
 	position: absolute;
-	top: 0;
+	top: -4px;	/*default 글씨 높이 center 조절값*/
 	left: 0;
 	width: 100%;
 	height: 100%;

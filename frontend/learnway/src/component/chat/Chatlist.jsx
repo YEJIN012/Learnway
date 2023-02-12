@@ -31,55 +31,58 @@ const Body = styled.div`
 
 
 function Chatlist() {
-    //const stored  = useSelector(state => state.UserStore);
-    const stored = {userEmail:'aaa@ssafy.com'}
+    //const stored  = useSelector(state => state.AuthReducer);
+    const stored = { userEmail: "aaa@ssafy.com" };
     const [roomList, setRoomList] = useState([]);
     const [roomInfo, setRoomInfo] = useState([]);
-    const [selectUserState, setSelectUserState] = useState(undefined)
+    const [selectUserState, setSelectUserState] = useState(undefined);
     //api 받아오기
-    useEffect(()=>{
+    useEffect(() => {
         getMyRoomList(stored.userEmail);
-    },[])
+    }, []);
 
     function getMyRoomList(userEmail) {
-        axios.get(`api/chat/room/all/${userEmail}`,)
+        axios
+            .get(`api/chat/room/all/${userEmail}`)
             .then(function (res) {
-                let roomlist = []
-            
+                let roomlist = [];
+
                 const data = res.data.Rooms;
-                console.log(data)
-                
+                console.log(data);
+
                 for (let i = 0; i < data.length; i++) {
-                
-                    roomlist.push(<UserProfile click={setSelectUserState} key={i} id = {0} userInfo={data[i]}></UserProfile>)
-                    
+                    roomlist.push(
+                        <UserProfile
+                            click={setSelectUserState}
+                            key={i}
+                            id={0}
+                            userInfo={data[i]}
+                        ></UserProfile>
+                    );
+
                     // setroomlist   [{id:  body:   }]
                 }
                 setRoomList(roomlist);
-
             })
             .catch(function (err) {
                 console.log(err);
             });
-        }
-        console.log(selectUserState)
-        console.log(stored.userEmail)
+    }
+    console.log(selectUserState);
+    console.log(stored.userEmail);
     return (
         <RoomFrame>
             {selectUserState === undefined ? (
                 <>
-                <TitleBar>Message</TitleBar>
-            <Body>
-                <List>
-                    <li>
-                        {roomList}
-                    </li>
-                </List>
-            </Body>
+                    <TitleBar>Message</TitleBar>
+                    <Body>
+                        <List>
+                            <li>{roomList}</li>
+                        </List>
+                    </Body>
                 </>
-            ):(
+            ) : (
                 <Chatroom info={selectUserState}></Chatroom>
-
             )}
         </RoomFrame>
     );

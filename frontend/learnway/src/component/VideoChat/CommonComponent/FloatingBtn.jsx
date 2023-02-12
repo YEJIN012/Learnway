@@ -19,16 +19,16 @@ export default function FloatingBtn(props) {
         }
     };
     const menuList = {
-        "Report" : <WbTwilightIcon sx={{color: "#005AA7"}}/>,
-        "Leave" : <LogoutIcon sx={{ color: "#005AA7"}}/>,
-        "Your Profile": <BadgeIcon sx={{ color: "#005AA7"}}/>,
-        "Translate" : <TranslateIcon sx={{ color: "#005AA7"}}/>,
-        "Youtube" : <YouTubeIcon sx={{ color: "#005AA7"}}/>,
+        "Report" : <WbTwilightIcon sx={{color: "#91a8d0"}}/>,
+        "Leave" : <LogoutIcon sx={{ color: "#91a8d0"}}/>,
+        "Your Profile": <BadgeIcon sx={{ color: "#91a8d0"}}/>,
+        "Translate" : <TranslateIcon sx={{ color: "#91a8d0"}}/>,
+        "Youtube" : <YouTubeIcon sx={{ color: "#91a8d0"}}/>,
     };
     // console.log(Object.keys(menuList));
     return (
         <>
-            <Fab icon={<AddIcon />} mainButtonStyles={{backgroundColor:"#005AA7"}} >
+            <Fab icon={<AddIcon />} mainButtonStyles={{backgroundColor:"#91a8d0"}} >
                 {Object.keys(menuList).map((e, index) => (
                         <Action
                             style={(index === selected) ? {backgroundColor:"#ffffff", scale:"1.2"} : {backgroundColor:"#e9e9e9"}}
