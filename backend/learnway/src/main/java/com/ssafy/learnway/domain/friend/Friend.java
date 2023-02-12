@@ -6,8 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -21,12 +19,12 @@ public class Friend {
     private int relationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(referencedColumnName = "user_id", name="user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(referencedColumnName = "user_id", name="friend_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User friendId;
 }

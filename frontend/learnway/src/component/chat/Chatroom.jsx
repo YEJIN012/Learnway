@@ -7,6 +7,9 @@ import UserProfile from './UserProfile';
 import ChatText from './ChatText';
 import { chatRoomLst } from './actions/profileAction';
 import axios from 'axios'
+import iconimg from '../chat/send.png'
+import './ChatScroll.css';
+
 const RoomFrame = styled.div`
     display:flex;
     flex-direction:column;
@@ -21,39 +24,51 @@ const Body = styled.div`
     width:inherit;
     height:80%;
     overflow:scroll;
-    
-    border:solid 1px black;
     `
 const InputBox = styled.input`
     width:inherit;
     height:10%;
-    
-    border:solid 1px black;
+    border-radius : 30%;
+    // border:solid 1px black;
     `;
 
 
 //검색버튼(유튜브와 공통 컴포넌트)
 const SearchBox = styled.div`
-    width:23vw;
+    width:inherit;
     height:3vw;
-    margin:1vw 0 1vw 0;
+    margin:1vw 0.3vw 1vw 0.3vw;
     display:flex;
     flex-direction:row;
     align-content:center;
     align-items:center;
-    border:solid 1px black;
+    // border:solid 1px black;
 `;
 
 const Input = styled.input`
     width:19vw;
     height:2.5vw;
+    margin:0.5vw 0.2vw 0.5vw 0.2vw;
+    border-radius: 50px;
+    background: #EFEFEF;
+    border : none;
+    &:focus {
+        outline: none;
+        // background: #73A0C6
+      }
+    
 `;
 
 const Searchbtn = styled.div`
     width:3vw;
-    height:3vw;
+    height:2.45vw;
     background-image: url(${props => props.url || ""});
     background-size:cover;
+    padding-bottom:0.1vw;
+    border-radius: 50px;
+    &:hover{  
+        box-shadow: 1px 2px 10px #A4A4A4;
+    }
 `;
 
 //검색 공통 컴포넌트 끝 
@@ -182,7 +197,7 @@ function Chatroom(props) {
     return (
         <RoomFrame>
             <UserProfile id={1} room={props.info}></UserProfile>
-            <Body>
+            <Body className='scroll'>
                 <List>
                     {chatLog.map((chatLog) => (
                         <li key={chatLog.id}>{chatLog.msg}</li>
@@ -195,9 +210,11 @@ function Chatroom(props) {
                     onChange={(e) => {
                         setText(e.target.value);
                     }}
+                    placeholder="Type your message here"
+                    type='text'
                 ></Input>
                 <Searchbtn
-                    url={"https://static.solved.ac/tier_small/4.svg"}
+                    url={iconimg}
                     onClick={() => {
                         sendMsg();
                     }}
