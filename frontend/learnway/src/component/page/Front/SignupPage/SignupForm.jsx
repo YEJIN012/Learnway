@@ -111,18 +111,18 @@ export default function SignupForm({getUserinfo}) {
             <Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
           </Stack>
           <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
-            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "615e5f", opacity: "0.5"}} />} 
+            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
-            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "615e5f", opacity: "0.5"}} />} 
+            icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <InputFrame >
             <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = "Language" language = "Choose" setLanguage={setLanguageName} width="312px" height="30px" 
-              icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "615e5f", opacity: "0.5"}} />} 
+              icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />            
           </InputFrame>
           <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
-            icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "615e5f", opacity: "0.5"}} />} 
+            icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <Frame>
             <Button id= "0" width="185px" height="35px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px" disabled= {disabled} />

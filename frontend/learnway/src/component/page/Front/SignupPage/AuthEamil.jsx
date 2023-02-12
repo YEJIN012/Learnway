@@ -43,7 +43,7 @@ export default function AuthEamil({getEmail}) {
   // 인증번호 식별 요청
   const handleSubmit = (e) => {
     e.preventDefault();
-    request("post", URL + `?code=${authcode}&user_email=${email}`, email)
+    request("post", URL + `?code=${authcode}&user_email=${email}&find_code=1`, email)
       .then((res) => {
           const status = res.status;
           const msg = res.msg
@@ -108,7 +108,7 @@ export default function AuthEamil({getEmail}) {
                 onChange={(e) => {
                   setAuthcode(e.target.value)
                   }}
-                icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}}  />}
+                icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}}  />}
                 />
               <Button
                 id = "0"
