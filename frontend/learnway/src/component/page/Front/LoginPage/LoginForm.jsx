@@ -2,7 +2,6 @@ import styled from "styled-components";
 import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from "../Input";
-import Button from "../../../ui/Button";
 import { useDispatch } from "react-redux";
 import { loginUser, accessToken } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
@@ -43,7 +42,6 @@ export default function LoginForm () {
         const status = res.status
         const msg = res.msg
         console.log(msg)
-        
         if (status === 200) {
           
           // 스토어에 유저정보 넣기
@@ -53,71 +51,70 @@ export default function LoginForm () {
           setRefreshToken(res.token.refreshToken);
           const getaccessToken = accessToken(res.token);
           dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
+          alert("🤗🤗Good to see you again🤗🤗")
 
           // 성공했으면 메인 페이지로 이동
           navigate('/');
         } else if (status === 202) {
           // 아이디 비밀번호가 틀린 경우,
-          alert(msg)
+          alert("🚨Please double check your email and password!!🚨")
         }
       })
-      .catch((err) => alert("서버 연결 실패"));
+      .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <InputBox
-                    id="id"
-                    type="email"
-                    title="E-mail"
-                    placeholder="abcdef@dfd.com"
-                    color="primary"
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                    }}
-                    value={email}
-                    icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
+        <form onSubmit={handleSubmit}>
+            <InputBox
+                id="id"
+                type="email"
+                title="E-mail"
+                placeholder="abcdef@dfd.com"
+                color="primary"
+                onChange={(e) => {
+                    setEmail(e.target.value);
+                }}
+                value={email}
+                icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
+            />
+            <InputBox
+                id="password"
+                type="password"
+                title="Password"
+                placeholder="********"
+                color="primary"
+                onChange={(e) => {
+                    setPwd(e.target.value);
+                }}
+                value={pw}
+                icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
+            />
+            <CheckBoxFrame>
+                <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">Forgot Password?</NavLink>
+            </CheckBoxFrame>
+            <BtnFrame>
+                <AllButton
+                    id="0"
+                    textValue="Login"
+                    width="150px"
+                    height="39px"
+                    fontSize="12px"
+                    textWeight="900"
+                    radius="15px"
+                    margin= "0px"
                 />
-                <InputBox
-                    id="password"
-                    type="password"
-                    title="Password"
-                    placeholder="********"
-                    color="primary"
-                    onChange={(e) => {
-                        setPwd(e.target.value);
-                    }}
-                    value={pw}
-                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
+                <AllButton
+                    // id="1"
+                    textValue="SignUp"
+                    width="150px"
+                    height="39px"
+                    fontSize="12px"
+                    textWeight="900"
+                    radius="15px"
+                    margin= "0px"
+                    onClick={() => navigate("/signup")}
                 />
-                <CheckBoxFrame>
-                    <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">Forgot Password?</NavLink>
-                </CheckBoxFrame>
-                <BtnFrame>
-                    <AllButton
-                        id="0"
-                        textValue="Login"
-                        width="150px"
-                        height="39px"
-                        fontSize="12px"
-                        textWeight="900"
-                        radius="15px"
-                        margin= "0px"
-                    />
-                    <AllButton
-                        // id="1"
-                        textValue="SignUp"
-                        width="150px"
-                        height="39px"
-                        fontSize="12px"
-                        textWeight="900"
-                        radius="15px"
-                        margin= "0px"
-                        onClick={() => navigate("/signup")}
-                    />
-                </BtnFrame>
-            </form>
-        </>
+            </BtnFrame>
+        </form>
     );
 }
