@@ -91,7 +91,7 @@ export default function GoogleSignup() {
         userinfo === ""
         ? (
           <form onSubmit={handleSubmit}>
-            <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled="true" inputWidth="300px" margin="20px 0px 10px 0px"
+            <InputBox id="username" type="txt" title="User Name(ENG)" placeholder={username} value={username} disabled={true} inputWidth="300px" margin="20px 0px 10px 0px"
               icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
             <InputbtmFrame>
@@ -103,7 +103,7 @@ export default function GoogleSignup() {
                 placeholder={userEmail}
                 value={userEmail}
                 margin="20px 0px 0px 0px "
-                disabled="true" 
+                disabled={true} 
                 icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
               />
               <Button 
@@ -115,7 +115,7 @@ export default function GoogleSignup() {
                 radius="10px" 
                 textValue= "Send" 
                 margin= "20px 0px 0px 0px"
-                disabled="true"
+                disabled={true}
               />
             </InputbtmFrame>
             <InputFrame>

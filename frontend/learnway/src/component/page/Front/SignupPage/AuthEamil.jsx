@@ -5,7 +5,6 @@ import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 import EmailIcon from '@mui/icons-material/Email';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import AllButton from '../../../ui/AllButton';
 
 const InputbtmFrame = styled.div`
   display: flex;
@@ -34,7 +33,7 @@ export default function AuthEamil({getEmail}) {
         if (status === 200) {
           setAuth(true)                  
         } else if (status === 202) {
-          alert(msg)
+          alert("This email has already been registered.")
         }
       })
       .catch((err) => console.log(err))

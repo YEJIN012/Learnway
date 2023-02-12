@@ -10,7 +10,7 @@ export default function PrivateRoute() {
   const navigate = useNavigate()
 
   if (isAuth === "Failed") {
-    navigate('/intro')
+    navigate('/')
   } 
   return <Outlet />
 }

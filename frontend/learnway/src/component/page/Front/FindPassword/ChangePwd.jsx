@@ -40,15 +40,14 @@ export default function ChangePwd({email}) {
       request("put", "/users/modify/userPwd", data)
         .then((res) => {
           console.log(res.msg)
-          alert(res.msg)
+          alert("Success")
           navigate('/login')
         })
-        .catch((err) => {
-          console.log(err)
-          alert("통신오류 잠시 후 이용해 주세요!")} )
+        .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+
     }
     else { 
-      alert("비밀번호가 다릅니다.")
+      alert("🚨Please double check your password!!🚨")
     }
   }
 

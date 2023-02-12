@@ -60,7 +60,7 @@ export default function LoginForm () {
           alert("🚨Please double check your email and password!!🚨")
         }
       })
-      .catch((err) => alert("A network error has occurred. The request has failed."));
+      .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
     };
 
     return (

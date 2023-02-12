@@ -31,7 +31,7 @@ function App() {
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
-                <Route path="/intro" element={<Intro />}></Route>
+                {/* <Route path="/intro" element={<Intro />}></Route> */}
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPwd />}></Route>
