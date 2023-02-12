@@ -32,6 +32,7 @@ public class RoomService {
         return roomRepository.save(room);
     }
 
+    @Transactional
     public Room findByRelationId(Friend relationId) {
         return roomRepository.findByRelationId(relationId.getRelationId());
     }

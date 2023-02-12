@@ -3,6 +3,8 @@ package com.ssafy.learnway.domain.friend;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import net.bytebuddy.asm.Advice;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,9 +22,10 @@ public class Room {
     private int relationId;
 
     @MapsId // @MapsId는 @id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="relation_id")
     @JsonIgnore
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Friend friend;
 
     private String roomId;

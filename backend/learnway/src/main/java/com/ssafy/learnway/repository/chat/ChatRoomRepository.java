@@ -35,7 +35,7 @@ public class ChatRoomRepository {
     private HashOperations<String, String, String> hashOpsEnterInfo;
 
 //    @Resource(name = "redisTemplate")
-//    private final ValueOperations<String, String> valueOps;
+//    private final ValueOperations<String, Strixng> valueOps;
 
 //    @Resource(name = "redisTemplate")
     private HashOperations<String, String, List<ChatMessage>> roomMessages; // 최근 메시지 저장용
