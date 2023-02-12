@@ -3,6 +3,8 @@ package com.ssafy.learnway.controller;
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.friend.Room;
 import com.ssafy.learnway.domain.user.User;
+import com.ssafy.learnway.dto.friend.VideoChatResult;
+import com.ssafy.learnway.dto.matching.Result;
 import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.friend.FriendRequestDto;
 import com.ssafy.learnway.repository.chat.ChatRoomRepository;
@@ -10,11 +12,14 @@ import com.ssafy.learnway.service.friend.RoomService;
 import com.ssafy.learnway.service.user.UserService;
 import com.ssafy.learnway.service.friend.FriendService;
 import com.ssafy.learnway.util.ResponseHandler;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -31,6 +36,8 @@ public class FriendController {
     private final FriendService friendService;
     private final UserService userService;
     private final RoomService roomService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
     public ResponseEntity list(@RequestParam String userEmail) throws SQLException {
@@ -122,6 +129,33 @@ public class FriendController {
         } catch(Exception e){
             e.printStackTrace();
             return ResponseHandler.generateResponse("친구 수 조회에 실패했습니다..", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/makeVideochat/{userEmail}/{friendEmail}")
+    public ResponseEntity makeVideochat(@PathVariable String userEmail, @PathVariable String friendEmail){
+        try{
+            User user = userService.findByEmail(userEmail);
+            User opponent = userService.findByEmail(friendEmail);
+            Friend friend = friendService.findById(user,opponent);
+
+            if(friend == null){
+                return ResponseHandler.generateResponse("현재 친구 관계가 아닙니다. 생성하실 수 없습니다.", HttpStatus.ACCEPTED);
+            }
+
+            // 상대방 정보만 보내줌. 상대방이 방에 들어올 때, 화상채팅을 요구한 사람의 정보가 필요함.
+            ProfileDto friendProfile = userService.getProfile(opponent.getUserEmail());
+            ProfileDto userProfile = userService.getProfile(user.getUserEmail());
+
+            String roomId = passwordEncoder.encode(user.getUserEmail()+opponent.getUserEmail());
+
+            VideoChatResult videoChatResult = VideoChatResult.builder().userProfileDto(userProfile).friendProfileDto(friendProfile).roomId(roomId).build();
+
+            return ResponseHandler.generateResponse("화상채팅이 생성되었습니다.", HttpStatus.ACCEPTED,"videoChatInfo", videoChatResult);
+
+        } catch(Exception e){
+            e.printStackTrace();
+            return ResponseHandler.generateResponse("화상채팅 생성에 실패하였습니다..", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

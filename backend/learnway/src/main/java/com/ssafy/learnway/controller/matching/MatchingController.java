@@ -59,7 +59,7 @@ public class MatchingController {
         }
 
         // socket 방 생성 (대기방을 구독하고 있는 개념)
-        String roomId = user.getUserEmail() + "/" +studyLanguageId; //socket 방을 [userEmail/학습언어]로 지정ß
+        String roomId = user.getUserEmail() + "-" +studyLanguageId; //socket 방을 [userEmail/학습언어]로 지정ß
 
         return ResponseHandler.generateResponse("대기방이 생성되었습니다", HttpStatus.ACCEPTED,"roomId",roomId);
     }
