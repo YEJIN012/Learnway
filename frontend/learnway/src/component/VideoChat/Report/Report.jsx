@@ -5,6 +5,8 @@ import InputGroup from "../../ui/InputGroup";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import TFBtnSet from "../CommonComponent/TFBtnSet";
+import "./CheckBoxCss.css";
+
 const Frame = styled.div`
     display:flex;
     flex-direction:column;
@@ -13,8 +15,8 @@ const Frame = styled.div`
 `;
 
 const PreInput = styled.input`
-    width:${props => props.inputWidth || '2vw'};
-    height:${props => props.inputheight || 'inherit'};
+    // width:${props => props.inputWidth || '2vw'};
+    height:2.5vw;
     font-size:1.5vw;
     
     border:none;
@@ -24,21 +26,24 @@ const PreInput = styled.input`
 `;
 
 const PreInputGroup = styled.div`
-width:22vw;
-height:inherit;
-display:flex;
-flex-direction:row;
-justify-content:space-between;
+    // width:22vw;
+    // height:inherit;
+    display:flex;
+    flex-direction:row;
+    display: -webkit-flex;
+    justify-content:space-between;
+    justify-content: flex-end;
 `;
 
 const ChkBoxGroup = styled.div`
     width:inherit;
     height:inherit;
-    border-radius:5px;
+    // border-radius:5px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    border:solid 1px #000000;
+    padding : 1vw;
+    // border:solid 1px #000000;
 `;
 
 const LargeInput = styled.textarea`
@@ -47,12 +52,28 @@ const LargeInput = styled.textarea`
 `;
 
 const Label = styled.div`
-display: flex;
-flex-direction: row;
-font-size: 1.2vw;
+    display: flex;
+    flex-direction: row;
+    font-size: 1vw;
+    text-align: center;
+    height: 5vw;
+    
+    // background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    text-transform: uppercase;
+    align-items: center;
+    margin: 0.5vw;
 `;
 
+const ChkLabel = styled.label``;
+
 const ChkBox = styled.input``;
+
+const ChkText = styled.label`
+    margin : 0 auto;
+`;
 
 function Report(props) {
     const [reportType, setReportType] = useState([]);
@@ -100,10 +121,14 @@ function Report(props) {
                 <ChkBox
                     type="checkbox"
                     value={value}
+                    id={value}
                     onChange={(e) => { chkboxEventCtrl(e, value) }}
                     checked={reportType.includes(value) ? true : false}>
                 </ChkBox>
-                {text}
+                <ChkLabel for={value} className="box">
+                    <div className="tick"></div>
+                </ChkLabel>
+                <ChkText for={value}>{text}</ChkText>
             </Label>
         );
     };
@@ -130,46 +155,21 @@ function Report(props) {
             header={<Title title={"Report"}></Title>}
             body={
                 <Frame>
-                    <InputGroup
-                        flex="row"
-                        textValue="Issue Time"
-                        fontSize="1.7vw"
-                        fontColor="#000000"
-                        inputWidth="inherit"
-                        inputHeight="2vw"
-                        obj={
-                            <PreInputGroup>
-                                <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1.7vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly></PreInput>
-                                <PreInput type="text" id="reportTime" inputWidth="12vw" inputHeight="1.7vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
-                            </PreInputGroup>
-                        }>
-                    </InputGroup>
+                    <PreInputGroup>
+                        <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly></PreInput>
+                        <PreInput type="text" id="reportTime" inputWidth="12vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
+                    </PreInputGroup>
 
-                    <InputGroup
-                        flex="column"
-                        textValue="Report Type"
-                        fontSize="1.7vw"
-                        fontColor="#000000"
-                        inputWidth="41vw"
-                        inputHeight="16vw"
-                        obj={
-                            <ChkBoxGroup>
-                                {renderCheckBoxComponent()}
-                            </ChkBoxGroup>
-                        }>
-                    </InputGroup>
+                    <ChkBoxGroup>
+                        {renderCheckBoxComponent()}
+                    </ChkBoxGroup>
 
-                    <InputGroup
-                        flex="column"
-                        textValue="Other"
-                        fontSize="1.7vw"
-                        fontColor="#000000"
-                        inputWidth="41vw"
-                        inputHeight="10vw"
-                        obj={
-                            <LargeInput id="detailBox" onChange={(e) => { setReportDetail(e.target.value) }} value={reportDetail}></LargeInput>
-                        }>
-                    </InputGroup>
+                    <LargeInput
+                        id="detailBox"
+                        onChange={(e) => { setReportDetail(e.target.value) }}
+                        value={reportDetail}
+                    >
+                    </LargeInput>
 
                     <TFBtnSet
                         radius="5px"
