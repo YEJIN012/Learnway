@@ -125,7 +125,7 @@ function SearchProfile(props) {
         <ProfileCard
             header={
                 <>
-                    <ProfileImg url={userInfo.img}></ProfileImg>
+                    <ProfileImg src={userInfo.img}></ProfileImg>
                     <Friends>
                         <FriendNumber>
                             {friendCnt}
@@ -201,7 +201,7 @@ function SearchProfile(props) {
                 </>
             }
             width="46vw"
-            height="64vw"
+            height="90vh"
         />
     );
 }
