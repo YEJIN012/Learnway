@@ -13,7 +13,7 @@ public interface FriendRepository extends JpaRepository<Friend, Integer> {
     List<Friend> findAllByUserId(User user);
     List<Friend> findAllByFriendId(User friend);
     Friend findByUserIdAndFriendId(@Param("user_id") User userId, @Param("friend_id") User friendId);
-
+    void deleteById(Integer relationId);
     int countByUserId(User user);
     int countByFriendId(User user);
 

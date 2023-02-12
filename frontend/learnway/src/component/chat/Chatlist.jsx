@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from "react-redux";
+import UserProfile from './UserProfile';
+import Chatroom from './Chatroom'
 
 const RoomFrame = styled.div`
     display:flex;
@@ -25,34 +28,59 @@ const Body = styled.div`
 
     border:solid 1px black;
 `;
+
+
 function Chatlist() {
+    //const stored  = useSelector(state => state.UserStore);
+    const stored = {userEmail:'aaa@ssafy.com'}
     const [roomList, setRoomList] = useState([]);
-
+    const [roomInfo, setRoomInfo] = useState([]);
+    const [selectUserState, setSelectUserState] = useState(undefined)
     //api 받아오기
-    function getMyRoomList(userEmail) {
-        axios.get(`https://i8a408.p.ssafy.io/chat/room/all/${userEmail}`,)
-            .then(function (res) {
-                const data = res.Rooms;
+    useEffect(()=>{
+        getMyRoomList(stored.userEmail);
+    },[])
 
+    function getMyRoomList(userEmail) {
+        axios.get(`api/chat/room/all/${userEmail}`,)
+            .then(function (res) {
+                let roomlist = []
+            
+                const data = res.data.Rooms;
+                console.log(data)
+                
                 for (let i = 0; i < data.length; i++) {
-                    //setroomlist   [{id:  body:   }]
+                
+                    roomlist.push(<UserProfile click={setSelectUserState} key={i} id = {0} userInfo={data[i]}></UserProfile>)
+                    
+                    // setroomlist   [{id:  body:   }]
                 }
+                setRoomList(roomlist);
+
             })
             .catch(function (err) {
                 console.log(err);
             });
-    }
+        }
+        console.log(selectUserState)
+        console.log(stored.userEmail)
     return (
         <RoomFrame>
-            <TitleBar>Message</TitleBar>
+            {selectUserState === undefined ? (
+                <>
+                <TitleBar>Message</TitleBar>
             <Body>
                 <List>
-                    {roomList.map((roomList) => (
-                        <li key={roomList.id}>{roomList.body}</li>
-                    ))}
-
+                    <li>
+                        {roomList}
+                    </li>
                 </List>
             </Body>
+                </>
+            ):(
+                <Chatroom info={selectUserState}></Chatroom>
+
+            )}
         </RoomFrame>
     );
 } export default Chatlist;

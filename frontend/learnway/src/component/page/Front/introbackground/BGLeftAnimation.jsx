@@ -4,20 +4,19 @@ import lottie from "lottie-web";
 import data from './animation/BGLeftBottom.json';
 
 const AniImg = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    bottom : -25%;
+z-index : -2;
+max-height: initial;
+overflow: hidden;
+
 `;
 
 const Wrapper = styled.div`
-    width: 60%;
-    height: 90%;
-    position: absolute;
+    width: 50%;
     left : 0px;
     bottom : 0px;
-    overflow: hidden;
-    z-index : -1;
+    z-index : -2;
+    position: absolute;
+
 `;
 
 function BGLeftBottomAnimation(){

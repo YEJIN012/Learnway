@@ -2,10 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
-
+import { useDispatch, useSelector } from "react-redux";
 import UserProfile from './UserProfile';
 import ChatText from './ChatText';
-
+import { chatRoomLst } from './actions/profileAction';
+import axios from 'axios'
 const RoomFrame = styled.div`
     display:flex;
     flex-direction:column;
@@ -58,15 +59,17 @@ const Searchbtn = styled.div`
 //검색 공통 컴포넌트 끝 
 
 
+
+
 const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
-
 function Chatroom(props) {
+    
+    //const stored  = useSelector(state => state.UserStore);
+    const stored = {userEmail:'aaa@ssafy.com'}
     const [text, setText] = useState("")
     const [chatLog, setChatLog] = useState([]);
-    const [msgId, setMsgId] = useState(initMsgId());
-
-    console.log(chatLog);
+    const [msgId, setMsgId] = useState(initMsgId())
 
     //채팅 기록 컴포넌트 초기 렌더링 시 마지막 순서 기억
     function initMsgId() {
@@ -78,18 +81,50 @@ function Chatroom(props) {
     }
 
     useEffect(()=>{
+        loadChatHistory()
         ws.connect({}, (frame) => {
              console.log("connected to server:", frame);
              subscribe();
-         })
+        })
         
+        return()=>{
+            ws.disconnect(()=>{
+                console.log("console disconnected");
+        })}
     },[])
+
+    function loadChatHistory(){
+        axios.get(`api/chat/room/message/${props.info.roomId}`,)
+            .then(function (res) {
+                let chatHistory = []
+            
+                const data = res.data
+                console.log(data)
+                let num = msgId
+                for (let i = 0; i < data.length; i++) {
+                    if(data[i].sender === props.info.profileDto.userEmail){
+                        chatHistory.push({ id: num, msg: <ChatText id={1} text={data[i].message}></ChatText> });
+                    }else{
+                        chatHistory.push({ id: num, msg: <ChatText id={0} text={data[i].message}></ChatText> });
+                    }
+                    setMsgId((msgId) => msgId+1);
+                    num = num + 1;
+                    
+                    // setroomlist   [{id:  body:   }]
+                }
+                setChatLog(chatHistory);
+                console.log(chatHistory)
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
     function subscribe() {
         let num = msgId;
         
-        ws.subscribe('/sub/chat/room/be73b328-835e-4042-9e9d-862a38b1694b', (event) => {
+        ws.subscribe(`/sub/chat/room/${props.info.roomId}`, (event) => {
             const received = JSON.parse(event.body)
-            if(received.sender === "bbb@ssafy.com"){
+            if(received.sender === props.info.profileDto.userEmail){
                 const data = { id: num, msg: <ChatText id={1} text={received.message}></ChatText> };
                 setMsgId((msgId) => msgId+1);
                 num = num + 1;
@@ -109,20 +144,21 @@ function Chatroom(props) {
         console.log('값이 바뀜')
       }, [msgId])
 
-    async function sendMsg() {
+    function sendMsg() {
         //websockt emit
         const da = {
             type: "TALK",
-            roomId: "be73b328-835e-4042-9e9d-862a38b1694b",
-            sender: "aaa@ssafy.com",
+            roomId: props.info.roomId,
+            sender: stored.userEmail,
             message: text
         }
         ws.send('/pub/chat/message', {}, JSON.stringify(da));
     }
-
+   // console.log(stored, props.info.profileDto.userEmail)
+            // 유저 프로필에 마지막 수신 정보 상속 
     return (
-        <RoomFrame>
-            <UserProfile id={0}></UserProfile>
+        <RoomFrame> 
+            <UserProfile id={1} room={props.info} ></UserProfile>
             <Body>
                 <List>
                     {chatLog.map((chatLog) => (

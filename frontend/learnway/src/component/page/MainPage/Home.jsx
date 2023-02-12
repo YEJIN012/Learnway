@@ -1,8 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 import NavBar from "../../ui/NavBar";
 import Body from "./Body";
-import Body2 from "./Body2";
 import Animation from "./MainAnimation";
+import cloudImg from './cloud.png';
+
+const BackGround = styled.div`
+    width:100%;
+    background-image: url(${cloudImg});
+    // background-repeat: no-repeat;
+`;
+
 
 function Home(params) {
     return (
@@ -10,7 +18,10 @@ function Home(params) {
             <NavBar></NavBar>
             <Animation></Animation>
             {/* <Body></Body> */}
-            <Body2></Body2>
+            <BackGround>
+                <Body></Body>
+            </BackGround>
+            
         </div>
     );
 }

@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import '../../ui/Background.css';
-import logo from '../Front/img/intro_logo.png';
-import learnway from '../Front/img/learnway.png'
-import subment from '../Front/img/subtitle.png';
+import logo from '../Front/img/intro_global.png';
 import { interestLst, languageLst } from './actions/userAction';
-import IntroAnimation from './IntroAnimation';
 import BGIntro from './introbackground/BGIntro';
-
+import Welcome from './Welcome';
+import AllButton from '../../ui/AllButton';
 const LeftSide = styled.div`
-  width: 58vw;
+  width: 100%;
   height: 100%;
   left: 0vw;
   position: absolute;
@@ -21,124 +19,93 @@ const LeftSide = styled.div`
   align-items: center;
   justify-content: center;
   z-index : -1;
+  // border:1px solid black;
 `;
 
 const Picture = styled.img`
-  width: 35vw;
-  height: 65vh;
-  margin-left: 11vw;
-  margin-top: 22.7vh;
+  width: 30vw;
+  height: 27vw;
   position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index : -1;
 `;
 
-const RightSide = styled.div`
-  width: 42vw;
-  height: 100vh;
-  margin-left: 50vw;
-  position: absolute;
-`;
-
-const Frame = styled.div`
-  padding: 40vh 8.4vw 40vh 2.1vw;
-`;
+// const RightSide = styled.div`
+//   width: 100%;
+//   height: 100%;
+//   position: absolute;
+//   border:1px solid black;
+// `;
 
 
-const Title = styled.div`
-  width: 38.1vw;
-  height: 6.3vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0vh 6.4vw 0vh 0vw;
-`;
-
-const Learnway = styled.img`
-  width: 28vw;
-  height: 6.3vh;
-`;
-
-const Logo = styled.img`
-  width: 6vw;
-  height: 6.3vh;
-`;
-
-const Subtitle = styled.img`
-  width: 35vw;
-  height: 8.9vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-`;
-
-const StartBtn = styled.button`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 14vw;
-  height: 4.9vh;
-  background-color: #0971BC;
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 3.5vh;
-  align-items: center;
-  text-align: center;
-  color: #FFFFFF;
+const StartBtn = styled.div`
   border: none; 
-  border-radius: 1.02vh;
-  cursor: pointer;
+  background-color: transparent;
+  height: 30px;
+  width: 25%;
+  border-radius: 20px;
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // border:1px solid black;
+  margin: auto;
 `;
 
 
-export default function Intro () {
+export default function Intro() {
   return (
     <div>
-      <LeftBox />
-      <RightBox /> 
-      <BGIntro/>
+      <LeftBox></LeftBox>
+      <Welcome />
+      <Picture src={logo}></Picture>
+      <Btn />
+
+      <BGIntro />
     </div>
   )
 }
 
-function LeftBox(){
+function LeftBox() {
   const dispatch = useDispatch()
 
   // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
   useEffect(() => {
     const langdata = languageLst()
     const interstdata = interestLst()
-    langdata.payload.then((res) => dispatch({type: langdata.type, payload: res.language}))
-    interstdata.payload.then((res) => dispatch({type: interstdata.type, payload: res.interests}))
-  },[])
+    langdata.payload.then((res) => dispatch({ type: langdata.type, payload: res.language }))
+    interstdata.payload.then((res) => dispatch({ type: interstdata.type, payload: res.interests }))
+  }, [])
 
-  return(
+  return (
     <LeftSide>
-      <IntroAnimation></IntroAnimation>
     </LeftSide>
   )
 }
 
-function RightBox(){
-  return(
-    <RightSide>
-      <Frame>
-        <Title>
-          {/* <Learnway src={learnway} />
-          <Logo src={logo} /> */}
-        </Title>
-        {/* <Subtitle src={subment}>
-        </Subtitle>  */}
-        <Btn/>
-      </Frame>
-    </RightSide>
-  )
-}
+// function RightBox(){
+//   return(
+//     <RightSide>
+//         <Btn/>
+//     </RightSide>
+//   )
+// }
 
-function Btn(){
+function Btn() {
   let navigate = useNavigate()
   return (
-    <StartBtn onClick={()=>{ navigate('/login') }}>
-      START
+    <StartBtn onClick={() => { navigate('/login') }}>
+      <AllButton
+        textValue="MEETUP"
+        width="100%"
+        height="50px"
+        fontSize="1.5vw"
+        textWeight="900"
+        radius="20px"
+        margin="0px"
+        onClick={() => navigate("/login")} />
     </StartBtn>
   )
 }

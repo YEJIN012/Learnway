@@ -7,11 +7,12 @@ import Video from './OvVideo'
 import Translate from './Translate/Translate';
 import Report from './Report/Report';
 import Quit from './Quit/Quit'
-import Friend from './Friend/Friend'
+import SearchProfile from './Friend/SearchProfile'
 import Youtube from './Youtube/Youtube';
 import FloatingBtn from "./CommonComponent/FloatingBtn";
 
 import UserVideoComponent from './UserVideoComponent';
+import { TurnSharpRightSharp } from '@mui/icons-material';
 
 const Sidebar = styled.div`
     width:40vw;
@@ -77,6 +78,7 @@ height:45vh;
 
 background:black;
 `;
+let socketId = null;
 const APPLICATION_SERVER_URL = process.env.NODE_ENV === 'production' ? '' : '/api/video/';
 class VideoChatMain extends Component {
   
@@ -95,6 +97,7 @@ class VideoChatMain extends Component {
             subscribers: [],
             menu:9,
             quitflag:0,
+            socketId:undefined
         };
         
         this.joinSession = this.joinSession.bind(this);
@@ -107,6 +110,7 @@ class VideoChatMain extends Component {
         this.joinSession = this.joinSession.bind(this);
         //this.handleSetMenu = this.handleSetMenu(this);
         //this.getQuit = this.handleQuit.bind(this);
+        this.makeRoom = this.makeRoom.bind(this);
     }
     handleSetMenu(menuid){
         if (this.state.menu === menuid) {
@@ -138,6 +142,7 @@ class VideoChatMain extends Component {
     componentDidMount() {
         window.addEventListener('beforeunload', this.onbeforeunload);
         this.joinSession();
+        this.makeRoom()
     }
     
     componentWillUnmount() {
@@ -181,7 +186,34 @@ class VideoChatMain extends Component {
         }
     }
     
+    async makeRoom(){
+        const res = await axios.post(`/api/youtube/create`,
+        {
+            "userEmail": this.state.myUserName,
+            "friendEmail": this.state.oppoUserName
+        })
+        this.setState({
+
+            socketId : res.data.roomId
+        })
+        
+    }
+    
+    deleteRoom(id){
+        axios.delete(`/api/chat/room/${id}`)
+        .then(function(res){
+            console.log(res);
+        }).catch(function(err){
+            console.log(err);
+        })
+    }
+    
+    
     joinSession() {
+        //this.makeRoom()
+        //console.log("소켓아이디" + socketId)
+        //get room id fot websocket
+        //this.makeRoom(this.state.oppoUserNameS)
         // --- 1) Get an OpenVidu object ---
         
         this.OV = new OpenVidu();
@@ -331,17 +363,18 @@ class VideoChatMain extends Component {
     }
     
     render() {
+        console.log(this.state.socketId)
         console.log(this.state.oppoUserName)
         //const matchData = {sessionId : 'abdhfhueh', myId : "aaa@ssafy.com", oppoId:"bbb@ssafy.com"};
 //        const mySessionId = this.state.mySessionId;
 //        const myUserName = this.state.myUserName;
         console.log(this.state.menu)
         const menuList = {
-            0: <Report></Report>,
+            0: <Report user = {this.state.oppoUserName}></Report>,
             1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}></Quit>,
-            2: <Friend></Friend>,
+            2: <SearchProfile user ={this.state.oppoUserName}></SearchProfile>,
             3: <Translate></Translate>,
-            4: <Youtube></Youtube>
+            4: <Youtube sockId = {this.state.socketId} myId = {this.state.myUserName} oppoId = {this.state.oppoUserName}></Youtube>
         };
         return (
             <>
@@ -387,14 +420,17 @@ class VideoChatMain extends Component {
         console.log("gg"+this.state.myUserName)
         
         const sessionId = await this.createSession(this.state.mySessionId);
+        console.log(sessionId)
         return await this.createToken(sessionId);
     }
 
     async createSession(sessionId) {
+        //await this.makeRoom()
+      
         const response = await axios.post(APPLICATION_SERVER_URL + 'api/sessions', { customSessionId: sessionId }, {
             headers: { 'Content-Type': 'application/json', },
         });
-        return response.data; // The sessionId
+        return response.data.sessionId; // The sessionId
     }
 
     async createToken(sessionId) {

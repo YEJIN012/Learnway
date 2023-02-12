@@ -5,6 +5,7 @@ import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import {useSelector} from 'react-redux'
 
 const Friends = styled.div`
     width: 11vw;
@@ -27,45 +28,10 @@ const Text = styled.span`
     color: #7c7c7c;
 `;
 
-function addFriend(me, oppo) {
-    axios
-        .post("/api/friend", {
-            userEmail: me,
-            friendEmail: oppo,
-        })
-        .then(function (res) {
-            const data = res.data;
-            console.log(data);
-            if (data.status === 200) {
-                alert("친구 추가 성공");
-            } else {
-                alert("친구 추가 실패 " + String(data.status));
-            }
-        })
-        .catch(function (err) {
-            alert("친구 추가 에러");
-        });
-}
-
-function GetFriendCnt(userEmail) {
-    const [friendCnt, setFriendCnt] = useState("");
-    axios
-        .get("api/friend/count", {
-            params: { userEmail: userEmail },
-        })
-        // handle success
-        .then(function (res) {
-            console.log("getFriendsNum");
-            setFriendCnt(res.data.friendCnt);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    return friendCnt;
-}
 
 // Friend말고 상대방프로필로 함수명 바꿔야할듯..
-function Friend() {
+function SearchProfile(props) {
+    const stored = useSelector(state => state.UserStore);
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
@@ -76,14 +42,57 @@ function Friend() {
         interest: [],
         bio: "",
     });
+    
+    const [friendCnt, setFriendCnt] = useState("");
+    
+    useEffect(() => {
+        getUserInfo(props.user);
+        getFriendCnt(props.user)
+    }, []);
 
-    function getUserInfo() {
+    function addFriend(me, oppo) {
+        axios
+            .post("/api/friend", {
+                userEmail: me,
+                friendEmail: oppo,
+            })
+            .then(function (res) {
+                const data = res.data;
+                console.log(data);
+                if (data.status === 200) {
+                    alert("친구 추가 성공");
+                    getFriendCnt(props.user)
+                } else {
+                    alert("친구 추가 실패 " + String(data.status));
+                }
+            })
+            .catch(function (err) {
+                alert("친구 추가 에러");
+            });
+    }
+    
+    function getFriendCnt(userEmail) {
+        axios
+        .get("/api/friend/count", {
+            params: { userEmail: userEmail },
+        })
+        // handle success
+        .then(function (res) {
+            console.log("getFriendsNum"+res);
+            setFriendCnt(res.data.friendCnt);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+    
+    function getUserInfo(oppouser) {
         axios
             // 화상 상대방 Info
-            .get(`/api/users/profile/${"aaa@ssafy.com"}`)
+            .get(`/api/users/profile/${oppouser}`)
             .then(function (res) {
                 const data = res.data.profile;
-                console.log(data);
+                console.log(res.data);
 
                 setUserInfo({
                     name: data.name,
@@ -100,9 +109,6 @@ function Friend() {
                 console.log(err);
             });
     }
-    useEffect(() => {
-        getUserInfo();
-    }, []);
 
     function interestRernderer(array) {
         let result = "";
@@ -120,14 +126,14 @@ function Friend() {
                     <ProfileImg url={userInfo.img}></ProfileImg>
                     <Friends>
                         <FriendNumber>
-                            {GetFriendCnt(userInfo.email)}
+                            {friendCnt}
                         </FriendNumber>
                         Friends
                     </Friends>
                     {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                     <PersonAddIcon
                         onClick={() =>
-                            addFriend("bbb@ssafy.com", "aaa@ssafy.com")
+                            addFriend(stored.userEmail, props.user)
                         }
                         cursor="pointer"
                     />
@@ -197,4 +203,4 @@ function Friend() {
         />
     );
 }
-export default Friend;
+export default SearchProfile;

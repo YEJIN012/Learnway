@@ -5,7 +5,7 @@ const BTN1_FILL = styled.button`
     width:${props=>props.width || '70px'};
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
-    background: ${props=>props.disabled? 'gray': `linear-gradient(90.17deg, #09A7BC 0.19%, #2EC0EE 99.77%)`};
+    background: ${props=>props.disabled? 'gray': `#91a8d0`};
     border-radius: ${props=>props.radius || '0px'};
     font-family: 'Poppins';
     font-style: normal;
@@ -120,8 +120,8 @@ const BTN4_UNFILL = styled.button`
     border-radius: ${props=>props.radius || '999px'};
     border: 3px solid transparent;
     color: #005aa7;
-    background-image: linear-gradient(#fffde4, #fffde4),
-        linear-gradient(to left, #005aa7, #fffde4);
+    background-image: linear-gradient(#ffff, #ffff),
+        linear-gradient(to left, #005aa7, #fdfceb);
     background-origin: border-box;
     background-clip: content-box, border-box;
     cursor: pointer;
