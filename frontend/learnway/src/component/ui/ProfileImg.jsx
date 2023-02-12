@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import styled from "styled-components";
 import AWS from "aws-sdk";
 
@@ -10,6 +10,8 @@ const Img = styled.img`
 
 function ProfileImg(props) {
     const { tmpsrc, src, width } = props;
+    const [imgSrc, setImgSrc] = useState(src)
+    console.log(imgSrc)
     //tmpsrc : 클라이언트에서 바로 가져오는 이미지src
     //src : s3에서 불러오는 이미지 키값
 
@@ -22,10 +24,10 @@ function ProfileImg(props) {
     const s3 = new AWS.S3();
     const [imageUrl, setImageUrl] = useState("");
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const params = {
             Bucket: "learnway",
-            Key: `${src}`,
+            Key: `${imgSrc}`,
         };
 
         s3.getSignedUrlPromise("getObject", params, (err, url) => {
@@ -37,7 +39,7 @@ function ProfileImg(props) {
             setImageUrl(url);
             console.log(url);
         });
-    }, []);
+    }, [imgSrc]);
 
     // 이미지 편집에서 선택한 tmpImage있으면 그걸로 보여주기
     return tmpsrc ? (

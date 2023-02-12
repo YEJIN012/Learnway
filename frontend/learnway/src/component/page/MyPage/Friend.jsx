@@ -33,7 +33,7 @@ function DeleteFriend({ myEmail, friendEmail }) {
     );
 
     axios
-        .delete("api/friend", { data : {
+        .delete("/api/friend", { data : {
                 userEmail: myEmail,
                 friendEmail: friendEmail,
 }})
@@ -67,7 +67,7 @@ function Friend(props) {
         return <ProfileCard width="" />;
     } else {
         axios
-            .get("api/friend/count", {
+            .get("/api/friend/count", {
                 params: { userEmail: userInfo.userEmail },
             })
             // handle success
