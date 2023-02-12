@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import '../../ui/Background.css';
-import logo from '../Front/img/intro_our.png';
+import logo from '../Front/img/intro_global.png';
 import { interestLst, languageLst } from './actions/userAction';
 import BGIntro from './introbackground/BGIntro';
 import Welcome from './Welcome';
@@ -98,12 +98,12 @@ function Btn() {
   return (
     <StartBtn onClick={() => { navigate('/login') }}>
       <AllButton
-        textValue="MEET UP"
+        textValue="MEETUP"
         width="100%"
         height="50px"
         fontSize="1.5vw"
         textWeight="900"
-        radius="15px"
+        radius="20px"
         margin="0px"
         onClick={() => navigate("/login")} />
     </StartBtn>

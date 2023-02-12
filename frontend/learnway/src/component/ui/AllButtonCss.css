@@ -55,6 +55,8 @@
 }
 .button--nina:hover {
 	background-color: #91a8d0;
+	/* border: none; */
+	/* background: linear-gradient(to right,  #F7CAC9, #91a8d0); */
 }
 .button--nina:hover::before {
 	opacity: 0;
