@@ -3,6 +3,7 @@ package com.ssafy.learnway.service.friend;
 import com.ssafy.learnway.domain.friend.Friend;
 import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.repository.friend.FriendRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,9 +13,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class FriendService {
-    @Autowired
-    FriendRepository friendRepository;
+
+    private final FriendRepository friendRepository;
 
     @Transactional(readOnly = true)
     public List<Friend> list(User user) {
@@ -40,8 +42,8 @@ public class FriendService {
     }
 
     @Transactional
-    public void delete(Friend relation) {
-        friendRepository.delete(relation);
+    public void deleteById(Friend relation) {
+        friendRepository.deleteById(relation.getRelationId());
     }
 
     @Transactional(readOnly = true)

@@ -35,7 +35,6 @@ function Translate() {
     async function getTranslate(props) {
         console.log(props);
         try {
-            console.log(process.env.PAPAGO_Client_Id);
             const response = await axios.post(
                 "papagoapi/v1/papago/n2mt",
                 {

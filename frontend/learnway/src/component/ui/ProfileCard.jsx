@@ -9,11 +9,7 @@ const CardTop = styled.div`
     justify-content: space-evenly;
     align-items: center;
     height: 30%;
-    background: linear-gradient(
-        286.15deg,
-        rgba(0, 90, 167, 0.5) 0%,
-        rgba(254, 253, 228, 0.5) 100%
-    );
+    background: linear-gradient(286.15deg, #91a8d0, #f0eee9);
     border-radius: 35px 35px 0px 0px;
 `;
 const CardBottom = styled.div`
@@ -43,7 +39,7 @@ function ProfileCard({ header,name,body,width,height }) {
                     </CardBottom>
                 </>
             }
-            sx={{ borderRadius: "35px", width: width || "100%", height: height ||"50vh" }}
+            sx={{ borderRadius: "35px", width: width || "100%", height: height ||"55vh" }}
         />
     );
     

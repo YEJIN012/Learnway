@@ -87,29 +87,39 @@ const RequestVideoChatBtn = styled.div`
 `;
 function UserProfile(props) {
     if (props.id === 0) {
+        const imgurl = props.userInfo.profileDto.imgUrl
+        const name = props.userInfo.profileDto.name;
+        const latestmsg = props.userInfo.msg;
+        const latestDateTime = props.userInfo.dateTime===null? ["","","","","","",""] :props.userInfo.dateTime;
+        console.log(latestDateTime)
         return (
-            <Frame>
+            <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
-                    <ProfileImg url={props.Room.profileDto.imgUrl}></ProfileImg>
+                    <ProfileImg url={imgurl}></ProfileImg>
                     <DetailBox>
-                        <UserName>{props.Room.profileDto.name}</UserName>
-                        <Info>{props.Room.msg.substr(0, 15)+' ...'}</Info>
+                        <UserName>{name}</UserName>
+                        <Info>{latestmsg.substr(0, 15)+' ...'}</Info>
                     </DetailBox>
                 </UserFrame>
                 <Func>
-                    <LogonTime>{'YY.MM.DDO'}<br/>{'HH:MM pm'}</LogonTime>
-                    <Check></Check>
+                    <LogonTime>{`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}</LogonTime>
+                    
                 </Func>
             </Frame>
         );
     } else if (props.id === 1) {
+        const date = new Date()
+        const imgurl = props.room.profileDto.imgUrl;
+        const name = props.room.profileDto.name;
+        const latestDateTime = props.room.dateTime===null? "" :(date.getDate() - props.room.dateTime[2]);
         return (
+
             <Frame>
                 <UserFrame>
-                    <ProfileImg url={props.Room.profileDto.imgUrl}></ProfileImg>
+                    <ProfileImg url={imgurl}></ProfileImg>
                     <DetailBox>
-                        <UserName>{props.Room.profileDto.name}</UserName>
-                        <Info>{'Offlilne - Last seen. 1 month ago'}</Info>
+                        <UserName>{name}</UserName>
+                        <Info>{`Last seen. ${latestDateTime} ago`}</Info>
                     </DetailBox>
                 </UserFrame>
                 <Func>

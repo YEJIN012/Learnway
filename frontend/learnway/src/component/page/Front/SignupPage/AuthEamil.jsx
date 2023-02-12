@@ -5,6 +5,7 @@ import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 import EmailIcon from '@mui/icons-material/Email';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import AllButton from '../../../ui/AllButton';
 
 const InputbtmFrame = styled.div`
   display: flex;
@@ -73,7 +74,7 @@ export default function AuthEamil({getEmail}) {
           onChange={(e) => {
             setEmail(e.target.value)
           }}
-          icon= {<EmailIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}}  />} 
+          icon= {<EmailIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
         />
         <Button 
           id="0" 

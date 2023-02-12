@@ -7,7 +7,7 @@ import Video from './OvVideo'
 import Translate from './Translate/Translate';
 import Report from './Report/Report';
 import Quit from './Quit/Quit'
-import Friend from './Friend/Friend'
+import SearchProfile from './Friend/SearchProfile'
 import Youtube from './Youtube/Youtube';
 import FloatingBtn from "./CommonComponent/FloatingBtn";
 
@@ -370,9 +370,9 @@ class VideoChatMain extends Component {
 //        const myUserName = this.state.myUserName;
         console.log(this.state.menu)
         const menuList = {
-            0: <Report></Report>,
+            0: <Report user = {this.state.oppoUserName}></Report>,
             1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}></Quit>,
-            2: <Friend></Friend>,
+            2: <SearchProfile user ={this.state.oppoUserName}></SearchProfile>,
             3: <Translate></Translate>,
             4: <Youtube sockId = {this.state.socketId} myId = {this.state.myUserName} oppoId = {this.state.oppoUserName}></Youtube>
         };

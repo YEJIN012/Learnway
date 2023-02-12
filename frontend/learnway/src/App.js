@@ -7,8 +7,6 @@ import Signup from "./component/page/Front/SignupPage/SignUp";
 import FindPwd from "./component/page/Front/FindPassword/FindPwd";
 import Loading from "./component/page/Loading/LoadingPage"
 import RandomMatch from "./component/page/Loading/RandomMatch"
-import Test from "./component/VideoChat/TestPage"
-import TestPage from "./component/chat/TestPage"
 import GoogleSignup from "./component/page/Front/LoginSocial/GoogleSignup";
 import LoginCheck from "./component/page/Front/LoginSocial/LoginCheck";
 import PrivateRoute from "./component/page/Front/utils/PrivateRoute";
@@ -26,8 +24,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route element={<PrivateRoute />}>
-                    <Route path="/test" element={<Test/>}></Route>
-                    <Route path="/testchat" element={<TestPage/>}></Route>
+                   
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
                     <Route path="/loading/match" element={<RandomMatch />}></Route>
