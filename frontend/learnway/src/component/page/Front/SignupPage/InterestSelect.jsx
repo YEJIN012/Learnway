@@ -42,7 +42,6 @@ export default function InterestSelect({
     const initLst = new Array(itdata.length - 1).fill(0);
 
     let [lst, setLst] = useState(initLst);
-    const [isHovering, setIsHovering] = useState(0);
 
     let itobj = [];
 
@@ -116,15 +115,12 @@ export default function InterestSelect({
                                         
                                         // 성공했으면 메인 페이지로 이동
                                         navigate('/');
-                                        alert("환영쓰");
-                                    } else if (status === 202) {
-                                        // 아이디 비밀번호가 틀린 경우,
-                                        alert(msg);
-                                    }
+                                        alert("💑Welcome💑")
+                                    } 
                                 });
                             }
                     })
-                    .catch((err) => alert("서버 연결 실패"));
+                    .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
                 }
             };
             

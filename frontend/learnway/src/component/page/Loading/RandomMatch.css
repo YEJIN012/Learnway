@@ -5,7 +5,7 @@
 .framebody {
     /* @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"); */
     font-family: "Ubuntu", sans-serif;
-    background-image: linear-gradient(to right, #91a8d0, #fffde4);
+    background-image: linear-gradient(to right, #91a8d0, #f0eee9);
     height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -101,6 +101,7 @@ h2 {
     flex-direction: column;
     min-width: 70px;
     margin-left: 2vw;
+    overflow: hidden;
 }
 
 .span {

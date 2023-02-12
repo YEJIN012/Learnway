@@ -10,6 +10,8 @@ const Img = styled.img`
 
 function ProfileImg(props) {
     const { tmpsrc, src, width } = props;
+    // const [imgSrc, setImgSrc] = useState(src)
+    // console.log(imgSrc)
     //tmpsrc : 클라이언트에서 바로 가져오는 이미지src
     //src : s3에서 불러오는 이미지 키값
 
@@ -37,7 +39,7 @@ function ProfileImg(props) {
             setImageUrl(url);
             console.log(url);
         });
-    }, []);
+    }, [src]);
 
     // 이미지 편집에서 선택한 tmpImage있으면 그걸로 보여주기
     return tmpsrc ? (

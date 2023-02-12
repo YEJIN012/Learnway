@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setRefreshToken } from "../utils/Cookie";
 import { accessToken, findUserInfo } from "../actions/userAction";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export default function LoginCheck()  {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [searchParams, setSearchParams] = useSearchParams()
 
+  const [searchParams, setSearchParams] = useSearchParams()
   const flag = searchParams.get("flag");
   
   useEffect (() => {
@@ -26,6 +29,7 @@ export default function LoginCheck()  {
           provider: provider,
           providerId: providerId,
         }
+        alert("💑Welcome💑")
         navigate('/googlesignup', {state: data});
     } else { 
     // 구글 로그인 가입자면 토큰을 받아오고
@@ -40,10 +44,18 @@ export default function LoginCheck()  {
         const getaccessToken = accessToken({accessToken: catchaccessToken});
         dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
 
+        alert("🤗🤗Good to see you again🤗🤗")
         // 성공했으면 메인 페이지로 이동
         navigate(`/`)
       }
   },[])
 
-  return <div>로그인 중입니다</div>;
+  return (
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={true}
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
 };

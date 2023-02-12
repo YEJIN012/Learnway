@@ -107,8 +107,7 @@ const BTN4_FILL = styled.button`
     border: transparent;
     color: #ffffff;
     background-color: #91a8d0;
-    box-shadow: 0px 5px 9px 0px #91a8d0;
-    cursor: pointer;
+    box-shadow: inset 5px 7px 7px #748096;
 `;
 
 const BTN4_UNFILL = styled.button`
@@ -125,6 +124,11 @@ const BTN4_UNFILL = styled.button`
     background-origin: border-box;
     background-clip: content-box, border-box;
     cursor: pointer;
+    :hover {
+        color: #ffff;
+        background-image: linear-gradient(#91a8d0, #91a8d0),
+            linear-gradient(to left, #91a8d0, #91a8d0);
+    }
 `;
 
 

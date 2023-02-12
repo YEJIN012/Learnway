@@ -5,26 +5,27 @@ import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import EmailIcon from "@mui/icons-material/Email";
+import CakeIcon from "@mui/icons-material/Cake";
+import LanguageIcon from "@mui/icons-material/Language";
+import TextSnippetIcon from "@mui/icons-material/TextSnippet";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {useSelector} from 'react-redux'
 
 const Friends = styled.div`
-    width: 11vw;
-    height: 15vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 0.5vw;
-    border: solid 1px black;
+    font-size: 1.7vh;
 `;
 
 const FriendNumber = styled.span`
-    font-size: 2vw;
-    border: solid 1px black;
+    font-size: 3.5vh;
 `;
 
 const Text = styled.span`
-    font-size: 2vw;
+    font-size: 1.3vw;
     color: #7c7c7c;
 `;
 
@@ -125,19 +126,16 @@ function SearchProfile(props) {
         <ProfileCard
             header={
                 <>
-                    <ProfileImg url={userInfo.img}></ProfileImg>
+                    <ProfileImg src={userInfo.img} width={"7vw"}></ProfileImg>
                     <Friends>
-                        <FriendNumber>
-                            {friendCnt}
-                        </FriendNumber>
+                        <FriendNumber>{friendCnt}</FriendNumber>
                         Friends
                     </Friends>
                     {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                     <PersonAddIcon
-                        onClick={() =>
-                            addFriend(myInfo.userEmail, props.user)
-                        }
+                        onClick={() => addFriend(myInfo.userEmail, props.user)}
                         cursor="pointer"
+                        sx={{ scale: "2", color: "#615e5fea" }}
                     />
                 </>
             }
@@ -145,55 +143,101 @@ function SearchProfile(props) {
             body={
                 <>
                     <InputGroup
+                        icon={
+                            <EmailIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Email"
-                        fontSize="1.5vw"
+                        fontSize="1.8vh"
                         fontColor="#000000"
-                        margin="2vw 0vw 0vw 0vw"
-                        inputWidth="20vw"
-                        inputHeight="2vw"
+                        margin="2.5vh 0vw 0vw 0vw"
+                        inputWidth="auto"
+                        inputHeight="auto"
                         obj={<Text>{userInfo.email}</Text>}
                     ></InputGroup>
                     <InputGroup
+                        icon={
+                            <CakeIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Birth"
-                        fontSize="1.5vw"
+                        fontSize="1.8vh"
                         fontColor="#000000"
-                        margin="2vw 0vw 0vw 0vw"
-                        inputWidth="20vw"
-                        inputHeight="2vw"
+                        margin="2.5vh 0vw 0vw 0vw"
+                        inputWidth="auto"
+                        inputHeight="auto"
                         obj={<Text>{userInfo.birth}</Text>}
                     ></InputGroup>
 
                     <InputGroup
+                        icon={
+                            <LanguageIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Language"
-                        fontSize="1.5vw"
+                        fontSize="1.8vh"
                         fontColor="#000000"
-                        margin="2vw 0vw 0vw 0vw"
-                        inputWidth="inherit"
-                        inputHeight="2vw"
+                        margin="2.5vh 0vw 0vw 0vw"
+                        inputWidth="auto"
+                        inputHeight="3vh"
                         obj={<Text>{userInfo.lang}</Text>}
                     ></InputGroup>
 
                     <InputGroup
+                        icon={
+                            <TextSnippetIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Bio"
-                        fontSize="1.5vw"
+                        fontSize="1.8vh"
                         fontColor="#000000"
-                        margin="2vw 0vw 0vw 0vw"
-                        inputWidth="inherit"
-                        inputHeight="2vw"
+                        margin="2.5vh 0vw 0vw 0vw"
+                        inputWidth="auto"
+                        inputHeight="7vh"
+                        overFlow="hidden"
                         obj={<Text>{userInfo.bio}</Text>}
                     ></InputGroup>
                     <InputGroup
+                        icon={
+                            <FavoriteIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Interests"
-                        fontSize="1.5vw"
+                        fontSize="1.8vh"
                         fontColor="#000000"
-                        margin="2vw 0vw 0vw 0vw"
-                        inputWidth="inherit"
-                        inputHeight="2vw"
+                        margin="2.5vh 0vw 0vw 0vw"
+                        inputWidth="auto"
+                        inputHeight="auto"
                         obj={
                             <Text>{interestRernderer(userInfo.interest)}</Text>
                         }
@@ -201,7 +245,7 @@ function SearchProfile(props) {
                 </>
             }
             width="46vw"
-            height="64vw"
+            height="90vh"
         />
     );
 }

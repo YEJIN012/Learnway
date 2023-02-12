@@ -7,13 +7,15 @@ import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import EditIcon from "@mui/icons-material/Edit";
+import EmailIcon from "@mui/icons-material/Email";
+import CakeIcon from "@mui/icons-material/Cake";
 
 const Friends = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 0.5vw;
+    font-size: 1.5vh;
     /* border: solid 1px black; */
 `;
 const FriendNumber = styled.span`
@@ -21,7 +23,7 @@ const FriendNumber = styled.span`
     /* border: solid 1px black; */
 `;
 const Text = styled.span`
-    font-size: 1.2vh;
+    font-size: 2vh;
     color: #000000;
 `;
 const ImgIcon = styled.div`
@@ -125,7 +127,7 @@ function Profile() {
                         <ProfileImg
                             tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌
                             src={imgUrl}
-                            width="8vh"
+                            width="9vh"
                         />
                         <EditIcon
                             onClick={() => selectFile.current.click()}
@@ -154,18 +156,38 @@ function Profile() {
             body={
                 <>
                     <InputGroup
+                        icon={
+                            <EmailIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Email"
-                        fontSize="2vh"
+                        fontSize="1.5vh"
+                        fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"
                         inputWidth="auto"
                         inputHeight="auto"
                         obj={<Text>{userInfo.userEmail}</Text>}
                     ></InputGroup>
                     <InputGroup
+                        icon={
+                            <CakeIcon
+                                sx={{
+                                    color: "#615e5f",
+                                    opacity: "0.5",
+                                    height: "2vh",
+                                }}
+                            />
+                        }
                         flex="column"
                         textValue="Birthday"
-                        fontSize="2vh"
+                        fontSize="1.5vh"
+                        fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"
                         inputWidth="auto"
                         inputHeight="auto"

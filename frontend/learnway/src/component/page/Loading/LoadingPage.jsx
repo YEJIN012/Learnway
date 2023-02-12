@@ -167,6 +167,7 @@ function Loading() {
     //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
     // ];
 
+
     // 오늘의 회화 목록을 가져오는 함수
     function getTodayConv() {
         console.log(useInfo.language.name);

@@ -5,7 +5,6 @@ import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 import EmailIcon from '@mui/icons-material/Email';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import AllButton from '../../../ui/AllButton';
 
 const InputbtmFrame = styled.div`
   display: flex;
@@ -34,7 +33,7 @@ export default function AuthEamil({getEmail}) {
         if (status === 200) {
           setAuth(true)                  
         } else if (status === 202) {
-          alert(msg)
+          alert("This email has already been registered.")
         }
       })
       .catch((err) => console.log(err))
@@ -43,16 +42,15 @@ export default function AuthEamil({getEmail}) {
   // 인증번호 식별 요청
   const handleSubmit = (e) => {
     e.preventDefault();
-    request("post", URL + `?code=${authcode}&user_email=${email}`, email)
+    request("post", URL + `?code=${authcode}&user_email=${email}&find_code=1`, email)
       .then((res) => {
           const status = res.status;
-          const msg = res.msg
           if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
             getEmail(email)
             setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
-            alert(msg)
+            alert("Success")
           }  else {
-            alert(msg)
+            alert("Mismatch")
           }
         })
       .catch((err) => console.log(err))
@@ -108,7 +106,7 @@ export default function AuthEamil({getEmail}) {
                 onChange={(e) => {
                   setAuthcode(e.target.value)
                   }}
-                icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "white", opacity: "0.5"}}  />}
+                icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}}  />}
                 />
               <Button
                 id = "0"

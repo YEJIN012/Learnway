@@ -7,10 +7,12 @@ const Frame = styled.div`
     display:flex;
     flex-direction:column;
     align-items:${props=>props.id == 0 ? 'flex-end' : 'flex-start'};
+    margin-right:1vw;
 `;
 
 const Msg = styled.div`
-    background:${props=>props.id == 0 ? '#0000FF' : '#C2C2C2'};
+    background:${props=>props.id == 0 ? '#73A0C6;' : '#E7E7E7'};
+    color:${props=>props.id == 0 ? '#FFFFFF;' : '#303030'};
     position: relative;
     display: inline-block;
     max-width: calc(100% - 7vw);
@@ -18,7 +20,6 @@ const Msg = styled.div`
     font-size: 1vw;
     border-radius: 23px;
     word-break:break-all;
-    color: #FFFFFF;
 `
 const SendTime = styled.div`
     font-size:0.5vw;
