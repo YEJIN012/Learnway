@@ -25,14 +25,21 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
+        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+
         log.info("Received a new web socket connection");
     }
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) { //session 연결이 종료됨을 감지
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+        String socketType = (String) headerAccessor.getSessionAttributes().get("socketType");
         log.info("websocket session 종료를 감지");
-        rabbitTemplate.convertAndSend(EXCAHGE_NAME, routingKey, event.getMessage().getHeaders().get("simpSessionId").toString());
+
+        if(socketType == null) return;
+        else if(socketType.equals("matching")){
+            rabbitTemplate.convertAndSend(EXCAHGE_NAME, routingKey, event.getMessage().getHeaders().get("simpSessionId").toString());
+        }
         //messagingTemplate.convertAndSend("/sub/chat/room/" + chatMessage.getRoomId(), chatMessage);
     }
 }
