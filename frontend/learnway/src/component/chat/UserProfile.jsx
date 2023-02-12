@@ -1,12 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 const Frame = styled.div`
-    width:inherit;
+    width:88%;
     height:10%;
     display:flex;
     flex-direction:row;
-    border:solid 1px black;
+    // border:solid 1px black;
+    padding-top: 3%;
+    padding-bottom: 1%;
+    border-bottom: .08rem solid #B4ABAB;
+    margin: 0 auto;
+    &:hover{  
+        border-bottom: .08rem solid #615E5F;
+    }
 `;
 
 //youtube resultcomponent와 동일(공통으로 묶기)
@@ -15,18 +23,18 @@ const UserFrame = styled.div`
     height:100%;
     display:flex;
     flex-direction:row;
-    margin:0 0 0 0;
-    border:1px solid black;
+    margin: 0 0 0 0.3vw;
+    // border:1px solid black;
 `;
 
 const ProfileImg = styled.div`
-    width:3vw;
-    height:3vw;
+    width:2.8vw;
+    height:2.8vw;
     background-image: url(${props => props.url || ""});
     background-size:cover;
     border-radius:999px;
-    margin:0vw 0vw 0vw 0vw;
-    border:1px solid black;
+    margin:0vw 0vw 0.5vw 0vw;
+    // border:1px solid black;
 `;
 
 const DetailBox = styled.div`
@@ -34,21 +42,23 @@ const DetailBox = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    border:1px solid black;
+    // border:1px solid black;
+    margin-left:1vw;
 `;
 
 const UserName = styled.span`
-    font-size:1vw;
-    font-weight:700;
-
-    border:1px solid black;
+    font-size:1.1vw;
+    font-weight:900;
+    // border:1px solid black;
+    color : #4F4C4D;
 `;
 
 const Info = styled.span`
-    font-size:0.5vw;
+    font-size:0.8vw;
     font-weight:600;
-
-    border:1px solid black;
+    margin-top:0.4vw;
+    color : #4F4C4D;
+    // border:1px solid black;
 `;
 
 //공통 대상 컴포넌트 영역 끝
@@ -58,18 +68,20 @@ const Func = styled.div`
     height:100%;
     display:flex;
     flex-direction:row;
-    border:1px solid black; 
+    // border:1px solid black; 
 `;
 
 const LogonTime = styled.div`
-width: 80%;
-height: inherit;
-font-size: 0.7vw;
-display: flex;
-justify-content: center;
-align-items: center;
-
-border: 1px solid black;
+    width: 80%;
+    height: inherit;
+    font-size: 0.9vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color : #4F4C4D;
+    margin-top:0.3vw;
+    font-weight:600;
+    // border: 1px solid black;
 `;
 
 const Check = styled.div`
@@ -82,8 +94,7 @@ const Check = styled.div`
 const RequestVideoChatBtn = styled.div`
     width:100%;
     height:inherit;
-
-    border:1px solid black;
+    // border:1px solid black;
 `;
 function UserProfile(props) {
     if (props.id === 0) {
@@ -123,7 +134,9 @@ function UserProfile(props) {
                     </DetailBox>
                 </UserFrame>
                 <Func>
-                    <RequestVideoChatBtn></RequestVideoChatBtn>
+                    <RequestVideoChatBtn>
+                        <VideocamIcon sx={{fontSize: "2vw", margin: "0.5vw 0px 0px 2.7vw", color: "615e5f", opacity: "0.5"}} />
+                    </RequestVideoChatBtn>
                 </Func>
             </Frame>
         );
