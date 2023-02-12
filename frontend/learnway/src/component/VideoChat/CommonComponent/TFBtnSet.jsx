@@ -13,7 +13,7 @@ function TFBtnSet(props){
     return(
         <BtnBox>
             <Button onClick={props.function_cancel} id ="5" radius={props.radius} width={props.width} height={props.height} fontSize={props.fontSize} textValue="cancel"></Button>
-            <Button onClick={props.function_ok} id ="6" radius={props.radius} width={props.width} height={props.height} fontSize={props.fontSize} textValue="OK"></Button>
+            <Button onClick={props.function_ok} id ="4" radius={props.radius} width={props.width} height={props.height} fontSize={props.fontSize} textValue="OK"></Button>
         </BtnBox>
     );
 } export default TFBtnSet;
