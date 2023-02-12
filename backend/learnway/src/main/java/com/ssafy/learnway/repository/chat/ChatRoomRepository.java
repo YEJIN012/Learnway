@@ -85,8 +85,11 @@ public class ChatRoomRepository {
         // 채팅방 정보 삭제
         hashOpsChatRoom.delete(CHAT_ROOMS, roomId);
 
-        // 채팅방 메시지 삭제
-        roomMessages.delete(CHAT_LIST, roomId);
+        List<ChatMessage> messages = roomMessages.get(CHAT_LIST, roomId);
+        if(messages != null){
+            // 채팅방 메시지 삭제
+            roomMessages.delete(CHAT_LIST, roomId);
+        }
 
     }
 
