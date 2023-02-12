@@ -9,7 +9,10 @@ const NEWBTN = styled.button`
     margin: ${props=>props.margin || '0px'};
     font-size: ${props=>props.fontSize || '1.5vw'};
     font-weight: ${props=>props.textWeight || '900'};
-    border-radius: ${props=>props.radius || '15px'};
+    border-radius: ${props => props.radius || '15px'};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 function AllButton({width, height, margin, fontSize, textWeight, radius, textValue, onClick, disabled}){

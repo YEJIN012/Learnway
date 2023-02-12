@@ -21,8 +21,15 @@ const Language = styled.div`
     text-align: center;
     margin: 0 auto;
 
+    font-family: "Raleway", sans-serif;
+    font-size: 1vw;
+    font-style: normal;
+
+    // font-weight: 300;
+    // font-size: 2vw;
+
     &:hover {
-        background-color: rgb(0, 0, 0, 0.5);
+        background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
         color: rgb(255, 255, 255, 100);
     }
 `;
@@ -59,7 +66,7 @@ const SelectLanguage = (props) => {
                         }}
                         >
                             <LangImg src={flag[i].url}></LangImg><br></br>
-                            {data[i].name}
+                            {flag[i].name}
                         </Language>
                     );
                 }

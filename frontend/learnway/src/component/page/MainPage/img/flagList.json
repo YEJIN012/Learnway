@@ -1,7 +1,7 @@
 {
    "data" : [
       {
-         "name":"Korean",
+         "name":"한국어",
          "url":"flag/Korean.png"
       },
       {
@@ -9,43 +9,43 @@
          "url":"flag/English.png"
       },
       {
-         "name":"Japanese",
+         "name":"日本語",
          "url":"flag/Japanese.png"
       },
       {
-         "name":"Chinese",
+         "name":"中文",
          "url":"flag/Chinese.png"
       },
       {
-         "name":"Spanish",
+         "name":"Español",
          "url":"flag/Spanish.png"
       },
       {
-         "name":"French",
+         "name":"Français",
          "url":"flag/French.png"
       },
       {
-         "name":"Vietnamese",
+         "name":"Tiếng Việt",
          "url":"flag/Vietnamese.png"
       },
       {
-         "name":"Thai",
+         "name":"แบบไทย",
          "url":"flag/Thai.png"
       },
       {
-         "name":"Indonesian",
+         "name":"Bahasa Indonesia",
          "url":"flag/Indonesian.png"
       },
       {
-         "name":"Russian",
+         "name":"Русский",
          "url":"flag/Russian.png"
       },
       {
-         "name":"German",
+         "name":"Deutsch",
          "url":"flag/German.png"
       },
       {
-         "name":"Italian",
+         "name":"Italiano",
          "url":"flag/Italian.png"
       }
    ]

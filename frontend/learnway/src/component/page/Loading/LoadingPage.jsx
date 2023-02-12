@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import NavBar from "../../ui/NavBar";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import { useSelector } from "react-redux";
@@ -25,7 +25,7 @@ const SubFrame1 = styled.div`
 
 const Text = styled.div`
     margin-bottom: 7vw;
-    font-size: 2vw;
+    font-size: 3vw;
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ const Box = styled.div`
     flex-direction: column;
     align-items: center;
     /* border: solid 1px black; */
-    background-color: rgba(0, 52, 96, 1);
+    background-color: #00549e;
     color: white;
     padding: 3vw;
 `;
@@ -74,13 +74,12 @@ const BodyFrame = styled.div`
 
 const ConvFrame = styled.div`
     box-sizing: border-box;
-    height: 10vh;
     width: 100%;
     background-color: #9d9d9da0;
     padding: 1.5vh 2vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 `;
 const Stn1 = styled.div`
     /* padding: 1%; */
@@ -95,47 +94,103 @@ const Stn2 = styled.div`
     color: #acacacbd;
 `;
 
-function Loading(params) {
+const animeTextUp = keyframes`
+  0% { top: 0; } 
+  12.5% { top: -1rem; }
+  20% { top: 0 } 
+  40% { top: 0 } 
+  60% { top: 0 } 
+  80% { top: 0 } 
+  100% { top: 0 }
+`;
+
+const TestObj = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const TestSpan = styled.span`
+    position: relative;
+    animation: ${animeTextUp} 2s infinite;
+    /* font-family: "nanumSquareNeo"; */
+
+    &:nth-of-type(1) {
+        animation-delay: 0.1s;
+    }
+
+    &:nth-of-type(2) {
+        animation-delay: 0.2s;
+    }
+
+    &:nth-of-type(3) {
+        animation-delay: 0.3s;
+    }
+
+    &:nth-of-type(4) {
+        animation-delay: 0.4s;
+    }
+
+    &:nth-of-type(5) {
+        animation-delay: 0.5s;
+    }
+
+    &:nth-of-type(6) {
+        animation-delay: 0.6s;
+    }
+
+    &:nth-of-type(7) {
+        animation-delay: 0.7s;
+    }
+
+    &:nth-of-type(8) {
+        animation-delay: 0.8s;
+    }
+`;
+
+function Loading() {
     const useInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
     // console.log(useInfo)
-    // const [lngConv, setLngConv] = useState([])
-    const lngConv = [
-        "Call your parents at least once a month.",
-        "I jog at least three times a week to keep fit.",
-        // "Is there anything I can do to make it up to you?",
-        // "I'll make it up to you for forgetting your birthday.",
-    ];
-    // const [studyLngConv, setStudyLngConv] = useState([])
-    const studyLngConv = [
-        "적어도 한 달에 한 번은 부모님께 전화를 드려.",
-        "건강을 유지하기 위해 적어도 일주일에 세 번은 조깅을 한다.",
-        // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
-        // "생일을 잊어버린 것에 대해 성의를 보일게.",
-    ];
+    const [lngConv, setLngConv] = useState([]);
+    // const lngConv = [
+    //     "Call your parents at least once a month.",
+    //     "I jog at least three times a week to keep fit.",
+    //     // "Is there anything I can do to make it up to you?",
+    //     // "I'll make it up to you for forgetting your birthday.",
+    // ];
+    const [studyLngConv, setStudyLngConv] = useState([]);
+    // const studyLngConv = [
+    //     "적어도 한 달에 한 번은 부모님께 전화를 드려.",
+    //     "건강을 유지하기 위해 적어도 일주일에 세 번은 조깅을 한다.",
+    //     // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
+    //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
+    // ];
 
-    //오늘의 회화 목록을 가져오는 함수
-    // function getTodayConv() {
-    //     console.log(useInfo.language.name)
-    //     console.log(studyLng)
-    //     axios
-    //         .get("api/conv", {
-    //             params: { lng: useInfo.language.name, study_lng: studyLng },
-    //         })
-    //         // handle success
-    //         .then(function (res) {
-    //             console.log()
-    //             setLngConv(res.data.conversation.lng);
-    //             setStudyLngConv(res.data.conversation.studyLng);
-    //             console.log(res);
-    //             console.log(lngConv);
-    //             console.log(studyLngConv);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-    // useEffect(() => {getTodayConv()}, [])
+    // 오늘의 회화 목록을 가져오는 함수
+    function getTodayConv() {
+        console.log(useInfo.language.name);
+        console.log(studyLng);
+        axios
+            .get("api/conv", {
+                params: { lng: useInfo.language.name, study_lng: studyLng },
+            })
+            // handle success
+            .then(function (res) {
+                console.log();
+                setLngConv(res.data.conversation.lng.slice(0, 2));
+                setStudyLngConv(res.data.conversation.studyLng.slice(0, 2));
+                console.log(res);
+                console.log(lngConv);
+                console.log(studyLngConv);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    useEffect(() => {
+        getTodayConv();
+    }, []);
 
     return (
         <>
@@ -143,7 +198,18 @@ function Loading(params) {
             <Frame>
                 <SubFrame1>
                     <div className="sign">
-                    <Text>Matching...</Text>
+                        <Text>
+                            <TestObj>
+                                <TestSpan>M</TestSpan>
+                                <TestSpan>A</TestSpan>
+                                <TestSpan>T</TestSpan>
+                                <TestSpan>C</TestSpan>
+                                <TestSpan>H</TestSpan>
+                                <TestSpan>I</TestSpan>
+                                <TestSpan>N</TestSpan>
+                                <TestSpan>G</TestSpan>
+                            </TestObj>
+                        </Text>
                         <div className="moving">
                             <div className="suitcase">
                                 <div className="handle"></div>
@@ -175,7 +241,13 @@ function Loading(params) {
                             ></FlightTakeoffIcon>
                             Today's Conversation
                         </TitleFrame>
-                        <hr style={{width:"100%", height:2 , backgroundColor:"white"}}/>
+                        <hr
+                            style={{
+                                width: "100%",
+                                height: 2,
+                                backgroundColor: "white",
+                            }}
+                        />
                         <BodyFrame>
                             {lngConv.map((lng, i) => (
                                 <ConvFrame key={i}>

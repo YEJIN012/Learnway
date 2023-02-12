@@ -31,7 +31,9 @@ const Text = styled.span`
 
 // Friend말고 상대방프로필로 함수명 바꿔야할듯..
 function SearchProfile(props) {
-    const stored = useSelector(state => state.UserStore);
+    // 내정보
+    const myInfo = useSelector(state => state.AuthReducer);
+    // 상대방정보
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
@@ -133,7 +135,7 @@ function SearchProfile(props) {
                     {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                     <PersonAddIcon
                         onClick={() =>
-                            addFriend(stored.userEmail, props.user)
+                            addFriend(myInfo.userEmail, props.user)
                         }
                         cursor="pointer"
                     />

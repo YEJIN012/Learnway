@@ -65,7 +65,7 @@ const BTN3_FILL = styled.button`
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
     
-    background: ${props=>props.disabled? 'gray': '#005AA7'};
+    background: ${props=>props.disabled? 'gray': '#91a8d0'};
     border-radius: ${props=>props.radius || '0px'};
     border:none;
     
@@ -84,7 +84,7 @@ const BTN3_UNFILL = styled.button`
     height:${props=>props.height || '30px'};
     margin: ${props=>props.margin || '10px'};
 
-    border: 3px solid #005AA7;
+    border: 3px solid #91a8d0;
     border-radius: ${props=>props.radius || '0px'};
     background:none;
 
@@ -92,36 +92,36 @@ const BTN3_UNFILL = styled.button`
     font-style: normal;
     font-weight: ${props=>props.textWeight || '700'};
     font-size: ${props=>props.fontSize || '20px'};
-    color: #005AA7;
+    color: #91a8d0;
     text-align: center;
     cursor: pointer;
 `;
 
 const BTN4_FILL = styled.button`
-    width: ${props=>props.width || '166px'};
-    height: ${props=>props.height || '56px'};
-    margin: ${props=>props.margin || '10px'};
-    font-size: ${props=>props.fontSize || '20px'};
-    font-weight: ${props=>props.textWeight || '700'};
-    border-radius: ${props=>props.radius || '999px'};
+    width: ${(props) => props.width || "166px"};
+    height: ${(props) => props.height || "56px"};
+    margin: ${(props) => props.margin || "10px"};
+    font-size: ${(props) => props.fontSize || "20px"};
+    font-weight: ${(props) => props.textWeight || "700"};
+    border-radius: ${(props) => props.radius || "999px"};
     border: transparent;
-    color: #FFFFFF;
-    background-color: #005aa7;
-    box-shadow: 0px 3px 8px 0px rgba(0, 90, 167, 1);
+    color: #ffffff;
+    background-color: #91a8d0;
+    box-shadow: 0px 5px 9px 0px #91a8d0;
     cursor: pointer;
 `;
 
 const BTN4_UNFILL = styled.button`
-    width: ${props=>props.width || '166px'};
-    height: ${props=>props.height || '56px'};
-    margin: ${props=>props.margin || '10px'};
-    font-size: ${props=>props.fontSize || '20px'};
-    font-weight: ${props=>props.textWeight || '700'};
-    border-radius: ${props=>props.radius || '999px'};
+    width: ${(props) => props.width || "166px"};
+    height: ${(props) => props.height || "56px"};
+    margin: ${(props) => props.margin || "10px"};
+    font-size: ${(props) => props.fontSize || "20px"};
+    font-weight: ${(props) => props.textWeight || "700"};
+    border-radius: ${(props) => props.radius || "999px"};
     border: 3px solid transparent;
-    color: #005aa7;
+    color: #91a8d0;
     background-image: linear-gradient(#ffff, #ffff),
-        linear-gradient(to left, #005aa7, #fdfceb);
+        linear-gradient(to left, #91a8d0, #f0eee9);
     background-origin: border-box;
     background-clip: content-box, border-box;
     cursor: pointer;
