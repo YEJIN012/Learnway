@@ -3,44 +3,50 @@ import react,{useState} from 'react';
 import styled from 'styled-components';
 
 const Frame=styled.div`
-    width:inherit;
-    height:7vw;
-    display:flex;
-    flex-direction:row;
-    margin:2vw 0 2vw 0;
-    border:1px solid black;
-    cursor:pointer;
-`;
+width: inherit;
+height: 5vw;
+display: flex;
 
-const Snapshot = styled.div`
-    width:35%;
-    height:inherit;
-    background-image: url(${props => props.url || ""});
-    background-size:cover;
-    border:1px solid black;
+flex-direction: row;
+margin: 0.5vw 0.5vw 0;
+cursor: pointer;
+align-items:center;
+`;
+const ImgFrame=styled.div`
+    height: 8.4vh;
+    background: yellow;
+    overflow: hidden;
+    border-radius:5px;
+`;
+const Snapshot = styled.img`
+width: inherit;
+height: 6vw;
+margin: 0vw 0 0.5vw 0;
+position:relative;
+top:-2vh
 `;
 
 const DetailBox = styled.div`
-    width:65%;
-    height:inherit;
-    display:flex;
-    flex-direction:column;
-    border:1px solid black;
+width: 65%;
+height: inherit;
+display: flex;
+flex-direction: column;
+justify-content: center;
 `;
 
 const Title = styled.span`
-    font-size:2vw;
-    font-weight:700;
-    margin-left:0.5vw;
+font-size: 1.3vw;
+font-weight: 700;
+margin-left: 0.3vw;
 `;
 const Uploader = styled.div`
-    width:100%;
-    height:inherit;
-    display:flex;
-    flex-direction:row;
-    align-items:center;
-    
-    border:1px solid black;
+
+height: 4vh;
+display: flex;
+flex-direction: row;
+align-items: center;
+margin-left: 0.7vw;
+
 `;
 
 const ProfileImg = styled.div`
@@ -54,9 +60,10 @@ border: 1px solid black;
 
 `;
 const UserName = styled.span`
-    width:80%;
-    font-size:1.6vw;
-    font-weight:600;
+width: 80%;
+font-size: 1vw;
+font-weight: 500;
+color: #838383;
 `;
 
 function ResultComponent({...props}){
@@ -64,12 +71,14 @@ function ResultComponent({...props}){
 
 
     return(
-        <Frame onClick={()=>{props.click(props.id)}}>
-            <Snapshot url={props.imgUrl}></Snapshot>
+        <Frame onClick={()=>{props.click(props.id); props.getTitle(props.title)}}>
+            <ImgFrame>
+            <Snapshot src={props.imgUrl}></Snapshot>
+            </ImgFrame>
             <DetailBox>
-                <Title>{(props.title).substr(0, 10)+" ..."}</Title>
+                <Title>{(props.title).substr(0, 11)+" ..."}</Title>
                 <Uploader>
-                    <UserName >{(props.uploader).substr(0,10)+" ..."}</UserName>
+                    <UserName >{(props.uploader).substr(0,11)+" ..."}</UserName>
                 </Uploader>
             </DetailBox>
         </Frame>
