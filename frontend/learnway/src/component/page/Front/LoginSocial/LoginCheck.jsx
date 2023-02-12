@@ -3,12 +3,15 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setRefreshToken } from "../utils/Cookie";
 import { accessToken, findUserInfo } from "../actions/userAction";
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 export default function LoginCheck()  {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [searchParams, setSearchParams] = useSearchParams()
 
+  const [searchParams, setSearchParams] = useSearchParams()
   const flag = searchParams.get("flag");
   
   useEffect (() => {
@@ -45,5 +48,12 @@ export default function LoginCheck()  {
       }
   },[])
 
-  return <div>로그인 중입니다</div>;
+  return (
+    <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open="ture"
+    >
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
 };

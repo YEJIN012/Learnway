@@ -46,13 +46,12 @@ export default function AuthEamil({getEmail}) {
     request("post", URL + `?code=${authcode}&user_email=${email}&find_code=1`, email)
       .then((res) => {
           const status = res.status;
-          const msg = res.msg
           if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
             getEmail(email)
             setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
-            alert(msg)
+            alert("Success")
           }  else {
-            alert(msg)
+            alert("Mismatch")
           }
         })
       .catch((err) => console.log(err))

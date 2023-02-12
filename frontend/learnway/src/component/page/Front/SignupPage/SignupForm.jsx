@@ -49,7 +49,7 @@ export default function SignupForm({getUserinfo}) {
 
   // 닉네임이 중복되지 않으면 들어오면 Next button 활성화
   useEffect(() => {
-    if (msg === "사용가능한 닉네임입니다.") {
+    if (msg === "What a great name.") {
       setDisabled(false)
     } else {
       setDisabled(true)
@@ -57,7 +57,21 @@ export default function SignupForm({getUserinfo}) {
   }, [msg])
   
   // 닉네임이 변경되면 중복여부 체크
-  request("get",`/users/dupName?name=${username}`).then((res) => setMsg(res.msg) )
+  // request("get",`/users/dupName?name=${username}`).then((res) => setMsg(res.msg) )
+  request("get",`/users/dupName?name=${username}`).then((res) => { 
+    console.log(res);
+    switch (res.msg) {
+      case "사용가능한 닉네임입니다.":
+        setMsg("What a great name.");
+        break;
+      case "사용중인 닉네임입니다. ":
+        setMsg("This is a duplicate name.");
+        break;
+      default:
+        setMsg("Enter your name");
+        break;
+    }
+  })
   
 
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
@@ -96,7 +110,7 @@ export default function SignupForm({getUserinfo}) {
         
     }
     else {
-      alert("비밀번호가 다릅니다.")
+      alert("Please check your password.")
     }
   };
 
