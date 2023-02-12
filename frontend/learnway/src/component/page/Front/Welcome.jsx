@@ -22,7 +22,7 @@ const Welcome = () => {
                     /></span><Cursor/>
                 </div>
                 <div>Fly over the 
-                    <strong className="middle-blue-font"> RUNWAY </strong>
+                    <strong className="middle-pink-font"> RUNWAY </strong>
                      with our 
                     <strong className="middle-blue-font"> LEARNWAY</strong>
                     .

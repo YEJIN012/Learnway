@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteInfo } from "../page/Front/actions/userAction";
 import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
+import logo from "../page/Front/img/logo_skyblue.png";
 
 const Wrapper = styled.div`
     height: 30px;
@@ -18,13 +19,18 @@ const Img = styled.div`
 `;
 const Menu = styled.div`
     display: flex;
-    font-size: 20px;
+    font-size: 23px;
+    color : #91a8d0;
+    font-weight : bolder;
 `;
 const MenuBtn = styled.div`
+    &:hover{  
+        color : #DAAAA9
+    }
     display: flex;
     margin-right: 30px;
     margin-left: 20px;
-    text-decoration:  underline; 
+    text-decoration:  none; 
     cursor: pointer;
 `;
 
@@ -65,7 +71,7 @@ function NavBar(params) {
         <Wrapper>
             <NavLink to="/">
                 <Img>
-                    <img src="/logo.png" alt="" />
+                    <img src={logo} alt="" />
                 </Img>
             </NavLink>
             <Menu>

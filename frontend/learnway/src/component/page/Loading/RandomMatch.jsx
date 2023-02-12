@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import "./RandomMatch.css";
+import logo from "../../page/Front/img/logo_skyblue.png";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
 
@@ -68,7 +69,7 @@ export default function RandomMatch() {
                     <div className="receipts-wrapper">
                         <div className="receipts">
                             <div className="receipt">
-                                <img src="/logo.png" alt="" width={"150"} />
+                                <img src={logo} alt="" width={"150"} />
 
                                 <div className="route">
                                     <Lang>{myInfo.language.code}</Lang>

@@ -5,7 +5,7 @@
 .framebody {
     /* @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"); */
     font-family: "Ubuntu", sans-serif;
-    background-image: linear-gradient(to right, #005aa7, #fffde4);
+    background-image: linear-gradient(to right, #91a8d0, #fffde4);
     height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

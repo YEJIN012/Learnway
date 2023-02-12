@@ -3,22 +3,17 @@ import styled from "styled-components";
 import lottie from "lottie-web";
 import data from './animation/BGTop.json';
 
-const AniImg = styled.div`    
-    position: absolute;
-    z-index : -1;
-    max-width: initial;
-    width: 100%;
+const AniImg = styled.div`   
+    z-index : -2;
+    overflow: hidden;
 `;
 
 const Wrapper = styled.div`
     width: 50%;
-    height: 50%;
-    text-align: center;
-    right: 0px;
-    top: 0px;
-    overflow: hidden;
+    right: 0;
+    top: 0;
     position: absolute;
-    z-index : -1;
+    z-index : -2;
 `;
 
 function BGTopAnimation(){
