@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
-import camIcon from "./camIcon.png";
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 //호출 시 npm i react-webcam 필수
 import Webcam from 'react-webcam';
+import ChkCamera from '@mui/icons-material/CameraAlt'
 
 import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
@@ -50,6 +50,11 @@ const Small = styled.div`
     opacity: 0.8;
 `;
 
+const Mid = styled.div`
+    font-size:0.7vw;
+    opacity:0.8;
+`;
+
 const Component = styled.div`
     // height:24vmax;
     
@@ -60,6 +65,14 @@ const SelectSection = styled.div`
     flex-direction:row;
     position: relative;
     padding: 1vw 1vw;
+
+    font-family: "Raleway", sans-serif;
+    font-weight: bolder;
+    font-size: 2vw;
+    
+    // font-style: normal;
+    // font-weight: 300;
+    // font-size: 2vw;
 
 	&::after {
 		content: '';
@@ -74,14 +87,11 @@ const SelectFrame = styled.div`
     display: flex;
     justify-content:center;
     align-items: center;
+    flex-direction: column;///
 `;
 
 const SelectLink = styled.div`
     text-decoration:none;
-    // font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 300;
-    font-size: 2vw;
     display: flex;
     justify-content:center;
     align-items: center;
@@ -89,13 +99,13 @@ const SelectLink = styled.div`
     padding: 15px 40px;
 
     &:hover {
-        background-color: rgb(0, 0, 0, 0.5);
+        background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
         color: rgb(255, 255, 255, 100);
     }
 `;
 
 const BtnSection = styled.div`
-    border-top:1px solid black;
+    border-top:1px solid rgba(83, 83, 83, .8);
     height:40%;
     display: flex;
     flex-direction: row;
@@ -104,19 +114,12 @@ const BtnSection = styled.div`
     padding: 2vw 1vw;
 `;
 
-const ChkCamera = styled.div`
-    width:3vw;
-    height:3vw;
-    background-image:url(${camIcon});
-    background-size:cover;
-`;
-
 const camStyle = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '60vmin',
+    width: '70vmin',
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
@@ -159,8 +162,7 @@ const languagestyle = {
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
-  };
-
+};
 
 function startMatching(lang1, lang2) {
     alert(lang1.toString() + " " + lang2.toString() + " 매칭 페이지 처리");
@@ -202,21 +204,25 @@ function Body() {
                 </Img> */}
                 <Flight>
                     <Small>flight</Small>
-                    <strong>AZ 356</strong>
+                    <strong>A408</strong>
                 </Flight>
             </Header>
 
             <SelectSection>
                 
-                <MyLanguage>
-                </MyLanguage>
+                <SelectFrame>
+                    <Mid>Departures</Mid>
+                    <MyLanguage>
+                    </MyLanguage>
+                </SelectFrame>
                 
                 <SelectFrame>
                     {/* <SelectLanguage></SelectLanguage> */}
                 </SelectFrame>
 
                 <SelectFrame>
-                        <SelectLink onClick={popupOpen}>{oppolang.toString()}</SelectLink>
+                    <Mid>Arrivals</Mid>
+                    <SelectLink onClick={popupOpen}>{oppolang.toString()}</SelectLink>
                     <Modal
                         open={popup}
                         onClose={popupClose}
@@ -260,7 +266,12 @@ function Body() {
                         radius="15px"
                         margin="0px"
                         onClick={() => startMatching(mylang.languageId, oppolang)} />
-                    <ChkCamera onClick={handleOpen}></ChkCamera>
+                    <ChkCamera onClick={handleOpen} sx={{
+                        color: "#91a8d0",
+                        width: "4vw",
+                        height: "4vw",
+                        padding:"0 1.5vw"
+                    }}></ChkCamera>
                     <Modal
                         open={open}
 
@@ -268,7 +279,11 @@ function Body() {
                         aria-describedby="modal-modal-description"
                     >
                         <Box sx={camStyle}>
-                            <Typography id="modal-modal-title" variant="h5" component="h2">
+                            <Typography id="modal-modal-title" sx={{
+                                'font-family': '"Raleway", sans-serif',
+                                'font-size': '1vw',
+                                'text-align': 'center'
+                            }}>
                                 대화 입장 전, 웹캠 상태 확인 및 점검을 할 수 있습니다.
                             </Typography>
                             <Typography id="modal-modal-description"
@@ -279,7 +294,14 @@ function Body() {
                                     'align-items': 'center'
                                 }}>
                                 <Webcam style={webcamStyle} />
-                                <Button id="4" width="5vw" height="2vw" onClick={handleClose}>확인 완료</Button>
+                                <AllButton
+                                    textValue="확인완료"
+                                    width="50%"
+                                    fontSize="1.5vw"
+                                    textWeight="900"
+                                    radius="15px"
+                                    margin="1.5vw"
+                                    onClick={handleClose} />
                             </Typography>
                         </Box>
 
