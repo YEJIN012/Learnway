@@ -6,6 +6,7 @@ import com.ssafy.learnway.domain.user.User;
 import com.ssafy.learnway.dto.user.ProfileDto;
 import com.ssafy.learnway.dto.chat.ChatMessage;
 import com.ssafy.learnway.dto.friend.RoomDto;
+import com.ssafy.learnway.repository.chat.ChatRoomRepository;
 import com.ssafy.learnway.repository.friend.RoomRepository;
 import com.ssafy.learnway.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
 
     private final UserService userService;
+    private final ChatRoomRepository chatRoomRepository;
 
     @Transactional
     public Room createRoom(Friend friend, String roomId){
@@ -66,6 +68,7 @@ public class RoomService {
 
     @Transactional
     public void deleteByRoomId(String roomId){
+        chatRoomRepository.deleteChatRoom(roomId); //redis
         roomRepository.deleteByRoomId(roomId);
     }
 
