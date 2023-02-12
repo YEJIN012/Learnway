@@ -23,8 +23,6 @@ const BtnFrame = styled.div`
   justify-content: space-between;
 `;
 
-
-
 export default function LoginForm () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
