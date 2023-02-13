@@ -103,8 +103,8 @@ function UserProfile(props) {
         const name = props.userInfo.profileDto.name;
         const latestmsg = props.userInfo.msg;
         const latestDateTime = props.userInfo.dateTime===null? ["","","","","","",""] :props.userInfo.dateTime;
-        console.log(latestDateTime)
-        console.log(imgurl)
+        // console.log(latestDateTime)
+        // console.log(imgurl)
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>

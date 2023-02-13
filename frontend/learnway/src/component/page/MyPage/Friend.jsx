@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
+import {chatRoomLst} from "../../chat/actions/profileAction"
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
@@ -126,6 +127,11 @@ function Friend(props) {
                                 userEmail: myInfo.userEmail,
                                 friendEmail: userInfo.userEmail,
                             });
+                            // 바뀐 나의 채팅방리스트(친구끊으면 채팅방소멸) 호출 및 redux 갱신
+                            const roomList = chatRoomLst(myInfo.userEmail)
+                            console.log(roomList)
+                            roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
+                            
                             handleDeletedFriend()
                         }}
                         cursor="pointer"
@@ -133,10 +139,17 @@ function Friend(props) {
                     <SendIcon
                         color="#e7e7e7"
                         onClick={() => {
+                                // 방만드는 aioxs함수 호출
                                 MakeChat({
                                     userEmail: myInfo.userEmail,
                                     friendEmail: userInfo.userEmail,
                                 })
+
+                                // 바뀐 나의 채팅방리스트 호출 및 redux 갱신
+                                const roomList = chatRoomLst(myInfo.userEmail)
+                                roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
+                                
+                                // chatting Open
                                 dispatch({
                                     type: "ChatBtnUpdate",
                                     payload: true,

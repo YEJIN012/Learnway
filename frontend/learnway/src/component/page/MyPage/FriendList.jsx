@@ -7,6 +7,10 @@ import FriendListItem from "./FriendListItem";
 function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)
+    console.log(deletedFriend)
+    const { deleted, setdeleted } = useState(deletedFriend)
+
+
 
     const store = useSelector((state) => state.AuthReducer);
     // const [friends, setFriends] = useState(""); // 친구들의 이메일Array

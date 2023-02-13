@@ -15,8 +15,8 @@ const Icon = styled.div`
     background-size: cover;
     position: fixed;
     z-index: 9999;
-    left: 95vw;
-    top: 85vh;
+    right: 6vw;
+    bottom: 8vh;
     // border:solid 1px black;
     box-shadow: 1px 2px 12px #a4a4a4;
     border-radius: 50%;
@@ -30,8 +30,8 @@ const ChatPanel = styled.div`
     height: 30vw;
     position: fixed;
     z-index: 9999;
-    left: 78vw;
-    top: 23vh;
+    right: 6vw;
+    bottom: 19vh;
     background-color: #ffffff; /* 까만색(0,0,0) */
     opacity: 0.96;
     border-radius: 35px;
