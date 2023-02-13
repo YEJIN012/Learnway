@@ -11,6 +11,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import {useSelector} from 'react-redux'
+import { motion } from "framer-motion";
 
 const Friends = styled.div`
     display: flex;
@@ -123,6 +124,14 @@ function SearchProfile(props) {
         return result;
     }
     return (
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.1,
+          ease: [0.5, 0.71, 0.98, 1.01]
+        }} >
         <ProfileCard
             header={
                 <>
@@ -136,7 +145,7 @@ function SearchProfile(props) {
                         onClick={() => addFriend(myInfo.userEmail, props.user)}
                         cursor="pointer"
                         sx={{ scale: "2", color: "#615e5fea" }}
-                    />
+                        />
                 </>
             }
             name={userInfo.name}
@@ -145,11 +154,11 @@ function SearchProfile(props) {
                     <InputGroup
                         icon={
                             <EmailIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
+                            sx={{
+                                color: "#615e5f",
+                                opacity: "0.5",
+                                height: "2vh",
+                            }}
                             />
                         }
                         flex="column"
@@ -160,15 +169,15 @@ function SearchProfile(props) {
                         inputWidth="auto"
                         inputHeight="auto"
                         obj={<Text>{userInfo.email}</Text>}
-                    ></InputGroup>
+                        ></InputGroup>
                     <InputGroup
                         icon={
                             <CakeIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
+                            sx={{
+                                color: "#615e5f",
+                                opacity: "0.5",
+                                height: "2vh",
+                            }}
                             />
                         }
                         flex="column"
@@ -184,11 +193,11 @@ function SearchProfile(props) {
                     <InputGroup
                         icon={
                             <LanguageIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
+                            sx={{
+                                color: "#615e5f",
+                                opacity: "0.5",
+                                height: "2vh",
+                            }}
                             />
                         }
                         flex="column"
@@ -199,16 +208,16 @@ function SearchProfile(props) {
                         inputWidth="auto"
                         inputHeight="3vh"
                         obj={<Text>{userInfo.lang}</Text>}
-                    ></InputGroup>
+                        ></InputGroup>
 
                     <InputGroup
                         icon={
                             <TextSnippetIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
+                            sx={{
+                                color: "#615e5f",
+                                opacity: "0.5",
+                                height: "2vh",
+                            }}
                             />
                         }
                         flex="column"
@@ -220,15 +229,15 @@ function SearchProfile(props) {
                         inputHeight="7vh"
                         overFlow="hidden"
                         obj={<Text>{userInfo.bio}</Text>}
-                    ></InputGroup>
+                        ></InputGroup>
                     <InputGroup
                         icon={
                             <FavoriteIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
+                            sx={{
+                                color: "#615e5f",
+                                opacity: "0.5",
+                                height: "2vh",
+                            }}
                             />
                         }
                         flex="column"
@@ -241,12 +250,13 @@ function SearchProfile(props) {
                         obj={
                             <Text>{interestRernderer(userInfo.interest)}</Text>
                         }
-                    ></InputGroup>
+                        ></InputGroup>
                 </>
             }
             width="46vw"
             height="90vh"
-        />
+            />
+        </motion.div>
     );
 }
 export default SearchProfile;

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import styled,{css} from 'styled-components';
+import { delay, motion } from "framer-motion";
 
 const Video = styled.video`
 ${props=> props.pubsub === 'pub'
@@ -8,7 +9,7 @@ ${props=> props.pubsub === 'pub'
     height:inherit;
 `;
 
-const MyVideoFrame = styled.video`
+const MyVideoFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
 width:max-content;
 height: auto;
@@ -31,7 +32,7 @@ box-shadow:2px 3px 9px -1px #222222;
 
 `;
 
-const OppoVideoFrame = styled.video`
+const OppoVideoFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
 position:fixed;
 z-index:1;
@@ -73,10 +74,23 @@ function OpenViduVideoComponent({ streamManager, size , pubsub}){
     return (
         <>
         {pubsub === 'pub'?(
-            <MyVideoFrame autoPlay={true} ref={videoRef} fixSizeId={size} />
+            <MyVideoFrame 
+            layout
+            autoPlay={true} ref={videoRef} fixSizeId={size} 
+            />
 
         ):(
-            <OppoVideoFrame autoPlay={true} ref={videoRef} fixSizeId={size} />
+            <OppoVideoFrame 
+            layout
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.1,
+              ease: [0, 0.71, 0.2, 1.01]
+            }}
+            autoPlay={true} ref={videoRef} fixSizeId={size} 
+            />
         )}
         </>)
 };
