@@ -28,16 +28,16 @@ export default function FloatingBtn(props) {
     // console.log(Object.keys(menuList));
     return (
         <>
-            <Fab icon={<AddIcon />} mainButtonStyles={{backgroundColor:"#91a8d0"}} >
+            <Fab  icon={<AddIcon />} mainButtonStyles={{backgroundColor:"#91a8d0"}} >
                 {Object.keys(menuList).map((e, index) => (
-                        <Action
-                            style={(index === selected) ? {backgroundColor:"#ffffff", scale:"1.2"} : {backgroundColor:"#e9e9e9"}}
-                            key={index}
-                            text={e}
-                            onClick={() => handleSetSelected(index)}
-                        >
-                            {menuList[e]}
-                        </Action>
+                    <Action
+                        style={(index === selected) ? {backgroundColor:"#ffffff", scale:"1.2"} : {backgroundColor:"#e9e9e9"}}
+                        key={index}
+                        text={e}
+                        onClick={() => handleSetSelected(index)}
+                    >
+                        {menuList[e]}
+                    </Action>
                 ))}
             </Fab>
         </>
