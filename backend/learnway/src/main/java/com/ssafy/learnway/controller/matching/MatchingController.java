@@ -79,8 +79,8 @@ public class MatchingController {
         // 방 이름 생성
         String roomId = createRandomStrUsingUtilsRandomAlphanumeric();
 
-        Result matchingUser1Result = Result.builder().profileDto(matchingUser2).roomId(roomId).flag(true).build();
-        Result matchingUser2Result = Result.builder().profileDto(matchingUser1).roomId(roomId).flag(false).build();
+        Result matchingUser1Result = Result.builder().profileDto(matchingUser2).roomId(roomId).recorder(true).build();
+        Result matchingUser2Result = Result.builder().profileDto(matchingUser1).roomId(roomId).recorder(false).build();
 
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)

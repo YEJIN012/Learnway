@@ -14,5 +14,5 @@ public class Result {
 
     String roomId;
 
-    boolean flag;
+    boolean recorder;
 }
