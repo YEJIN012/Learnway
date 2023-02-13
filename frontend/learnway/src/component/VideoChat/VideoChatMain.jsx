@@ -40,7 +40,7 @@ const VideoArea = styled.div`
   justify-content: center;
 `;
 
-const VideoFrame = styled.div`
+const VideoFrame = styled(motion.div)`
   ${(props) =>
     props.fixSizeId >= 0 &&
     props.fixSizeId <= 4 &&
