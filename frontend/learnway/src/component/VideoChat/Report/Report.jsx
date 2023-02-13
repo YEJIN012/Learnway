@@ -11,23 +11,29 @@ const Frame = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    height:42vw;
+    // height:42vw;
 `;
 
 const PreInput = styled.input`
     // width:${props => props.inputWidth || '2vw'};
+    width: 5.2vw;
     height:2.5vw;
-    font-size:1.5vw;
+    // font-size:1.5vw;
+
+    &:focus{
+        outline:none;
+    }
     
+    text-align: center;
     border:none;
-    border-radius:5px;
-    background:#D9D9D9;
     color:#9B8383
 `;
 
 const PreInputGroup = styled.div`
     // width:22vw;
     // height:inherit;
+    height:1vw;
+
     display:flex;
     flex-direction:row;
     display: -webkit-flex;
@@ -38,17 +44,23 @@ const PreInputGroup = styled.div`
 const ChkBoxGroup = styled.div`
     width:inherit;
     height:inherit;
-    // border-radius:5px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding : 1vw;
-    // border:solid 1px #000000;
 `;
 
 const LargeInput = styled.textarea`
-    width:inherit;
-    height:inherit;
+    width: 100%;
+    border: none;
+    resize: none;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+
+    &:focus{
+        outline:none;
+    }
 `;
 
 const Label = styled.div`
@@ -57,14 +69,15 @@ const Label = styled.div`
     font-size: 1vw;
     text-align: center;
     height: 5vw;
+    vertical-align: middle;
     
     // background: #fff;
     border-radius: 12px;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 7%);
     overflow: hidden;
     text-transform: uppercase;
     align-items: center;
-    margin: 0.5vw;
+    margin: 0.2vw;
 `;
 
 const ChkLabel = styled.label``;
@@ -137,11 +150,11 @@ function Report(props) {
         let result = [];
 
         const labelContent = [
-            ["Sexual access", <br />, "(sexual harassment, forced conversation, pornographic broadcasts, etc)"],
-            ["verbal abuse", <br />, "(abuse, disparaging remarks, etc)"],
-            ["Harmful or dangerous acts", <br />, "(events of curelty, such as inciting terrorism, arson, torture, etc)"],
-            ["Investment and multi-level corecion"],
-            ["act of causing span or confusion"]
+            [<strong>Sexual access</strong>, <br />, <small>sexual harassment, forced conversation, pornographic broadcasts, etc</small>],
+            [<strong>verbal abuse</strong>, <br />, <small>abuse, disparaging remarks, etc</small>],
+            [<strong>Harmful or dangerous acts</strong>, <br />, <small>events of curelty, such as inciting terrorism, arson, torture, etc</small>],
+            [<strong>Investment and multi-level corecion</strong>],
+            [<strong>act of causing span or confusion</strong>]
         ]
         for (let i = 0; i < 5; i++) {
             result.push(<ChkBoxComponent value={i} text={labelContent[i]}></ChkBoxComponent>)
@@ -162,14 +175,17 @@ function Report(props) {
 
                     <ChkBoxGroup>
                         {renderCheckBoxComponent()}
-                    </ChkBoxGroup>
 
-                    <LargeInput
-                        id="detailBox"
-                        onChange={(e) => { setReportDetail(e.target.value) }}
-                        value={reportDetail}
-                    >
-                    </LargeInput>
+                        <Label>
+                            <LargeInput
+                                id="detailBox"
+                                onChange={(e) => { setReportDetail(e.target.value) }}
+                                placeholder="Please write down other reports"
+                                value={reportDetail}
+                            >
+                            </LargeInput>
+                        </Label>
+                    </ChkBoxGroup>
 
                     <TFBtnSet
                         radius="5px"
