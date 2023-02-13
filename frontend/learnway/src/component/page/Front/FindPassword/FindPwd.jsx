@@ -41,10 +41,7 @@ export default function FindPwd(){
           console.log(rst)
           request("get", URL + `/verify?user_email=${email}&find_code=0`, email)
           // request("get", URL + `/verify?user_email=${email}`, email)
-          alert("Success")
           setAuth(true)                   
-        } else {
-          alert("Mismatch")
         }
       })
       .catch((err) => console.log(err))
@@ -59,9 +56,9 @@ export default function FindPwd(){
         const msg = res.msg
         if(status === 200){ 
           setchangePwd(false)               
-          alert(msg)
+          alert("Success")
         } else {
-          alert(msg)
+          alert("Mismatch")
         }
       })
       .catch((err) => console.log(err))
