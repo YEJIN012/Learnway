@@ -223,19 +223,20 @@ function Loading() {
             console.log(received)
             const roomId = received.roomId;
             const oppoProfile = received.profileDto;
-            
-            redirectMatchedPage(roomId, oppoProfile);
+            const recorder = received.recorder;
+
+            redirectMatchedPage(roomId, oppoProfile, recorder);
             //state에 저장
         });
     }
 
-    async function redirectMatchedPage(roomId, oppoProfile){
+    async function redirectMatchedPage(roomId, oppoProfile, recorder){
         //redux에 상대방 정보 저장
         console.log(oppoProfile)
         const replacedStr = await replaceString(roomId);
         await dispatch({type:"UPDATE_OPPOUSER", payload:oppoProfile})
         //매칭 페이지로 리다이렉트
-        await navigate(`/loading/match/${replacedStr}`,{replace:true});
+        await navigate(`/loading/match/${replacedStr}/${(recorder?'true':'false')}`,{replace:true});
         //await window.location.reload();
     }
 

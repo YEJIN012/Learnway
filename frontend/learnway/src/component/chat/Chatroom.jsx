@@ -90,34 +90,33 @@ function Chatroom(props) {
             return chatLog[chatLog.length - 1].id;
         }
     }
-
+    
     useEffect(() => {
         loadChatHistory();
         ws.connect({}, (frame) => {
-            console.log("connected to server:", frame);
+            console.log("connected to Chat server:", frame);
             subscribe();
         });
 
         return () => {
             ws.disconnect(() => {
-                console.log("console disconnected");
+                console.log("Chat Server disconnected");
             });
         };
     }, []);
 
     function loadChatHistory() {
-        axios
-            .get(`api/chat/room/message/${props.info.roomId}`)
-            .then(function (res) {
+        axios.get(`api/chat/room/message/${props.info.roomId}`)
+             .then(function (res) {
                 let chatHistory = [];
 
                 const data = res.data;
-                console.log(data);
-                let num = msgId;
+                //console.log(data);
+                let num = 0;
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].sender === props.info.profileDto.userEmail) {
                         chatHistory.push({
-                            id: num,
+                            id: i,
                             msg: (
                                 <ChatText
                                     id={1}
@@ -127,7 +126,7 @@ function Chatroom(props) {
                         });
                     } else {
                         chatHistory.push({
-                            id: num,
+                            id: i,
                             msg: (
                                 <ChatText
                                     id={0}
@@ -136,11 +135,13 @@ function Chatroom(props) {
                             ),
                         });
                     }
-                    setMsgId((msgId) => msgId + 1);
-                    num = num + 1;
+                    //메세지 배열에 추가하고 num증가
+                    //setMsgId((msgId) => msgId + 1);
+                    num ++;
 
                     // setroomlist   [{id:  body:   }]
                 }
+                setMsgId(num)
                 setChatLog(chatHistory);
                 console.log(chatHistory);
             })
@@ -153,26 +154,23 @@ function Chatroom(props) {
 
         ws.subscribe(`/sub/chat/room/${props.info.roomId}`, (event) => {
             const received = JSON.parse(event.body);
+            const data = {};
             if (received.sender === props.info.profileDto.userEmail) {
-                const data = {
+                data = {
                     id: num,
                     msg: <ChatText id={1} text={received.message}></ChatText>,
                 };
-                setMsgId((msgId) => msgId + 1);
-                num = num + 1;
-                // setChatLog([...chatLog, data]);
-                setChatLog((chatLog) => [...chatLog, data]);
             } else {
-                const data = {
+                data = {
                     id: num,
                     msg: <ChatText id={0} text={received.message}></ChatText>,
                 };
-                setMsgId((msgId) => msgId + 1);
-                num = num + 1;
-                setChatLog((chatLog) => [...chatLog, data]);
-                console.log(num);
                 // setChatLog([...chatLog, data]);
             }
+            setMsgId((msgId) => msgId + 1);
+            num++;
+            setChatLog((chatLog) => [...chatLog, data]);
+            console.log(num);
         });
     }
     useEffect(() => {
