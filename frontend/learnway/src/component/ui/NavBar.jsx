@@ -12,6 +12,12 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    // box-shadow: 0px 2px 10px #EFEFEF;
+    // background-color : #fff;
+    // opacity:0.9;
+    // border-bottom: .08rem solid #B4ABAB;
+    // width:95%;
+    // margin: 0 auto;
 `;
 const Img = styled.div`
     display: flex;

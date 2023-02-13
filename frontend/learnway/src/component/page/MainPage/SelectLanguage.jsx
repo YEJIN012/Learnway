@@ -14,7 +14,7 @@ const LangSelect = styled.div`
 `;
 
 const Language = styled.div`
-    width :15%;
+    width :10%;
     // height: 100%;
     padding : 2vw 4vw;
     float:left;
@@ -29,13 +29,16 @@ const Language = styled.div`
     // font-size: 2vw;
 
     &:hover {
-        background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
-        color: rgb(255, 255, 255, 100);
+        // background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
+        color: #DAAAA9;
+        border-radius: 50%;
+        font-weight:bolder;
     }
+    
 `;
 
 const LangImg = styled.img`
-    width: 4vw;
+    width: 3.5vw;
     height: 2vw;
 `;
 

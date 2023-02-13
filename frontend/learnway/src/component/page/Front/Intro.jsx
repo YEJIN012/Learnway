@@ -23,7 +23,7 @@ const LeftSide = styled.div`
 `;
 
 const Picture = styled.img`
-  width: 30vw;
+  width: 45vw;
   height: 27vw;
   position: absolute;
   top: 52%;
@@ -54,6 +54,14 @@ const StartBtn = styled.div`
   margin: auto;
 `;
 
+const Ref = styled.a`
+    position : absolute;
+    bottom : 0.5%;
+    left : 1%;
+    font-size:02.vw;
+    color:#C5BEBE;
+    text-decoration-line: none;
+`;
 
 export default function Intro() {
   return (
@@ -62,8 +70,8 @@ export default function Intro() {
       <Welcome />
       <Picture src={logo}></Picture>
       <Btn />
-
       <BGIntro />
+      <Ref href="https://kr.freepik.com/">Freepik</Ref>
     </div>
   )
 }
@@ -100,8 +108,8 @@ function Btn() {
       <AllButton
         textValue="MEETUP"
         width="100%"
-        height="50px"
-        fontSize="1.5vw"
+        height="45px"
+        fontSize="1.3vw"
         textWeight="900"
         radius="20px"
         margin="0px"

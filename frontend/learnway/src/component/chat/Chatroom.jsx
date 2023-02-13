@@ -49,8 +49,9 @@ const Input = styled.input`
     height: 2.5vw;
     margin: 0.5vw 0.2vw 0.5vw 0.2vw;
     border-radius: 50px;
-    background: #efefef;
-    border: none;
+    background: #EFEFEF;
+    border : none;
+    padding-left:5%;
     &:focus {
         outline: none;
         // background: #73A0C6

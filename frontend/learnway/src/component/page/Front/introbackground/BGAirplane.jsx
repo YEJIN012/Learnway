@@ -1,27 +1,30 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import lottie from "lottie-web";
-import data from './animation/BGCenter.json';
+import data from './animation/BGAirpalne.json';
 
-const AniImg = styled.div`
-    width: 100%;
-    height: 100%;
-    position: absolute;
+const AniImg = styled.div`   
     z-index : -2;
+    max-height: 100%;
     overflow: hidden;
+    // margin-bottom:5px;
+    position: absolute;
+    bottom : 40%;
+    // border:1px solid black;
 `;
 
 const Wrapper = styled.div`
-    width: 85%;
-    height: 85%;
-    position: absolute;
-    top: 41%;
-    left: 50%;
-    transform: translate(-50%, -40%) rotate(6deg);
-    z-index :-2;
+    width: 100%;
+    height:90%;
+    // bottom : 10px;
+    z-index : -2;
+    // position: absolute;
+    // top : -10%;
+    // border:1px solid red;
+    overflow: hidden;
 `;
 
-function BGCenterAnimation(){
+function BGAirPlane(){
     const aniBox = useRef();
 
     useEffect(()=>{
@@ -42,4 +45,4 @@ function BGCenterAnimation(){
     );
 };
 
-export default BGCenterAnimation;
+export default BGAirPlane;

@@ -7,7 +7,9 @@ const Frame = styled.div`
     display:flex;
     flex-direction:column;
     align-items:${props=>props.id == 0 ? 'flex-end' : 'flex-start'};
+    margin-left:1vw;
     margin-right:1vw;
+    margin-bottom:0.5vw;
 `;
 
 const Msg = styled.div`
