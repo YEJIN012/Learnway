@@ -27,8 +27,8 @@ function Home(params) {
             <ChatBtn></ChatBtn>
             <NavBar></NavBar>
             {/* <AnimationBG></AnimationBG> */}
-            <Picture src={logo}></Picture>
-            {/* <Animation></Animation> */}
+            {/* <Picture src={logo}></Picture> */}
+            <Animation></Animation>
             {/* <Body></Body> */}
             <BackGround>
                 <Body></Body>
