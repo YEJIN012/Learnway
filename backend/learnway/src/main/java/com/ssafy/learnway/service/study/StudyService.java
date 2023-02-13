@@ -83,20 +83,20 @@ public class StudyService {
 
     @Transactional
     @Async
-    public void insertStudy(StudyRecordRequestDto studyRecordRequestDto) throws SQLException, URISyntaxException, UnsupportedEncodingException {
+    public void insertStudy(StudyRecordRequestDto studyRecordRequestDto, String recordUrl) throws SQLException, URISyntaxException, UnsupportedEncodingException {
         User user = userRepository.findByUserEmail(studyRecordRequestDto.getUserEmail());
         User friend = userRepository.findByUserEmail(studyRecordRequestDto.getFriendEmail());
         Language language = languageRepository.findByLanguageId(studyRecordRequestDto.getLanguageId());
 
-        String recordUri = URLEncoder.encode(studyRecordRequestDto.getRecordUri());
+        String encodedUrl = URLEncoder.encode(recordUrl);
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
         requestFactory.setReadTimeout(0);
         requestFactory.setConnectTimeout(0);
         RestTemplate restTemplate = new RestTemplate(requestFactory);
         String requestURL = whisperServerUri+ "?audio_url={audio_url}";
 
-        String script = restTemplate.getForObject(requestURL, String.class, recordUri);
-        System.out.println(recordUri);
+        String script = restTemplate.getForObject(requestURL, String.class, encodedUrl);
+        System.out.println(encodedUrl);
         Study study = Study.builder()
                 .userId(user)
                 .friendId(friend)

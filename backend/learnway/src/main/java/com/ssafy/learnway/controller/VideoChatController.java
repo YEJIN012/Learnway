@@ -342,12 +342,6 @@ public class VideoChatController {
         System.out.println("Starting recording for session " + sessionId + " with properties {outputMode=" + outputMode
                 + ", hasAudio=" + hasAudio + ", hasVideo=" + hasVideo + "}");
         try {
-            if(this.sessionRecordings.containsKey(sessionId)){
-                System.out.println("Second");
-                System.out.println(this.sessionRecordings.get(sessionId));
-                return new ResponseEntity<>(this.sessionRecordings.get(sessionId), HttpStatus.OK);
-            }
-            System.out.println("First");
             Recording recording = this.openVidu.startRecording(sessionId, properties);
 
             this.sessionRecordings.put(sessionId,  recording.getId());
@@ -356,28 +350,20 @@ public class VideoChatController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
-    @RequestMapping(value = "/recording/test", method = RequestMethod.POST)
-    public ResponseEntity<?> stopRecording(@RequestBody StudyRecordRequestDto studyRecordRequestDto) {
-
-        try {
-            studyService.insertStudy(studyRecordRequestDto);
-        } catch (SQLException | URISyntaxException | UnsupportedEncodingException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
     @RequestMapping(value = "/recording/stop", method = RequestMethod.POST)
-    public ResponseEntity<?> stopRecording(@RequestBody Map<String, String> params) {
-        String recordingId =params.get("recording");
+    public ResponseEntity<?> stopRecording(@RequestBody StudyRecordRequestDto studyRecordRequestDto) {
+        String recordingId = studyRecordRequestDto.getRecordId();
 
         System.out.println("Stoping recording | {recordingId}=" + recordingId);
 
         try {
             Recording recording = this.openVidu.stopRecording(recordingId);
-            this.sessionRecordings.remove(recording.getSessionId());
-            return new ResponseEntity<>(recording.getUrl(), HttpStatus.OK);
+            studyService.insertStudy(studyRecordRequestDto, recording.getUrl());
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (OpenViduJavaClientException | OpenViduHttpException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (SQLException | URISyntaxException |
+                UnsupportedEncodingException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
