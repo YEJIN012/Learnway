@@ -3,22 +3,23 @@ import styled from "styled-components";
 import axios from "axios";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
+import Button from "../../ui/Button"
+// import Button from '../../../ui/Button';
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
 
-// import Button from '../../../ui/Button';
 const Frame = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 1fr 5fr 6fr;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: -1px 2px 9px -1px #b5b5b5;
+  grid-template-rows:  0.5fr 5fr 0.5fr 5fr;
+  padding-left: 5%;
+  padding-right: 5%;
+  
 `;
 const InnerFrame = styled.div`
-  border: 1px solid;
+  // border: 1px solid;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -26,27 +27,29 @@ const InnerFrame = styled.div`
 
 const Form = styled.form`
   height: 80%;
-`;
 
-const TranslateBtn = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
 `;
 const TextFrame = styled.textarea`
-  width: 95%;
+  width: 100%;
   height: 100%;
   border-radius: 5px;
+  border: 1px solid #ccc;
   resize: none;
+  font-size: 18px;
 `;
 
-const TranslateArea = styled.div`
+const TranslateArea = styled.textarea`
   height: 80%;
-  width: 95%;
-  border: 1px solid;
+  width: 100%;
   border-radius: 5px;
+  resize: none;
+  font-size: 18px;
 `;
 
+const ButtonFrame = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+`
 function Translate() {
   const [value, setValue] = useState(""); // 검색 내용
   const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
@@ -95,29 +98,36 @@ function Translate() {
   };
 
   return (
-    <Frame>
-      <InnerFrame>
-        <h1>Translate</h1>
-      </InnerFrame>
-      <InnerFrame>
-        <Form onSubmit={handleTranslate}>
-          <TextFrame
-            value={value}
-            onChange={(e) => {
-              setValue(e.target.value);
-            }}
-            placeholder="Enter the content to translate."
-            // onKeyPress={onCheckEnter}
-          ></TextFrame>
-          <TranslateBtn>
-            <button type="submit">translate</button>
-          </TranslateBtn>
-        </Form>
-      </InnerFrame>
-      <InnerFrame>
-        <TranslateArea>{translatedContent}</TranslateArea>
-      </InnerFrame>
-    </Frame>
+    <CommonFrame
+      header = {<Title title={"Translate"}></Title>}
+      body={
+        <Frame>
+          <InnerFrame>
+            <h3>{"한국어"}</h3>
+          </InnerFrame>
+          <InnerFrame>
+            <Form onSubmit={handleTranslate}>
+              <TextFrame
+                  value={value}
+                  onChange={(e) => {
+                  setValue(e.target.value);
+                  }}
+                  placeholder="Enter the content to translate."
+                  // onKeyPress={onCheckEnter}
+              ></TextFrame>
+              <ButtonFrame>
+                <Button type="submit" margin={"10px 0px"}id ="4" radius={"5px"} width={"8vw"} height={"3vw"} fontSize={"1.5vw"} textValue="translate"></Button>
+              </ButtonFrame>
+            </Form>
+          </InnerFrame >
+          <InnerFrame>
+            <h3>{"영어"}</h3>
+          </InnerFrame>
+          <InnerFrame>
+              <TranslateArea disabled>{translatedContent}</TranslateArea>
+          </InnerFrame>
+      </Frame>  
+    }/>
   );
 }
 
