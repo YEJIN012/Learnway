@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from './UserProfile';
 import Chatroom from './Chatroom'
+import { chatRoomLst } from './actions/profileAction';
 import logo from '../page/Front/img/logo_pink_airplane.png';
 import './ChatScroll.css';
 
@@ -30,23 +31,30 @@ const Body = styled.div`
 `;
 
 function Chatlist() {
-    //const stored  = useSelector(state => state.AuthReducer);
-    const stored = { userEmail: "aaa@ssafy.com" };
+    const stored  = useSelector(state => state.AuthReducer);
+    const chatinfo = useSelector(state => state.ChatInfoReducer);
+    const dispatch = useDispatch();
+    // const stored = { userEmail: "aaa@ssafy.com" };
     const [roomList, setRoomList] = useState([]);
-    const [roomInfo, setRoomInfo] = useState([]);
+    // const [roomInfo, setRoomInfo] = useState([]);
     const [selectUserState, setSelectUserState] = useState(undefined);
-    //api 받아오기
+
+    // useEffect(() => {
+    //     const roomList = chatRoomLst(stored.userEmail)
+    //     console.log(roomList)
+    //     roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
+    // }, []);
+    console.log(chatinfo)
+
     useEffect(() => {
-        getMyRoomList(stored.userEmail);
-    }, []);
+        getMyRoomList();
+    }, [chatinfo]);
 
-    function getMyRoomList(userEmail) {
-        axios
-            .get(`api/chat/room/all/${userEmail}`)
-            .then(function (res) {
+    function getMyRoomList() {
                 let roomlist = [];
-
-                const data = res.data.Rooms;
+                console.log(chatinfo)
+                if(chatinfo.status !== 202) {
+                const data = chatinfo.Rooms;
                 console.log(data);
 
                 for (let i = 0; i < data.length; i++) {
@@ -61,14 +69,16 @@ function Chatlist() {
 
                     // setroomlist   [{id:  body:   }]
                 }
+            }
                 setRoomList(roomlist);
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+            }
+            
+    function handleSelectUserState(props) {
+        setSelectUserState(props)        
     }
+
     console.log(selectUserState);
-    console.log(stored.userEmail);
+    // console.log(stored.userEmail);
     return (
         <RoomFrame>
             {selectUserState === undefined ? (
@@ -81,7 +91,7 @@ function Chatlist() {
                     </Body>
                 </>
             ) : (
-                <Chatroom info={selectUserState}></Chatroom>
+                <Chatroom info={selectUserState} handleSelectUserState={handleSelectUserState}></Chatroom>
             )}
         </RoomFrame>
     );

@@ -27,11 +27,15 @@ const SendTime = styled.div`
     color:#C5C5C5;
 `
 function ChatText({...props}) {
+    const date = new Date();
+    const textTime = `${(date.getHours()< 13?date.getHours():date.getHours()-12)}:${date.getMinutes()} ${(date.getHours()<12?'am':'pm')}`;
+    const display = Object.assign("", textTime);
+
     if(props.id===0){
         return (
             <Frame id={props.id}>
                 <Msg id={props.id}>{props.text}</Msg>
-                <SendTime>{'Today. 8:33pm'}</SendTime>
+                <SendTime>{display}</SendTime>
             </Frame>
         );
     }
@@ -39,7 +43,7 @@ function ChatText({...props}) {
         return (
             <Frame id={props.id}>
                 <Msg id={props.id}>{props.text}</Msg>
-                <SendTime>{'Today. 8:33pm'}</SendTime>
+                <SendTime>{display}</SendTime>
             </Frame>
         );
     }

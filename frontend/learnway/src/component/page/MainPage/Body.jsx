@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
+import { chatRoomLst } from '../../chat/actions/profileAction';
+
 import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,7 +11,6 @@ import Modal from '@mui/material/Modal';
 //호출 시 npm i react-webcam 필수
 import Webcam from 'react-webcam';
 import ChkCamera from '@mui/icons-material/CameraAlt'
-
 import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -169,9 +170,10 @@ const languagestyle = {
 
 function Body() {
     //상태 저장소에서 나의 언어 가져오기
-    const mylang = useSelector(state => state.AuthReducer);
+    const myInfo = useSelector(state => state.AuthReducer);
     //상태 저장소에서 상대방 언어 가져오기
     const oppolang = useSelector(state => state.MainStore);
+    const chatinfo = useSelector(state => state.ChatinfoReducer);
     const dispatch = useDispatch();
     
     //console.log(mylang, oppolang)
@@ -183,6 +185,13 @@ function Body() {
 	const [popup, setPopup] = React.useState(false);
     const popupOpen = () => setPopup(true);
     const popupClose = () => setPopup(false);
+
+    // 로그인시 chatroomlist api 받아서 redux저장
+    useEffect(() => {
+        const roomList = chatRoomLst(myInfo.userEmail)
+        roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
+    }, []);
+
     
     const navigate = useNavigate();
     

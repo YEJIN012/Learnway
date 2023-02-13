@@ -1,54 +1,53 @@
-import React, { useState, useRef, useEffect } from 'react';
-import styled from 'styled-components';
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
+import React, { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
 import { useDispatch, useSelector } from "react-redux";
-import UserProfile from './UserProfile';
-import ChatText from './ChatText';
-import { chatRoomLst } from './actions/profileAction';
-import axios from 'axios'
-import iconimg from '../chat/send.png'
-import './ChatScroll.css';
+import UserProfile from "./UserProfile";
+import ChatText from "./ChatText";
+import axios from "axios";
+import iconimg from "../chat/send.png";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import "./ChatScroll.css";
 
 const RoomFrame = styled.div`
-    display:flex;
-    flex-direction:column;
-    height:100%;
-    `;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+`;
 
 const List = styled.ul`
-    list-style:none;
-    padding-left:0px;
-    `;
+    list-style: none;
+    padding-left: 0px;
+`;
 const Body = styled.div`
-    width:inherit;
-    height:80%;
-    overflow:scroll;
-    `
+    width: inherit;
+    height: 80%;
+    overflow: scroll;
+`;
 const InputBox = styled.input`
-    width:inherit;
-    height:10%;
-    border-radius : 30%;
+    width: inherit;
+    height: 10%;
+    border-radius: 30%;
     // border:solid 1px black;
-    `;
-
+`;
 
 //검색버튼(유튜브와 공통 컴포넌트)
 const SearchBox = styled.div`
-    width:inherit;
-    height:3vw;
-    margin:1vw 0.3vw 1vw 0.3vw;
-    display:flex;
-    flex-direction:row;
-    align-content:center;
-    align-items:center;
+    width: inherit;
+    height: 3vw;
+    margin: 1vw 0.3vw 1vw 0.3vw;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
     // border:solid 1px black;
 `;
 
 const Input = styled.input`
-    width:19vw;
-    height:2.5vw;
-    margin:0.5vw 0.2vw 0.5vw 0.2vw;
+    width: 19vw;
+    height: 2.5vw;
+    margin: 0.5vw 0.2vw 0.5vw 0.2vw;
     border-radius: 50px;
     background: #EFEFEF;
     border : none;
@@ -56,32 +55,30 @@ const Input = styled.input`
     &:focus {
         outline: none;
         // background: #73A0C6
-      }
-    
-`;
-
-const Searchbtn = styled.div`
-    width:3vw;
-    height:2.45vw;
-    background-image: url(${props => props.url || ""});
-    background-size:cover;
-    padding-bottom:0.1vw;
-    border-radius: 50px;
-    &:hover{  
-        box-shadow: 1px 2px 10px #A4A4A4;
     }
 `;
 
-//검색 공통 컴포넌트 끝 
+const Searchbtn = styled.div`
+    width: 3vw;
+    height: 2.45vw;
+    background-image: url(${(props) => props.url || ""});
+    background-size: cover;
+    padding-bottom: 0.1vw;
+    border-radius: 50px;
+    &:hover {
+        box-shadow: 1px 2px 10px #a4a4a4;
+    }
+`;
 
+//검색 공통 컴포넌트 끝
 
-
-
-const socket = new SockJS('/api/ws-stomp');
+const socket = new SockJS("/api/ws-stomp");
 const ws = Stomp.over(socket);
 function Chatroom(props) {
-    //const stored  = useSelector(state => state.AuthReducer);
-    const stored = { userEmail: "aaa@ssafy.com" };
+    const handleSelectUserState = props.handleSelectUserState;
+    console.log(handleSelectUserState);
+    const stored = useSelector((state) => state.AuthReducer);
+    // const stored = { userEmail: "aaa@ssafy.com" };
     const [text, setText] = useState("");
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
@@ -94,34 +91,33 @@ function Chatroom(props) {
             return chatLog[chatLog.length - 1].id;
         }
     }
-
+    
     useEffect(() => {
         loadChatHistory();
         ws.connect({}, (frame) => {
-            console.log("connected to server:", frame);
+            console.log("connected to Chat server:", frame);
             subscribe();
         });
 
         return () => {
             ws.disconnect(() => {
-                console.log("console disconnected");
+                console.log("Chat Server disconnected");
             });
         };
     }, []);
 
     function loadChatHistory() {
-        axios
-            .get(`api/chat/room/message/${props.info.roomId}`)
-            .then(function (res) {
+        axios.get(`api/chat/room/message/${props.info.roomId}`)
+             .then(function (res) {
                 let chatHistory = [];
 
                 const data = res.data;
-                console.log(data);
-                let num = msgId;
+                //console.log(data);
+                let num = 0;
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].sender === props.info.profileDto.userEmail) {
                         chatHistory.push({
-                            id: num,
+                            id: i,
                             msg: (
                                 <ChatText
                                     id={1}
@@ -131,7 +127,7 @@ function Chatroom(props) {
                         });
                     } else {
                         chatHistory.push({
-                            id: num,
+                            id: i,
                             msg: (
                                 <ChatText
                                     id={0}
@@ -140,11 +136,13 @@ function Chatroom(props) {
                             ),
                         });
                     }
-                    setMsgId((msgId) => msgId + 1);
-                    num = num + 1;
+                    //메세지 배열에 추가하고 num증가
+                    //setMsgId((msgId) => msgId + 1);
+                    num ++;
 
                     // setroomlist   [{id:  body:   }]
                 }
+                setMsgId(num)
                 setChatLog(chatHistory);
                 console.log(chatHistory);
             })
@@ -157,26 +155,23 @@ function Chatroom(props) {
 
         ws.subscribe(`/sub/chat/room/${props.info.roomId}`, (event) => {
             const received = JSON.parse(event.body);
+            const data = {};
             if (received.sender === props.info.profileDto.userEmail) {
-                const data = {
+                data = {
                     id: num,
                     msg: <ChatText id={1} text={received.message}></ChatText>,
                 };
-                setMsgId((msgId) => msgId + 1);
-                num = num + 1;
-                // setChatLog([...chatLog, data]);
-                setChatLog((chatLog) => [...chatLog, data]);
             } else {
-                const data = {
+                data = {
                     id: num,
                     msg: <ChatText id={0} text={received.message}></ChatText>,
                 };
-                setMsgId((msgId) => msgId + 1);
-                num = num + 1;
-                setChatLog((chatLog) => [...chatLog, data]);
-                console.log(num);
                 // setChatLog([...chatLog, data]);
             }
+            setMsgId((msgId) => msgId + 1);
+            num++;
+            setChatLog((chatLog) => [...chatLog, data]);
+            console.log(num);
         });
     }
     useEffect(() => {
@@ -192,13 +187,30 @@ function Chatroom(props) {
             message: text,
         };
         ws.send("/pub/chat/message", {}, JSON.stringify(da));
+        setText('')
     }
     // console.log(stored, props.info.profileDto.userEmail)
     // 유저 프로필에 마지막 수신 정보 상속
+
+    const onKeyPress = (e) => {
+        if(e.key === 'Enter') {
+            sendMsg()
+        }
+    }
+
     return (
         <RoomFrame>
+            <>
+            <ArrowBackIcon
+                sx={{ position: "relative", top: "10px", left: "14px" }}
+                cursor="pointer"
+                onClick={() => {
+                    handleSelectUserState(undefined);
+                }}
+                ></ArrowBackIcon>
+                </>
             <UserProfile id={1} room={props.info}></UserProfile>
-            <Body className='scroll'>
+            <Body className="scroll">
                 <List>
                     {chatLog.map((chatLog) => (
                         <li key={chatLog.id}>{chatLog.msg}</li>
@@ -212,7 +224,9 @@ function Chatroom(props) {
                         setText(e.target.value);
                     }}
                     placeholder="Type your message here"
-                    type='text'
+                    type="text"
+                    value={text}
+                    onKeyPress={onKeyPress}
                 ></Input>
                 <Searchbtn
                     url={iconimg}
@@ -223,4 +237,5 @@ function Chatroom(props) {
             </SearchBox>
         </RoomFrame>
     );
-} export default Chatroom; 
+}
+export default Chatroom;
