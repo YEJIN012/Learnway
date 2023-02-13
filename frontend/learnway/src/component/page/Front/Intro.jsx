@@ -54,6 +54,14 @@ const StartBtn = styled.div`
   margin: auto;
 `;
 
+const Ref = styled.a`
+    position : absolute;
+    bottom : 0.5%;
+    left : 1%;
+    font-size:02.vw;
+    color:#C5BEBE;
+    text-decoration-line: none;
+`;
 
 export default function Intro() {
   return (
@@ -62,8 +70,8 @@ export default function Intro() {
       <Welcome />
       <Picture src={logo}></Picture>
       <Btn />
-
       <BGIntro />
+      <Ref href="https://kr.freepik.com/">Freepik</Ref>
     </div>
   )
 }

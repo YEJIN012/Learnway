@@ -8,15 +8,16 @@ const AniImg = styled.div`
     height: 100%;
     position: absolute;
     z-index : -2;
+    overflow: hidden;
 `;
 
 const Wrapper = styled.div`
-    width: 95%;
-    height: 70%;
+    width: 85%;
+    height: 85%;
     position: absolute;
-    top: 50%;
+    top: 41%;
     left: 50%;
-    transform: translate(-50%, -45%) rotate(1deg);
+    transform: translate(-50%, -40%) rotate(6deg);
     z-index :-2;
 `;
 

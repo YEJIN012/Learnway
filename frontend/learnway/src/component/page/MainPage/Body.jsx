@@ -22,7 +22,7 @@ const Frame = styled.div`
     flex-direction: column-reverse;
 
     background: #fff;
-    border-radius: 12px;
+    border-radius: 16px;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     text-transform: uppercase;
@@ -97,10 +97,12 @@ const SelectLink = styled.div`
     align-items: center;
     text-align: center;
     padding: 15px 40px;
+    border-radius: 16px;
 
     &:hover {
-        background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
-        color: rgb(255, 255, 255, 100);
+        // background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
+        color: #DAAAA9;
+        cursor:pointer;
     }
 `;
 
@@ -127,7 +129,7 @@ const camStyle = {
 };
 
 const webcamStyle = {
-    height: "20vw"
+    height: "27vw"
 };
 
 const move = keyframes`
@@ -237,7 +239,7 @@ function Body() {
                         open={popup}
                         onClose={popupClose}
                     >
-                        <Box sx={languagestyle} style={{outline:'none'}}>
+                        <Box sx={languagestyle} style={{outline:'none',borderRadius: '16px'}}>
                             <SelectLanguage></SelectLanguage>
                         </Box>
                     </Modal>
@@ -278,9 +280,9 @@ function Body() {
                         onClick={() => startMatching()} />
                     <ChkCamera onClick={handleOpen} sx={{
                         color: "#91a8d0",
-                        width: "4vw",
-                        height: "4vw",
-                        padding:"0 1.5vw"
+                        width: "4.2vw",
+                        height: "3.8vw",
+                        padding:"0 1vw"
                     }}></ChkCamera>
                     <Modal
                         open={open}
