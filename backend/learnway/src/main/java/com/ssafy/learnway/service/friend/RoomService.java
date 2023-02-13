@@ -39,34 +39,6 @@ public class RoomService {
         return roomRepository.findByRelationId(relationId.getRelationId());
     }
 
-    public List<RoomDto> findRooms(List<Friend> friends) throws SQLException {
-        List<RoomDto> rooms = new ArrayList<>();
-        for(Friend friend : friends){
-            Room room = roomRepository.findByRelationId(friend.getRelationId());
-
-            ///////// 리팩토링 필요
-            User opponent = userService.findById(friend.getUserId().getUserId());
-            ProfileDto profileDto = userService.getProfile(opponent.getUserEmail());
-            //////////
-
-            if(room!=null){
-                rooms.add(RoomDto.builder()
-                        .relationId(room.getRelationId())
-                        .roomId(room.getRoomId())
-                        .profileDto(profileDto)
-                        .msg(room.getMsg())
-                        .dateTime(room.getTime())
-                        .build()
-                );
-            }
-        }
-
-        // 시간대 별로 정렬
-        Collections.sort(rooms);
-
-        return rooms;
-    }
-
     @Transactional
     public void deleteByRoomId(String roomId){
         chatRoomRepository.deleteChatRoom(roomId); //redis

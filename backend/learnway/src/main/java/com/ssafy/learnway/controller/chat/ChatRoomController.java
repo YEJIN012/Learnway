@@ -22,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,8 +49,31 @@ public class ChatRoomController {
         User user = userService.findByEmail(userEmail);
         List<Friend> friends = friendService.list(user); //user의 친구목록
 
-//        List<ChatRoom> chatRooms = chatRoomRepository.findAllRoom(user.getUserId(),friends);
-        List<RoomDto> chatRooms = roomService.findRooms(friends);
+        List<RoomDto> chatRooms = new ArrayList<>();
+        for(Friend friend : friends){
+            Room room = roomService.findByRelationId(friend);
+
+            User opponent = userService.findById(friend.getUserId().getUserId());
+            if(opponent.getUserEmail().equals(userEmail)){
+                opponent = userService.findById(friend.getFriendId().getUserId());
+            }
+
+            ProfileDto profileDto = userService.getProfile(opponent.getUserEmail());
+
+            if(room!=null){
+                chatRooms.add(RoomDto.builder()
+                        .relationId(room.getRelationId())
+                        .roomId(room.getRoomId())
+                        .profileDto(profileDto)
+                        .msg(room.getMsg())
+                        .dateTime(room.getTime())
+                        .build()
+                );
+            }
+
+            // 시간대 별로 정렬
+            Collections.sort(chatRooms);
+        }
 
         if(chatRooms == null || chatRooms.isEmpty()){
             return ResponseHandler.generateResponse("생성된 채팅방이 없습니다", HttpStatus.ACCEPTED);

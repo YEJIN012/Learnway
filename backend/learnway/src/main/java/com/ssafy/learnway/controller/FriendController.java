@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,8 +37,6 @@ public class FriendController {
     private final FriendService friendService;
     private final UserService userService;
     private final RoomService roomService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/list")
     public ResponseEntity list(@RequestParam String userEmail) throws SQLException {
@@ -147,7 +146,7 @@ public class FriendController {
             ProfileDto friendProfile = userService.getProfile(opponent.getUserEmail());
             ProfileDto userProfile = userService.getProfile(user.getUserEmail());
 
-            String roomId = passwordEncoder.encode(user.getUserEmail()+opponent.getUserEmail());
+            String roomId = createRandomStrUsingUtilsRandomAlphanumeric();
 
             VideoChatResult videoChatResult = VideoChatResult.builder().userProfileDto(userProfile).friendProfileDto(friendProfile).roomId(roomId).build();
 
@@ -157,6 +156,14 @@ public class FriendController {
             e.printStackTrace();
             return ResponseHandler.generateResponse("화상채팅 생성에 실패하였습니다..", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    String createRandomStrUsingUtilsRandomAlphanumeric() {
+        int randomStrLen = 10;
+
+        String randomStr = RandomStringUtils.randomAlphanumeric(randomStrLen);
+
+        return randomStr;
     }
 
 }
