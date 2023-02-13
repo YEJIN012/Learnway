@@ -5,6 +5,7 @@ import TFBtnSet from "../CommonComponent/TFBtnSet";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import Button from "../../ui/Button"
+import AllButton from "../../ui/AllButton";
 
 const Frame = styled.div`
     display:flex;
@@ -14,9 +15,10 @@ const Frame = styled.div`
     top:20vw;
     
 `;
-const Msg = styled.span`
-    font-family : system-ui;
+const Msg = styled.strong`
+    font-family :  "Raleway", sans-serif;
     font-size:2vw;
+    margin-bottom : 3vw;
 `;
 
 function Leave({getQuitFlag}) {
@@ -33,8 +35,8 @@ function Leave({getQuitFlag}) {
             body={
                 <Frame>
                 <Msg>Do  you want to leave random matching?</Msg>
-                
-                <Button onClick={quit} id ="6" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button>
+                <AllButton  onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"/>
+                {/* <Button onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button> */}
                 </Frame>
             }>
         </CommonFrame>

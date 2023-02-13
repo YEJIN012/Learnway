@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./RandomMatch.css";
@@ -6,7 +6,6 @@ import logo from "../../page/Front/img/logo_skyblue.png";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
 import { useNavigate, useParams } from "react-router-dom";
-import ProfileImgPoint from "../../ui/ProfileImgPoint";
 
 const Lang = styled.div`
     width: 30%;
@@ -42,7 +41,7 @@ const Interest = styled.div`
     font-size: 1.05em;
 `;
 
-export default function RandomMatch(props) {
+function RandomMatch(props) {
     const myInfo = useSelector((state) => state.AuthReducer);
     const oppoInfo = useSelector((state=>state.OpponentReducer));
     // const { oppoId, sessionId } = props;
@@ -92,8 +91,6 @@ export default function RandomMatch(props) {
                 bio: data.bio,
             });
             console.log(oppoInfo);
-            console.log(oppoInfo.img);
-            console.log(oppoInfo.interest);
         } catch (err) {
             console.log(err);
         }
@@ -118,7 +115,7 @@ export default function RandomMatch(props) {
     }
 
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         let timer = setTimeout(async () => {
             setIsTimeout(true);
         }, delayTime);
@@ -190,9 +187,9 @@ export default function RandomMatch(props) {
                                         </div>
                                     </div>
                                     <div className="receipt qr-code">
-                                        <ProfileImgPoint
-                                            src={oppoInfo.imgUrl}
-                                        ></ProfileImgPoint>
+                                        <ProfileImg
+                                            src={oppoInfo.img}
+                                        ></ProfileImg>
                                         <div className="description">
                                             <Text>Hi🙌</Text>
                                             <Text>Our interest is</Text>
@@ -212,3 +209,5 @@ export default function RandomMatch(props) {
         </>
     );
 }
+
+export default RandomMatch;

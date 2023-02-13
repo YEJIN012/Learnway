@@ -39,12 +39,9 @@ export default function FindPwd(){
         if (rst.status === 200){
           // 서버에 인증번호 요청 & 인증번호창 활성화
           console.log(rst)
-          // console.log(request("get", URL + `/verify?user_email=${email}`, email))
           request("get", URL + `/verify?user_email=${email}&find_code=0`, email)
           // request("get", URL + `/verify?user_email=${email}`, email)
           setAuth(true)                   
-        } else {
-          alert(rst.msg)
         }
       })
       .catch((err) => console.log(err))
@@ -53,15 +50,15 @@ export default function FindPwd(){
   // 인증번호 식별 요청
   const handleSubmit = (e) => {
     e.preventDefault();
-    request("post", URL + `/verify?code=${authcode}&user_email=${email}`, email)
+    request("post", URL + `/verify?code=${authcode}&user_email=${email}&find_code=0`, email)
       .then((res) => {
         const status = res.status;
         const msg = res.msg
         if(status === 200){ 
           setchangePwd(false)               
-          alert(msg)
+          alert("Success")
         } else {
-          alert(msg)
+          alert("Mismatch")
         }
       })
       .catch((err) => console.log(err))
