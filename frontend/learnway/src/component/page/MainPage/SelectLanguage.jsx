@@ -62,7 +62,7 @@ const SelectLanguage = (props) => {
                     options.push(
                         <Language key={data[i].languageId} value={data[i].name}
                             onClick={(e) => {
-                            updateSelectedValue(data[i].name);
+                            updateSelectedValue(data[i].languageId, data[i].name);
                         }}
                         >
                             <LangImg src={flag[i].url}></LangImg><br></br>
@@ -78,11 +78,11 @@ const SelectLanguage = (props) => {
     }
 
     //드롭다운 박스에서 선택한 요소로 redux 상태 업데이트하는 함수
-    function updateSelectedValue(val) {
+    function updateSelectedValue(id, val) {
         setValue(val);
         // console.log(val);
         //redux state 업데이트
-        dispatch({ type: "matchLangUpdate", payload: val });
+        dispatch({ type: "matchLangUpdate", payload: {languageId:id, languageName:val }});
 
     }
 

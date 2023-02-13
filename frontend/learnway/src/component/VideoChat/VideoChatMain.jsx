@@ -10,7 +10,12 @@ import Quit from "./Quit/Quit";
 import SearchProfile from "./Friend/SearchProfile";
 import Youtube from "./Youtube/Youtube";
 import FloatingBtn from "./CommonComponent/FloatingBtn";
-import RouteToMain from "./RouteToMain";
+import RouteToMain from './RouteToMain';
+import {useParams} from 'react-router-dom';
+
+function withParams(Component){
+    return props => <Component {...props} params={useParams()}></Component>
+}
 
 const Frame = styled.div`
   width: 100vw;
@@ -104,19 +109,19 @@ class VideoChatMain extends Component {
   constructor(props) {
     super(props);
 
-    // These properties are in the state's component in order to re-render the HTML whenever their values change
-    this.state = {
-      mySessionId: this.props.matchData.sessionId,
-      myUserName: this.props.matchData.myId,
-      oppoUserName: this.props.matchData.oppoId,
-      session: undefined,
-      mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
-      publisher: undefined,
-      subscribers: [],
-      menu: 9,
-      quitflag: 0,
-      socketId: undefined,
-    };
+        // These properties are in the state's component in order to re-render the HTML whenever their values change
+        this.state = {
+            mySessionId: undefined,
+            myUserName: undefined,
+            oppoUserName: undefined,
+            session: undefined,
+            mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
+            publisher: undefined,
+            subscribers: [],
+            menu: 9,
+            quitflag: 0,
+            socketId: undefined,
+        };
 
     this.joinSession = this.joinSession.bind(this);
     this.leaveSession = this.leaveSession.bind(this);
@@ -130,6 +135,7 @@ class VideoChatMain extends Component {
     //this.getQuit = this.handleQuit.bind(this);
     this.makeRoom = this.makeRoom.bind(this);
   }
+  
   handleSetMenu(menuid) {
     if (this.state.menu === menuid) {
       this.setState({
@@ -141,6 +147,7 @@ class VideoChatMain extends Component {
       });
     }
   }
+  
   getQuitFlag(flag) {
     if (flag === 1) {
       this.setState({
@@ -156,53 +163,53 @@ class VideoChatMain extends Component {
       );
 
       console.log("flag is " + flag);
+    }}
+
+     storeData(){
+         let {sessionId, myId, oppoId} = this.props.params;
+         console.log(sessionId, myId, oppoId);
+         this.setState({
+            mySessionId:sessionId,
+            myUserName:myId,
+            oppoUserName:oppoId
+        })
+        console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName)
     }
-  }
 
-  componentDidMount() {
-    window.addEventListener("beforeunload", this.onbeforeunload);
-    this.joinSession();
-    this.makeRoom();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.onbeforeunload);
-  }
-
-  onbeforeunload(event) {
-    this.leaveSession();
-  }
-
-  handleChangeSessionId(e) {
-    this.setState({
-      mySessionId: e.target.value,
-    });
-  }
-
-  handleChangeUserName(e) {
-    this.setState({
-      myUserName: e.target.value,
-    });
-  }
-
-  handleMainVideoStream(stream) {
-    if (this.state.mainStreamManager !== stream) {
-      this.setState({
-        mainStreamManager: stream,
-      });
+    componentDidMount() {
+        window.addEventListener("beforeunload", this.onbeforeunload);
+        this.joinSession();
+        this.makeRoom();
+        this.storeData();
     }
-  }
-
-  deleteSubscriber(streamManager) {
-    let subscribers = this.state.subscribers;
-    let index = subscribers.indexOf(streamManager, 0);
-    if (index > -1) {
-      subscribers.splice(index, 1);
-      this.setState({
-        subscribers: subscribers,
-      });
+    
+    componentWillUnmount() {
+        window.removeEventListener("beforeunload", this.onbeforeunload);
     }
-  }
+
+
+onbeforeunload(event) {
+   this.leaveSession();
+ }
+
+ handleChangeUserName(e) {
+   this.setState({
+     myUserName: e.target.value,
+   });
+ }
+
+ handleMainVideoStream(stream) {
+   if (this.state.mainStreamManager !== stream) {
+     this.setState({
+       mainStreamManager: stream,
+     });
+   }
+ }
+    handleChangeSessionId(e) {
+        this.setState({
+          mySessionId: e.target.value,
+        });
+      }
 
   async makeRoom() {
     const res = await axios.post(`/api/youtube/create`, {
@@ -411,43 +418,43 @@ class VideoChatMain extends Component {
                 ></Youtube>
             ),
         };
-        return (
+        return (<>
+                <FloatingBtn handleSetMenu={this.handleSetMenu.bind(this)} func={this.leaveSession}></FloatingBtn>
             <Frame>
                 <FloatingBtn
                     handleSetMenu={this.handleSetMenu.bind(this)}
                     func={this.leaveSession}
                 ></FloatingBtn>
 
+      
                 <VideoArea>
                     {this.state.session === undefined ? (
                         <RouteToMain></RouteToMain>
                     ) : null}
 
                     {menuList[this.state.menu]}
-
+                    
                     {this.state.session !== undefined ? (
                         <VideoFrame
-                            id="video-container"
-                            fixSizeId={this.state.menu}
+                        id="video-container"
+                        fixSizeId={this.state.menu}
                         >
                             {this.state.publisher !== undefined ? (
-                                <Video
-                                    streamManager={this.state.publisher}
-                                    pubsub={"pub"}
-                                    size={this.state.menu}
-                                />
-                            ) : null}
+                                
+                                <Video streamManager={this.state.publisher} pubsub={'pub'} size={this.state.menu} />
+                                
+                                ) : null}
                             {this.state.subscribers.map((sub, i) => (
-                                <Video
-                                    streamManager={sub}
-                                    pubsub={"sub"}
-                                    size={this.state.menu}
-                                />
-                            ))}
+                                
+                                <Video streamManager={sub}  pubsub={'sub'}  size = {this.state.menu}/>
+                                
+                                ))}
                         </VideoFrame>
                     ) : null}
                 </VideoArea>
-            </Frame>
+        
+                </Frame>
+    </>
         );
     }
     
@@ -455,11 +462,11 @@ class VideoChatMain extends Component {
     async getToken() {
         console.log("gg" + this.state.mySessionId);
         console.log("gg" + this.state.myUserName);
-
-    const sessionId = await this.createSession(this.state.mySessionId);
-    console.log(sessionId);
-    return await this.createToken(sessionId);
-  }
+        
+        const sessionId = await this.createSession(this.state.mySessionId);
+        console.log(sessionId);
+        return await this.createToken(sessionId);
+    }
 
   async createSession(sessionId) {
     //await this.makeRoom()
@@ -488,4 +495,4 @@ class VideoChatMain extends Component {
   }
 }
 
-export default VideoChatMain;
+export default withParams(VideoChatMain);
