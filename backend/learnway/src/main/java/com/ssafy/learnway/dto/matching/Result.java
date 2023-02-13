@@ -13,4 +13,6 @@ public class Result {
     ProfileDto profileDto;
 
     String roomId;
+
+    boolean recorder;
 }

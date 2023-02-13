@@ -11,6 +11,8 @@ import { CookiesProvider } from 'react-cookie';
 import TokenReducer from './app/TokenReducer';
 import UserInfoReducer from './app/UserInfoReducer';
 import ChatInfoReducer from './app/ChatInfoReducer';
+import ChatBtnReducer from './app/ChatBtnReducer';
+import OpponentReducer from './app/OpponentReducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from "redux-persist/lib/storage";
@@ -19,7 +21,7 @@ import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
   storage: storage,
-  // blacklist: ["TokenReducer"]
+  blacklist: ["ChatBtnReducer"]
 }
 
 const rootReducer = combineReducers({
@@ -28,6 +30,8 @@ const rootReducer = combineReducers({
     TokenReducer,
     UserInfoReducer,
     ChatInfoReducer,
+    ChatBtnReducer,
+    OpponentReducer,
 });
 
 

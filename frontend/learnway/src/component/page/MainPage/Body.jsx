@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
+import { chatRoomLst } from '../../chat/actions/profileAction';
 
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 //호출 시 npm i react-webcam 필수
 import Webcam from 'react-webcam';
 import ChkCamera from '@mui/icons-material/CameraAlt'
-
 import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -164,37 +165,55 @@ const languagestyle = {
     p: 4,
 };
 
-function startMatching(lang1, lang2) {
-    alert(lang1.toString() + " " + lang2.toString() + " 매칭 페이지 처리");
-};
 
 function Body() {
     //상태 저장소에서 나의 언어 가져오기
-    const mylang = useSelector(state => state.AuthReducer.language);
+    const myInfo = useSelector(state => state.AuthReducer);
     //상태 저장소에서 상대방 언어 가져오기
     const oppolang = useSelector(state => state.MainStore);
+    const chatinfo = useSelector(state => state.ChatinfoReducer);
     const dispatch = useDispatch();
-
+    
     //console.log(mylang, oppolang)
-
+    
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-
+    
 	const [popup, setPopup] = React.useState(false);
     const popupOpen = () => setPopup(true);
     const popupClose = () => setPopup(false);
 
-    
-
+    // 로그인시 chatroomlist api 받아서 redux저장
     useEffect(() => {
-        dispatch({ type: "matchLangUpdate", payload: "TO" });
+        const roomList = chatRoomLst(myInfo.userEmail)
+        roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
     }, []);
 
+    
+    const navigate = useNavigate();
+    
+    console.log(oppolang)
+    
+    useEffect(() => {
+        dispatch({ type: "matchLangUpdate", payload: {  languageId:null, languageName:"TO" }});
+    }, []);
+    
     useEffect(() => {
         popupClose(); //값 변화 감지되면 종료
     },[oppolang])
 
+    function startMatching() {
+    
+        navigate(
+            `/loading`,
+            {
+                replace: true,
+            }
+        )
+        window.location.reload();
+    };
+    
     return (
         <Frame>
 			<Component>
@@ -222,7 +241,7 @@ function Body() {
 
                 <SelectFrame>
                     <Mid>Arrivals</Mid>
-                    <SelectLink onClick={popupOpen}>{oppolang.toString()}</SelectLink>
+                    <SelectLink onClick={popupOpen}>{oppolang.languageName}</SelectLink>
                     <Modal
                         open={popup}
                         onClose={popupClose}
@@ -265,7 +284,7 @@ function Body() {
                         textWeight="900"
                         radius="15px"
                         margin="0px"
-                        onClick={() => startMatching(mylang.languageId, oppolang)} />
+                        onClick={() => startMatching()} />
                     <ChkCamera onClick={handleOpen} sx={{
                         color: "#91a8d0",
                         width: "4vw",
