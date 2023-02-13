@@ -48,7 +48,7 @@ const ChkBoxGroup = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding : 1vw;
+    // padding : 1vw;
 `;
 
 const LargeInput = styled.textarea`

@@ -16,6 +16,11 @@ import "./ProfileCss.css";
 import {useSelector} from 'react-redux'
 import { motion } from "framer-motion";
 
+const Frame = styled.div`
+    font-family: "Raleway", sans-serif;
+    margin-left: 2.5vw;
+`;
+
 const Friends = styled.div`
     display: flex;
     flex-direction: column;
@@ -42,7 +47,9 @@ const ProfileHeader = styled.div`
 `;
 
 const TimeLi = styled.li``;
-const TimeUl = styled.ul``;
+const TimeUl = styled.ul`
+    list-style:none;
+`;
 
 // Friend 말고 상대방 프로필로 함수명 바꿔야할듯..
 function SearchProfile(props) {
@@ -144,7 +151,8 @@ function SearchProfile(props) {
           duration: 0.5,
           delay: 0.1,
           ease: [0.5, 0.71, 0.98, 1.01]
-        }} >
+            }} >
+        <Frame>
         <ProfileCard
             className = "timeline"
             header={
@@ -257,7 +265,7 @@ function SearchProfile(props) {
                                 margin="2.5vh 0vw 0vw 0vw"
                                 inputWidth="auto"
                                 inputHeight="7vh"
-                                overFlow="hidden"
+                                // overFlow="hidden"
                                 obj={<Text className="flag">{userInfo.bio}</Text>}
                                 className="direction-r"
                             ></InputGroup>
@@ -291,7 +299,7 @@ function SearchProfile(props) {
                     </TimeUl>
                     
                     
-                    <AllButton
+                    {/* <AllButton
                         textValue="ADD FRIEND"
                         width="60%"
                         height={props.height}
@@ -299,12 +307,13 @@ function SearchProfile(props) {
                         textWeight="100"
                         radius="15px"
                         margin="0px"
-                        onClick={() => addFriend(myInfo.userEmail, props.user)} />
+                        onClick={() => addFriend(myInfo.userEmail, props.user)} /> */}
                 </>
             }
-            width="46vw"
+            width="39vw"
             height="90vh"
             />
+            </Frame>
         </motion.div>
     );
 }
