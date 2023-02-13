@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 //화상 통화창에서 부가서비스로 활용할 창의 공통 검포넌트(유튜브 제외)
 const Frame = styled(motion.div)`
-    width:46vw;
+    width:39vw;
     height:90vh;
     display:flex;
     flex-direction:column;  
@@ -12,10 +12,11 @@ const Frame = styled(motion.div)`
     background: #ffffff;
     box-shadow: -1px 2px 9px -1px #b5b5b5;
     font-family: "Raleway", sans-serif;
+    margin-left: 2.5vw;
 `;
 
 const Title = styled.div`
-   width:46vw;
+   width:39vw;
    border-radius: 10px 10px 0 0px;
    background: #91a8d0;
 //    background: linear-gradient(to right,  #F7CAC9, #91a8d0);   
@@ -26,7 +27,7 @@ const Title = styled.div`
 `;
 
 const Body = styled.div`
-    width:46vw;
+    // width:43vw;
     height:100%;
     display:flex;
     justify-content:center;

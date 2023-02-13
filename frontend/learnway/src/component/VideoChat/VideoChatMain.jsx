@@ -33,7 +33,7 @@ const FloatingBtnArea = styled.div`
 `;
 
 const VideoArea = styled.div`
-  height: 95vh;
+  // height: 95vh;
   width: 95vw;
   display: flex;
   flex-direction: row-reverse;
