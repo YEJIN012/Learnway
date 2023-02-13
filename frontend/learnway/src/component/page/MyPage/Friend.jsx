@@ -34,26 +34,7 @@ const Text = styled.span`
     color: #000000;
 `;
 
-function DeleteFriend({ userEmail, friendEmail }) {
-    alert(
-        "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
-    );
 
-    axios
-        .delete("/api/friend", {
-            data: {
-                userEmail: userEmail,
-                friendEmail: friendEmail,
-            },
-        })
-        .then(function (res) {
-            console.log(res);
-            alert("친구가 삭제되었습니다.");
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
 
 function MakeChat({ userEmail, friendEmail }) {
     console.log(userEmail)
@@ -91,9 +72,27 @@ function Friend(props) {
     const ChatBtnState = useSelector((state) => state.ChatBtnReducer);
     const dispatch = useDispatch();
 
-    // function handleChatBtn() {
-    //     dispatch({ type: "ChatBtnUpdate", payload: true })
-    // }
+    function DeleteFriend({ userEmail, friendEmail }) {
+        alert(
+            "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
+        );
+
+        axios
+            .delete("/api/friend", {
+                data: {
+                    userEmail: userEmail,
+                    friendEmail: friendEmail,
+                },
+            })
+            .then(function (res) {
+                console.log(res);
+                alert("친구가 삭제되었습니다.");
+                handleDeletedFriend();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     if (userInfo === "") {
         console.log("nothing selected");
@@ -132,9 +131,9 @@ function Friend(props) {
                             console.log(roomList)
                             roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
                             
-                            handleDeletedFriend()
                         }}
                         cursor="pointer"
+                        sx={{position:"absolute", right:"0.8vw", top:"16.5vh", color:"gray",opacity:"0.4"}}
                     />
                     <SendIcon
                         color="#e7e7e7"
@@ -145,11 +144,11 @@ function Friend(props) {
                                     friendEmail: userInfo.userEmail,
                                 })
 
-                                // 바뀐 나의 채팅방리스트 호출 및 redux 갱신
+                                // 바뀐 나의 채팅방리스트(채팅방 추가) 호출 및 redux 갱신
                                 const roomList = chatRoomLst(myInfo.userEmail)
                                 roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
                                 
-                                // chatting Open
+                                // chattingFtb Open
                                 dispatch({
                                     type: "ChatBtnUpdate",
                                     payload: true,
