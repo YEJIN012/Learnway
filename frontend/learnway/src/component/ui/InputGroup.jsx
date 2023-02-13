@@ -38,10 +38,11 @@ function InputGroup({
     inputHeight,
     overFlow,
     obj,
+    className
 }) {
     //obj : input tag or select... etc...
     return (
-        <Frame flex={flex} margin={margin}>
+        <Frame flex={flex} margin={margin} className={className} >
             <SubFrame>
                 {icon}
                 <GroupTitle fontColor={fontColor} fontSize={fontSize}>

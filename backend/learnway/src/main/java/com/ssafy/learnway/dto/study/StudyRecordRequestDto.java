@@ -18,7 +18,8 @@ public class StudyRecordRequestDto {
 
     private String friendEmail;
 
-    private String recordUri;
+    private String recordId;
+//    private String recordUri;
 //    private LocalDateTime studyDatetime;
 
     private int languageId;

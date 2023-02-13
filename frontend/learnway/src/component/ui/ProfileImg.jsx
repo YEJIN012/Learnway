@@ -6,10 +6,11 @@ const Img = styled.img`
     width: ${(props) => props.width || "75px"};
     height: ${(props) => props.width || "75px"};
     border-radius: 50%;
+    overflow: hidden;
 `;
 
 function ProfileImg(props) {
-    const { tmpsrc, src, width } = props;
+    const { tmpsrc, src, width, height } = props;
     // const [imgSrc, setImgSrc] = useState(src)
     // console.log(imgSrc)
     //tmpsrc : 클라이언트에서 바로 가져오는 이미지src
@@ -43,9 +44,9 @@ function ProfileImg(props) {
 
     // 이미지 편집에서 선택한 tmpImage있으면 그걸로 보여주기
     return tmpsrc ? (
-        <Img src={tmpsrc} width={width} />
+        <Img src={tmpsrc} width={width} height={height} />
     ) : (
-        <Img src={imageUrl} width={width} />
+        <Img src={imageUrl} width={width} height={height} />
     );
 }
 

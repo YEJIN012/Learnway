@@ -10,29 +10,34 @@ const CardTop = styled.div`
     align-items: center;
     height: 30%;
     min-height: 17vh;
-    background: linear-gradient(286.15deg, #91a8d0, #f0eee9);
+    background: linear-gradient(to right, #f0eee9, #91a8d0);
     border-radius: 35px 35px 0px 0px;
 `;
 const CardBottom = styled.div`
     box-sizing: border-box;
-    padding: 5% 15%;
+    // padding: 5% 15%;
     display: flex;
     flex-direction: column;
+    background-color:transparent;
 `;
 const Name = styled.div`
     font-size: 3.3vh;
     font-weight: 700;
     margin-top: 1.5vh;
+    text-align: center;
+    // text-decoration-line: underline;
+    // text-decoration-style: wavy;
 `;
 
-function ProfileCard({ header, name, body, width, height }) {
+function ProfileCard({ header, name, body, width, height, className }) {
     return (
         <Paper
+
             elevation={3}
             children={
                 <>
                     <CardTop>{header}</CardTop>
-                    <CardBottom>
+                    <CardBottom className={className}>
                         <Name>{name}</Name>
                         {body}
                     </CardBottom>
@@ -43,6 +48,7 @@ function ProfileCard({ header, name, body, width, height }) {
                 width: width || "100%",
                 height: height || "inherit",
                 minHeight: "60vh",
+                backgroundColor:"transparent",
             }}
         />
     );

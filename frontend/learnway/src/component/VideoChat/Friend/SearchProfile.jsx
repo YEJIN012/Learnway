@@ -10,7 +10,11 @@ import CakeIcon from "@mui/icons-material/Cake";
 import LanguageIcon from "@mui/icons-material/Language";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import AllButton from '../../ui/AllButton';
+import "./ProfileCss.css";
+
 import {useSelector} from 'react-redux'
+import { motion } from "framer-motion";
 
 const Friends = styled.div`
     display: flex;
@@ -25,16 +29,26 @@ const FriendNumber = styled.span`
 `;
 
 const Text = styled.span`
-    font-size: 1.3vw;
-    color: #7c7c7c;
+    // font-size: 1.3vw;
+    // color: #7c7c7c;
 `;
 
+const UserName = styled.div`
+    text-align: center;
+    font-size: 1.3vw;
+`
 
-// Friend말고 상대방프로필로 함수명 바꿔야할듯..
+const ProfileHeader = styled.div`
+`;
+
+const TimeLi = styled.li``;
+const TimeUl = styled.ul``;
+
+// Friend 말고 상대방 프로필로 함수명 바꿔야할듯..
 function SearchProfile(props) {
     // 내정보
     const myInfo = useSelector(state => state.AuthReducer);
-    // 상대방정보
+    // 상대방 정보
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
@@ -123,130 +137,175 @@ function SearchProfile(props) {
         return result;
     }
     return (
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.5,
+          delay: 0.1,
+          ease: [0.5, 0.71, 0.98, 1.01]
+        }} >
         <ProfileCard
+            className = "timeline"
             header={
                 <>
-                    <ProfileImg src={userInfo.img} width={"7vw"}></ProfileImg>
-                    <Friends>
-                        <FriendNumber>{friendCnt}</FriendNumber>
-                        Friends
-                    </Friends>
-                    {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
-                    <PersonAddIcon
-                        onClick={() => addFriend(myInfo.userEmail, props.user)}
-                        cursor="pointer"
-                        sx={{ scale: "2", color: "#615e5fea" }}
-                    />
+                    <ProfileHeader>
+                        <ProfileImg src={userInfo.img} width={"10vw"}></ProfileImg>
+                        {/* <Friends>
+                            <FriendNumber>{friendCnt}</FriendNumber>
+                            Friends
+                        </Friends> */}
+                        {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
+                        <UserName>{userInfo.name}</UserName>
+                        {/* <PersonAddIcon
+                            onClick={() => addFriend(myInfo.userEmail, props.user)}
+                            cursor="pointer"
+                            sx={{ scale: "1.3", color: "#615e5fea" }}
+                        /> */}
+                    </ProfileHeader>
                 </>
             }
-            name={userInfo.name}
+            // name={userInfo.name}
             body={
-                <>
-                    <InputGroup
-                        icon={
-                            <EmailIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
-                        flex="column"
-                        textValue="Email"
-                        fontSize="1.8vh"
-                        fontColor="#000000"
-                        margin="2.5vh 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.email}</Text>}
-                    ></InputGroup>
-                    <InputGroup
-                        icon={
-                            <CakeIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
-                        flex="column"
-                        textValue="Birth"
-                        fontSize="1.8vh"
-                        fontColor="#000000"
-                        margin="2.5vh 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={<Text>{userInfo.birth}</Text>}
-                    ></InputGroup>
+                <>  
+                    <TimeUl>
+                        <TimeLi>
+                            <InputGroup
+                                icon={
+                                    <EmailIcon
+                                        className="time-wrapper"
+                                        sx={{
+                                            color: "#615e5f",
+                                            opacity: "0.5",
+                                            height: "2vh",
+                                        }}
+                                    />
+                                }
+                                flex="column"
+                                textValue="Email"
+                                fontSize="1.8vh"
+                                fontColor="#000000"
+                                margin="2.5vh 0vw 0vw 0vw"
+                                inputWidth="auto"
+                                inputHeight="auto"
+                                obj={<Text className="flag">{userInfo.email}</Text>}
+                                className="direction-r"
+                            ></InputGroup>
+                        </TimeLi>
+                        
+                        <TimeLi>
+                            <InputGroup
+                                icon={
+                                    <CakeIcon
+                                        sx={{
+                                            color: "#615e5f",
+                                            opacity: "0.5",
+                                            height: "2vh",
+                                        }}
+                                    />
+                                }
+                                flex="column"
+                                textValue="Birth"
+                                fontSize="1.8vh"
+                                fontColor="#000000"
+                                margin="2.5vh 0vw 0vw 0vw"
+                                inputWidth="auto"
+                                inputHeight="auto"
+                                obj={<Text className="flag">{userInfo.birth}</Text>}
+                                className="direction-r"
+                            ></InputGroup>
+                        </TimeLi>
 
-                    <InputGroup
-                        icon={
-                            <LanguageIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
-                        flex="column"
-                        textValue="Language"
-                        fontSize="1.8vh"
-                        fontColor="#000000"
-                        margin="2.5vh 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="3vh"
-                        obj={<Text>{userInfo.lang}</Text>}
-                    ></InputGroup>
+                        <TimeLi>
+                            <InputGroup
+                                icon={
+                                    <LanguageIcon
+                                        sx={{
+                                            color: "#615e5f",
+                                            opacity: "0.5",
+                                            height: "2vh",
+                                        }}
+                                    />
+                                }
+                                flex="column"
+                                textValue="Language"
+                                fontSize="1.8vh"
+                                fontColor="#000000"
+                                margin="2.5vh 0vw 0vw 0vw"
+                                inputWidth="auto"
+                                inputHeight="3vh"
+                                obj={<Text className="flag">{userInfo.lang}</Text>}
+                                className="direction-l"
+                            ></InputGroup>
+                        </TimeLi>
 
-                    <InputGroup
-                        icon={
-                            <TextSnippetIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
-                        flex="column"
-                        textValue="Bio"
-                        fontSize="1.8vh"
-                        fontColor="#000000"
-                        margin="2.5vh 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="7vh"
-                        overFlow="hidden"
-                        obj={<Text>{userInfo.bio}</Text>}
-                    ></InputGroup>
-                    <InputGroup
-                        icon={
-                            <FavoriteIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
-                        flex="column"
-                        textValue="Interests"
-                        fontSize="1.8vh"
-                        fontColor="#000000"
-                        margin="2.5vh 0vw 0vw 0vw"
-                        inputWidth="auto"
-                        inputHeight="auto"
-                        obj={
-                            <Text>{interestRernderer(userInfo.interest)}</Text>
-                        }
-                    ></InputGroup>
+                        <TimeLi>
+                            <InputGroup
+                                icon={
+                                    <TextSnippetIcon
+                                        sx={{
+                                            color: "#615e5f",
+                                            opacity: "0.5",
+                                            height: "2vh",
+                                        }}
+                                    />
+                                }
+                                flex="column"
+                                textValue="Bio"
+                                fontSize="1.8vh"
+                                fontColor="#000000"
+                                margin="2.5vh 0vw 0vw 0vw"
+                                inputWidth="auto"
+                                inputHeight="7vh"
+                                overFlow="hidden"
+                                obj={<Text className="flag">{userInfo.bio}</Text>}
+                                className="direction-r"
+                            ></InputGroup>
+                        </TimeLi>
+
+                        <TimeLi>
+                            <InputGroup
+                                icon={
+                                    <FavoriteIcon
+                                        sx={{
+                                            color: "#615e5f",
+                                            opacity: "0.5",
+                                            height: "2vh",
+                                        }}
+                                    />
+                                }
+                                flex="column"
+                                textValue="Interests"
+                                fontSize="1.8vh"
+                                fontColor="#000000"
+                                margin="2.5vh 0vw 0vw 0vw"
+                                inputWidth="auto"
+                                inputHeight="auto"
+                                obj={
+                                    <Text className="flag">{interestRernderer(userInfo.interest)}</Text>
+                                }
+                                className="direction-l"
+                            ></InputGroup>
+
+                        </TimeLi>
+                    </TimeUl>
+                    
+                    
+                    <AllButton
+                        textValue="ADD FRIEND"
+                        width="60%"
+                        height={props.height}
+                        fontSize={props.fontSize}
+                        textWeight="100"
+                        radius="15px"
+                        margin="0px"
+                        onClick={() => addFriend(myInfo.userEmail, props.user)} />
                 </>
             }
             width="46vw"
             height="90vh"
-        />
+            />
+        </motion.div>
     );
 }
 export default SearchProfile;

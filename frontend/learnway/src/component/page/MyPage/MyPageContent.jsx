@@ -42,6 +42,11 @@ function MyPageContent(props) {
     const handleSelectedFriend = (data) => {
         setSelectedFriend(data);
     };
+    const [deletedFriend, setDeletedFriend] = useState(true);
+    const handleDeletedFriend = () => {
+        setDeletedFriend(!deletedFriend)
+        setSelectedFriend("")
+    }
 
     // STUDY Tab - Calendar과 StudyScripts연결 변수와 함수
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -57,8 +62,8 @@ function MyPageContent(props) {
         FRIENDS: {
             subtitle: ["Friend", "Friends List"],
             child: [
-                <Friend selectedFriend={selectedFriend} />,
-                <FriendList handleSelectedFriend={handleSelectedFriend} />,
+                <Friend selectedFriend={selectedFriend} handleDeletedFriend={handleDeletedFriend}/>,
+                <FriendList handleSelectedFriend={handleSelectedFriend} deletedFriend={deletedFriend}/>,
             ],
         },
         STUDY: {
