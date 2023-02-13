@@ -5,7 +5,6 @@ import SockJS from 'sockjs-client';
 import { useDispatch, useSelector } from "react-redux";
 import UserProfile from './UserProfile';
 import ChatText from './ChatText';
-import { chatRoomLst } from './actions/profileAction';
 import axios from 'axios'
 import iconimg from '../chat/send.png'
 import './ChatScroll.css';
@@ -79,8 +78,8 @@ const Searchbtn = styled.div`
 const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
 function Chatroom(props) {
-    //const stored  = useSelector(state => state.AuthReducer);
-    const stored = { userEmail: "aaa@ssafy.com" };
+    const stored  = useSelector(state => state.AuthReducer);
+    // const stored = { userEmail: "aaa@ssafy.com" };
     const [text, setText] = useState("");
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());

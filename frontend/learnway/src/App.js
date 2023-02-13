@@ -36,7 +36,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
-                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'ssss', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'rrrr', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
             </Routes>
         </BrowserRouter>
     );

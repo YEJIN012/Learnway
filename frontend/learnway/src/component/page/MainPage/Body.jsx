@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
+import { chatRoomLst } from '../../VideoChat/VideoChatMain';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -9,7 +10,6 @@ import Modal from '@mui/material/Modal';
 //호출 시 npm i react-webcam 필수
 import Webcam from 'react-webcam';
 import ChkCamera from '@mui/icons-material/CameraAlt'
-
 import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -185,7 +185,11 @@ function Body() {
     const popupOpen = () => setPopup(true);
     const popupClose = () => setPopup(false);
 
-    
+    // 로그인시 chatroomlist api 받아서 redux저장
+    // useEffect(() => {
+    //     const roomList = chatRoomLst(userEmail)
+    //     roomList.payload.then((res) => dispatch({ type: roomList.type, payload: roomList.payload }))
+    // }, []);
 
     useEffect(() => {
         dispatch({ type: "matchLangUpdate", payload: "TO" });

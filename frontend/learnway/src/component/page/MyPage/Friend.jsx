@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
+import SendIcon from "@mui/icons-material/Send";
 import EmailIcon from "@mui/icons-material/Email";
 import CakeIcon from "@mui/icons-material/Cake";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -32,7 +33,7 @@ const Text = styled.span`
     color: #000000;
 `;
 
-function DeleteFriend({ myEmail, friendEmail }) {
+function DeleteFriend({ userEmail, friendEmail }) {
     alert(
         "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
     );
@@ -40,13 +41,30 @@ function DeleteFriend({ myEmail, friendEmail }) {
     axios
         .delete("/api/friend", {
             data: {
-                userEmail: myEmail,
+                userEmail: userEmail,
                 friendEmail: friendEmail,
             },
         })
         .then(function (res) {
-            console.log(res.data.msg);
+            console.log(res);
             alert("친구가 삭제되었습니다.");
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function MakeChat({ userEmail, friendEmail }) {
+    console.log(userEmail)
+    console.log(friendEmail)
+    axios
+        .post("/api/chat/room", {
+                userEmail: userEmail,
+                friendEmail: friendEmail,
+        })
+        .then(function (res) {
+            console.log(res);
+            return true;
         })
         .catch(function (error) {
             console.log(error);
@@ -67,7 +85,14 @@ function interestRernderer(array) {
 function Friend(props) {
     const myInfo = useSelector((state) => state.AuthReducer);
     const userInfo = props.selectedFriend;
+    const handleDeletedFriend = props.handleDeletedFriend;
     const [friendCnt, setFriendCnt] = useState("");
+    const ChatBtnState = useSelector((state) => state.ChatBtnReducer);
+    const dispatch = useDispatch();
+
+    // function handleChatBtn() {
+    //     dispatch({ type: "ChatBtnUpdate", payload: true })
+    // }
 
     if (userInfo === "") {
         console.log("nothing selected");
@@ -96,12 +121,27 @@ function Friend(props) {
                     </Friends>
                     <PersonRemoveIcon
                         color="#e7e7e7"
-                        onClick={() =>
+                        onClick={() => {
                             DeleteFriend({
-                                myEmail: myInfo.userEmail,
+                                userEmail: myInfo.userEmail,
                                 friendEmail: userInfo.userEmail,
-                            })
-                        }
+                            });
+                            handleDeletedFriend()
+                        }}
+                        cursor="pointer"
+                    />
+                    <SendIcon
+                        color="#e7e7e7"
+                        onClick={() => {
+                                MakeChat({
+                                    userEmail: myInfo.userEmail,
+                                    friendEmail: userInfo.userEmail,
+                                })
+                                dispatch({
+                                    type: "ChatBtnUpdate",
+                                    payload: true,
+                                });
+                        }}
                         cursor="pointer"
                     />
                 </>
@@ -184,7 +224,7 @@ function Friend(props) {
                         fontColor="#7c7c7c"
                         margin="5% 0vw 0vw 0vw"
                         inputWidth="auto"
-                        inputHeight="3vh"
+                        inputHeight="auto"
                         obj={<Text>{userInfo.bio}</Text>}
                     ></InputGroup>
                     <InputGroup

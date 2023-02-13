@@ -30,43 +30,37 @@ const Body = styled.div`
 `;
 
 function Chatlist() {
-    //const stored  = useSelector(state => state.AuthReducer);
-    const stored = { userEmail: "aaa@ssafy.com" };
+    const stored  = useSelector(state => state.AuthReducer);
+    const chatinfo = useSelector(state => state.ChatinfoReducer);
+    // const stored = { userEmail: "aaa@ssafy.com" };
     const [roomList, setRoomList] = useState([]);
-    const [roomInfo, setRoomInfo] = useState([]);
+    // const [roomInfo, setRoomInfo] = useState([]);
     const [selectUserState, setSelectUserState] = useState(undefined);
-    //api 받아오기
+    
     useEffect(() => {
-        getMyRoomList(stored.userEmail);
+        getMyRoomList();
     }, []);
 
     function getMyRoomList(userEmail) {
-        axios
-            .get(`api/chat/room/all/${userEmail}`)
-            .then(function (res) {
+
                 let roomlist = [];
 
-                const data = res.data.Rooms;
-                console.log(data);
-
-                for (let i = 0; i < data.length; i++) {
+                for (let i = 0; i < chatinfo.length; i++) {
                     roomlist.push(
                         <UserProfile
                             click={setSelectUserState}
                             key={i}
                             id={0}
-                            userInfo={data[i]}
+                            userInfo={chatinfo[i]}
                         ></UserProfile>
                     );
 
                     // setroomlist   [{id:  body:   }]
                 }
                 setRoomList(roomlist);
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-    }
+            }
+
+    
     console.log(selectUserState);
     console.log(stored.userEmail);
     return (

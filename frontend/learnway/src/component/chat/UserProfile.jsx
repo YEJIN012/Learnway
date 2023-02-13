@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import VideocamIcon from '@mui/icons-material/Videocam';
+import ProfileImg from "../ui/ProfileImg";
 
 const Frame = styled.div`
     width:88%;
@@ -27,15 +28,15 @@ const UserFrame = styled.div`
     // border:1px solid black;
 `;
 
-const ProfileImg = styled.div`
-    width:2.8vw;
-    height:2.8vw;
-    background-image: url(${props => props.url || ""});
-    background-size:cover;
-    border-radius:999px;
-    margin:0vw 0vw 0.5vw 0vw;
-    // border:1px solid black;
-`;
+// const ProfileImg = styled.div`
+//     width:2.8vw;
+//     height:2.8vw;
+//     background-image: url(${props => props.url || ""});
+//     background-size:cover;
+//     border-radius:999px;
+//     margin:0vw 0vw 0.5vw 0vw;
+//     // border:1px solid black;
+// `;
 
 const DetailBox = styled.div`
     height:inherit;
@@ -103,10 +104,11 @@ function UserProfile(props) {
         const latestmsg = props.userInfo.msg;
         const latestDateTime = props.userInfo.dateTime===null? ["","","","","","",""] :props.userInfo.dateTime;
         console.log(latestDateTime)
+        console.log(imgurl)
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
-                    <ProfileImg url={imgurl}></ProfileImg>
+                    <ProfileImg src={imgurl} width="6.5vh"/>
                     <DetailBox>
                         <UserName>{name}</UserName>
                         <Info>{latestmsg.substr(0, 15)+' ...'}</Info>
@@ -127,7 +129,7 @@ function UserProfile(props) {
 
             <Frame>
                 <UserFrame>
-                    <ProfileImg url={imgurl}></ProfileImg>
+                    <ProfileImg src={imgurl} width="6.5vh"/>
                     <DetailBox>
                         <UserName>{name}</UserName>
                         <Info>{`Last seen. ${latestDateTime} ago`}</Info>

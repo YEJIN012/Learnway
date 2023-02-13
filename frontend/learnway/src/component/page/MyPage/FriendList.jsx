@@ -5,7 +5,9 @@ import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
 
 function FriendList(props) {
-    const { handleSelectedFriend } = props;
+    const { handleSelectedFriend, deletedFriend } = props;
+    console.log(deletedFriend)
+
     const store = useSelector((state) => state.AuthReducer);
     // const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const [status, setStatus] = useState("");
@@ -28,7 +30,8 @@ function FriendList(props) {
 
     useEffect(() => {
         getFriendList();
-    }, []);
+        console.log(friendsProfile)
+    }, [deletedFriend]);
     
     if (status === 404) {
         return (
