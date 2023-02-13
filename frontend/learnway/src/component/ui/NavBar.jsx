@@ -15,9 +15,9 @@ const Wrapper = styled.div`
     // box-shadow: 0px 2px 10px #EFEFEF;
     // background-color : #fff;
     // opacity:0.9;
-    // border-bottom: .08rem solid #B4ABAB;
-    // width:95%;
-    // margin: 0 auto;
+    border-bottom: .08rem solid #DBDBDB;
+    width:95%;
+    margin: 0 auto;
 `;
 const Img = styled.div`
     display: flex;
