@@ -191,7 +191,6 @@ function Loading() {
     }
     useEffect(() => {
         getTodayConv();
-        startMatching();
     }, []);
 
     return (
