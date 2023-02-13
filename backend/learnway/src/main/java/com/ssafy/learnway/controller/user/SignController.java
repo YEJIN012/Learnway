@@ -162,8 +162,8 @@ public class SignController {
 
             log.info("google login....");
 
-            //response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
-            response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/logincheck")
+            response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
+//            response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/logincheck")
                     .queryParam("accessToken", tokenDto.getAccessToken())
                     .queryParam("refreshToken", tokenDto.getRefreshToken())
                     .queryParam("userEmail",userEmail)
@@ -203,8 +203,8 @@ public class SignController {
 //            userService.signUp(userDto);
 
 
-            //response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
-            response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/logincheck")
+            response.sendRedirect(UriComponentsBuilder.fromUriString("https://i8a408.p.ssafy.io/logincheck")
+//            response.sendRedirect(UriComponentsBuilder.fromUriString("http://localhost:3000/logincheck")
                     .queryParam("userEmail",userEmail)
                     .queryParam("name",name)
                     .queryParam("provider",provider )

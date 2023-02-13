@@ -12,12 +12,12 @@ const Frame = styled.div`
     flex-direction:column;
     align-items:center;
     position:absolute;
-    top:20vw;
+    top:47%;
     
 `;
 const Msg = styled.strong`
     font-family :  "Raleway", sans-serif;
-    font-size:2vw;
+    font-size:1.5vw;
     margin-bottom : 3vw;
 `;
 
@@ -35,7 +35,7 @@ function Leave({getQuitFlag}) {
             body={
                 <Frame>
                 <Msg>Do  you want to leave random matching?</Msg>
-                <AllButton  onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"/>
+                <AllButton  onClick={quit} id ="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="OK"/>
                 {/* <Button onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button> */}
                 </Frame>
             }>
