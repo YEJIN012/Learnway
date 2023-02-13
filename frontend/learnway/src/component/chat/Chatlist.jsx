@@ -30,8 +30,9 @@ const Body = styled.div`
 `;
 
 function Chatlist() {
-    //const stored  = useSelector(state => state.AuthReducer);
-    const stored = { userEmail: "aaa@ssafy.com" };
+    const stored  = useSelector(state => state.AuthReducer);
+    //const stored = { userEmail: "aaa@ssafy.com" };
+    //채팅방 리스트 컴포넌트 
     const [roomList, setRoomList] = useState([]);
     const [roomInfo, setRoomInfo] = useState([]);
     const [selectUserState, setSelectUserState] = useState(undefined);
@@ -41,9 +42,8 @@ function Chatlist() {
     }, []);
 
     function getMyRoomList(userEmail) {
-        axios
-            .get(`api/chat/room/all/${userEmail}`)
-            .then(function (res) {
+        axios.get(`api/chat/room/all/${userEmail}`)
+             .then(function (res) {
                 let roomlist = [];
 
                 const data = res.data.Rooms;

@@ -46,7 +46,7 @@ function RandomMatch(props) {
     const oppoInfo = useSelector((state=>state.OpponentReducer));
     // const { oppoId, sessionId } = props;
     //const oppoId = "learnwaytest@gmail.com";
-    const {roomId} = useParams();
+    const {roomId, recorder} = useParams();
     
     const [friendCnt, setFriendCnt] = useState("");
     //const [oppoInfo, setOppoInfo] = useState(opusr);
@@ -108,7 +108,7 @@ function RandomMatch(props) {
 
     function redirect(){
         if(isTimeout === true){
-            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}`,{replace: true})
+            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}/${recorder}/${oppoInfo.language.languageId}`,{replace: true})
             window.location.reload();
                 
         }

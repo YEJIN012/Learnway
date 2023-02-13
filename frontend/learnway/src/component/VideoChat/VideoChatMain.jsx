@@ -12,6 +12,8 @@ import Youtube from "./Youtube/Youtube";
 import FloatingBtn from "./CommonComponent/FloatingBtn";
 import RouteToMain from './RouteToMain';
 import {useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 function withParams(Component){
     return props => <Component {...props} params={useParams()}></Component>
@@ -102,6 +104,8 @@ ${(props) =>
 
 background:none;
 `;
+
+
 let socketId = null;
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production" ? "" : "/api/video/";
@@ -114,6 +118,7 @@ class VideoChatMain extends Component {
             mySessionId: undefined,
             myUserName: undefined,
             oppoUserName: undefined,
+            recorder:undefined,
             session: undefined,
             mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
             publisher: undefined,
@@ -121,6 +126,8 @@ class VideoChatMain extends Component {
             menu: 9,
             quitflag: 0,
             socketId: undefined,
+            recordingId:undefined,
+            oppolang:undefined
         };
 
     this.joinSession = this.joinSession.bind(this);
@@ -134,8 +141,11 @@ class VideoChatMain extends Component {
     //this.handleSetMenu = this.handleSetMenu(this);
     //this.getQuit = this.handleQuit.bind(this);
     this.makeRoom = this.makeRoom.bind(this);
+    //this.store = this.makeRoom.bind(this);
+    //this.storeData = this.storeData.bind(this);
   }
   
+
   handleSetMenu(menuid) {
     if (this.state.menu === menuid) {
       this.setState({
@@ -166,14 +176,16 @@ class VideoChatMain extends Component {
     }}
 
      storeData(){
-         let {sessionId, myId, oppoId} = this.props.params;
-         console.log(sessionId, myId, oppoId);
+         let {sessionId, myId, oppoId, recorder, oppolang} = this.props.params;
+         console.log(sessionId, myId, oppoId, recorder);
          this.setState({
             mySessionId:sessionId,
             myUserName:myId,
-            oppoUserName:oppoId
+            oppoUserName:oppoId,
+            recorder:recorder,
+            oppolang:oppolang
         })
-        console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName)
+      
     }
 
     componentDidMount() {
@@ -233,6 +245,7 @@ onbeforeunload(event) {
   }
 
   joinSession() {
+    
     //this.makeRoom()
     //console.log("소켓아이디" + socketId)
     //get room id fot websocket
@@ -249,9 +262,8 @@ onbeforeunload(event) {
       },
       () => {
         var mySession = this.state.session;
-
         // --- 3) Specify the actions when events take place in the session ---
-
+        //console.log("mySession", mySession)
         // On every new Stream received...
         mySession.on("streamCreated", (event) => {
           console.log("event" + event);
@@ -260,7 +272,13 @@ onbeforeunload(event) {
           var subscriber = mySession.subscribe(event.stream, undefined);
           var subscribers = this.state.subscribers;
           subscribers.push(subscriber);
-
+          
+          //여기 부분 레코드 시작 함수
+          if(this.state.recorder === 'true'){
+            console.log("음성 레코드 시작");
+            this.startRecording();
+          }
+          console.log(this.state.subscribers)
           // Update the state with the new subscribers
           this.setState({
             subscribers: subscribers,
@@ -270,7 +288,17 @@ onbeforeunload(event) {
         // On every Stream destroyed...
         mySession.on("streamDestroyed", (event) => {
           // Remove the stream from 'subscribers' array
-          this.deleteSubscriber(event.stream.streamManager);
+          console.log(event)
+          
+          
+          //내 입장에서 상대방이 나갔을 때 레코드 중지 함수
+          if(this.state.recorder === 'true'){
+            console.log("음성녹음 중지(상대방 나감)")
+            this.stopRecording();
+          }
+          setTimeout(()=>this.deleteSubscriber(event.stream.streamManager), 3000);
+          
+          //console.log(this.state.subscribers)
         });
 
         // On every asynchronous exception...
@@ -326,6 +354,8 @@ onbeforeunload(event) {
                 mainStreamManager: publisher,
                 publisher: publisher,
               });
+
+              //todo
             })
             .catch((error) => {
               console.log(
@@ -344,8 +374,14 @@ onbeforeunload(event) {
 
     const mySession = this.state.session;
 
+    //내가 나갔을 때 녹화 종료
+    if(this.state.recorder === 'true'){
+      console.log("음성 녹화 종료:내가 나감")
+      this.stopRecording();
+    }
     if (mySession) {
-      mySession.disconnect();
+    setTimeout(()=>mySession.disconnect(),3000);
+      
     }
 
     // Empty all properties...
@@ -358,6 +394,7 @@ onbeforeunload(event) {
       mainStreamManager: undefined,
       publisher: undefined,
     });
+
   }
 
   async switchCamera() {
@@ -492,6 +529,37 @@ onbeforeunload(event) {
     console.log("token:" + response.data);
 
     return response.data; // The token
+  }
+
+  async startRecording() {
+    console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recorder, this.state.oppolang)
+    console.log(this.state.oppoInfo);
+    await axios.post(APPLICATION_SERVER_URL+ "recording/start", 
+    {
+      session: this.state.mySessionId,
+      outputMode: "COMPOSED", 
+      hasAudio: true,
+      hasVideo: false,
+    }).then((res=>{
+      console.log(res);
+      this.setState({recordingId: res.data});   //레코딩 아이디
+    }))
+  }
+
+  async stopRecording() {
+    console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recordingId, this.state.oppolang)
+    console.log
+    await axios.post(
+      APPLICATION_SERVER_URL+ "recording/stop",
+      {
+        userEmail:this.state.myUserName,
+        friendEmail:this.state.oppoUserName,
+        recordId: this.state.recordingId,  //녹화 종료할 때 레코딩 아이디 준다.
+        languageId:this.state.oppolang
+      }
+    ).then((res)=>{
+      console.log(res);  //성공 or 실패
+    })
   }
 }
 

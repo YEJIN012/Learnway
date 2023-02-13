@@ -26,7 +26,7 @@ function App() {
                 <Route element={<PrivateRoute />}>
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
-                    <Route path="/loading/match/:roomId" element={<RandomMatch />}></Route>
+                    <Route path="/loading/match/:roomId/:recorder" element={<RandomMatch />}></Route>
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
@@ -36,7 +36,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
-                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId/:recorder/:oppolang' element={<OpenV />}></Route>
             </Routes>
         </BrowserRouter>
     );
