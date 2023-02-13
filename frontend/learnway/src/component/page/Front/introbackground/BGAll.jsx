@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import BGTopAnimation from './BGTopAnimation';
 import BGLeftAnimation from './BGLeftAnimation';
+import BGAirPlane from "./BGAirplane";
 
 const Wrapper = styled.div`
     width: 100vw;
@@ -16,6 +17,7 @@ function BGAll () {
     return (
         <Wrapper>
           <BGTopAnimation />
+          <BGAirPlane />
           <BGLeftAnimation />
         </Wrapper>
       )
