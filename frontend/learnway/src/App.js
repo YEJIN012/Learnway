@@ -36,7 +36,7 @@ function App() {
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
-                <Route path='/openvidu/:sessionId/:myId/:oppoId/:recorder/:oppolang' element={<OpenV />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId/:recorder/:oppolang/:mylang' element={<OpenV />}></Route>
             </Routes>
         </BrowserRouter>
     );

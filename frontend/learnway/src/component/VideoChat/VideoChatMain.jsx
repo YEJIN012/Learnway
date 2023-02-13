@@ -128,7 +128,8 @@ class VideoChatMain extends Component {
             quitflag: 0,
             socketId: undefined,
             recordingId:undefined,
-            oppolang:undefined
+            oppolang:undefined,
+            myLanguage:undefined
         };
 
     this.joinSession = this.joinSession.bind(this);
@@ -177,14 +178,15 @@ class VideoChatMain extends Component {
     }}
 
      storeData(){
-         let {sessionId, myId, oppoId, recorder, oppolang} = this.props.params;
+         let {sessionId, myId, oppoId, recorder, oppolang, mylang} = this.props.params;
          console.log(sessionId, myId, oppoId, recorder);
          this.setState({
             mySessionId:sessionId,
             myUserName:myId,
             oppoUserName:oppoId,
             recorder:recorder,
-            oppolang:oppolang
+            oppolang:oppolang,
+            myLanguage:mylang
         })
       
     }
@@ -564,7 +566,8 @@ onbeforeunload(event) {
         userEmail:this.state.myUserName,
         friendEmail:this.state.oppoUserName,
         recordId: this.state.recordingId,  //녹화 종료할 때 레코딩 아이디 준다.
-        languageId:this.state.oppolang
+        userLanguageId:this.state.myLanguage,
+        friendLanguageId:this.state.oppolang
       }
     ).then((res)=>{
       console.log(res);  //성공 or 실패
