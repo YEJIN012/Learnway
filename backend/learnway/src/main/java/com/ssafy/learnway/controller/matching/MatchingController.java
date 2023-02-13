@@ -12,6 +12,7 @@ import com.ssafy.learnway.util.ResponseHandler;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,9 +46,6 @@ public class MatchingController {
 
     private final SimpMessageSendingOperations messagingTemplate;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     //매칭 요청을 한다.
     @GetMapping("/{userEmail}")
     public ResponseEntity matching(@PathVariable String userEmail, @RequestParam(name = "studyLanguageId") int studyLanguageId) throws SQLException {
@@ -79,10 +77,10 @@ public class MatchingController {
         ProfileDto matchingUser2 = userService.getProfile(user2.getUserEmail());
 
         // 방 이름 생성
-        String roomId = passwordEncoder.encode(matchingUser1.getUserEmail()+matchingUser2.getUserEmail());
+        String roomId = createRandomStrUsingUtilsRandomAlphanumeric();
 
-        Result matchingUser1Result = Result.builder().profileDto(matchingUser2).roomId(roomId).build();
-        Result matchingUser2Result = Result.builder().profileDto(matchingUser1).roomId(roomId).build();
+        Result matchingUser1Result = Result.builder().profileDto(matchingUser2).roomId(roomId).recorder(true).build();
+        Result matchingUser2Result = Result.builder().profileDto(matchingUser1).roomId(roomId).recorder(false).build();
 
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)
@@ -92,5 +90,13 @@ public class MatchingController {
         messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser2Result);
 
         return ResponseHandler.generateResponse("화상채팅이 성사되었습니다.", HttpStatus.ACCEPTED);
+    }
+
+    String createRandomStrUsingUtilsRandomAlphanumeric() {
+        int randomStrLen = 10;
+
+        String randomStr = RandomStringUtils.randomAlphanumeric(randomStrLen);
+
+        return randomStr;
     }
 }
