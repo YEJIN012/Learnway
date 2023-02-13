@@ -54,20 +54,6 @@ public class StudyController {
             return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
-    //학습 기록
-//    @Operation( summary= "학습 기록", description = "화상이 마치면 해당 학습에 대한 정보를 기록한다.")
-//    @PostMapping
-//    public ResponseEntity record(@RequestBody @Parameter(name = "기록에 관한 정보", required = true) StudyRecordRequestDto studyRecordRequestDto) throws SQLException {
-//        try {
-//
-//            studyService.insertStudy(studyRecordRequestDto);
-//            return ResponseHandler.generateResponse("학습 기록이 완료되었습니다.", HttpStatus.OK);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseHandler.generateResponse("서버 오류입니다.", HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
 
     @Operation(summary = "월별 기록 count", description = "달력에 표시용")
     @GetMapping("/month")

@@ -86,7 +86,8 @@ public class StudyService {
     public void insertStudy(StudyRecordRequestDto studyRecordRequestDto, String recordUrl) throws SQLException, URISyntaxException, UnsupportedEncodingException {
         User user = userRepository.findByUserEmail(studyRecordRequestDto.getUserEmail());
         User friend = userRepository.findByUserEmail(studyRecordRequestDto.getFriendEmail());
-        Language language = languageRepository.findByLanguageId(studyRecordRequestDto.getLanguageId());
+        Language userLanguage = languageRepository.findByLanguageId(studyRecordRequestDto.getUserLanguageId());
+        Language friendLanguage = languageRepository.findByLanguageId(studyRecordRequestDto.getFriendlanguageId());
 
         String encodedUrl = URLEncoder.encode(recordUrl);
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
@@ -97,14 +98,19 @@ public class StudyService {
 
         String script = restTemplate.getForObject(requestURL, String.class, encodedUrl);
         System.out.println(encodedUrl);
-        Study study = Study.builder()
+        Study userStudy = Study.builder()
                 .userId(user)
                 .friendId(friend)
-                .languageId(language)
+                .languageId(friendLanguage)
                 .script(script)
                 .build();
-
-        if(studyRepository.save(study) == null){ //학습기록
+        Study friendStudy = Study.builder()
+                .userId(friend)
+                .friendId(user)
+                .languageId(userLanguage)
+                .script(script)
+                .build();
+        if(studyRepository.save(userStudy) == null || studyRepository.save(friendStudy) == null){ //학습기록
             throw new SQLException();
         }
     }

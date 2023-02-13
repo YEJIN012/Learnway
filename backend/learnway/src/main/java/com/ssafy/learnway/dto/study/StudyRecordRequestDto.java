@@ -22,5 +22,7 @@ public class StudyRecordRequestDto {
 //    private String recordUri;
 //    private LocalDateTime studyDatetime;
 
-    private int languageId;
+    private int userLanguageId;
+
+    private int friendlanguageId;
 }
