@@ -108,7 +108,7 @@ function RandomMatch(props) {
 
     function redirect(){
         if(isTimeout === true){
-            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}/${recorder}/${oppoInfo.language.languageId}`,{replace: true})
+            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}/${recorder}/${oppoInfo.language.languageId}/${myInfo.language.languageId}`,{replace: true})
             window.location.reload();
                 
         }
