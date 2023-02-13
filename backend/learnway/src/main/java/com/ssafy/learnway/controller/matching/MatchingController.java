@@ -59,7 +59,7 @@ public class MatchingController {
         }
 
         // socket 방 생성 (대기방을 구독하고 있는 개념)
-        String roomId = user.getUserEmail() + "/" +studyLanguageId; //socket 방을 [userEmail/학습언어]로 지정ß
+        String roomId = user.getUserEmail() + "-" +studyLanguageId; //socket 방을 [userEmail/학습언어]로 지정ß
 
         return ResponseHandler.generateResponse("대기방이 생성되었습니다", HttpStatus.ACCEPTED,"roomId",roomId);
     }
@@ -86,10 +86,10 @@ public class MatchingController {
 
         // socket통신
         // user1 socket을 통해 user2의 이메일 전송(profile을 전송 할 수도!)
-        messagingTemplate.convertAndSend("/sub/chat/room/" + user1.getSocket(), matchingUser2Result);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user1.getSocket(), matchingUser1Result);
 
         // user2 socket을 통해 user1의 이메일 전송(profile을 전송 할 수도!)
-        messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser1Result);
+        messagingTemplate.convertAndSend("/sub/chat/room/" + user2.getSocket(), matchingUser2Result);
 
         return ResponseHandler.generateResponse("화상채팅이 성사되었습니다.", HttpStatus.ACCEPTED);
     }

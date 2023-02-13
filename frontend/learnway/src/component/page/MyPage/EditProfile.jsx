@@ -285,7 +285,7 @@ function EditProfile() {
             }
             sx={{
                 borderRadius: "35px",
-                height: "55vh",
+                height: "60vh",
                 boxSizing: "border-box",
                 paddingX: "5vw",
                 paddingY: "4vh",

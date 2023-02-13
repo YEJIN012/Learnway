@@ -391,65 +391,70 @@ class VideoChatMain extends Component {
     }
   }
 
-  render() {
-    console.log(this.state.socketId);
-    console.log(this.state.oppoUserName);
-    //const matchData = {sessionId : 'abdhfhueh', myId : "aaa@ssafy.com", oppoId:"bbb@ssafy.com"};
-    //        const mySessionId = this.state.mySessionId;
-    //        const myUserName = this.state.myUserName;
-    console.log(this.state.menu);
-    const menuList = {
-      0: <Report user={this.state.oppoUserName}></Report>,
-      1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}></Quit>,
-      2: <SearchProfile user={this.state.oppoUserName}></SearchProfile>,
-      3: <Translate></Translate>,
-      4: (
-        <Youtube
-          sockId={this.state.socketId}
-          myId={this.state.myUserName}
-          oppoId={this.state.oppoUserName}
-        ></Youtube>
-      ),
-    };
-    return (
-      <Frame>
-        <FloatingBtn
-          handleSetMenu={this.handleSetMenu.bind(this)}
-          func={this.leaveSession}
-        ></FloatingBtn>
+    render() {
+        console.log(this.state.socketId);
+        console.log(this.state.oppoUserName);
+        //const matchData = {sessionId : 'abdhfhueh', myId : "aaa@ssafy.com", oppoId:"bbb@ssafy.com"};
+        //        const mySessionId = this.state.mySessionId;
+        //        const myUserName = this.state.myUserName;
+        console.log(this.state.menu);
+        const menuList = {
+            0: <Report user={this.state.oppoUserName}></Report>,
+            1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}></Quit>,
+            2: <SearchProfile user={this.state.oppoUserName}></SearchProfile>,
+            3: <Translate></Translate>,
+            4: (
+                <Youtube
+                    sockId={this.state.socketId}
+                    myId={this.state.myUserName}
+                    oppoId={this.state.oppoUserName}
+                ></Youtube>
+            ),
+        };
+        return (
+            <Frame>
+                <FloatingBtn
+                    handleSetMenu={this.handleSetMenu.bind(this)}
+                    func={this.leaveSession}
+                ></FloatingBtn>
 
-        <VideoArea>
-          {menuList[this.state.menu]}
-          {this.state.session === undefined ? (
-            <RouteToMain></RouteToMain>
-          ) : null}
+                <VideoArea>
+                    {this.state.session === undefined ? (
+                        <RouteToMain></RouteToMain>
+                    ) : null}
 
-          {this.state.session !== undefined ? (
-            <VideoFrame id="video-container" fixSizeId={this.state.menu}>
-              {this.state.publisher !== undefined ? (
-                <Video
-                  streamManager={this.state.publisher}
-                  pubsub={"pub"}
-                  size={this.state.menu}
-                />
-              ) : null}
-              {this.state.subscribers.map((sub, i) => (
-                <Video
-                  streamManager={sub}
-                  pubsub={"sub"}
-                  size={this.state.menu}
-                />
-              ))}
-            </VideoFrame>
-          ) : null}
-        </VideoArea>
-      </Frame>
-    );
-  }
+                    {menuList[this.state.menu]}
 
-  async getToken() {
-    console.log("gg" + this.state.mySessionId);
-    console.log("gg" + this.state.myUserName);
+                    {this.state.session !== undefined ? (
+                        <VideoFrame
+                            id="video-container"
+                            fixSizeId={this.state.menu}
+                        >
+                            {this.state.publisher !== undefined ? (
+                                <Video
+                                    streamManager={this.state.publisher}
+                                    pubsub={"pub"}
+                                    size={this.state.menu}
+                                />
+                            ) : null}
+                            {this.state.subscribers.map((sub, i) => (
+                                <Video
+                                    streamManager={sub}
+                                    pubsub={"sub"}
+                                    size={this.state.menu}
+                                />
+                            ))}
+                        </VideoFrame>
+                    ) : null}
+                </VideoArea>
+            </Frame>
+        );
+    }
+    
+    
+    async getToken() {
+        console.log("gg" + this.state.mySessionId);
+        console.log("gg" + this.state.myUserName);
 
     const sessionId = await this.createSession(this.state.mySessionId);
     console.log(sessionId);

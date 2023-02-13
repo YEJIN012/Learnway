@@ -3,9 +3,16 @@ import styled, { css } from "styled-components";
 
 const Frame = styled.div`
     display: flex;
-    flex-direction: ${(props) => props.flex || "row"};
-    margin: ${(props) => props.margin || ""}
+    flex-direction: column;
+    margin: ${(props) => props.margin || ""};
 `;
+
+const SubFrame = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: -3px;
+
+`
 
 const GroupTitle = styled.span`
     font-size: ${(props) => props.fontSize || "1vw"};
@@ -16,9 +23,12 @@ const GroupTitle = styled.span`
 const InputForm = styled.div`
     width: ${(props) => props.inputWidth || "2vw"};
     height: ${(props) => props.inputHeight || "1vw"};
+    word-break: break-all;
+    overflow: ${(props) => props.overFlow || ""};
 `;
 
 function InputGroup({
+    icon,
     flex,
     textValue,
     fontSize,
@@ -26,15 +36,23 @@ function InputGroup({
     margin,
     inputWidth,
     inputHeight,
+    overFlow,
     obj,
 }) {
     //obj : input tag or select... etc...
     return (
         <Frame flex={flex} margin={margin}>
-            <GroupTitle fontColor={fontColor} fontSize={fontSize}>
-                {textValue}
-            </GroupTitle>
-            <InputForm inputWidth={inputWidth} inputHeight={inputHeight}>
+            <SubFrame>
+                {icon}
+                <GroupTitle fontColor={fontColor} fontSize={fontSize}>
+                    {textValue}
+                </GroupTitle>
+            </SubFrame>
+            <InputForm
+                inputWidth={inputWidth}
+                inputHeight={inputHeight}
+                overFlow={overFlow}
+            >
                 {obj}
             </InputForm>
         </Frame>

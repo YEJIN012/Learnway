@@ -193,74 +193,99 @@ function Loading() {
     // startMatching();
   }, []);
 
-  return (
-    <>
-      <NavBar></NavBar>
-      <Frame>
-        <SubFrame1>
-          <div className="sign">
-            <Text>
-              <TestObj>
-                <TestSpan>M</TestSpan>
-                <TestSpan>A</TestSpan>
-                <TestSpan>T</TestSpan>
-                <TestSpan>C</TestSpan>
-                <TestSpan>H</TestSpan>
-                <TestSpan>I</TestSpan>
-                <TestSpan>N</TestSpan>
-                <TestSpan>G</TestSpan>
-              </TestObj>
-            </Text>
-            <div className="moving">
-              <div className="suitcase">
-                <div className="handle"></div>
-              </div>
-              <div className="suitcase">
-                <div className="handle"></div>
-              </div>
-            </div>
-            <div className="rollBox">
-              <div className="rollthingy"></div>
-              <div className="rollthingy"></div>
-              <div className="rollthingy"></div>
-              <div className="rollthingy"></div>
-              <div className="rollthingy"></div>
-            </div>
-          </div>
-        </SubFrame1>
-        <SubFrame2>
-          <Box>
-            <TitleFrame>
-              <FlightTakeoffIcon
-                sx={{
-                  width: "5vw",
-                  height: "4vw",
-                  border: "solid 2.5px",
-                  borderRadius: "1vw",
-                  margin: "0px 1vw 0px 0px",
-                }}
-              ></FlightTakeoffIcon>
-              Today's Conversation
-            </TitleFrame>
-            <hr
-              style={{
-                width: "100%",
-                height: 2,
-                backgroundColor: "white",
-              }}
-            />
-            <BodyFrame>
-              {lngConv.map((lng, i) => (
-                <ConvFrame key={i}>
-                  <Stn1>{lng}</Stn1>
-                  <Stn2>{studyLngConv[i]}</Stn2>
-                </ConvFrame>
-              ))}
-            </BodyFrame>
-          </Box>
-        </SubFrame2>
-      </Frame>
-    </>
-  );
+    // 오늘의 회화 목록을 가져오는 함수
+    function getTodayConv() {
+        console.log(useInfo.language.name);
+        console.log(studyLng);
+        axios
+            .get("api/conv", {
+                params: { lng: useInfo.language.name, study_lng: studyLng },
+            })
+            // handle success
+            .then(function (res) {
+                console.log();
+                setLngConv(res.data.conversation.lng.slice(0, 2));
+                setStudyLngConv(res.data.conversation.studyLng.slice(0, 2));
+                console.log(res);
+                console.log(lngConv);
+                console.log(studyLngConv);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    useEffect(() => {
+        getTodayConv();
+    }, []);
+
+    return (
+        <>
+            <NavBar></NavBar>
+            <Frame>
+                <SubFrame1>
+                    <div className="sign">
+                        <Text>
+                            <TestObj>
+                                <TestSpan>M</TestSpan>
+                                <TestSpan>A</TestSpan>
+                                <TestSpan>T</TestSpan>
+                                <TestSpan>C</TestSpan>
+                                <TestSpan>H</TestSpan>
+                                <TestSpan>I</TestSpan>
+                                <TestSpan>N</TestSpan>
+                                <TestSpan>G</TestSpan>
+                            </TestObj>
+                        </Text>
+                        <div className="moving">
+                            <div className="suitcase">
+                                <div className="handle"></div>
+                            </div>
+                            <div className="suitcase">
+                                <div className="handle"></div>
+                            </div>
+                        </div>
+                        <div className="rollBox">
+                            <div className="rollthingy"></div>
+                            <div className="rollthingy"></div>
+                            <div className="rollthingy"></div>
+                            <div className="rollthingy"></div>
+                            <div className="rollthingy"></div>
+                        </div>
+                    </div>
+                </SubFrame1>
+                <SubFrame2>
+                    <Box>
+                        <TitleFrame>
+                            <FlightTakeoffIcon
+                                sx={{
+                                    width: "5vw",
+                                    height: "4vw",
+                                    border: "solid 2.5px",
+                                    borderRadius: "1vw",
+                                    margin: "0px 1vw 0px 0px",
+                                }}
+                            ></FlightTakeoffIcon>
+                            Today's Conversation
+                        </TitleFrame>
+                        <hr
+                            style={{
+                                width: "100%",
+                                height: 2,
+                                backgroundColor: "white",
+                            }}
+                        />
+                        <BodyFrame>
+                            {lngConv.map((lng, i) => (
+                                <ConvFrame key={i}>
+                                    <Stn1>{lng}</Stn1>
+                                    <Stn2>{studyLngConv[i]}</Stn2>
+                                </ConvFrame>
+                            ))}
+                        </BodyFrame>
+                    </Box>
+                </SubFrame2>
+            </Frame>
+        </>
+    );
 }
 export default Loading;

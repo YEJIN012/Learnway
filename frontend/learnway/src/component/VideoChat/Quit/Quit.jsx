@@ -34,7 +34,7 @@ function Leave({getQuitFlag}) {
                 <Frame>
                 <Msg>Do  you want to leave random matching?</Msg>
                 
-                <Button onClick={quit} id ="6" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button>
+                <Button onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button>
                 </Frame>
             }>
         </CommonFrame>

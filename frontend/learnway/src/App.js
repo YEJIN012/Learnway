@@ -30,13 +30,13 @@ function App() {
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
-                <Route path="/intro" element={<Intro />}></Route>
+                {/* <Route path="/intro" element={<Intro />}></Route> */}
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/signup" element={<Signup />}></Route>
                 <Route path="/find_password" element={<FindPwd />}></Route>
                 <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 <Route path='/logincheck' element={<LoginCheck />}></Route>
-                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'ffff', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
+                <Route path='/openvidu/:sessionId/:myId/:oppoId' element={<OpenV matchData={{sessionId : 'ssss', myId : 'aaa@ssafy.com', oppoId:'bbb@ssafy.com'}} />}></Route>
             </Routes>
         </BrowserRouter>
     );
