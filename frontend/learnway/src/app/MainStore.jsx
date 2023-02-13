@@ -1,4 +1,7 @@
-const selectedMatchLang="TO";
+const selectedMatchLang={
+  languageId:null,
+  languageName:null
+};
   
   function MainStore(state = selectedMatchLang, action){
     if(action.type === 'matchLangUpdate'){

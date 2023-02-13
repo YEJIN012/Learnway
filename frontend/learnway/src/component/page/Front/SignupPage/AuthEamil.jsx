@@ -43,7 +43,7 @@ export default function AuthEamil({getEmail}) {
   // 인증번호 식별 요청
   const handleSubmit = (e) => {
     e.preventDefault();
-    request("post", URL + `?code=${authcode}&user_email=${email}`, email)
+    request("post", URL + `?code=${authcode}&user_email=${email}&find_code=1`, email)
       .then((res) => {
           const status = res.status;
           const msg = res.msg

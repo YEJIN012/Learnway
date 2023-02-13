@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import styled, {keyframes} from "styled-components";
 import NavBar from "../../ui/NavBar";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
 import "./LoadingAni.css";
+import { useNavigate } from "react-router-dom";
 
 const Frame = styled.div`
     padding-top: 10vh;
@@ -148,9 +151,15 @@ const TestSpan = styled.span`
     }
 `;
 
+
+const socket = new SockJS('/api/ws-stomp');
+const ws = Stomp.over(socket);
+
 function Loading() {
-    const useInfo = useSelector((state) => state.AuthReducer);
+    const userInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     // console.log(useInfo)
     const [lngConv, setLngConv] = useState([]);
     // const lngConv = [
@@ -166,15 +175,17 @@ function Loading() {
     //     // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
     //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
     // ];
-
+    //userInfo.language.languageId, studyLng.languageId
+    const matchingServerRoomId = `${userInfo.userEmail}-${studyLng.languageId}`;
+    console.log(matchingServerRoomId)
 
     // 오늘의 회화 목록을 가져오는 함수
     function getTodayConv() {
-        console.log(useInfo.language.name);
+        console.log(userInfo.language.name);
         console.log(studyLng);
         axios
             .get("api/conv", {
-                params: { lng: useInfo.language.name, study_lng: studyLng },
+                params: { lng: userInfo.language.name, study_lng: studyLng.languageName },
             })
             // handle success
             .then(function (res) {
@@ -189,11 +200,49 @@ function Loading() {
                 console.log(error);
             });
     }
+
+    //window.location.reload();
     useEffect(() => {
         getTodayConv();
-        startMatching();
+        ws.connect({}, (frame) => {
+            console.log("connected to Matching server:", frame);
+            subscribe();
+        });
+
+        return () => {
+            ws.disconnect(() => {
+                console.log("Disconnected from Matching Server");
+
+            });
+        };
     }, []);
 
+    function subscribe(){
+        ws.subscribe(`/sub/chat/room/${matchingServerRoomId}`, (event) => {
+            const received = JSON.parse(event.body);
+            console.log(received)
+            const roomId = received.roomId;
+            const oppoProfile = received.profileDto;
+            
+            redirectMatchedPage(roomId, oppoProfile);
+            //state에 저장
+        });
+    }
+
+    async function redirectMatchedPage(roomId, oppoProfile){
+        //redux에 상대방 정보 저장
+        console.log(oppoProfile)
+        const replacedStr = await replaceString(roomId);
+        await dispatch({type:"UPDATE_OPPOUSER", payload:oppoProfile})
+        //매칭 페이지로 리다이렉트
+        await navigate(`/loading/match/${replacedStr}`,{replace:true});
+        //await window.location.reload();
+    }
+
+    function replaceString(str){
+        const replaced = str.replace(/\//gi, '');
+        return replaced;
+    }
     return (
         <>
             <NavBar></NavBar>

@@ -5,7 +5,7 @@ import "./RandomMatch.css";
 import logo from "../../page/Front/img/logo_skyblue.png";
 import styled from "styled-components";
 import ProfileImg from "../../ui/ProfileImg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProfileImgPoint from "../../ui/ProfileImgPoint";
 
 const Lang = styled.div`
@@ -44,41 +44,36 @@ const Interest = styled.div`
 
 export default function RandomMatch(props) {
     const myInfo = useSelector((state) => state.AuthReducer);
+    const oppoInfo = useSelector((state=>state.OpponentReducer));
     // const { oppoId, sessionId } = props;
-    const oppoId = "learnwaytest@gmail.com";
-    const sessionId = "eee";
+    //const oppoId = "learnwaytest@gmail.com";
+    const {roomId} = useParams();
     
-    const [oppoInfo, setOppoInfo] = useState({
-        name: "",
-        email: "",
-        birth: "",
-        friends: "",
-        img: "",
-        lang: "",
-        interest: [],
-        bio: "",
-    });
     const [friendCnt, setFriendCnt] = useState("");
-
+    //const [oppoInfo, setOppoInfo] = useState(opusr);
+    //setOppoInfo(opusr)
     const delayTime = 7000;
     const [isTimeout, setIsTimeout] = useState(false);
     const navigate = useNavigate();
+    console.log(oppoInfo, roomId)
+    
 
-    async function getFriendCnt() {
-        try {
-            const res = await axios.get("/api/friend/count", {
-                params: { userEmail: oppoInfo.email },
-            });
-            console.log(res);
-            setFriendCnt(res.data.friendCnt);
-        } catch (error) {
-            console.log(error);
+        async function getFriendCnt() {
+            try {
+                const res = await axios.get("/api/friend/count", {
+                    params: { userEmail: oppoInfo.userEmail },
+                });
+                console.log(res);
+                setFriendCnt(res.data.friendCnt);
+            } catch (error) {
+                console.log(error);
+            }
         }
-    }
-
-    async function getUserInfo() {
-        try {
-            const res = await axios
+    
+        /*
+        async function getUserInfo() {
+            try {
+                const res = await axios
 
                 // 화상 상대방 Info
                 .get(`/api/users/profile/${oppoId}`);
@@ -103,7 +98,7 @@ export default function RandomMatch(props) {
             console.log(err);
         }
     }
-
+*/
     function interestRernderer(array) {
         let result = "";
         if (array) {
@@ -114,25 +109,31 @@ export default function RandomMatch(props) {
         return result;
     }
 
+    function redirect(){
+        if(isTimeout === true){
+            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}`,{replace: true})
+            window.location.reload();
+                
+        }
+    }
+
+
     useLayoutEffect(() => {
-        let timer = setTimeout(() => {
+        let timer = setTimeout(async () => {
             setIsTimeout(true);
         }, delayTime);
-        getUserInfo();
+        //getUserInfo();
         getFriendCnt();
     }, []);
-
+    console.log(isTimeout)
     return (
         <>
             {isTimeout === true ? (
-                navigate(
-                    `/openvidu/${sessionId}/${myInfo.userEmail}/${oppoId}`,
-                    {
-                        replace: true,
-                    }
-                )
-            ) : (
-                <div className="frame">
+                
+                redirect()
+                
+                ) : (
+                    <div className="frame">
                     <div className="framebody">
                         <main className="ticket-system">
                             <div className="top">
@@ -161,7 +162,7 @@ export default function RandomMatch(props) {
                                                     d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z"
                                                 />
                                             </svg>
-                                            <Lang>{oppoInfo.lang.code}</Lang>
+                                            <Lang>{oppoInfo.language.code}</Lang>
                                         </div>
                                         <div className="details">
                                             <div className="item">
@@ -170,11 +171,11 @@ export default function RandomMatch(props) {
                                             </div>
                                             <div className="item">
                                                 <span>Birth</span>
-                                                <h3>{oppoInfo.birth}</h3>
+                                                <h3>{oppoInfo.birthDay}</h3>
                                             </div>
                                             <div className="item">
                                                 <span>Email</span>
-                                                <h6>{oppoInfo.email}</h6>
+                                                <h6>{oppoInfo.userEmail}</h6>
                                             </div>
                                             <div className="item">
                                                 <span>Friends</span>
@@ -190,14 +191,14 @@ export default function RandomMatch(props) {
                                     </div>
                                     <div className="receipt qr-code">
                                         <ProfileImgPoint
-                                            src={oppoInfo.img}
+                                            src={oppoInfo.imgUrl}
                                         ></ProfileImgPoint>
                                         <div className="description">
                                             <Text>Hi🙌</Text>
                                             <Text>Our interest is</Text>
                                             <Interest>
                                                 {interestRernderer(
-                                                    oppoInfo.interest
+                                                    oppoInfo.interests
                                                 )}
                                             </Interest>
                                         </div>

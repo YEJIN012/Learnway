@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
-
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -164,37 +164,47 @@ const languagestyle = {
     p: 4,
 };
 
-function startMatching(lang1, lang2) {
-    alert(lang1.toString() + " " + lang2.toString() + " 매칭 페이지 처리");
-};
 
 function Body() {
     //상태 저장소에서 나의 언어 가져오기
-    const mylang = useSelector(state => state.UserStore);
+    const mylang = useSelector(state => state.AuthReducer);
     //상태 저장소에서 상대방 언어 가져오기
     const oppolang = useSelector(state => state.MainStore);
     const dispatch = useDispatch();
-
+    
     //console.log(mylang, oppolang)
-
+    
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
-
+    
 	const [popup, setPopup] = React.useState(false);
     const popupOpen = () => setPopup(true);
     const popupClose = () => setPopup(false);
-
     
-
+    const navigate = useNavigate();
+    
+    console.log(oppolang)
+    
     useEffect(() => {
-        dispatch({ type: "matchLangUpdate", payload: "TO" });
+        dispatch({ type: "matchLangUpdate", payload: {  languageId:null, languageName:"TO" }});
     }, []);
-
+    
     useEffect(() => {
         popupClose(); //값 변화 감지되면 종료
     },[oppolang])
 
+    function startMatching() {
+    
+        navigate(
+            `/loading`,
+            {
+                replace: true,
+            }
+        )
+        window.location.reload();
+    };
+    
     return (
         <Frame>
 			<Component>
@@ -222,7 +232,7 @@ function Body() {
 
                 <SelectFrame>
                     <Mid>Arrivals</Mid>
-                    <SelectLink onClick={popupOpen}>{oppolang.toString()}</SelectLink>
+                    <SelectLink onClick={popupOpen}>{oppolang.languageName}</SelectLink>
                     <Modal
                         open={popup}
                         onClose={popupClose}
@@ -265,7 +275,7 @@ function Body() {
                         textWeight="900"
                         radius="15px"
                         margin="0px"
-                        onClick={() => startMatching(mylang.languageId, oppolang)} />
+                        onClick={() => startMatching()} />
                     <ChkCamera onClick={handleOpen} sx={{
                         color: "#91a8d0",
                         width: "4vw",
