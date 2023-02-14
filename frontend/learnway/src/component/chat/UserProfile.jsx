@@ -5,12 +5,15 @@ import ProfileImg from "../ui/ProfileImg";
 
 const Frame = styled.div`
     width:88%;
+    min-width: 176px;
     height:10%;
     display:flex;
     flex-direction:row;
+    align-items: center;
+    justify-content: space-between;
     // border:solid 1px black;
-    padding-top: 3%;
-    padding-bottom: 1%;
+    /* padding-top: 3%;
+    padding-bottom: 1%; */
     border-bottom: .08rem solid #B4ABAB;
     margin: 0 auto;
     &:hover{  
@@ -27,16 +30,6 @@ const UserFrame = styled.div`
     margin: 0 0 0 0.3vw;
     // border:1px solid black;
 `;
-
-// const ProfileImg = styled.div`
-//     width:2.8vw;
-//     height:2.8vw;
-//     background-image: url(${props => props.url || ""});
-//     background-size:cover;
-//     border-radius:999px;
-//     margin:0vw 0vw 0.5vw 0vw;
-//     // border:1px solid black;
-// `;
 
 const DetailBox = styled.div`
     height:inherit;
@@ -57,7 +50,7 @@ const UserName = styled.span`
 const Info = styled.span`
     font-size:0.8vw;
     font-weight:600;
-    margin-top:0.4vw;
+    /* margin-top:0.4vw; */
     color : #4F4C4D;
     // border:1px solid black;
 `;
@@ -94,6 +87,7 @@ const Check = styled.div`
 
 const RequestVideoChatBtn = styled.div`
     width:100%;
+    min-width: 30px;
     height:inherit;
     // border:1px solid black;
 `;
@@ -108,7 +102,7 @@ function UserProfile(props) {
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
-                    <ProfileImg src={imgurl} width="6.5vh"/>
+                    <ProfileImg src={imgurl} width="3vw" minWidth="30px"/>
                     <DetailBox>
                         <UserName>{name}</UserName>
                         <Info>{latestmsg.substr(0, 15)+' ...'}</Info>
@@ -116,7 +110,7 @@ function UserProfile(props) {
                 </UserFrame>
                 <Func>
                     <LogonTime>{`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}</LogonTime>
-                    
+
                 </Func>
             </Frame>
         );
@@ -129,17 +123,17 @@ function UserProfile(props) {
 
             <Frame>
                 <UserFrame>
-                    <ProfileImg src={imgurl} width="6.5vh"/>
+                    <ProfileImg src={imgurl} width="3vw" minWidth="30px"/>
                     <DetailBox>
                         <UserName>{name}</UserName>
                         <Info>{`Last seen. ${latestDateTime} ago`}</Info>
                     </DetailBox>
                 </UserFrame>
-                <Func>
-                    <RequestVideoChatBtn>
-                        <VideocamIcon sx={{fontSize: "2vw", margin: "0.5vw 0px 0px 2.7vw", color: "615e5f", opacity: "0.5"}} />
-                    </RequestVideoChatBtn>
-                </Func>
+                {/* <Func> */}
+                    {/* <RequestVideoChatBtn> */}
+                        <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
+                    {/* </RequestVideoChatBtn> */}
+                {/* </Func> */}
             </Frame>
         );
     }

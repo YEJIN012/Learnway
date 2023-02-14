@@ -16,8 +16,9 @@ const RoomFrame = styled.div`
 
 const TitleBar = styled.span`
     font-size:1.7vw;
+    /* font-size:3vh; */
     font-weight:700;
-    padding:1.5vw 1vw 0.5vw 1.7vw;
+    padding:1.5vh 1.5vw 0vh 1.5vw;
     color : #4F4C4D;
     // border:solid 1px black;
 `;
