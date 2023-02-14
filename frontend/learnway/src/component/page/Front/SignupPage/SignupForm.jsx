@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
 import InputBox from '../Input';
 import AuthEamil from './AuthEamil';
 import Button from '../../../ui/Button';
 import SelectLanguage from '../../../ui/CommonSelectLanguage';
-import { useSelector } from 'react-redux';
 import { request } from '../utils/axios';
 
+import moment from "moment/moment";
 import Alert from '@mui/joy/Alert';
 import Stack from '@mui/material/Stack';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -72,7 +73,6 @@ export default function SignupForm({getUserinfo}) {
     }
   })
   
-
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,7 +112,7 @@ export default function SignupForm({getUserinfo}) {
       alert("Please check your password.")
     }
   };
-
+  const [startDate, setStartDate] = useState(new Date());
   return(
       <div>
         <AuthEamil getEmail = {getEmail}></AuthEamil>
@@ -134,7 +134,7 @@ export default function SignupForm({getUserinfo}) {
               icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />            
           </InputFrame>
-          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
+          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" cursor="pointer" data_placeholder="YYYY-MM-DD" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
             icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <Frame>

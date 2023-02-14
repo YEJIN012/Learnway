@@ -15,7 +15,7 @@ const RoomFrame = styled.div`
 `;
 
 const TitleBar = styled.span`
-    font-size:1.7vw;
+    font-size:1.3vw;
     /* font-size:3vh; */
     font-weight:700;
     padding:1.5vh 1.5vw 0vh 1.5vw;

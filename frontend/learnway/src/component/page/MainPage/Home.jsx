@@ -64,7 +64,7 @@ const People = styled.img`
     height: 22vw;
     width: 20vw;
     position : absolute;
-    bottom : 5%;
+    bottom : 3%;
     left : 2%;
 `;
 
@@ -72,7 +72,7 @@ const Ref = styled.a`
     position : absolute;
     bottom : 0.5%;
     left : 1%;
-    font-size:02.vw;
+    font-size:0.3vw;
     color:#DCD6D6;
     text-decoration-line: none;
 `;
@@ -92,7 +92,7 @@ function Home(params) {
                 <Body></Body>
             </BackGround>
             <BGAll></BGAll>
-            <Ref href="https://kr.freepik.com/">Freepik</Ref>
+            <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
         </div>
     );
 }

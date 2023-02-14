@@ -56,10 +56,10 @@ const StartBtn = styled.div`
 
 const Ref = styled.a`
     position : absolute;
-    bottom : 0.5%;
-    left : 1%;
-    font-size:02.vw;
-    color:#C5BEBE;
+    bottom : 0.5vw;
+    left : 1vw;
+    font-size:0.3vw;
+    color:#DCD6D6;
     text-decoration-line: none;
 `;
 
@@ -71,7 +71,7 @@ export default function Intro() {
       <Picture src={logo}></Picture>
       <Btn />
       <BGIntro />
-      <Ref href="https://kr.freepik.com/">Freepik</Ref>
+      <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
     </div>
   )
 }

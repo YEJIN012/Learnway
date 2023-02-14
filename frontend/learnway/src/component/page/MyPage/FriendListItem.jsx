@@ -17,7 +17,7 @@ function FriendListItem(props) {
     return friendsProfile.map((friend, index) => (
         <Item onClick={() => handleSelectedFriend(friend)} key={index}>
             <ProfileImg src={friend.imgUrl} width={"50px"} />
-            <div>{friend.name}</div>
+            <div style={{fontWeight:"bold"}}>{friend.name}</div>
             <div>{friend.language.name}</div>
         </Item>
     ));

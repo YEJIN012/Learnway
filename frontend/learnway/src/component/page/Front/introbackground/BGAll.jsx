@@ -6,12 +6,14 @@ import BGLeftAnimation from './BGLeftAnimation';
 import BGAirPlane from "./BGAirplane";
 
 const Wrapper = styled.div`
-    width: 100vw;
-    height: 90vh;
-    z-index : -1;
+    width: 100%;
+    height: 100%;
+    z-index : -7;
     display: flex;
     background-size: cover;
     // border: solid 1px black;
+    position:absolute;
+    top:0vw;
 `;
 
 function BGAll () {
