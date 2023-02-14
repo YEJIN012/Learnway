@@ -115,7 +115,7 @@ function Youtube({...props}){
         ws.connect({}, (frame) => {
             
             console.log("connected to Youtube socket:", frame);
-            //subscribe();
+            subscribe();
         })
         return()=>{
             ws.disconnect(()=>{
@@ -188,7 +188,7 @@ function Youtube({...props}){
     },[vodId]);
     */
     function subscribe(){
-        ws.subscribe(`/sub/chat/room/${props.sockId}`, (event) => {
+        ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
             const received = JSON.parse(event.body)
             if(received.sender === props.oppoid){
                 const data = received.message;
@@ -225,7 +225,7 @@ function Youtube({...props}){
 
     function processVodId(id){
         setVodId(id);
-        publish();
+        publish(id);
     }
     //console.log(vodTitle)
     //다음 페이지 호출 1, 호출 x 2
