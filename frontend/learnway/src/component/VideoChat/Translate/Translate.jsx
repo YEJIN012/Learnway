@@ -13,7 +13,7 @@ const Frame = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows:  0.5fr 5fr 0.5fr 5fr;
+  grid-template-rows:  0.3fr 3fr 0.3fr 3fr;
   padding-left: 5%;
   padding-right: 5%;
   

@@ -33,7 +33,7 @@ const FriendNumber = styled.span`
     font-size: 3.5vh;
 `;
 
-const Text = styled.span`
+const Text = styled.div`
     // font-size: 1.3vw;
     // color: #7c7c7c;
 `;
@@ -49,6 +49,9 @@ const ProfileHeader = styled.div`
 const TimeLi = styled.li``;
 const TimeUl = styled.ul`
     list-style:none;
+    padding-left:0;
+    margin-left:0;
+    font-size:1.9vh;
 `;
 
 // Friend 말고 상대방 프로필로 함수명 바꿔야할듯..
@@ -159,17 +162,18 @@ function SearchProfile(props) {
                 <>
                     <ProfileHeader>
                         <ProfileImg src={userInfo.img} width={"10vw"}></ProfileImg>
+                        <PersonAddIcon
+                            onClick={() => addFriend(myInfo.userEmail, props.user)}
+                            cursor="pointer"
+                            sx={{ scale: "1.3", color: "#615e5fea" }}
+                        />
                         {/* <Friends>
                             <FriendNumber>{friendCnt}</FriendNumber>
                             Friends
                         </Friends> */}
                         {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                         <UserName>{userInfo.name}</UserName>
-                        {/* <PersonAddIcon
-                            onClick={() => addFriend(myInfo.userEmail, props.user)}
-                            cursor="pointer"
-                            sx={{ scale: "1.3", color: "#615e5fea" }}
-                        /> */}
+                        
                     </ProfileHeader>
                 </>
             }

@@ -559,7 +559,7 @@ onbeforeunload(event) {
 
   async stopRecording() {
     console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recordingId, this.state.oppolang)
-    console.log
+    
     await axios.post(
       APPLICATION_SERVER_URL+ "recording/stop",
       {
