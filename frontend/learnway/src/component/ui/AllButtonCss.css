@@ -114,4 +114,20 @@
 	-webkit-transition-delay: 0.45s;
 	transition-delay: 0.45s;
 }
+.button--nina:hover > span:nth-child(11) {
+	-webkit-transition-delay: 0.45s;
+	transition-delay: 0.45s;
+}
+.button--nina:hover > span:nth-child(12) {
+	-webkit-transition-delay: 0.495s;
+	transition-delay: 0.495s;
+}
+.button--nina:hover > span:nth-child(13) {
+	-webkit-transition-delay: 0.54s;
+	transition-delay: 0.54s;
+}
+.button--nina:hover > span:nth-child(13) {
+	-webkit-transition-delay: 0.585s;
+	transition-delay: 0.585s;
+}
 
