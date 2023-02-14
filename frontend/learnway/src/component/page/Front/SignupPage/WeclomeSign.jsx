@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import lottie from "lottie-web";
-// import data from "./img/108079-plane-ticket-blue.json"
-// import data from "./img/19423-airplane.json"
-import data from "./img/Plane.json"
-// import Img from "./img/goodBye.png"
+import data from "./104368-thank-you.json"
 
 const AniImg = styled.div`
     width: 100%;
@@ -20,14 +17,7 @@ const Wrapper = styled.div`
     flex-direction: column-reverse;
 `;
 
-const Picture = styled.img`
-    height: 23vmax;
-    // border:1px solid black;
-    display: flex;
-    flex-direction: column-reverse;
-`;
-
-function SessionEnd(){
+function WeclomeSign(){
     const aniBox = useRef();
 
     useEffect(()=>{
@@ -44,11 +34,8 @@ function SessionEnd(){
     return(
         <Wrapper>
             <AniImg ref={aniBox}></AniImg>
-            {/* <div>
-                <Picture src={Img}></Picture>
-            </div> */}
         </Wrapper>
     );
 };
 
-export default SessionEnd;
+export default WeclomeSign;

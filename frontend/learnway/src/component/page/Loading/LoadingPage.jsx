@@ -51,7 +51,7 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   /* border: solid 1px black; */
-  background-color: #00549e;
+  background: linear-gradient(to bottom, #36475f, #2c394f);
   color: white;
   padding: 3vw;
 `;
@@ -111,6 +111,7 @@ const TestObj = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #D7CBCB;
 `;
 
 const TestSpan = styled.span`

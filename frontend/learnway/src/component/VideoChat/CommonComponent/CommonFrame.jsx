@@ -8,7 +8,7 @@ const Frame = styled(motion.div)`
     height:90vh;
     display:flex;
     flex-direction:column;  
-    border-radius: 10px;
+    border-radius: 35px 35px 35px 35px;
     background: #ffffff;
     box-shadow: -1px 2px 9px -1px #b5b5b5;
     font-family: "Raleway", sans-serif;
@@ -17,7 +17,7 @@ const Frame = styled(motion.div)`
 
 const Title = styled.div`
    width:39vw;
-   border-radius: 10px 10px 0 0px;
+   border-radius: 35px 35px 0 0px;
    background: #91a8d0;
 //    background: linear-gradient(to right,  #F7CAC9, #91a8d0);   
 //    background: linear-gradient(286.15deg, #91a8d0, #f0eee9);

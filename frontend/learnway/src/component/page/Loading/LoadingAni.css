@@ -32,7 +32,7 @@
 .suitcase {
   height: 15vw;
   width: 24.65vw;
-  background:  #005daf;
+  background:  #7E90AF;
   border-radius: 2vw;
   float: left;
 }
@@ -55,7 +55,7 @@
 }
 .handle {
   /* border: solid 1px rgb(55, 255, 0); */
-  background:  #005daf;
+  background:  #7E90AF;
   height: 4.9vw;
   width: 9.47vw;
   border-top-right-radius: 1.63vw;
@@ -83,7 +83,7 @@
   height: 4.73vw;
   width: 4.73vw;
   border-radius: 50%;
-  background:  #005daf;
+  background:  #7E90AF;
   /* position: absolute; */
   /* bottom:  46vh; */
 }
