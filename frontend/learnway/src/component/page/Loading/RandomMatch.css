@@ -127,7 +127,7 @@ h2 {
 /* &::before */
 .svg {
     content: "";
-    background: linear-gradient(to right, #fff 50%, #3f32e5 50%);
+    background: linear-gradient(to right, #fff 50%, #7E90AF 50%);
     background-size: 22px 4px, 100% 4px;
     height: 4px;
     width: 90%;

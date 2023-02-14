@@ -35,7 +35,7 @@ const FloatingBtnArea = styled.div`
 `;
 
 const VideoArea = styled.div`
-  height: 95vh;
+  // height: 95vh;
   width: 95vw;
   display: flex;
   flex-direction: row-reverse;
@@ -559,7 +559,6 @@ onbeforeunload(event) {
 
   async stopRecording() {
     console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recordingId, this.state.oppolang)
-    console.log
     await axios.post(
       APPLICATION_SERVER_URL+ "recording/stop",
       {

@@ -8,11 +8,9 @@ function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)
     console.log(deletedFriend)
-    const { deleted, setdeleted } = useState(deletedFriend)
-
-
 
     const store = useSelector((state) => state.AuthReducer);
+
     // const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const [status, setStatus] = useState("");
     const [friendsProfile, setFriendsProfile] = useState([]);
@@ -24,6 +22,7 @@ function FriendList(props) {
                 { params: { userEmail: store["userEmail"]}})
             // handle success
             console.log("getFriendList");
+            console.log(res.data.friendProfileList);
             setFriendsProfile(res.data.friendProfileList);
             }
         catch(error) {
@@ -34,7 +33,6 @@ function FriendList(props) {
 
     useEffect(() => {
         getFriendList();
-        console.log(friendsProfile)
     }, [deletedFriend]);
     
     if (status === 404) {
