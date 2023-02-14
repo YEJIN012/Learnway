@@ -1,20 +1,20 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 
 import InputBox from '../Input';
 import AuthEamil from './AuthEamil';
 import Button from '../../../ui/Button';
 import SelectLanguage from '../../../ui/CommonSelectLanguage';
-import { useSelector } from 'react-redux';
 import { request } from '../utils/axios';
 
+import moment from "moment/moment";
 import Alert from '@mui/joy/Alert';
 import Stack from '@mui/material/Stack';
 import CakeIcon from '@mui/icons-material/Cake';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import LanguageIcon from '@mui/icons-material/Language';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import moment from "moment/moment";
 
 const InputFrame = styled.div`
   width: 380px;
