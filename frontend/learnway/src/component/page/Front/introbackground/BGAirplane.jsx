@@ -6,6 +6,7 @@ import data from './animation/BGAirpalne.json';
 const AniImg = styled.div`   
     z-index : -2;
     max-height: 100%;
+    width: 100%;
     overflow: hidden;
     // margin-bottom:5px;
     position: absolute;

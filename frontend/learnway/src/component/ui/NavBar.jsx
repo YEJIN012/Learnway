@@ -5,9 +5,10 @@ import { deleteInfo } from "../page/Front/actions/userAction";
 import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
 import logo from "../page/Front/img/logo_skyblue.png";
+import blueAirplane from '../page/Front/img/sky_airplane.png'; 
 
 const Wrapper = styled.div`
-    height: 30px;
+    height: 1.6vw;
     padding: 15px;
     display: flex;
     flex-direction: row;
@@ -15,9 +16,9 @@ const Wrapper = styled.div`
     // box-shadow: 0px 2px 10px #EFEFEF;
     // background-color : #fff;
     // opacity:0.9;
-    // border-bottom: .08rem solid #B4ABAB;
-    // width:95%;
-    // margin: 0 auto;
+    // border-bottom: 0.2rem solid #DBDBDB;
+    width:95vw;
+    margin: 0 auto;
 `;
 const Img = styled.div`
     display: flex;
@@ -25,9 +26,11 @@ const Img = styled.div`
 `;
 const Menu = styled.div`
     display: flex;
-    font-size: 23px;
+    font-size: 1vw;
     color : #91a8d0;
     font-weight : bolder;
+    // text-shadow:2px 10px #EFEFEF;
+    text-shadow: 2px 2px 2px #E3E1E1;
 `;
 const MenuBtn = styled.div`
     &:hover{  
@@ -88,6 +91,7 @@ function NavBar(params) {
                 <MenuBtn onClick={Logout}>
                     Logout
                 </MenuBtn>
+                {/* <img style={{position:"absolute", marginTop:'3vw',right:'1.6vw'}}src={blueAirplane} alt="" /> */}
             </Menu>
         </Wrapper>
     );
