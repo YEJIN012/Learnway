@@ -112,6 +112,7 @@ const TestObj = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #D7CBCB;
 `;
 
 const TestSpan = styled.span`

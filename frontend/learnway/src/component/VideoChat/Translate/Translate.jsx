@@ -14,7 +14,7 @@ const Frame = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows:  0.5fr 5fr 0.5fr 5fr;
+  grid-template-rows:  0.3fr 3fr 0.3fr 3fr;
   padding-left: 5%;
   padding-right: 5%;
   
@@ -52,7 +52,7 @@ const ButtonFrame = styled.div`
   flex-direction: row-reverse;
 `
 function Translate() {
-  const myInfo = useSelector((state) => state.AuthReducer)
+  // const myInfo = useSelector((state) => state.AuthReducer)
   
   const [value, setValue] = useState(""); // 검색 내용
   const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용

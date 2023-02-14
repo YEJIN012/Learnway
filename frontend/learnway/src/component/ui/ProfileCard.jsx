@@ -15,7 +15,7 @@ const CardTop = styled.div`
 `;
 const CardBottom = styled.div`
     box-sizing: border-box;
-    // padding: 5% 15%;
+    padding: 5% 15%;
     display: flex;
     flex-direction: column;
     background-color:transparent;
@@ -48,7 +48,7 @@ function ProfileCard({ header, name, body, width, height, className }) {
                 width: width || "100%",
                 height: height || "inherit",
                 minHeight: "60vh",
-                backgroundColor:"transparent",
+                // backgroundColor:"transparent",
             }}
         />
     );
