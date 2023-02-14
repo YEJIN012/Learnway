@@ -1,13 +1,15 @@
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
-import SelectLanguage from '../../../ui/CommonSelectLanguage';
-import { useSelector } from 'react-redux';
-import Interest from '../SignupPage/Interest';
 import BackgroundFrame from '../Background';
-import { useLocation } from 'react-router-dom';
+import Interest from '../SignupPage/Interest';
+import SelectLanguage from '../../../ui/CommonSelectLanguage';
+
+import moment from "moment/moment";
 
 import CakeIcon from '@mui/icons-material/Cake';
 import EmailIcon from '@mui/icons-material/Email';
@@ -123,8 +125,8 @@ export default function GoogleSignup() {
                 icon= {<LanguageIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
               />            
             </InputFrame>
-            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" onChange={(e) => {setbirthday(e.target.value)}} 
-              icon= {<CakeIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
+            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" cursor="pointer" data_placeholder="YYYY-MM-DD" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
+              icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
             <Frame>
               <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="30px 0px 50px 0px" disabled= {disabled} />

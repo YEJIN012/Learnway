@@ -10,8 +10,7 @@ import {
 } from "../actions/userAction";
 import { setRefreshToken } from "../utils/Cookie";
 import Button from "../../../ui/Button";
-import iconLst from '../img/icon.json'
-
+import Iconbox from "../utils/icon";
 
 const SelectFrame = styled.div`
     width: 400px;
@@ -39,6 +38,7 @@ export default function InterestSelect({
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const icon = Iconbox()
     const initLst = new Array(itdata.length - 1).fill(0);
 
     let [lst, setLst] = useState(initLst);
@@ -132,9 +132,7 @@ export default function InterestSelect({
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
                         const icontxt = itdata[idx].field
-                        const iconurl = iconLst[icontxt]
-                        const icontxt2 = icontxt.length > 12 ? icontxt.substr(0, 12)+'...': icontxt
-                        // console.log(iconurl)
+                        const iconurl = icon[icontxt]
                         if (itdata[idx].field === "random") {
                         } else {
                             return (
@@ -142,7 +140,7 @@ export default function InterestSelect({
                                     key={idx}
                                     id={idx}
                                     disabled=""
-                                    icontxt={icontxt2}
+                                    icontxt={icontxt}
                                     url={iconurl}
                                     chk={lst[idx]}
                                     onClick={() => {
