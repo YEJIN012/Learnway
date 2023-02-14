@@ -12,8 +12,8 @@ const Frame = styled.div`
     align-items: center;
     justify-content: space-between;
     // border:solid 1px black;
-    /* padding-top: 3%;
-    padding-bottom: 1%; */
+    padding-top: 5%;
+    padding-bottom: 1%; 
     border-bottom: .08rem solid #B4ABAB;
     margin: 0 auto;
     &:hover{  
@@ -68,12 +68,12 @@ const Func = styled.div`
 const LogonTime = styled.div`
     width: 80%;
     height: inherit;
-    font-size: 0.9vw;
+    font-size: 0.8vw;
     display: flex;
     justify-content: center;
     align-items: center;
     color : #4F4C4D;
-    margin-top:0.3vw;
+    margin-top:0.1vw;
     font-weight:600;
     // border: 1px solid black;
 `;
@@ -102,7 +102,7 @@ function UserProfile(props) {
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
-                    <ProfileImg src={imgurl} width="3vw" minWidth="30px"/>
+                    <ProfileImg src={imgurl} width="2.3vw" minWidth="30px"/>
                     <DetailBox>
                         <UserName>{name}</UserName>
                         <Info>{latestmsg.substr(0, 15)+' ...'}</Info>

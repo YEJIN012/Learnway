@@ -77,6 +77,13 @@ const BTN3_FILL = styled.button`
     line-height: 18px;
     text-align: center;
     cursor: pointer;    
+
+    :hover {
+        color: #DAAAA9;
+        background-image: linear-gradient(#fff, #fff),
+            linear-gradient(to left, #fff, #fff);
+        border: 3px solid #DAAAA9;
+    }
 `;
 
 const BTN3_UNFILL = styled.button`
@@ -95,6 +102,13 @@ const BTN3_UNFILL = styled.button`
     color: #91a8d0;
     text-align: center;
     cursor: pointer;
+
+    :hover {
+        color: #fff;
+        background-image: linear-gradient(#DAAAA9, #DAAAA9),
+            linear-gradient(to left, #DAAAA9, #DAAAA9);
+        border: 3px solid #DAAAA9;
+    }
 `;
 
 const BTN4_FILL = styled.button`

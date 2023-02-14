@@ -280,17 +280,17 @@ function Body() {
                         onClick={() => startMatching(mylang.languageId, oppolang)} /> */}
                     <AllButton
                         textValue="MachingStart"
-                        width="80%"
-                        height="5vw"
+                        width="76%"
+                        height="3.8vw"
                         fontSize="1.5vw"
-                        textWeight="900"
-                        radius="15px"
+                        textWeight="550"
+                        radius="20px"
                         margin="0px"
                         onClick={() => startMatching()} />
                     <ChkCamera onClick={handleOpen} sx={{
                         color: "#91a8d0",
-                        width: "4.2vw",
-                        height: "3.8vw",
+                        width: "4vw",
+                        height: "3.5vw",
                         padding:"0 1vw"
                     }}></ChkCamera>
                     <Modal

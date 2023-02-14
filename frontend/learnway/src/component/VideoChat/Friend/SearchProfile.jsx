@@ -19,6 +19,7 @@ import { motion } from "framer-motion";
 const Frame = styled.div`
     font-family: "Raleway", sans-serif;
     margin-left: 2.5vw;
+    margin-top: 1.7vw; 
 `;
 
 const Friends = styled.div`
@@ -52,6 +53,8 @@ const TimeUl = styled.ul`
     padding-left:0;
     margin-left:0;
     font-size:1.9vh;
+    
+    // border:1px solid black;
 `;
 
 // Friend 말고 상대방 프로필로 함수명 바꿔야할듯..

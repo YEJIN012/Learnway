@@ -5,6 +5,7 @@ import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import Button from "../../ui/Button"
 import { useSelector } from "react-redux";
+import AllButton from "../../ui/AllButton";
 // import Button from '../../../ui/Button';
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
@@ -119,7 +120,8 @@ function Translate() {
                   // onKeyPress={onCheckEnter}
               ></TextFrame>
               <ButtonFrame>
-                <Button type="submit" margin={"10px 0px"}id ="4" radius={"5px"} width={"8vw"} height={"3vw"} fontSize={"1.5vw"} textValue="translate"></Button>
+                {/* <Button type="submit" margin={"10px 0px"}id ="4" radius={"5px"} width={"8vw"} height={"3vw"} fontSize={"1.5vw"} textValue="translate"></Button> */}
+                <AllButton  type="submit" id ="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="translate"/>
               </ButtonFrame>
             </Form>
           </InnerFrame >

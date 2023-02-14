@@ -11,7 +11,7 @@ const BtnWrapper = styled.div`
     margin-left: 10vw;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content:  space-evenly;
 `;
 
 function MyPageTab() {
