@@ -4,6 +4,7 @@ import axios from "axios";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import Button from "../../ui/Button"
+import { useSelect } from "@mui/base";
 // import Button from '../../../ui/Button';
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
@@ -51,6 +52,8 @@ const ButtonFrame = styled.div`
   flex-direction: row-reverse;
 `
 function Translate() {
+  const myInfo = useSelector((state) => state.AuthReducer)
+  
   const [value, setValue] = useState(""); // 검색 내용
   const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
   const languageCode = {}; ////// source target 언어 코드 매칭 dic 생성필요
