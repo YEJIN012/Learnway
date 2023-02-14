@@ -144,29 +144,47 @@ export default function InterestSelect({
         <form onSubmit={handleSubmit}>
             <SelectFrame >
                 {itdata !== ""
-                    ? itdata.map((e, idx) => {
-                        const icontxt = itdata[idx].field
-                        const iconurl = icon[icontxt]
-                        if (itdata[idx].field === "random") {
-                        } else {
-                            return (
-                                <Carousel>
-                                <SelectBtn
-                                key={idx}
-                                    id={idx}
+                    ? itlst2.map((e, idx) => {
+                        console.log(e, idx)
+                        e.map((e2, idx2) => {
+                            const realIdx = (idx) *3 + idx2 ;
+                            const icontxt = itdata[realIdx].field;
+                            const iconurl = icon[icontxt];
+                            // console.log(realIdx);
+                            // console.log(icontxt);
+                            // console.log(iconurl);
+                            <SelectBtn
+                                key={realIdx}
+                                    id={realIdx}
                                     disabled=""
                                     icontxt={icontxt}
                                     url={iconurl}
-                                    chk={lst[idx]}
+                                    chk={lst[realIdx]}
                                     onClick={() => {
                                         const tmplst = [...lst];
-                                        tmplst[idx] = (lst[idx] + 1) % 2;
+                                        tmplst[realIdx] = (lst[realIdx] + 1) % 2;
                                         setLst(tmplst);
                                     }}
-                                />
-                                </Carousel>
-                              );
-                          }
+                            />
+                        })
+                    //         return (
+                    //             <Carousel>
+                    //             <SelectBtn
+                    //             key={idx}
+                    //                 id={idx}
+                    //                 disabled=""
+                    //                 icontxt={icontxt}
+                    //                 url={iconurl}
+                    //                 chk={lst[idx]}
+                    //                 onClick={() => {
+                    //                     const tmplst = [...lst];
+                    //                     tmplst[idx] = (lst[idx] + 1) % 2;
+                    //                     setLst(tmplst);
+                    //                 }}
+                    //             />
+                    //             </Carousel>
+                    //           );
+                    //       }
                       })
                     : null}
             </SelectFrame>
