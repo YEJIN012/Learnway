@@ -8,7 +8,9 @@ import ChatText from "./ChatText";
 import axios from "axios";
 import iconimg from "../chat/send.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import SendIcon from "@mui/icons-material/Send";
 import "./ChatScroll.css";
+import { border, color } from "@mui/system";
 
 const RoomFrame = styled.div`
     display: flex;
@@ -19,6 +21,13 @@ const RoomFrame = styled.div`
 const List = styled.ul`
     list-style: none;
     padding-left: 0px;
+`;
+const Head = styled.div`
+    display: flex;
+    justify-content: start;
+    padding-left: 1vw;
+    padding-top: 1.5vh;
+    align-items: flex-end;
 `;
 const Body = styled.div`
     width: inherit;
@@ -44,10 +53,24 @@ const SearchBox = styled.div`
     // border:solid 1px black;
 `;
 
+const InputFrame = styled.div`
+    box-sizing: border-box;
+    width: 20vw;
+    min-width: 200px;
+    /* height: 40px; */
+    /* margin: 0.5vw 0.2vw 0.5vw 0.2vw; */
+    padding: 1.5vh 1vw 2vh 1vw;
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    /* flex-direction: row; */
+`;
+
 const Input = styled.input`
-    width: 19vw;
-    height: 2.5vw;
-    margin: 0.5vw 0.2vw 0.5vw 0.2vw;
+    /* width: 19vw;
+    /* min-width: 24.95px; */
+    /* height: 2.5vw;
+    /* margin: 0.5vw 0.2vw 0.5vw 0.2vw; */
+    margin: 0vw 2px 0vw 0vw;
     border-radius: 50px;
     background: #EFEFEF;
     border : none;
@@ -58,17 +81,21 @@ const Input = styled.input`
     }
 `;
 
+
 const Searchbtn = styled.div`
-    width: 3vw;
-    height: 2.45vw;
+    width: 26px;
+    height: 24px;
     background-image: url(${(props) => props.url || ""});
     background-size: cover;
     padding-bottom: 0.1vw;
     border-radius: 50px;
     &:hover {
-        box-shadow: 1px 2px 10px #a4a4a4;
+        /* box-shadow: 1px 2px 10px #a4a4a4; */
+        filter:grayscale(90%);
     }
+    cursor: pointer;
 `;
+
 
 //검색 공통 컴포넌트 끝
 
@@ -91,7 +118,7 @@ function Chatroom(props) {
             return chatLog[chatLog.length - 1].id;
         }
     }
-    
+
     useEffect(() => {
         loadChatHistory();
         ws.connect({}, (frame) => {
@@ -107,8 +134,9 @@ function Chatroom(props) {
     }, []);
 
     function loadChatHistory() {
-        axios.get(`api/chat/room/message/${props.info.roomId}`)
-             .then(function (res) {
+        axios
+            .get(`api/chat/room/message/${props.info.roomId}`)
+            .then(function (res) {
                 let chatHistory = [];
 
                 const data = res.data;
@@ -138,11 +166,11 @@ function Chatroom(props) {
                     }
                     //메세지 배열에 추가하고 num증가
                     //setMsgId((msgId) => msgId + 1);
-                    num ++;
+                    num++;
 
                     // setroomlist   [{id:  body:   }]
                 }
-                setMsgId(num)
+                setMsgId(num);
                 setChatLog(chatHistory);
                 console.log(chatHistory);
             })
@@ -187,28 +215,28 @@ function Chatroom(props) {
             message: text,
         };
         ws.send("/pub/chat/message", {}, JSON.stringify(da));
-        setText('')
+        setText("");
     }
     // console.log(stored, props.info.profileDto.userEmail)
     // 유저 프로필에 마지막 수신 정보 상속
 
     const onKeyPress = (e) => {
-        if(e.key === 'Enter') {
-            sendMsg()
+        if (e.key === "Enter") {
+            sendMsg();
         }
-    }
+    };
 
     return (
         <RoomFrame>
-            <>
-            <ArrowBackIcon
-                sx={{ position: "relative", top: "10px", left: "14px" }}
-                cursor="pointer"
-                onClick={() => {
-                    handleSelectUserState(undefined);
-                }}
+            <Head>
+                <ArrowBackIcon
+                    sx={{ width: "2vw" }}
+                    cursor="pointer"
+                    onClick={() => {
+                        handleSelectUserState(undefined);
+                    }}
                 ></ArrowBackIcon>
-                </>
+            </Head>
             <UserProfile id={1} room={props.info}></UserProfile>
             <Body className="scroll">
                 <List>
@@ -217,7 +245,8 @@ function Chatroom(props) {
                     ))}
                 </List>
             </Body>
-            <SearchBox>
+            {/* <SearchBox> */}
+            <InputFrame>
                 <Input
                     id="queryBox"
                     onChange={(e) => {
@@ -234,7 +263,8 @@ function Chatroom(props) {
                         sendMsg();
                     }}
                 ></Searchbtn>
-            </SearchBox>
+            </InputFrame>
+            {/* </SearchBox> */}
         </RoomFrame>
     );
 }
