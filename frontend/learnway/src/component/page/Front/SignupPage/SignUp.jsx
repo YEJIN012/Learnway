@@ -17,7 +17,7 @@ export default function Signup () {
   return (
     <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "5vh" : "10vh"} fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
       bg={
-            userinfo === ""
+            userinfo !== ""
           ? (
             <div>
               <SignupForm getUserinfo={getUserinfo}></SignupForm>

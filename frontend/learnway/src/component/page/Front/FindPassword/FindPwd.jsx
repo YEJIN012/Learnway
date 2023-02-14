@@ -81,7 +81,7 @@ export default function FindPwd(){
               onChange={(e) => {
                 setEmail(e.target.value)
               }}
-              icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+              icon= {<EmailIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
             />
             <Button 
               id="0" 
@@ -109,8 +109,7 @@ export default function FindPwd(){
                     onChange={(e) => {
                       setAuthcode(e.target.value)
                       }}
-                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />}
- 
+                    icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
                     />
                   <BtnFrame>
                     <Button
