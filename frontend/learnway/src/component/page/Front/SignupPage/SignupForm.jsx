@@ -14,7 +14,7 @@ import CakeIcon from '@mui/icons-material/Cake';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import LanguageIcon from '@mui/icons-material/Language';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import moment from 'moment/moment';
+import moment from "moment/moment";
 
 const InputFrame = styled.div`
   width: 380px;
@@ -73,7 +73,6 @@ export default function SignupForm({getUserinfo}) {
     }
   })
   
-  console.log(moment(Date()).format("YYYY-MM-DD"))
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,7 +112,7 @@ export default function SignupForm({getUserinfo}) {
       alert("Please check your password.")
     }
   };
-
+  const [startDate, setStartDate] = useState(new Date());
   return(
       <div>
         <AuthEamil getEmail = {getEmail}></AuthEamil>
@@ -135,7 +134,7 @@ export default function SignupForm({getUserinfo}) {
               icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />            
           </InputFrame>
-          <InputBox id="birthday" type="datetime-local" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
+          <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" cursor="pointer" data_placeholder="YYYY-MM-DD" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
             icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <Frame>
