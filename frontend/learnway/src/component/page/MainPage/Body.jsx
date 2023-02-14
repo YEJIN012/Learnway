@@ -279,7 +279,7 @@ function Body() {
                         textValue="GO TO CHAT"
                         onClick={() => startMatching(mylang.languageId, oppolang)} /> */}
                     <AllButton
-                        textValue="Maching Start"
+                        textValue="MachingStart"
                         width="80%"
                         height="5vw"
                         fontSize="1.5vw"
