@@ -75,10 +75,10 @@ justify-content: center;
 `;
 
 const VodTitle = styled.div`
-width: 28vw;
-    height: 5vh;
+    // width: 28vw;
+    // height: 5vh;
     font-size: 1vw;
-
+    text-align: center;
     font-weight: 600;
     padding: 0 0 1vw 0;
 `;

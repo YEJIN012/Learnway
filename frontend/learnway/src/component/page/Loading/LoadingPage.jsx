@@ -51,7 +51,7 @@ const Box = styled.div`
   flex-direction: column;
   align-items: center;
   /* border: solid 1px black; */
-  background-color: #00549e;
+  background: linear-gradient(to bottom, #36475f, #2c394f);
   border-radius: 35px;
   color: white;
   padding: 3vw;
