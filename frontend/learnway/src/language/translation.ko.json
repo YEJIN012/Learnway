@@ -1,7 +1,8 @@
 {
     "language" : "언어",
     "MEETUP":"만나러가기",
-    "Sign Into Your Account":"로그인",
+    "Sign Into":"로그인",
+    "Your Account":"",
     "Login":"로그인",
     "SignUp":"회원가입",
     "ForgetPwd":"비밀번호 찾기",
@@ -55,5 +56,12 @@
     "Do you want to leave random matching?":"화상 채팅을 마치시겠습니까?",
     "Report":"신고",
     "SEXUAL ACCESS":"성적 접근",
-    "SEXUAL HARASSMENT, FORCED CONVERSATION, PORNOGRAPHIC BROADCASTS, ETC":"성희롱, 강제 대화, 음란 방송 등"
+    "SEXUAL HARASSMENT, FORCED CONVERSATION, PORNOGRAPHIC BROADCASTS, ETC":"성희롱, 강제 대화, 음란 방송 등",
+    "VERBAL ABUSE":"폭언",
+    "ABUSE, DISPARAGING REMARKS, ETC":"욕설, 비하 발언 등",
+    "HARMFUL OR DANGEROUS ACTS":"유해하거나 위험한 행위",
+    "EVENTS OF CURELTY, SUCH AS INCITING TERRORISM, ARSON, TORTURE, ETC":"테러 선동, 방화, 고문 등",
+    "INVESTMENT AND MULTI-LEVEL CORECION":"투자 및 다단계",
+    "ACT OF CAUSING SPAN OR CONFUSION":"스팸 또는 혼란을 일으키는 행위",
+    "Please write down other reports":"다른 기타 신고 사항을 적어주세요."
 }

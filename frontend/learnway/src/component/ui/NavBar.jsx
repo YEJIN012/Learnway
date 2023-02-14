@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteInfo } from "../page/Front/actions/userAction";
@@ -6,6 +7,9 @@ import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
 import logo from "../page/Front/img/logo_skyblue.png";
 import blueAirplane from '../page/Front/img/sky_airplane.png'; 
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.div`
     height: 1.7vw;
@@ -53,7 +57,17 @@ function NavBar(params) {
     // console.log(useSelector(state => state.AuthReducer))
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const userEmail = useSelector(state => state.AuthReducer.userEmail)
+    const userEmail = useSelector(state => state.AuthReducer.userEmail);
+    const [Selected, setSelected] = useState("Language");
+    const handleChangeSelect = (e) => {
+        setSelected(e.target.value);
+    };
+
+    const { t, i18n } = useTranslation();
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+        localStorage.setItem('language', lng);
+    };
 
     const Logout = () => {
 
@@ -86,11 +100,24 @@ function NavBar(params) {
                 </Img>
             </NavLink>
             <Menu>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select-label"
+                value={Selected}
+                displayEmpty
+                onChange={handleChangeSelect}
+                sx={{color:"#91a8d0"}}
+                >
+                <MenuItem onClick={() => {changeLanguage("en");}} value="English">English</MenuItem>
+                <MenuItem onClick={() => {changeLanguage("ko");}} value="한국어">한국어</MenuItem>
+                
+            </Select>
+
                 <MenuBtn onClick={()=> navigate('/mypage')}>
-                    MyPage
+                    {t('MyPage')}
                 </MenuBtn>
                 <MenuBtn onClick={Logout}>
-                    Logout
+                    {t('Logout')}
                 </MenuBtn>
                 {/* <img style={{position:"absolute", marginTop:'3vw',right:'1.6vw'}}src={blueAirplane} alt="" /> */}
             </Menu>
