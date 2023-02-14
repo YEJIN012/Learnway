@@ -106,17 +106,14 @@ function Youtube({...props}){
     const [query, setQuery] = useState("");
     const [vodId, setVodId] = useState(undefined);
     const[playState, setPlayState] = useState(undefined);
-    const[socketId, setSocketId] = useState(undefined);
+    const[socketId, setSocketId] = useState(null);
     const[vodTitle, setVodTitle] = useState(undefined);
+    const[player,setPlayer] = useState(undefined);
     console.log(vodId)
     console.log(props.sockId)
     useEffect(()=>{
-        makeRoom(props.myId, props.oppoId);
-        ws.connect({}, (frame) => {
-            
-            console.log("connected to Youtube socket:", frame);
-            subscribe();
-        })
+            makeRoom(props.myId, props.oppoId);
+
         return()=>{
             ws.disconnect(()=>{
                 console.log("Youtube socket disconnected");
@@ -133,7 +130,13 @@ function Youtube({...props}){
           friendEmail: oppoId,
         }).then(function(res){
             console.log(res.data.roomId)
-            setSocketId(res.data.roomId)
+            if(socketId === null){
+                setSocketId(res.data.roomId)
+            }
+            ws.connect({}, (frame) => {
+                console.log("connected to Youtube socket:", frame);
+                subscribe(res.data.roomId);
+            })
         })
         
       }
@@ -187,45 +190,72 @@ function Youtube({...props}){
         }
     },[vodId]);
     */
-    function subscribe(){
-        ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
+    function subscribe(newSocketId){
+        // ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
+        ws.subscribe(`/sub/chat/room/${newSocketId}`, (event) => {
+            console.log(event.body)
             const received = JSON.parse(event.body)
-            if(received.sender === props.oppoid){
-                const data = received.message;
-                //수신받은 동영상 조작정보를 state에 저장하고 내 동영상에 업데이트
-                if(data.hasOwnProperty('playControl') === true){
-                    if(vodId !== null){
-                        const func = async()=>{
+            const data = received.message;
+            if(received.sender === props.oppoId){
+                // 먼저 앞에 를 뗌
+                // 실행
+                var cmdMessage = data.split(":");
+                var  command = cmdMessage[0];
+                console.log(player)
+                // 영상이 바꼈을 때
+                if(command == 0){
+                    setVodId(cmdMessage[1])
+                }
+                // Play
+                else if(command == 1){
+              
 
-                            await setPlayState(data.playControl)
-                            await controlVod(playState);
-                        }
-                        func();
-                        
-                    }
+                
+                    player.target.playVideo();
+
+                // Pause
+                } else if(command == 2){
+
+                    player.target.pauseVideo()
                 }
+                
+                //수신받은 동영상 조작정보를 state에 저장하고 내 동영상에 업데이트
+                console.log(`Youtube VodId: ${data}`)
                 //동영상의 아이디가 들어오면 해당 동영상을 내 컴포넌트에 띄운다.
-                if(data.hasOwnProperty('vodChange') === true){
-                    setVodId(data.vodChange)
-                }
+                
             }
         },{});
     }
 
-    function publish(vodid) {
+    function publishVodId(vodid) {
         //websockt emit
         const da = {
             type: "TALK",
             roomId: socketId,
             sender: props.myId,
-            message: vodid,
+            message: `0:${vodid}`,
         };
         ws.send("/pub/chat/message", {}, JSON.stringify(da));
     }
 
-    function processVodId(id){
+    function handlePlayChange(e) {
+        // 실행
+        console.log(e)
+        if(e.data==1 || e.data == 2){
+            const da = {
+                type: "TALK",
+                roomId: socketId,
+                sender: props.myId,
+                message: `${e.data}:`,
+            };
+            ws.send("/pub/chat/message", {}, JSON.stringify(da));
+        // 멈춤
+        } 
+    }
+
+    function processVodId(id){ 
         setVodId(id);
-        publish(id);
+        publishVodId(id);
     }
     //console.log(vodTitle)
     //다음 페이지 호출 1, 호출 x 2
@@ -271,12 +301,16 @@ function Youtube({...props}){
             <Video>
                 <VodTitle>{vodTitle}</VodTitle>
                 <YoutubeFrame
-                videoId={vodId}
-                opts={{
-                    width:"530",
-                    height:"300",
-                }}
-                onStateChange={(e)=>{setPlayState(e)} } //e.target.getCurrentTime())
+                    videoId={vodId}
+                    opts={{
+                        width:"530",
+                        height:"300",
+                    }}
+                    onReady ={(e)=> setPlayer(e)}
+                    onStateChange={(e)=>{
+                        // setPlayState(e);
+                        handlePlayChange(e);
+                    } } //e.target.getCurrentTime())
                 />
             </Video>
         </Frame>
