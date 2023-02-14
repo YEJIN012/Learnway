@@ -82,8 +82,8 @@ width: 28vw;
     font-weight: 600;
     padding: 0 0 1vw 0;
 `;
-const socket = new SockJS('/api/ws-stomp');
-const ws = Stomp.over(socket);
+
+
 
 
 function deleteRoom(id){
@@ -96,15 +96,47 @@ function deleteRoom(id){
 }
 
 
+const socket =  new SockJS('/api/ws-stomp');
+const ws =  Stomp.over(socket);
+
 function Youtube({...props}){
+    
+    const [socketObj, setSocketObj] = useState(undefined)
     const [searchData, setSearchData] = useState([]);
     const [query, setQuery] = useState("");
-    const [vodId, setVodId] = useState(null);
-    const[playState, setPlayState] = useState(null);
-    const[socketE, setSocketE] = useState(null);
-    const[vodTitle, setVodTitle] = useState(null);
-   console.log(vodId)
-    
+    const [vodId, setVodId] = useState(undefined);
+    const[playState, setPlayState] = useState(undefined);
+    const[socketId, setSocketId] = useState(undefined);
+    const[vodTitle, setVodTitle] = useState(undefined);
+    console.log(vodId)
+    console.log(props.sockId)
+    useEffect(()=>{
+        makeRoom(props.myId, props.oppoId);
+        ws.connect({}, (frame) => {
+            
+            console.log("connected to Youtube socket:", frame);
+            //subscribe();
+        })
+        return()=>{
+            ws.disconnect(()=>{
+                console.log("Youtube socket disconnected");
+            })}
+            
+    },[])
+
+    console.log(socketId);
+
+    function makeRoom(myId, oppoId) {
+        console.log(myId, oppoId)
+        axios.post(`/api/youtube/create`, {
+          userEmail: myId,
+          friendEmail: oppoId,
+        }).then(function(res){
+            console.log(res.data.roomId)
+            setSocketId(res.data.roomId)
+        })
+        
+      }
     //Youtube 컴포넌트 실행 시 웹 소캣 개설(1회)
     /*useEffect(()=>{
         if(props.sockId !== null){
@@ -179,7 +211,23 @@ function Youtube({...props}){
             }
         },{});
     }
-    console.log(vodTitle)
+
+    function publish(vodid) {
+        //websockt emit
+        const da = {
+            type: "TALK",
+            roomId: socketId,
+            sender: props.myId,
+            message: vodid,
+        };
+        ws.send("/pub/chat/message", {}, JSON.stringify(da));
+    }
+
+    function processVodId(id){
+        setVodId(id);
+        publish();
+    }
+    //console.log(vodTitle)
     //다음 페이지 호출 1, 호출 x 2
     function getSearchData(query){
         
@@ -200,7 +248,7 @@ function Youtube({...props}){
                 const thumb = data[i].snippet.thumbnails.high.url;
                 const channel = data[i].snippet.channelTitle;
                 //titlelist.set({vodId,title});
-                listData.push(<ResultComponent click={setVodId} getTitle = {setVodTitle}key={vodId} id={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
+                listData.push(<ResultComponent click={processVodId} getTitle = {setVodTitle}key={vodId} id={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
             }
             //setVodTitle(titlelist);
             setSearchData(listData);
