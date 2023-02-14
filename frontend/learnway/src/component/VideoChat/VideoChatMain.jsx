@@ -202,6 +202,16 @@ class VideoChatMain extends Component {
         window.removeEventListener("beforeunload", this.onbeforeunload);
     }
 
+    deleteSubscriber(streamManager) {
+      let subscribers = this.state.subscribers;
+      let index = subscribers.indexOf(streamManager, 0);
+      if (index > -1) {
+          subscribers.splice(index, 1);
+          this.setState({
+              subscribers: subscribers,
+          });
+      }
+  }
 
 onbeforeunload(event) {
    this.leaveSession();
@@ -245,7 +255,8 @@ onbeforeunload(event) {
     //get room id fot websocket
     //this.makeRoom(this.state.oppoUserNameS)
     // --- 1) Get an OpenVidu object ---
-
+    setTimeout(()=>this.makeRoom(), 3000);
+    console.log(socketId);
     this.OV = new OpenVidu();
 
     // --- 2) Init a session ---
