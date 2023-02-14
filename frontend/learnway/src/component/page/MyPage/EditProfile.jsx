@@ -247,7 +247,7 @@ function EditProfile() {
                         <BtnWrapper>
                             <Button
                                 id="5"
-                                fontSize="1vw"
+                                fontSize="0.9vw"
                                 textValue="Cancel"
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
@@ -256,7 +256,7 @@ function EditProfile() {
                             ></Button>
                             <Button
                                 id="4"
-                                fontSize="1vw"
+                                fontSize="0.9vw"
                                 textValue="Save"
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"

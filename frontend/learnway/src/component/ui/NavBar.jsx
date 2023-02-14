@@ -8,7 +8,7 @@ import logo from "../page/Front/img/logo_skyblue.png";
 import blueAirplane from '../page/Front/img/sky_airplane.png'; 
 
 const Wrapper = styled.div`
-    height: 1.6vw;
+    height: 1.7vw;
     padding: 15px;
     display: flex;
     flex-direction: row;
@@ -18,11 +18,12 @@ const Wrapper = styled.div`
     // opacity:0.9;
     // border-bottom: 0.2rem solid #DBDBDB;
     width:95vw;
-    margin: 0 auto;
+    margin: 0.3vw auto;
 `;
 const Img = styled.div`
     display: flex;
     height: 100%;
+    margin-top:0.3vw;
 `;
 const Menu = styled.div`
     display: flex;

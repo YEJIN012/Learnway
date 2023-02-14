@@ -12,7 +12,10 @@ const Frame = styled(motion.div)`
     background: #ffffff;
     box-shadow: -1px 2px 9px -1px #b5b5b5;
     font-family: "Raleway", sans-serif;
-    margin-left: 2.5vw;
+    margin-left: 2.5vw; 
+    margin-top: 1.7vw; // 고정하기
+
+    // border:1px solid black;
 `;
 
 const Title = styled.div`

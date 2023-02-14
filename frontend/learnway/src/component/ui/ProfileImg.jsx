@@ -9,6 +9,10 @@ const Img = styled.img`
     min-height: ${(props) => props.minWidth || "10px"};
     border-radius: 50%;
     overflow: hidden;
+
+    :hover {
+        box-shadow: 1px 2px 8px #a4a4a4;
+    }
 `;
 
 function ProfileImg(props) {
