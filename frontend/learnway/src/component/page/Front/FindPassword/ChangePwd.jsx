@@ -61,7 +61,7 @@ export default function ChangePwd({email}) {
         value={newPwd} 
         onChange={(e) => {
           setNewPwd(e.target.value)}}
-        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
         margin = "30px 0px 40px 0px"
       ></InputBox>
       <InputBox 
@@ -72,7 +72,7 @@ export default function ChangePwd({email}) {
         value={confirmNewPwd} 
         onChange={
           (e) => {setConfirmNewPwd(e.target.value)}}
-        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "white", opacity: "0.5"}}  />} 
+        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
       />
       <BtnFrame>
         <Button
