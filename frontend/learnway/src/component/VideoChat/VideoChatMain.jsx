@@ -226,16 +226,7 @@ onbeforeunload(event) {
         });
       }
 
-  async makeRoom() {
-    const res = await axios.post(`/api/youtube/create`, {
-      userEmail: this.state.myUserName,
-      friendEmail: this.state.oppoUserName,
-    });
-    this.setState({
-      socketId: res.data.roomId,
-    });
-  }
-
+  
   deleteRoom(id) {
     axios
       .delete(`/api/chat/room/${id}`)
@@ -559,7 +550,6 @@ onbeforeunload(event) {
 
   async stopRecording() {
     console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recordingId, this.state.oppolang)
-    console.log
     await axios.post(
       APPLICATION_SERVER_URL+ "recording/stop",
       {
@@ -573,6 +563,17 @@ onbeforeunload(event) {
       console.log(res);  //성공 or 실패
     })
   }
+
+  async makeRoom() {
+    const res = await axios.post(`/api/youtube/create`, {
+      userEmail: this.state.myUserName,
+      friendEmail: this.state.oppoUserName,
+    });
+    this.setState({
+      socketId: res.data.roomId,
+    });
+  }
+
 }
 
 export default withParams(VideoChatMain);
