@@ -23,7 +23,8 @@ const Title = styled.div`
 //    background: linear-gradient(286.15deg, #91a8d0, #f0eee9);
    color: white;
    text-align:center;
-   padding-bottom: 2%
+   padding-bottom: 2%;
+   padding-top: 2%;
 `;
 
 const Body = styled.div`

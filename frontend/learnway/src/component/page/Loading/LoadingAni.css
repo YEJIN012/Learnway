@@ -7,13 +7,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
   /* /* left: 50%; */
   /* -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); */
-  overflow: hidden;
   /* border: solid 1px red; */
 }
 .moving {
