@@ -18,7 +18,7 @@ const Frame = styled.div`
 const SubFrame1 = styled.div`
   margin-left: 3vw;
   width: 40vw;
-  height: 70vh;
+  /* height: 70vh; */
   /* border: solid 1px black; */
   display: flex;
   flex-direction: column;
@@ -112,7 +112,6 @@ const TestObj = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #D7CBCB;
 `;
 
 const TestSpan = styled.span`
@@ -158,94 +157,93 @@ const socket = new SockJS('/api/ws-stomp');
 const ws = Stomp.over(socket);
 
 function Loading() {
-    // const userInfo = useSelector((state) => state.AuthReducer);
-    // const studyLng = useSelector((state) => state.MainStore);
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // // console.log(useInfo)
-    // const [lngConv, setLngConv] = useState([]);
-    // // const lngConv = [
-    // //     "Call your parents at least once a month.",
-    // //     "I jog at least three times a week to keep fit.",
-    // //     // "Is there anything I can do to make it up to you?",
-    // //     // "I'll make it up to you for forgetting your birthday.",
-    // // ];
-    // const [studyLngConv, setStudyLngConv] = useState([]);
-    // // const studyLngConv = [
-    // //     "적어도 한 달에 한 번은 부모님께 전화를 드려.",
-    // //     "건강을 유지하기 위해 적어도 일주일에 세 번은 조깅을 한다.",
-    // //     // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
-    // //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
-    // // ];
-    // //userInfo.language.languageId, studyLng.languageId
-    // const matchingServerRoomId = `${userInfo.userEmail}-${studyLng.languageId}`;
-    // console.log(matchingServerRoomId)
+    const userInfo = useSelector((state) => state.AuthReducer);
+    const studyLng = useSelector((state) => state.MainStore);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    // console.log(useInfo)
+    const [lngConv, setLngConv] = useState([]);
+    // const lngConv = [
+    //     "Call your parents at least once a month.",
+    //     "I jog at least three times a week to keep fit.",
+    //     // "Is there anything I can do to make it up to you?",
+    //     // "I'll make it up to you for forgetting your birthday.",
+    // ];
+    const [studyLngConv, setStudyLngConv] = useState([]);
+    // const studyLngConv = [
+    //     "적어도 한 달에 한 번은 부모님께 전화를 드려.",
+    //     "건강을 유지하기 위해 적어도 일주일에 세 번은 조깅을 한다.",
+    //     // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
+    //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
+    // ];
+    //userInfo.language.languageId, studyLng.languageId
+    const matchingServerRoomId = `${userInfo.userEmail}-${studyLng.languageId}`;
+    console.log(matchingServerRoomId)
 
-    // // 오늘의 회화 목록을 가져오는 함수
-    // function getTodayConv() {
-    //     console.log(userInfo.language.name);
-    //     console.log(studyLng);
-    //     axios
-    //         .get("api/conv", {
-    //             params: { lng: userInfo.language.name, study_lng: studyLng.languageName },
-    //         })
-    //         // handle success
-    //         .then(function (res) {
-    //             console.log();
-    //             setLngConv(res.data.conversation.lng.slice(0, 2));
-    //             setStudyLngConv(res.data.conversation.studyLng.slice(0, 2));
-    //             console.log(res);
-    //             console.log(lngConv);
-    //             console.log(studyLngConv);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
+    // 오늘의 회화 목록을 가져오는 함수
+    function getTodayConv() {
+        console.log(userInfo.language.name);
+        console.log(studyLng);
+        axios
+            .get("api/conv", {
+                params: { lng: userInfo.language.name, study_lng: studyLng.languageName },
+            })
+            // handle success
+            .then(function (res) {
+                console.log();
+                setLngConv(res.data.conversation.lng.slice(0, 2));
+                setStudyLngConv(res.data.conversation.studyLng.slice(0, 2));
+                console.log(res);
+                console.log(lngConv);
+                console.log(studyLngConv);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
-    // //window.location.reload();
-    // useEffect(() => {
-    //     getTodayConv();
-    //     ws.connect({}, (frame) => {
-    //         console.log("connected to Matching server:", frame);
-    //         subscribe();
-    //     });
+    //window.location.reload();
+    useEffect(() => {
+        getTodayConv();
+        ws.connect({}, (frame) => {
+            console.log("connected to Matching server:", frame);
+            subscribe();
+        });
 
-    //     return () => {
-    //         ws.disconnect(() => {
-    //             console.log("Disconnected from Matching Server");
+        return () => {
+            ws.disconnect(() => {
+                console.log("Disconnected from Matching Server");
+            });
+        };
+    }, []);
 
-    //         });
-    //     };
-    // }, []);
+    function subscribe(){
+        ws.subscribe(`/sub/chat/room/${matchingServerRoomId}`, (event) => {
+            const received = JSON.parse(event.body);
+            console.log(received)
+            const roomId = received.roomId;
+            const oppoProfile = received.profileDto;
+            const recorder = received.recorder;
 
-    // function subscribe(){
-    //     ws.subscribe(`/sub/chat/room/${matchingServerRoomId}`, (event) => {
-    //         const received = JSON.parse(event.body);
-    //         console.log(received)
-    //         const roomId = received.roomId;
-    //         const oppoProfile = received.profileDto;
-    //         const recorder = received.recorder;
+            redirectMatchedPage(roomId, oppoProfile, recorder);
+            //state에 저장
+        });
+    }
 
-    //         redirectMatchedPage(roomId, oppoProfile, recorder);
-    //         //state에 저장
-    //     });
-    // }
+    async function redirectMatchedPage(roomId, oppoProfile, recorder){
+        //redux에 상대방 정보 저장
+        console.log(oppoProfile)
+        const replacedStr = await replaceString(roomId);
+        await dispatch({type:"UPDATE_OPPOUSER", payload:oppoProfile})
+        //매칭 페이지로 리다이렉트
+        await navigate(`/loading/match/${replacedStr}/${(recorder?'true':'false')}`,{replace:true});
+        //await window.location.reload();
+    }
 
-    // async function redirectMatchedPage(roomId, oppoProfile, recorder){
-    //     //redux에 상대방 정보 저장
-    //     console.log(oppoProfile)
-    //     const replacedStr = await replaceString(roomId);
-    //     await dispatch({type:"UPDATE_OPPOUSER", payload:oppoProfile})
-    //     //매칭 페이지로 리다이렉트
-    //     await navigate(`/loading/match/${replacedStr}/${(recorder?'true':'false')}`,{replace:true});
-    //     //await window.location.reload();
-    // }
-
-    // function replaceString(str){
-    //     const replaced = str.replace(/\//gi, '');
-    //     return replaced;
-    // }
+    function replaceString(str){
+        const replaced = str.replace(/\//gi, '');
+        return replaced;
+    }
     return (
         <>
             <NavBar></NavBar>
@@ -303,12 +301,12 @@ function Loading() {
                             }}
                         />
                         <BodyFrame>
-                            {/* {lngConv.map((lng, i) => (
+                            {lngConv.map((lng, i) => (
                                 <ConvFrame key={i}>
                                     <Stn1>{lng}</Stn1>
                                     <Stn2>{studyLngConv[i]}</Stn2>
                                 </ConvFrame>
-                            ))} */}
+                            ))}
                         </BodyFrame>
                     </Box>
                 </SubFrame2>
