@@ -6,9 +6,11 @@ import BGLeftAnimation from './BGLeftAnimation';
 import BGCenterAnimation from './BGCenterAnimation';
 
 const Wrapper = styled.div`
-    z-index : -1;
-    width: 100vw;
-    height: 100vh;
+    z-index : -7;
+    width: 100%;
+    height: 100%;
+    position:absolute;
+    top:0vw;
 `;
 
 function BGIntro () {

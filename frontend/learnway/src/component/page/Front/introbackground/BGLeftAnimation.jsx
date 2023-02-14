@@ -13,9 +13,10 @@ overflow: hidden;
 const Wrapper = styled.div`
     width: 50%;
     left : 0px;
-    bottom : 0px;
     z-index : -2;
-    position: absolute;
+    position: fixed;
+    left:0;
+    bottom:-3px;
 
 `;
 

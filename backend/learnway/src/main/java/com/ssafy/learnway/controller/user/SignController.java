@@ -106,7 +106,7 @@ public class SignController {
             // DB 초기화
             userDto.setBadUser(false);
             userDto.setBio("HI");
-            userDto.setImgUrl("8c078de680914140a37360b079c0c23e.png"); // 기본 이미지
+            userDto.setImgUrl("2082c46417a845298b6966070039e245.png"); // 기본 이미지
 
             userService.signUp(userDto);
             userDto.setUserPwd(null);

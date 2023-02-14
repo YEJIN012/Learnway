@@ -123,6 +123,7 @@ const BTN4_UNFILL = styled.button`
         linear-gradient(to left, #91a8d0, #f0eee9);
     background-origin: border-box;
     background-clip: content-box, border-box;
+    
     cursor: pointer;
     :hover {
         color: #ffff;
