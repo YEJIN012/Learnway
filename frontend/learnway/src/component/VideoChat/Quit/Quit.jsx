@@ -52,11 +52,11 @@ function Leave({getQuitFlag}) {
             body={
                 <Frame>
                     <Picture src={ImgBye}></Picture>
+                    <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
                     
                 <Msg>Do  you want to leave random matching?</Msg>
                 <AllButton  onClick={quit} id ="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="OK"/>
                 {/* <Button onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button> */}
-                <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
                 </Frame>
             }>
         </CommonFrame>
