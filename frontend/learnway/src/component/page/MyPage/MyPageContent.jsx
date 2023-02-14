@@ -42,7 +42,8 @@ function MyPageContent(props) {
     const handleSelectedFriend = (data) => {
         setSelectedFriend(data);
     };
-    const [deletedFriend, setDeletedFriend] = useState(true);
+    const [deletedFriend, setDeletedFriend] = useState(false);
+    console.log(deletedFriend)
     const handleDeletedFriend = () => {
         setDeletedFriend(!deletedFriend)
         setSelectedFriend("")
