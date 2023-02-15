@@ -185,7 +185,7 @@ function Translate() {
                   height={"3vw"}
                   fontSize={"1.5vw"}
                   textValue="translate"
-                  onClick={handleTranslate}
+                  
                 ></Button>
               </ButtonFrame>
             </Form>
