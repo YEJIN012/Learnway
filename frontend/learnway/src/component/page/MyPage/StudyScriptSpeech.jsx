@@ -73,7 +73,7 @@ function StudyScriptSpeech(props) {
             // 2. google TTS api axios
             try {
                 const response = await axios.post(
-                    `googleapi/v1/text:synthesize?key=${process.env.REACT_APP_GOOGLE_KEY}`,
+                    `/googleapi/v1/text:synthesize?key=${process.env.REACT_APP_GOOGLE_KEY}`,
                     {
                         input: {
                             text: `${props}`,

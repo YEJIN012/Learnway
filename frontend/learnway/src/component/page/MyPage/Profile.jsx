@@ -10,6 +10,8 @@ import InputGroup from "../../ui/InputGroup";
 import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/Email";
 import CakeIcon from "@mui/icons-material/Cake";
+import SaveIcon from "@mui/icons-material/Save";
+import Alert from "@mui/material/Alert";
 
 const Friends = styled.div`
     display: flex;
@@ -36,7 +38,7 @@ const ImgIcon = styled.div`
 function GetFriendCnt(userEmail) {
     const [friendCnt, setFriendCnt] = useState("");
     axios
-        .get("api/friend/count", {
+        .get("/api/friend/count", {
             params: { userEmail: userEmail },
         })
         // handle success
@@ -54,7 +56,7 @@ function Profile() {
     const userInfo = useSelector((state) => state.AuthReducer);
     const selectFile = useRef(); // Icon onClick에 input File을 달기 위한 ref
 
-    const [imgUrl, setImgUrl] = useState(userInfo.imgUrl)
+    const [imgUrl, setImgUrl] = useState(userInfo.imgUrl);
     const [imgBase64, setImgBase64] = useState(""); // 미리보기 파일
     const [imgFile, setImgFile] = useState(""); // 선택한 이미지 파일
 
@@ -81,7 +83,7 @@ function Profile() {
                 }
             };
             setImgFile(e.target.files[0]);
-            console.log(imgFile)
+            console.log(imgFile);
         }
     };
 
@@ -110,7 +112,31 @@ function Profile() {
         .catch(function (error) {
             console.log(error);
         });
-}
+        formData.append("image", imgFile);
+        formData.append("userDto", blob);
+
+        axios
+            .put("/api/users/modify", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then(function (res) {
+                console.log(res.data.msg);
+                
+                // return(<Alert
+                //     // icon={<CheckIcon fontSize="inherit" />}
+                //     severity="success"
+                // >
+                //     This is a success alert — check it out!
+                // </Alert>
+                alert("Successfully edited profile image");
+                // 회원정보 수정 api 완료시, redux userInfo state 갱신.
+                dispatch({ type: "UPDATE_USER", payload: res.data.user })
+                setImgBase64("")
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         <ProfileCard
@@ -135,24 +161,24 @@ function Profile() {
                         <EditIcon
                             onClick={() => selectFile.current.click()}
                             cursor="pointer"
+                            sx={{ rotate: "-5deg", fontSize: "medium" }}
                         />
+                        {imgBase64 && (
+                            <SaveIcon
+                                color="#DAAAA9"
+                                onClick={handleSubmit}
+                                cursor="pointer"
+                                sx={{ fontSize: "medium" }}
+                            ></SaveIcon>
+                        )}
                     </ImgIcon>
+
                     <Friends>
                         <FriendNumber>
                             {GetFriendCnt(userInfo.userEmail)}
                         </FriendNumber>
                         Friends
                     </Friends>
-                    {imgBase64 && (
-                        <Button
-                            id="4"
-                            fontSize={"1vh"}
-                            textValue={"Save"}
-                            width={"5vh"}
-                            radius={"5px"}
-                            onClick={handleSubmit}
-                        ></Button>
-                    )}
                 </>
             }
             name={userInfo.name}

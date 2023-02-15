@@ -192,6 +192,7 @@ function EditProfile() {
                                 title={t('Interests')}
                                 value={interestRernderer(interests)}
                                 disabled="disabled"
+                                backgroundColor="#dbdbdb"
                                 titleFontSize="1.8vh"
                                 titleHeight="2.5vh"
                                 titleWidth="20vw"
@@ -201,8 +202,10 @@ function EditProfile() {
                             ></InputBox>
                             <Settings
                                 sx={{
+                                    position: "absolute",
+                                    
                                     marginBottom: "1.25vh",
-                                    marginLeft: "-1vw",
+                                    marginLeft: "16vw",
                                     width: "20px",
                                     height: "20px",
                                 }}

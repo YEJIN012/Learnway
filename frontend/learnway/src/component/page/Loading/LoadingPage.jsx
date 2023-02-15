@@ -187,7 +187,7 @@ function Loading() {
         console.log(userInfo.language.name);
         console.log(studyLng);
         axios
-            .get("api/conv", {
+            .get("/api/conv", {
                 params: { lng: userInfo.language.name, study_lng: studyLng.languageName },
             })
             // handle success
@@ -305,8 +305,8 @@ function Loading() {
                         <BodyFrame>
                             {lngConv.map((lng, i) => (
                                 <ConvFrame key={i}>
-                                    <Stn1>{lng}</Stn1>
-                                    <Stn2>{studyLngConv[i]}</Stn2>
+                                    <Stn1>{studyLngConv[i]}</Stn1>
+                                    <Stn2>{lng}</Stn2>
                                 </ConvFrame>
                             ))}
                         </BodyFrame>

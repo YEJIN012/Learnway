@@ -54,7 +54,7 @@ const SelectLanguage = (props) => {
     //API에서 옵션 목록 가져오는 함수
     function dropdownBoxRenderer() {
         // axios
-        //     .get("api/users/language", 
+        //     .get("/api/users/language", 
         //     // {headers : TokenReducer.accessToken}
         //     )
         //     .then(function (res) {

@@ -23,7 +23,7 @@ function Study(props) {
     // 해당 년월 학습일자(학습량) 조회
     function getMonthlyLog({ year, month }) {
         axios
-            .get("api/study/month", {
+            .get("/api/study/month", {
                 params: {
                     user_email: store["userEmail"],
                     study_month: `${year}-${month}`,

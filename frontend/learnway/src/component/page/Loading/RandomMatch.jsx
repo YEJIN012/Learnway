@@ -11,9 +11,11 @@ import { useNavigate, useParams } from "react-router-dom";
 const Lang = styled.div`
     width: 30%;
     height: 10vh;
-    font-size: 7vh;
+    font-size: 3.5vh;
+    font-weight: 600;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-transform: uppercase;
 `;
 
@@ -44,11 +46,11 @@ const Interest = styled.div`
 
 function RandomMatch(props) {
     const myInfo = useSelector((state) => state.AuthReducer);
-    const oppoInfo = useSelector((state=>state.OpponentReducer));
+    const oppoInfo = useSelector((state) => state.OpponentReducer);
     // const { oppoId, sessionId } = props;
     //const oppoId = "learnwaytest@gmail.com";
-    const {roomId, recorder} = useParams();
-    
+    const { roomId, recorder } = useParams();
+
     const [friendCnt, setFriendCnt] = useState("");
     //const [oppoInfo, setOppoInfo] = useState(opusr);
     //setOppoInfo(opusr)
@@ -60,19 +62,19 @@ function RandomMatch(props) {
     console.log(oppoInfo, roomId)
     
 
-        async function getFriendCnt() {
-            try {
-                const res = await axios.get("/api/friend/count", {
-                    params: { userEmail: oppoInfo.userEmail },
-                });
-                console.log(res);
-                setFriendCnt(res.data.friendCnt);
-            } catch (error) {
-                console.log(error);
-            }
+    async function getFriendCnt() {
+        try {
+            const res = await axios.get("/api/friend/count", {
+                params: { userEmail: oppoInfo.userEmail },
+            });
+            console.log(res);
+            setFriendCnt(res.data.friendCnt);
+        } catch (error) {
+            console.log(error);
         }
-    
-        /*
+    }
+
+    /*
         async function getUserInfo() {
             try {
                 const res = await axios
@@ -109,14 +111,15 @@ function RandomMatch(props) {
         return result;
     }
 
-    function redirect(){
-        if(isTimeout === true){
-            navigate(`/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}/${recorder}/${oppoInfo.language.languageId}/${myInfo.language.languageId}`,{replace: true})
+    function redirect() {
+        if (isTimeout === true) {
+            navigate(
+                `/openvidu/${roomId}/${myInfo.userEmail}/${oppoInfo.userEmail}/${recorder}/${oppoInfo.language.languageId}/${myInfo.language.languageId}`,
+                { replace: true }
+            );
             window.location.reload();
-                
         }
     }
-
 
     useEffect(() => {
         let timer = setTimeout(async () => {
@@ -125,20 +128,14 @@ function RandomMatch(props) {
         //getUserInfo();
         getFriendCnt();
     }, []);
-    console.log(isTimeout)
+    console.log(isTimeout);
     return (
         <>
             {isTimeout === true ? (
-                
                 redirect()
-                
-                ) : (
-                    <div className="frame">
-                        <h1 className="title">
-                            😊 We succeeded in random matching based on your interest
-                            <br />
-                            ✈️ Please get ready to board now
-                        </h1>
+            ) : (
+                <div className="frame">
+                    <div className="framebody">
                         <main className="ticket-system">
                             <div className="top">
                                 <h1 className="title">
@@ -154,7 +151,7 @@ function RandomMatch(props) {
                                         <img src={logo} alt="" width={"150"} />
 
                                         <div className="route">
-                                            <Lang>{myInfo.language.code}</Lang>
+                                            <Lang>{myInfo.language.name}</Lang>
                                             <svg
                                                 className="plane-icon"
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +162,9 @@ function RandomMatch(props) {
                                                     d="M497.25 357v-51l-204-127.5V38.25C293.25 17.85 275.4 0 255 0s-38.25 17.85-38.25 38.25V178.5L12.75 306v51l204-63.75V433.5l-51 38.25V510L255 484.5l89.25 25.5v-38.25l-51-38.25V293.25l204 63.75z"
                                                 />
                                             </svg>
-                                            <Lang>{oppoInfo.language.code}</Lang>
+                                            <Lang>
+                                                {oppoInfo.language.name}
+                                            </Lang>
                                         </div>
                                         <div className="details">
                                             <div className="item">
@@ -194,7 +193,7 @@ function RandomMatch(props) {
                                     </div>
                                     <div className="receipt qr-code">
                                         <ProfileImg
-                                            src={oppoInfo.img}
+                                            src={oppoInfo.imgUrl}
                                         ></ProfileImg>
                                         <div className="description">
                                             <Text>{t('Hi🙌')}</Text>
