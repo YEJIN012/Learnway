@@ -56,7 +56,7 @@ export default function SignupForm({getUserinfo}) {
 
   // 닉네임이 중복되지 않으면 들어오면 Next button 활성화
   useEffect(() => {
-    if (msg === "What a great name." && email) {
+    if (msg === t("What a great name.")) {
       setDisabled(false)
     } else {
       setDisabled(true)
