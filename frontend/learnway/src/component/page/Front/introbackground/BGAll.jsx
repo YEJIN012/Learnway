@@ -16,12 +16,16 @@ const Wrapper = styled.div`
     top:0vw;
 `;
 
-function BGAll () {
+function BGAll (props) {
     return (
         <Wrapper>
           <BGTopAnimation />
           <BGLeftAnimation />
-          <BGAirPlane />
+          {props.id === 1?(
+            <BGAirPlane />
+          ):(
+            null
+          )}
         </Wrapper>
       )
 };

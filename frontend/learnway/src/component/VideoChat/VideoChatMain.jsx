@@ -14,6 +14,7 @@ import RouteToMain from './RouteToMain';
 import { motion } from "framer-motion";
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
+import BGAll from "../page/Front/introbackground/BGAll";
 
 
 function withParams(Component){
@@ -501,7 +502,8 @@ onbeforeunload(event) {
                 </VideoArea>
         
                 </Frame>
-    </>
+                <BGAll id = {0}></BGAll>
+    </>         
         );
     }
     

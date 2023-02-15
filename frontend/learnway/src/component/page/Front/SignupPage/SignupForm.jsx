@@ -43,6 +43,11 @@ export default function SignupForm({getUserinfo}) {
   const [msg, setMsg] = useState("");
   const { t } = useTranslation();
 
+  const PwReChk = styled.span`
+    color: #ff0000;
+    font-size: 0.1vw;
+    margin-left: 3vw;
+  `;
   // 이메일 인증이 되면 email 갱신
   const getEmail = (email) => {
     setEmail(email)
@@ -75,6 +80,20 @@ export default function SignupForm({getUserinfo}) {
     }
   })
   
+  function pwRuleChk(str){
+    //영어 숫자 특수문자 혼합 8문자 이상 
+    const pattern_eng = /[a-zA-Z]/;
+    const pattern_spec = /[~!@#$%^&*()_+|<>?:{}]/;
+    if(str==="" || (str.length > 8 && ((pattern_spec.test(str))&&(pattern_eng.test(str)))))
+    {
+      console.log("settt")
+      return(null)
+    }
+    else{
+      return(<PwReChk>Set password more than 8 characters including special character</PwReChk>)
+    }
+  }
+  console.log(pw)
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -128,12 +147,13 @@ export default function SignupForm({getUserinfo}) {
               :<Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
             }
           </Stack>
-          <InputBox id="password" type="password" title={t('Password')} placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
+          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} focus={pwRuleChk(pw)}margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
-          <InputBox id="confirmPw" type="password" title={t('Confirm Password')} placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
+            {pwRuleChk(pw)}
+          <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
-          />
+            />
           <InputFrame >
             <SelectLanguage radius="6px" opacity="0.5" selectWidth="300px" selectHeight="18.8416px" selectFontSize="13px" title = {t('language')} language = "Choose" setLanguage={setLanguageName} width="312px" height="30px" 
               icon= {<LanguageIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 

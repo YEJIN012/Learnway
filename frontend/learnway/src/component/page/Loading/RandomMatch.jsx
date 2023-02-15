@@ -32,8 +32,8 @@ const Interest = styled.div`
     align-items: center;
     margin-top: 8px;
     margin-left: -8px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    //padding-top: 0.5em;
+    //padding-bottom: 0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
     border-radius: 20px;
@@ -134,7 +134,11 @@ function RandomMatch(props) {
                 
                 ) : (
                     <div className="frame">
-                    <div className="framebody">
+                        <h1 className="title">
+                            😊 We succeeded in random matching based on your interest
+                            <br />
+                            ✈️ Please get ready to board now
+                        </h1>
                         <main className="ticket-system">
                             <div className="top">
                                 <h1 className="title">
@@ -206,7 +210,7 @@ function RandomMatch(props) {
                             </div>
                         </main>
                     </div>
-                </div>
+                
             )}
         </>
     );
