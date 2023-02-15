@@ -11,7 +11,6 @@ import {
 import { setRefreshToken } from "../utils/Cookie";
 import Button from "../../../ui/Button";
 import Iconbox from "../utils/icon";
-import { Carousel } from "react-responsive-carousel";
 
 const SelectFrame = styled.div`
     width: 400px;
@@ -150,7 +149,6 @@ export default function InterestSelect({
                         if (itdata[idx].field === "random") {
                         } else {
                             return (
-                                <Carousel>
                                 <SelectBtn
                                 key={idx}
                                     id={idx}
@@ -164,7 +162,6 @@ export default function InterestSelect({
                                         setLst(tmplst);
                                     }}
                                 />
-                                </Carousel>
                               );
                           }
                       })
