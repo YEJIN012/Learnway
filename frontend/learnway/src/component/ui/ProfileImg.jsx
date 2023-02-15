@@ -10,9 +10,9 @@ const Img = styled.img`
     border-radius: 50%;
     overflow: hidden;
 
-    :hover {
+    /* :hover {
         box-shadow: 1px 2px 8px #a4a4a4;
-    }
+    } */
 `;
 
 function ProfileImg(props) {

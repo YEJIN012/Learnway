@@ -14,6 +14,7 @@ import ChkCamera from '@mui/icons-material/CameraAlt'
 import AllButton from '../../ui/AllButton';
 import Button from '../../ui/Button';
 import { useDispatch, useSelector } from 'react-redux';
+import { Cursor } from "react-simple-typewriter";
 
 const Frame = styled.div`
     width: 40vmax;
@@ -97,7 +98,7 @@ const SelectLink = styled.div`
     justify-content:center;
     align-items: center;
     text-align: center;
-    padding: 15px 40px;
+    padding: 20px 18px;;
     border-radius: 16px;
 
     &:hover {
@@ -195,8 +196,6 @@ function Body() {
     
     const navigate = useNavigate();
     
-    console.log(oppolang)
-    
     useEffect(() => {
         dispatch({ type: "matchLangUpdate", payload: {  languageId:null, languageName:"TO" }});
     }, []);
@@ -206,14 +205,17 @@ function Body() {
     },[oppolang])
 
     function startMatching() {
-    
-        navigate(
-            `/loading`,
-            {
-                replace: true,
+        if (oppolang.languageId) {
+            navigate(
+                `/loading`,
+                {
+                    replace: true,
+                }
+                )
+                window.location.reload();
+            } else {
+                alert("❗Please choose the language you want to learn❗")
             }
-        )
-        window.location.reload();
     };
     
     return (
@@ -291,7 +293,8 @@ function Body() {
                         color: "#91a8d0",
                         width: "4vw",
                         height: "3.5vw",
-                        padding:"0 1vw"
+                        padding:"0 1vw",
+                        cursor:"pointer"
                     }}></ChkCamera>
                     <Modal
                         open={open}

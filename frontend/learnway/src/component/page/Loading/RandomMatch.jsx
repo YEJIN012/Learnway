@@ -10,9 +10,11 @@ import { useNavigate, useParams } from "react-router-dom";
 const Lang = styled.div`
     width: 30%;
     height: 10vh;
-    font-size: inherit;
+    font-size: 3.5vh;
+    font-weight: 600;
     display: flex;
     justify-content: center;
+    align-items: center;
     text-transform: uppercase;
 `;
 

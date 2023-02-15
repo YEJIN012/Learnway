@@ -18,7 +18,7 @@ function FriendList(props) {
     async function getFriendList() {
         try{
             const res = await axios.get(
-                "api/friend/list",
+                "/api/friend/list",
                 { params: { userEmail: store["userEmail"]}})
             // handle success
             console.log("getFriendList");

@@ -162,9 +162,9 @@ function SearchProfile(props) {
         <ProfileCard
             className = "timeline"
             header={
-                <>
+                <div style={{overflow:"auto"}}>
                     <ProfileHeader>
-                        <ProfileImg src={userInfo.img} width={"10vw"}></ProfileImg>
+                        <ProfileImg src={userInfo.img} width={"8vw"}></ProfileImg>
                         <PersonAddIcon
                             onClick={() => addFriend(myInfo.userEmail, props.user)}
                             cursor="pointer"
@@ -178,11 +178,11 @@ function SearchProfile(props) {
                         <UserName>{userInfo.name}</UserName>
                         
                     </ProfileHeader>
-                </>
+                </div>
             }
             // name={userInfo.name}
             body={
-                <>  
+                <div>  
                     <TimeUl>
                         <TimeLi>
                             <InputGroup
@@ -315,7 +315,7 @@ function SearchProfile(props) {
                         radius="15px"
                         margin="0px"
                         onClick={() => addFriend(myInfo.userEmail, props.user)} /> */}
-                </>
+                </div>
             }
             width="39vw"
             height="90vh"
