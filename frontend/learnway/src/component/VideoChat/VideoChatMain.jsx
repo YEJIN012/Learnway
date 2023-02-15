@@ -489,12 +489,12 @@ onbeforeunload(event) {
                         >
                             {this.state.publisher !== undefined ? (
                                 
-                                <Video streamManager={this.state.publisher} pubsub={'pub'} size={this.state.menu} />
+                                <Video streamManager={this.state.publisher} pubsub={'small'} size={this.state.menu} />
                                 
                                 ) : null}
                             {this.state.subscribers.map((sub, i) => (
                                 
-                                <Video streamManager={sub}  pubsub={'sub'}  size = {this.state.menu}/>
+                                <Video streamManager={sub}  pubsub={'large'}  size = {this.state.menu}/>
                                 
                                 ))}
                         </VideoFrame>
