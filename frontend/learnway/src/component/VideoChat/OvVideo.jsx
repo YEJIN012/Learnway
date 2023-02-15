@@ -74,13 +74,13 @@ function OpenViduVideoComponent({ streamManager, size , pubsub}){
     return (
         <>
         {pubsub === 'small'?(
-            <LargeVodFrame 
+            <SmallVodFrame 
             layout
             autoPlay={true} ref={videoRef} fixSizeId={size} 
             />
 
         ):(
-            <SmallVodFrame 
+            <LargeVodFrame 
             layout
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}

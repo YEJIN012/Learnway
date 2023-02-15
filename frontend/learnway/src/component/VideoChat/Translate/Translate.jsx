@@ -185,6 +185,7 @@ function Translate() {
                   height={"3vw"}
                   fontSize={"1.5vw"}
                   textValue="translate"
+                  onClick={handleTranslate}
                 ></Button>
               </ButtonFrame>
             </Form>
@@ -193,7 +194,7 @@ function Translate() {
             <h3>{resultLang}</h3>
           </InnerFrame>
           <InnerFrame>
-            <TranslateArea disabled>{translatedContent}</TranslateArea>
+            <TranslateArea disabled value={translatedContent}></TranslateArea>
           </InnerFrame>
         </Frame>
       }
