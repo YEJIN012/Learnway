@@ -194,7 +194,11 @@ function Translate() {
             <h3>{resultLang}</h3>
           </InnerFrame>
           <InnerFrame>
+<<<<<<< HEAD
             <TranslateArea disabled value={translatedContent}></TranslateArea>
+=======
+            <TranslateArea disabled value={translatedContent}>{translatedContent}</TranslateArea>
+>>>>>>> 34a406f98f60e41f929f97248a35dc395f265ed1
           </InnerFrame>
         </Frame>
       }
