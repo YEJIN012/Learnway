@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useNavigate, NavLink } from "react-router-dom";
 import InputBox from "../Input";
 import { useDispatch } from "react-redux";
@@ -15,9 +16,9 @@ const CheckBoxFrame = styled.div`
 `;
 
 const BtnFrame = styled.div`
-  width: 350px;
   margin-top: 20px;
   margin-left: 20px;
+  border: 0px;
   display: flex;
   justify-content: space-between;
 `;
@@ -27,6 +28,7 @@ export default function LoginForm () {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [pw, setPwd] = useState("");
+  const { t } = useTranslation();
   
 
   // 제출하면 이메일과 패스워드를 보내서 로그인 가능 여부 확인
@@ -51,16 +53,16 @@ export default function LoginForm () {
           setRefreshToken(res.token.refreshToken);
           const getaccessToken = accessToken(res.token);
           dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
-          alert("🤗🤗Good to see you again🤗🤗")
+          alert(t('🤗🤗 Good to see you again 🤗🤗'))
 
           // 성공했으면 메인 페이지로 이동
           navigate('/');
         } else if (status === 202) {
           // 아이디 비밀번호가 틀린 경우,
-          alert("🚨Please double check your email and password!!🚨")
+          alert(t('🚨Please double check your email and password!!🚨'))
         }
       })
-      .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+      .catch((err) => alert(t('A network error has occurred. The request has failed.')));
     };
 
     return (
@@ -68,7 +70,7 @@ export default function LoginForm () {
             <InputBox
                 id="id"
                 type="email"
-                title="E-mail"
+                title={t('E-mail')}
                 placeholder="abcdef@dfd.com"
                 color="primary"
                 onChange={(e) => {
@@ -80,7 +82,7 @@ export default function LoginForm () {
             <InputBox
                 id="password"
                 type="password"
-                title="Password"
+                title={t('Password')}
                 placeholder="********"
                 color="primary"
                 onChange={(e) => {
@@ -90,27 +92,27 @@ export default function LoginForm () {
                 icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
             />
             <CheckBoxFrame>
-                <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">Forgot Password?</NavLink>
+                <NavLink style={{ fontSize: "13px", marginRight: "5px", opacity: "0.5"}} to="/find_password">{t('Forgot Password?')}</NavLink>
             </CheckBoxFrame>
             <BtnFrame>
                 <AllButton
                     id="0"
                     textValue="Login"
-                    width="150px"
+                    width="172px"
                     height="39px"
                     fontSize="12px"
                     textWeight="900"
-                    radius="15px"
+                    radius="10px"
                     margin= "0px"
                 />
                 <AllButton
                     // id="1"
                     textValue="SignUp"
-                    width="150px"
+                    width="172px"
                     height="39px"
                     fontSize="12px"
                     textWeight="900"
-                    radius="15px"
+                    radius="10px"
                     margin= "0px"
                     onClick={() => navigate("/signup")}
                 />

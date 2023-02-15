@@ -16,7 +16,8 @@ import OpponentReducer from './app/OpponentReducer';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from "redux-persist/lib/storage";
-
+import "./language/i18n";
+// import { Dropdown } from "react-bootstrap";
 
 const persistConfig = {
   key: "root",
@@ -52,6 +53,7 @@ root.render(
       </ PersistGate>
     </Provider>
   </CookiesProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
