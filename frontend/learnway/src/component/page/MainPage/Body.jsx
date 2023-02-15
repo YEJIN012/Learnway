@@ -209,14 +209,20 @@ function Body() {
     const { t } = useTranslation();
 
     function startMatching() {
-    
-        navigate(
-            `/loading`,
-            {
-                replace: true,
-            }
-        )
-        window.location.reload();
+
+        if(oppolang.languageName !== "TO"){
+
+            navigate(
+                `/loading`,
+                {
+                    replace: true,
+                }
+                )
+                window.location.reload();
+        }
+        else{
+            alert("Select language for matching")
+        }
     };
     
     return (
@@ -305,8 +311,10 @@ function Body() {
                         <Box sx={camStyle}>
                             <Typography id="modal-modal-title" sx={{
                                 'font-family': '"Raleway", sans-serif',
-                                'font-size': '1vw',
-                                'text-align': 'center'
+                                'font-size': '1.5vw',
+                                'text-align': 'center',
+                                'border-radius':'15px',
+                                'font-weight':'600'
                             }}>
                                 {t('Before entering the conversation, you can check and check the status of the webcam.')}
                             </Typography>
@@ -317,6 +325,7 @@ function Body() {
                                     'flex-direction': 'column',
                                     'align-items': 'center'
                                 }}>
+                                
                                 <Webcam style={webcamStyle} />
                                 <AllButton
                                     textValue={t('Verification Complete')}

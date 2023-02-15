@@ -4,7 +4,10 @@ import axios from "axios";
 import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
+const NoFriend = styled.div`
+    font-size:1vw;`
 function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)

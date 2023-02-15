@@ -96,10 +96,10 @@ function deleteRoom(id){
 }
 
 
-const socket =  new SockJS('/api/ws-stomp');
-const ws =  Stomp.over(socket);
 
 function Youtube({...props}){
+    const socket =  new SockJS('/api/ws-stomp');
+    const ws =  Stomp.over(socket);
     
     const [socketObj, setSocketObj] = useState(undefined)
     const [searchData, setSearchData] = useState([]);
@@ -300,18 +300,23 @@ function Youtube({...props}){
             </Search>
             <Video>
                 <VodTitle>{vodTitle}</VodTitle>
-                <YoutubeFrame
-                    videoId={vodId}
-                    opts={{
-                        width:"530",
-                        height:"300",
-                    }}
-                    onReady ={(e)=> setPlayer(e)}
-                    onStateChange={(e)=>{
-                        // setPlayState(e);
-                        handlePlayChange(e);
-                    } } //e.target.getCurrentTime())
-                />
+                {vodId !== undefined?(
+                    <YoutubeFrame
+                        videoId={vodId}
+                        opts={{
+                            width:"530",
+                            height:"300",
+                        }}
+                        onReady ={(e)=> setPlayer(e)}
+                        onStateChange={(e)=>{
+                            // setPlayState(e);
+                            handlePlayChange(e);
+                        } } //e.target.getCurrentTime())
+                    />
+
+                ):
+                    null
+                }
             </Video>
         </Frame>
     );
