@@ -15,9 +15,9 @@ const CheckBoxFrame = styled.div`
 `;
 
 const BtnFrame = styled.div`
-  width: 350px;
   margin-top: 20px;
   margin-left: 20px;
+  border: 0px;
   display: flex;
   justify-content: space-between;
 `;
@@ -96,21 +96,21 @@ export default function LoginForm () {
                 <AllButton
                     id="0"
                     textValue="Login"
-                    width="150px"
+                    width="172px"
                     height="39px"
                     fontSize="12px"
                     textWeight="900"
-                    radius="15px"
+                    radius="10px"
                     margin= "0px"
                 />
                 <AllButton
                     // id="1"
                     textValue="SignUp"
-                    width="150px"
+                    width="172px"
                     height="39px"
                     fontSize="12px"
                     textWeight="900"
-                    radius="15px"
+                    radius="10px"
                     margin= "0px"
                     onClick={() => navigate("/signup")}
                 />

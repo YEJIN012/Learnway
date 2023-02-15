@@ -37,7 +37,7 @@ const MentFrame = styled.div`
 `;
 
 const MentText = styled.div`
-  font-size: ${props => props.fsize || '40px'};
+  font-size: ${props => props.fsize || '30px'};
   font-weight: 700;
   font-family: 'Poppins';
   font-style: normal;
@@ -54,7 +54,7 @@ const LogoFrame = styled.div`
 
 const Logo = styled.img`
   width: 100%;
-  height: 25.6px;
+  height: 20px;
 `;
 
 const InputWrapper = styled.div`

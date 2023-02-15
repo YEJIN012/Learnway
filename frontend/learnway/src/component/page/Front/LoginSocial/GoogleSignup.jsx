@@ -125,7 +125,7 @@ export default function GoogleSignup() {
                 icon= {<LanguageIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
               />            
             </InputFrame>
-            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" cursor="pointer" data_placeholder="YYYY-MM-DD" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}} inputHeight="30px"
+            <InputBox id="birthday" type="date" title="Birthday" value={birthday} onFocus="(this.type='date')" inputWidth="300px" margin="10px 0px 10px 0px" cursor="pointer" data_placeholder="YYYY-MM-DD" max={moment(Date()).format("YYYY-MM-DD")} onChange={(e) => {setbirthday(e.target.value)}}
               icon= {<CakeIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
             <Frame>
