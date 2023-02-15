@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import '../../ui/Background.css';
 import logo from '../Front/img/intro_global.png';
@@ -103,10 +104,13 @@ function LeftBox() {
 
 function Btn() {
   let navigate = useNavigate()
+
+  const { t } = useTranslation();
+  
   return (
     <StartBtn onClick={() => { navigate('/login') }}>
       <AllButton
-        textValue="MEETUP"
+        textValue={t('MEETUP')}
         width="100%"
         height="45px"
         fontSize="1.3vw"

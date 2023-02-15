@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 import FriendList from "./FriendList";
 import Profile from "./Profile";
@@ -55,20 +56,22 @@ function MyPageContent(props) {
         setSelectedDate(date);
     };
 
+    const { t } = useTranslation();
+
     const Tab = {
         PROFILE: {
-            subtitle: ["Profile", "Edit Profile"],
+            subtitle: [t('Profile'), t('Edit Profile')],
             child: [<Profile />, <EditProfile />],
         },
         FRIENDS: {
-            subtitle: ["Friend", "Friends List"],
+            subtitle: [t('Friend'), t('Friends List')],
             child: [
                 <Friend selectedFriend={selectedFriend} handleDeletedFriend={handleDeletedFriend}/>,
                 <FriendList handleSelectedFriend={handleSelectedFriend} deletedFriend={deletedFriend}/>,
             ],
         },
         STUDY: {
-            subtitle: ["Calendar", "Scripts"],
+            subtitle: [t('Calendar'), t('Scripts')],
             child: [
                 <Study handleSelectedDate={handleSelectedDate} />,
                 <StudyScripts selectedDate={selectedDate} />,

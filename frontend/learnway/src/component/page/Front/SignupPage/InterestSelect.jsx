@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import SelectBtn from "./InterestIcon";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -40,6 +41,7 @@ export default function InterestSelect({
 
     const icon = Iconbox()
     const initLst = new Array(itdata.length - 1).fill(0);
+    const { t } = useTranslation();
 
     let [lst, setLst] = useState(initLst);
 
@@ -73,7 +75,7 @@ export default function InterestSelect({
 
         // 세개 이상 선택 확인.
         if (selectedNum < 3) {
-            alert ("Please select more than 3")
+            alert (t('Please select more than 3'))
         } else {
 
             
@@ -128,12 +130,12 @@ export default function InterestSelect({
                                         
                                         // 성공했으면 메인 페이지로 이동
                                         navigate('/');
-                                        alert("💑Welcome💑")
+                                        alert(t('💑Welcome💑'))
                                     } 
                                 });
                             }
                     })
-                    .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+                    .catch((err) => alert(t('A network error has occurred. The request has failed.')));
                 }
             };
             
