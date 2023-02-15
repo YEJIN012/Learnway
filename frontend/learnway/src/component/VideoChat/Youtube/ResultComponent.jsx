@@ -14,7 +14,6 @@ align-items:center;
 `;
 const ImgFrame=styled.div`
     height: 8.4vh;
-    background: yellow;
     overflow: hidden;
     border-radius:5px;
 `;
@@ -35,7 +34,7 @@ justify-content: center;
 `;
 
 const Title = styled.span`
-font-size: 1.3vw;
+font-size: 0.8vw;
 font-weight: 700;
 margin-left: 0.3vw;
 `;
@@ -45,7 +44,7 @@ height: 4vh;
 display: flex;
 flex-direction: row;
 align-items: center;
-margin-left: 0.7vw;
+margin-left: 0.4vw;
 
 `;
 
@@ -61,7 +60,7 @@ border: 1px solid black;
 `;
 const UserName = styled.span`
 width: 80%;
-font-size: 1vw;
+font-size: 0.4vw;
 font-weight: 500;
 color: #838383;
 `;
@@ -76,9 +75,9 @@ function ResultComponent({...props}){
             <Snapshot src={props.imgUrl}></Snapshot>
             </ImgFrame>
             <DetailBox>
-                <Title>{(props.title).substr(0, 11)+" ..."}</Title>
+                <Title>{(props.title)}</Title>
                 <Uploader>
-                    <UserName >{(props.uploader).substr(0,11)+" ..."}</UserName>
+                    <UserName >{(props.uploader)}</UserName>
                 </Uploader>
             </DetailBox>
         </Frame>

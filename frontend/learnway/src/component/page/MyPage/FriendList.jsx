@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
+import styled from 'styled-components';
 
+const NoFriend = styled.div`
+    font-size:1vw;`
 function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)
@@ -40,10 +43,10 @@ function FriendList(props) {
             <Paper
             elevation={3}
             children={
-                <div>
+                <NoFriend>
                     "Make new friends who can have language exchange constantly
                     through our Learnway😉"
-                </div>
+                </NoFriend>
             }
             sx={{
                 borderRadius: "35px",

@@ -153,10 +153,10 @@ const TestSpan = styled.span`
 `;
 
 
-const socket = new SockJS('/api/ws-stomp');
-const ws = Stomp.over(socket);
 
 function Loading() {
+  const socket = new SockJS('/api/ws-stomp');
+  const ws = Stomp.over(socket);
     const userInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
     const dispatch = useDispatch();

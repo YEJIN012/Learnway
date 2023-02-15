@@ -236,7 +236,7 @@ function EditProfile() {
                                 Bio
                             </div>
                             <textarea
-                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px" }}
+                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px", resize:'none' }}
                                 name="Bio"
                                 onChange={(e) => {
                                     setBio(e.target.value);

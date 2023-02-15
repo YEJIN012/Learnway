@@ -170,7 +170,7 @@ function Report(props) {
                 <Frame>
                     <PreInputGroup>
                         <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly></PreInput>
-                        <PreInput type="text" id="reportTime" inputWidth="12vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
+                        <PreInput type="text" id="reportTime" inputWidth="8.2vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
                     </PreInputGroup>
 
                     <ChkBoxGroup>

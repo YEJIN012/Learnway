@@ -206,14 +206,20 @@ function Body() {
     },[oppolang])
 
     function startMatching() {
-    
-        navigate(
-            `/loading`,
-            {
-                replace: true,
-            }
-        )
-        window.location.reload();
+
+        if(oppolang.languageName !== "TO"){
+
+            navigate(
+                `/loading`,
+                {
+                    replace: true,
+                }
+                )
+                window.location.reload();
+        }
+        else{
+            alert("Select language for matching")
+        }
     };
     
     return (
@@ -302,10 +308,12 @@ function Body() {
                         <Box sx={camStyle}>
                             <Typography id="modal-modal-title" sx={{
                                 'font-family': '"Raleway", sans-serif',
-                                'font-size': '1vw',
-                                'text-align': 'center'
+                                'font-size': '1.5vw',
+                                'text-align': 'center',
+                                'border-radius':'15px',
+                                'font-weight':'600'
                             }}>
-                                대화 입장 전, 웹캠 상태 확인 및 점검을 할 수 있습니다.
+                                You can check your camera before matching!
                             </Typography>
                             <Typography id="modal-modal-description"
                                 sx={{
@@ -314,9 +322,10 @@ function Body() {
                                     'flex-direction': 'column',
                                     'align-items': 'center'
                                 }}>
+                                
                                 <Webcam style={webcamStyle} />
                                 <AllButton
-                                    textValue="확인완료"
+                                    textValue="Complete"
                                     width="50%"
                                     fontSize="1.5vw"
                                     textWeight="900"
