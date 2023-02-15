@@ -6,6 +6,7 @@ import Button from '../../../ui/Button';
 import { request } from "../utils/axios";
 import EmailIcon from '@mui/icons-material/Email';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Alert from '@mui/material/Alert';
 
 const InputbtmFrame = styled.div`
   display: flex;
@@ -56,6 +57,13 @@ export default function AuthEamil({getEmail}) {
           }
         })
       .catch((err) => console.log(err))
+  }
+
+  const AlertBox = (e) => {
+    if (e === 1) {
+      console.log(333)
+      return <Alert severity="warning">This is a warning alert — check it out!</Alert>
+    }
   }
 
   return (
