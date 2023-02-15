@@ -18,7 +18,7 @@ export default function Signup () {
   const { t } = useTranslation();
 
   return (
-    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "5vh" : "10vh"} fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
+    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "10vh" : "15vh"} fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
       bg={
             userinfo === ""
           ? (

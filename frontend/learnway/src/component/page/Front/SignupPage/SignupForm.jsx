@@ -114,16 +114,19 @@ export default function SignupForm({getUserinfo}) {
       alert(t('Please check your password.'))
     }
   };
-  const [startDate, setStartDate] = useState(new Date());
+
   return(
       <div>
         <AuthEamil getEmail = {getEmail}></AuthEamil>
         <form onSubmit={handleSubmit}>
-          <InputBox id="username" type="txt" title={t('User Name(ENG)')} placeholder={username} value={username} inputWidth="300px" inputHeight="25px" margin="10px 0px 10px 0px" onChange={(e) => {setUsername(e.target.value)}}
+          <InputBox id="username" type="txt" title={t('User Name(ENG)')} placeholder="bingbing" value={username} inputWidth="300px" inputHeight="25px" margin="10px 0px 10px 0px" onChange={(e) => {setUsername(e.target.value)}}
             icon= {<AccountCircleIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <Stack sx={{ width: '100%' }} spacing={2}>
-            <Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
+            { disabled
+              ?<Alert sx={{ fontWeight: "700", color: "red", fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert> 
+              :<Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
+            }
           </Stack>
           <InputBox id="password" type="password" title={t('Password')} placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
