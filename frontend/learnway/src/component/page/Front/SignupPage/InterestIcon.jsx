@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 const CircleOFFBtn = styled.div`
   width: 110px;
@@ -39,6 +40,7 @@ const IconText = styled.div`
 `;
 
 export default function SelectBtn ({disabled, id, icontxt, chk, onClick, url, opacity}) {
+  const { t } = useTranslation();
   const [a, setA] = useState(1);
   // disabled 되면 투명도를 키우고 커서 포인터 none
   if (chk === 1){   // 클릭 시 : 그림자 생성
@@ -50,7 +52,7 @@ export default function SelectBtn ({disabled, id, icontxt, chk, onClick, url, op
   } else {          // 미클릭 시 : 그림자 없음
       return (
         <CircleOFFBtn id={id} disabled={disabled} chk={chk} onClick={onClick} onMouseOver={() => setA(0)} onMouseOut={() => setA(1)}>
-          {a === 0 ? <IconText>{icontxt}</IconText>: <Icon src={url} />}
+          {a === 0 ? <IconText>{t(icontxt)}</IconText>: <Icon src={url} />}
         </CircleOFFBtn>
   )}
 }

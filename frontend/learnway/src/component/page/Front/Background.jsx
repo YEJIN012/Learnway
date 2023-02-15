@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo from './img/logo_skyblue.png'
 import BGAll from "./introbackground/BGAll";
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 const Bg = styled.div`
@@ -69,6 +70,8 @@ const Frame = styled.div`
 `;
 
 export default function BackgroundFrame ({bg, ment1, ment2, width, height, top, right, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items, frame_justify, opacity}) {
+  const { t } = useTranslation();
+
   return(
     <Bg frame_justify={frame_justify}>
       <LoginBackground  width={width} height={height} top={top} right={right} >
@@ -80,7 +83,7 @@ export default function BackgroundFrame ({bg, ment1, ment2, width, height, top, 
           <MentText fsize={fsize} opacity={opacity} >{ment2}</MentText>
         </MentFrame>
         <InputWrapper mtop={mtop} mr={mr} mb={mb} ml={ml}>
-        {align_items ? <Frame><NavLink to = "/login">Login</NavLink></Frame>: null}
+        {align_items ? <Frame><NavLink to = "/login">{t('Login')}</NavLink></Frame>: null}
         {bg}
         </InputWrapper>
       </LoginBackground>

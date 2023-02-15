@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import React, { useState } from 'react';
 import InputBox from '../Input';
 import Button from '../../../ui/Button';
@@ -20,6 +21,7 @@ export default function AuthEamil({getEmail}) {
   const [authcode, setAuthcode] = useState("")
   const [disabled, setDisabled] = useState("")
   
+  const { t } = useTranslation();
 
   const URL = '/users/verify'
   
@@ -33,7 +35,7 @@ export default function AuthEamil({getEmail}) {
         if (status === 200) {
           setAuth(true)                  
         } else if (status === 202) {
-          alert("This email has already been registered.")
+          alert(t('This email has already been registered.'))
         }
       })
       .catch((err) => console.log(err))
@@ -48,9 +50,9 @@ export default function AuthEamil({getEmail}) {
           if(status === 200){ // 인증번호가 맞으면 email을 emit해주고 Next 버튼을 활성화
             getEmail(email)
             setDisabled(true)               // 이메일 인증이 완료되면 버튼과 인풋태그 비활성화
-            alert("Success")
+            alert(t('The authentication numbers match'))
           }  else {
-            alert("Mismatch")
+            alert(t('The authentication numbers do not match.'))
           }
         })
       .catch((err) => console.log(err))
@@ -62,7 +64,7 @@ export default function AuthEamil({getEmail}) {
         <InputBox 
           id="email" 
           type="email" 
-          title="E-mail" 
+          title={t('E-mail')} 
           inputWidth="220px"
           inputHeight="25px"
           placeholder="abcdef@dfd.com" 
@@ -81,7 +83,7 @@ export default function AuthEamil({getEmail}) {
           fontSize="12px" 
           textWeight="700" 
           radius="10px" 
-          textValue= "Send" 
+          textValue= {t('Send')} 
           disabled={disabled}
           margin="5px 0px 5px 0px"
           
@@ -96,7 +98,7 @@ export default function AuthEamil({getEmail}) {
               <InputBox 
                 id="authcode" 
                 type="text"
-                title="Verification code" 
+                title={t('Verification code')} 
                 inputWidth="220px"
                 inputHeight="25px"
                 placeholder="123456" 
@@ -115,7 +117,7 @@ export default function AuthEamil({getEmail}) {
                 fontSize="12px"
                 textWeight="700"
                 radius="10px"
-                textValue="Confirm"
+                textValue={t('Confirm')}
                 margin="5px 0px 5px 0px"
                 disabled={disabled}
                 />

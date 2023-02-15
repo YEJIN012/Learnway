@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import styled, { keyframes } from "styled-components";
 import MyLanguage from "./MyLanguage";
 import SelectLanguage from "./SelectLanguage";
@@ -205,6 +206,8 @@ function Body() {
         popupClose(); //값 변화 감지되면 종료
     },[oppolang])
 
+    const { t } = useTranslation();
+
     function startMatching() {
     
         navigate(
@@ -232,7 +235,7 @@ function Body() {
             <SelectSection>
                 
                 <SelectFrame>
-                    <Mid>Departures</Mid>
+                    <Mid>{t('DEPARTURES')}</Mid>
                     <MyLanguage>
                     </MyLanguage>
                 </SelectFrame>
@@ -242,7 +245,7 @@ function Body() {
                 </SelectFrame>
 
                 <SelectFrame>
-                    <Mid>Arrivals</Mid>
+                    <Mid>{t('ARRIVALS')}</Mid>
                     <SelectLink onClick={popupOpen}>{oppolang.languageName}</SelectLink>
                     <Modal
                         open={popup}
@@ -279,7 +282,7 @@ function Body() {
                         textValue="GO TO CHAT"
                         onClick={() => startMatching(mylang.languageId, oppolang)} /> */}
                     <AllButton
-                        textValue="MachingStart"
+                        textValue={t('MachingStart')}
                         width="76%"
                         height="3.8vw"
                         fontSize="1.5vw"
@@ -305,7 +308,7 @@ function Body() {
                                 'font-size': '1vw',
                                 'text-align': 'center'
                             }}>
-                                대화 입장 전, 웹캠 상태 확인 및 점검을 할 수 있습니다.
+                                {t('Before entering the conversation, you can check and check the status of the webcam.')}
                             </Typography>
                             <Typography id="modal-modal-description"
                                 sx={{
@@ -316,7 +319,7 @@ function Body() {
                                 }}>
                                 <Webcam style={webcamStyle} />
                                 <AllButton
-                                    textValue="확인완료"
+                                    textValue={t('Verification Complete')}
                                     width="50%"
                                     fontSize="1.5vw"
                                     textWeight="900"

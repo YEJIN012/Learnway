@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import MyPageContent from "./MyPageContent";
+import { useTranslation } from 'react-i18next';
 import Button from "../../ui/Button";
 
 
@@ -15,9 +16,10 @@ const BtnWrapper = styled.div`
 `;
 
 function MyPageTab() {
-    const [content, setContent] = useState("PROFILE");
+    const { t } = useTranslation();
+    const [content, setContent] = useState('PROFILE');
 
-    const Menu = ["PROFILE", "FRIENDS", "STUDY"];
+    const Menu = ['PROFILE','FRIENDS', 'STUDY'];
     return (
         <div>
             <BtnWrapper>
@@ -26,7 +28,7 @@ function MyPageTab() {
                         <Button
                             key={index}
                             id="6"
-                            textValue={title}
+                            textValue={t(title)}
                             onClick={() => setContent(title)}
                             // fontSize="90%"
                             // width="18vw"
@@ -36,7 +38,7 @@ function MyPageTab() {
                         <Button
                             key={index}
                             id="7"
-                            textValue={title}
+                            textValue={t(title)}
                             onClick={() => setContent(title)}
                             // fontSize="90%"
                             // width="18vw"
