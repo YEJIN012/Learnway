@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import BackgroundFrame from '../Background';
 import icon from '../img/googleIcon.jpg'
+import { useTranslation } from 'react-i18next';
 /*
 1. location.search : 쿼리스트링에서 ? 뒤에 있는 값을 가져옴
 2. 즉 여기서는 url? 'token= "queryString" 에서 queryString을 가져온다는 말임
@@ -39,6 +40,7 @@ const GooIcon = styled.button`
 `;
 
 export default function Login () {
+  const { t } = useTranslation();
   
   const OpenForm = () => {window.location.href = "https://i8a408.p.ssafy.io/api/oauth2/authorization/google"}
   return (
@@ -48,15 +50,15 @@ export default function Login () {
           <LoginForm />
           <LineFrame>
             <Line style={{ fontSize: "10px"}}>---------------------------------</Line>
-            <Line style={{ fontSize: "10px"}}> Or Login Using </Line>
+            <Line style={{ fontSize: "10px"}}> {t('Or Login Using')} </Line>
             <Line style={{ fontSize: "10px"}}>---------------------------------</Line>
           </LineFrame>
           <GooFrame>
             <GooIcon onClick={OpenForm} text="로그인"/>
           </GooFrame>
         </>
-      } ment1= "Sign Into"
-        ment2 = "Your Account"
+      } ment1= {t('Sign Into')}
+        ment2 = {t('Your Account')}
         height= "570px" 
     />
   )

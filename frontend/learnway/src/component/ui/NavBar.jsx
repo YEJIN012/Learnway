@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteInfo } from "../page/Front/actions/userAction";
@@ -10,6 +10,7 @@ import blueAirplane from '../page/Front/img/sky_airplane.png';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
+import flagData from "../../language/flagList.json";
 
 const Wrapper = styled.div`
     height: 1.7vw;
@@ -59,15 +60,39 @@ function NavBar(params) {
     const navigate = useNavigate();
     const userEmail = useSelector(state => state.AuthReducer.userEmail);
     const [Selected, setSelected] = useState("Language");
+    const [optionList, setOptionList] = useState([]);
+
     const handleChangeSelect = (e) => {
         setSelected(e.target.value);
     };
 
     const { t, i18n } = useTranslation();
+
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
         localStorage.setItem('language', lng);
     };
+
+    function dropdownBoxRenderer() {
+        const flag = flagData.data; //국기 이미지 json으로 한번에
+
+        const options = [];
+            for (let i = 0; i < flag.length; i++) {
+                options.push(
+                    <MenuItem
+                        key={flag[i].code}
+                        onClick={() => {changeLanguage(flag[i].code);}} value={flag[i].name}>
+                        {flag[i].name}
+                    </MenuItem>
+                    );
+                }
+            setOptionList(options);
+        
+    }
+
+    useEffect(() => {
+        dropdownBoxRenderer();
+    }, []);
 
     const Logout = () => {
 
@@ -81,14 +106,14 @@ function NavBar(params) {
                     // 취향정보, 언어정보 초기화, 유저정보, access 토큰 모두 삭제
                     dispatch({type: DELETE_INFO, payload: null})
 
-                    alert("Good bye See you again!!🤣")
+                    alert(t('Good bye See you again'))
                     // logout 시 login 창으로
                     navigate('/');
                 }
             })
             .catch((err) => {
                 console.log(err)
-                .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+                .catch((err) => alert(t('A network error has occurred. The request has failed.')));
             })
         }
 
@@ -108,9 +133,7 @@ function NavBar(params) {
                 onChange={handleChangeSelect}
                 sx={{color:"#91a8d0"}}
                 >
-                <MenuItem onClick={() => {changeLanguage("en");}} value="English">English</MenuItem>
-                <MenuItem onClick={() => {changeLanguage("ko");}} value="한국어">한국어</MenuItem>
-                
+                {optionList}
             </Select>
 
                 <MenuBtn onClick={()=> navigate('/mypage')}>

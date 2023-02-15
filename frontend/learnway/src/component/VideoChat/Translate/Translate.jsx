@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import { width } from "@mui/system";
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
@@ -64,6 +65,7 @@ function Translate() {
   const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
   const [seletlang, setSelectlang] = useState("")  
   const [resultLang, setResultLang] = useState("")
+  const { t } = useTranslation();
 
 
   useEffect(() => {
@@ -125,7 +127,7 @@ function Translate() {
 
   return (
     <CommonFrame
-      header = {<Title title={"Translate"}></Title>}
+      header = {<Title title={t('Translate')}></Title>}
       body={
         <Frame>
           <InnerFrame>
@@ -143,7 +145,7 @@ function Translate() {
         </Select> */}
         <FormControl sx={{margin:"10px 2px 6px 0px", width:"30%"}}>
 
-          <InputLabel id="demo-simple-select-label">Language</InputLabel>
+          <InputLabel id="demo-simple-select-label">{t('language')}</InputLabel>
           <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select-label"
@@ -165,7 +167,7 @@ function Translate() {
               <TextFrame
                   value={value}
                   onChange={handleChangeText}
-                  placeholder="Enter the content to translate."
+                  placeholder={t('Enter the content to translate.')}
                   // onKeyPress={onCheckEnter}
               ></TextFrame>
               <ButtonFrame>

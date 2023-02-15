@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./RandomMatch.css";
@@ -54,6 +55,8 @@ function RandomMatch(props) {
     const delayTime = 7000;
     const [isTimeout, setIsTimeout] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
+
     console.log(oppoInfo, roomId)
     
 
@@ -135,10 +138,9 @@ function RandomMatch(props) {
                         <main className="ticket-system">
                             <div className="top">
                                 <h1 className="title">
-                                    😊 We succeeded in random matching based on
-                                    your interest
+                                    {t('😊 We succeeded in random matching based on your interest')}
                                     <br />
-                                    ✈️ Please get ready to board now
+                                    {t('✈️ Please get ready to board now')}
                                 </h1>
                                 <div className="printer" />
                             </div>
@@ -191,8 +193,8 @@ function RandomMatch(props) {
                                             src={oppoInfo.img}
                                         ></ProfileImg>
                                         <div className="description">
-                                            <Text>Hi🙌</Text>
-                                            <Text>Our interest is</Text>
+                                            <Text>{t('Hi🙌')}</Text>
+                                            <Text>{t('Our interest is')}</Text>
                                             <Interest>
                                                 {interestRernderer(
                                                     oppoInfo.interests
