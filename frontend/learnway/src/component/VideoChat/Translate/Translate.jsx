@@ -185,6 +185,7 @@ function Translate() {
                   height={"3vw"}
                   fontSize={"1.5vw"}
                   textValue="translate"
+                  
                 ></Button>
               </ButtonFrame>
             </Form>
