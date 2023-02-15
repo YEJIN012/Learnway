@@ -98,7 +98,8 @@ function deleteRoom(id){
 
 
 function Youtube({...props}){
-    const socket =  new SockJS('/api/ws-stomp');
+    const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
+    // const socket = new SockJS("/api/ws-stomp");
     const ws =  Stomp.over(socket);
     
     const [socketObj, setSocketObj] = useState(undefined)

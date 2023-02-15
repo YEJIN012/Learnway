@@ -156,8 +156,9 @@ const TestSpan = styled.span`
 
 
 function Loading() {
-  const socket = new SockJS('/api/ws-stomp');
-  const ws = Stomp.over(socket);
+    const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
+    // const socket = new SockJS("/api/ws-stomp");
+    const ws = Stomp.over(socket);
     const userInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
     const dispatch = useDispatch();
