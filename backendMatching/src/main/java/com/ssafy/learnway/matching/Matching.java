@@ -30,7 +30,7 @@ public class Matching {
     static Map<Object, Object> result = new HashMap<>();
 
     MatchingResponseDto matchingResponseDto;
-    @Scheduled(fixedDelay = 30000, initialDelay = 1000) // 1초 후 30초마다 동작
+    @Scheduled(fixedDelay = 10000, initialDelay = 1000) // 1초 후 10초마다 동작
     public void matching(){
         log.info("matching start...");
 

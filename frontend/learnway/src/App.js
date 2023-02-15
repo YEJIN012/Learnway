@@ -20,6 +20,7 @@ const a={
 }
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
+    getLanguage()
     return (
         <BrowserRouter>
             <Routes>
@@ -41,5 +42,11 @@ function App() {
         </BrowserRouter>
     );
 }
+
+
+// function getLanguage() {
+//     console.log(navigator.language ,"or", navigator.userLanguage)
+//     return navigator.language || navigator.userLanguage;
+// }
 
 export default App;
