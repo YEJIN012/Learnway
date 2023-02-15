@@ -19,9 +19,7 @@ export default function Signup () {
       bg={
             userinfo === ""
           ? (
-            <div>
               <SignupForm getUserinfo={getUserinfo}></SignupForm>
-            </div>
             )
             : <Interest userinfo={userinfo} />
           }
