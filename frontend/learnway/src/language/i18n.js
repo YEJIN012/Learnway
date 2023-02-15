@@ -1,11 +1,19 @@
 import i18n from "i18next";
-// import detector from 'i18next-browser-languagedetector';
+import detector from 'i18next-browser-languagedetector';
 import { initReactI18next } from "react-i18next";
 
 import translationEn from './translation.en';
 import translationKo from './translation.ko';
-// import translationJa from './translation.ja';
-// import translationCh from "./translation.ch";
+import translationJa from './translation.ja';
+import translationCn from "./translation.cn";
+import translationEs from "./translation.es";
+import translationFr from "./translation.fr";
+import translationVi from "./translation.vi";
+import translationTh from "./translation.th";
+import translationId from "./translation.id";
+import translationRu from "./translation.ru";
+import translationDe from "./translation.de";
+import translationIt from "./translation.it";
 
 const resources = {
     en: {
@@ -13,18 +21,45 @@ const resources = {
     },
     ko: {
         translation: translationKo
+    },
+    ja: {
+        translation: translationJa
+    },
+    cn:{
+        translation: translationCn
+    },
+    es:{
+        translation: translationEs
+    },
+    fr:{
+        translation: translationFr
+    },
+    vi:{
+        translation: translationVi
+    },
+    th:{
+        translation: translationTh
+    },
+    id:{
+        translation: translationId
+    },
+    ru:{
+        translation: translationRu
+    },
+    de:{
+        translation: translationDe
+    },
+    it:{
+        translation: translationIt
     }
-    // ja: {
-    //     translation: translationJa
-    // }
 };
 
 i18n
-    // .use(detector)
+    .use(detector)
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
         resources,
-        lng: "en",
+        // lng: "en",
         fallbackLng: 'en',
         debug:true,
         keySeparator: false, // we do not use keys in form messages.welcome
