@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./RandomMatch.css";
@@ -33,8 +34,8 @@ const Interest = styled.div`
     align-items: center;
     margin-top: 8px;
     margin-left: -8px;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    //padding-top: 0.5em;
+    //padding-bottom: 0.5em;
     padding-left: 0.5em;
     padding-right: 0.5em;
     border-radius: 20px;
@@ -56,8 +57,10 @@ function RandomMatch(props) {
     const delayTime = 7000;
     const [isTimeout, setIsTimeout] = useState(false);
     const navigate = useNavigate();
-    console.log(oppoInfo, roomId);
-    console.log(oppoInfo.imgUrl);
+    const { t } = useTranslation();
+
+    console.log(oppoInfo, roomId)
+    
 
     async function getFriendCnt() {
         try {
@@ -136,10 +139,9 @@ function RandomMatch(props) {
                         <main className="ticket-system">
                             <div className="top">
                                 <h1 className="title">
-                                    😊 We succeeded in random matching based on
-                                    your interest
+                                    {t('😊 We succeeded in random matching based on your interest')}
                                     <br />
-                                    ✈️ Please get ready to board now
+                                    {t('✈️ Please get ready to board now')}
                                 </h1>
                                 <div className="printer" />
                             </div>
@@ -194,8 +196,8 @@ function RandomMatch(props) {
                                             src={oppoInfo.imgUrl}
                                         ></ProfileImg>
                                         <div className="description">
-                                            <Text>Hi🙌</Text>
-                                            <Text>Our interest is</Text>
+                                            <Text>{t('Hi🙌')}</Text>
+                                            <Text>{t('Our interest is')}</Text>
                                             <Interest>
                                                 {interestRernderer(
                                                     oppoInfo.interests
@@ -207,7 +209,7 @@ function RandomMatch(props) {
                             </div>
                         </main>
                     </div>
-                </div>
+                
             )}
         </>
     );

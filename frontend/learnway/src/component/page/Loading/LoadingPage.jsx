@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import NavBar from "../../ui/NavBar";
@@ -153,16 +154,17 @@ const TestSpan = styled.span`
 `;
 
 
-const socket = new SockJS('/api/ws-stomp');
-const ws = Stomp.over(socket);
 
 function Loading() {
+  const socket = new SockJS('/api/ws-stomp');
+  const ws = Stomp.over(socket);
     const userInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     // console.log(useInfo)
     const [lngConv, setLngConv] = useState([]);
+    const { t } = useTranslation();
     // const lngConv = [
     //     "Call your parents at least once a month.",
     //     "I jog at least three times a week to keep fit.",
@@ -291,7 +293,7 @@ function Loading() {
                                     margin: "0px 1vw 0px 0px",
                                 }}
                             ></FlightTakeoffIcon>
-                            Today's Conversation
+                            {t('Todays Conversation')}
                         </TitleFrame>
                         <hr
                             style={{

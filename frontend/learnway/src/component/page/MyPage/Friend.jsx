@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
@@ -69,10 +70,11 @@ function Friend(props) {
     const [friendCnt, setFriendCnt] = useState("");
     const ChatBtnState = useSelector((state) => state.ChatBtnReducer);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     function DeleteFriend({ userEmail, friendEmail }) {
         alert(
-            "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
+            t('Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat')
         );
 
         axios
@@ -84,7 +86,7 @@ function Friend(props) {
             })
             .then(function (res) {
                 console.log(res);
-                alert("친구가 삭제되었습니다.");
+                alert(t('Your friend has been deleted.'));
                 handleDeletedFriend();
             })
             .catch(function (error) {

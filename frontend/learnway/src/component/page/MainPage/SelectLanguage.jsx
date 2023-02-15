@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import flagData from "./img/flagList.json";
+import flagData from "../../../language/flagList.json";
 
 const LangSelect = styled.div`
     // width: 60%;

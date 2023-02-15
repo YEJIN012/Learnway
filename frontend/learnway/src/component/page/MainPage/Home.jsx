@@ -91,7 +91,7 @@ function Home(params) {
             <BackGround>
                 <Body></Body>
             </BackGround>
-            <BGAll></BGAll>
+            <BGAll id = {1}></BGAll>
             <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
         </div>
     );

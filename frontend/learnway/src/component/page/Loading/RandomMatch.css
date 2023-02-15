@@ -1,11 +1,14 @@
 .frame {
-    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: linear-gradient(to right, #91a8d0, #f0eee9);
 }
 
 .framebody {
     /* @import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700"); */
     font-family: "Ubuntu", sans-serif;
-    background-image: linear-gradient(to right, #91a8d0, #f0eee9);
+    
     height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -13,6 +16,8 @@
     color: #1c1c1c;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ticket-system {
@@ -25,12 +30,10 @@
 }
 .title {
     font-weight: normal;
-    font-size: 1.2em;
-    text-align: left;
-    margin-top: 50px;
-    margin-left: 20px;
-    margin-bottom: 50px;
+    font-size: 1.4vw;
+    margin-bottom: 3vh;
     color: #fff;
+  
 }
 .printer {
     width: 100%;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -57,6 +58,7 @@ function EditProfile() {
     // const [confirmPw, setConfirmPw] = useState("");
     const [interests, setInterests] = useState(userInfo.interests);
 
+    const { t } = useTranslation();
     // Interest Modal
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -89,7 +91,7 @@ function EditProfile() {
                 }
             }
         }
-
+        
         // Make FormData
         const formData = new FormData();
         const data = {
@@ -124,7 +126,7 @@ function EditProfile() {
             })
             .then(function (res) {
                 console.log(res.data);
-                alert("Successfully edited profile Info");
+                alert(t('Successfully edited profile Info'));
                 // 회원정보 수정 api 완료시, redux userInfo state 갱신.
                 dispatch({ type: "UPDATE_USER", payload: res.data.user });
             })
@@ -150,7 +152,7 @@ function EditProfile() {
                         <InputBox
                             id="username"
                             type="text"
-                            title="User Name(ENG)"
+                            title={t('User Name(ENG)')}
                             value={username}
                             onChange={(e) => {
                                 setUsername(e.target.value);
@@ -187,7 +189,7 @@ function EditProfile() {
                             <InputBox
                                 id="interests"
                                 type="text"
-                                title="Interests"
+                                title={t('Interests')}
                                 value={interestRernderer(interests)}
                                 disabled="disabled"
                                 backgroundColor="#dbdbdb"
@@ -214,7 +216,7 @@ function EditProfile() {
                             />
                         </RowWrapper>
                         <CommonSelectLanguage
-                            title="Language"
+                            title={t('language')}
                             radius="6px"
                             opacity="0.5"
                             selectFontSize="1.8vh"
@@ -239,7 +241,7 @@ function EditProfile() {
                                 Bio
                             </div>
                             <textarea
-                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px" }}
+                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px", resize:'none' }}
                                 name="Bio"
                                 onChange={(e) => {
                                     setBio(e.target.value);
@@ -251,7 +253,7 @@ function EditProfile() {
                             <Button
                                 id="5"
                                 fontSize="0.9vw"
-                                textValue="Cancel"
+                                textValue={t('Cancel')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"
@@ -260,7 +262,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue="Save"
+                                textValue={t('Cancel')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"

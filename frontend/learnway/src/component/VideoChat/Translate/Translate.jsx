@@ -9,6 +9,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
+import { width } from "@mui/system";
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
@@ -49,9 +51,19 @@ const TranslateArea = styled.textarea`
 `;
 
 const ButtonFrame = styled.div`
-    display: flex;
-    flex-direction: row-reverse;
-`;
+  display: flex;
+  flex-direction: row-reverse;
+`
+function Translate() {
+  const myInfo = useSelector((state) => state.AuthReducer)
+  console.log(myInfo)
+  const oppoInfo = useSelector((state) => state.OpponentReducer)
+  console.log(oppoInfo)
+  const [value, setValue] = useState(""); // 검색 내용
+  const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
+  const [seletlang, setSelectlang] = useState("")  
+  const [resultLang, setResultLang] = useState("")
+  const { t } = useTranslation();
 
 const ResultLangFrame = styled.div`
     color: #91a8d0;
@@ -130,87 +142,65 @@ function Translate() {
         setValue(e.target.value);
     };
 
-    const onCheckEnter = (e) => {
-        if (e.key === "Enter") {
-            getTranslate(value);
-        }
-    };
+  return (
+    <CommonFrame
+      header = {<Title title={t('Translate')}></Title>}
+      body={
+        <Frame>
+          <InnerFrame>
+          {/* <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={seletlang}
+          label="Age"
+          onChange={handleChangeSelect}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select> */}
+        <FormControl sx={{margin:"10px 2px 6px 0px", width:"30%"}}>
 
-    return (
-        <CommonFrame
-            header={<Title title={"Translate"}></Title>}
-            body={
-                <Frame>
-                    <InnerFrame>
-                        <FormControl
-                            sx={{ margin: "10px 2px 6px 0px", width: "30%" }}
-                        >
-                            <InputLabel id="demo-simple-select-label">
-                                Language
-                            </InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select-label"
-                                value={seletlang}
-                                onChange={handleChangeSelect}
-                                displayEmpty
-                                label="Language"
-                                sx={{ color: "#91a8d0", fontWeight: "600" ,
-                                // '.MuiOutlinedInput-notchedOutline': {
-                                //   borderColor: '#615e5f',
-                                // },
-                                // '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                //   borderColor: '#615e5f',
-                                // },
-                                // '&:hover .MuiOutlinedInput-notchedOutline': {
-                                //   borderColor: '#615e5f',
-                                // }, 
-                              }}
-                            >
-                                <MenuItem value={myInfo.language.code}>
-                                    {myInfo.language.name}
-                                </MenuItem>
-                                <MenuItem value={oppoInfo.language.code}>
-                                    {oppoInfo.language.name}
-                                </MenuItem>
-                            </Select>
-                        </FormControl>
-                    </InnerFrame>
-                    <InnerFrame>
-                        <Form onSubmit={handleTranslate}>
-                            <TextFrame
-                                value={value}
-                                onChange={handleChangeText}
-                                placeholder="Enter the content to translate."
-                                // onKeyPress={onCheckEnter}
-                            ></TextFrame>
-                            <ButtonFrame>
-                                <Button
-                                    type="submit"
-                                    margin={"10px 0px"}
-                                    id="4"
-                                    radius={"5px"}
-                                    width={"inherit"}
-                                    height={"3vw"}
-                                    fontSize={"1.5vw"}
-                                    textValue="translate"
-                                ></Button>
-                            </ButtonFrame>
-                        </Form>
-                    </InnerFrame>
-                    <InnerFrame>
-                        <ResultLangFrame>{resultLang}</ResultLangFrame>
-                    </InnerFrame>
-                    <InnerFrame>
-                        <TranslateArea
-                            disabled
-                            value={translatedContent}
-                        ></TranslateArea>
-                    </InnerFrame>
-                </Frame>
-            }
-        />
-    );
+          <InputLabel id="demo-simple-select-label">{t('language')}</InputLabel>
+          <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select-label"
+          value={seletlang}
+          onChange={handleChangeSelect}
+          displayEmpty
+          label="Language"
+          sx={{color:"#91a8d0"}}
+          // inputProps={{ 'aria-label': 'Without label' }}
+          > 
+          <MenuItem value={myInfo.language.code}>{myInfo.language.name}</MenuItem>
+          <MenuItem value={oppoInfo.language.code}>{oppoInfo.language.name}</MenuItem>
+        </Select>
+          </FormControl>
+            {/* <h3>{"한국어"}</h3> */}
+          </InnerFrame>
+          <InnerFrame>
+            <Form onSubmit={handleTranslate}>
+              <TextFrame
+                  value={value}
+                  onChange={handleChangeText}
+                  placeholder={t('Enter the content to translate.')}
+                  // onKeyPress={onCheckEnter}
+              ></TextFrame>
+              <ButtonFrame>
+                <Button type="submit" margin={"10px 0px"} id ="4" radius={"5px"} width={"inherit"} height={"3vw"} fontSize={"1.5vw"} textValue="translate"></Button>
+              </ButtonFrame>
+            </Form>
+          </InnerFrame >
+          <InnerFrame>
+            <h3>{resultLang}</h3>
+          </InnerFrame>
+          <InnerFrame>
+              <TranslateArea disabled>{translatedContent}</TranslateArea>
+          </InnerFrame>
+      </Frame>  
+    }/>
+  );
 }
 
 export default Translate;

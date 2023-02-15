@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
 import InputBox from "../Input"
 import Button from '../../../ui/Button';
@@ -18,6 +19,7 @@ export default function ChangePwd({email}) {
   const [newPwd, setNewPwd] = useState("");
   const [confirmNewPwd, setConfirmNewPwd] = useState(""); 
   const [disabled, setDisabled] = useState(true);
+  const { t } = useTranslation();
 
   // 비밀번호와 비밀번호 확인 모두 입력 했을 때, 버튼 활성화
   useEffect(()=> {
@@ -43,11 +45,11 @@ export default function ChangePwd({email}) {
           alert("Success")
           navigate('/login')
         })
-        .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+        .catch((err) => alert(t('A network error has occurred. The request has failed.')));
 
     }
     else { 
-      alert("🚨Please double check your password!!🚨")
+      alert(t('🚨Please double check your password!!🚨'))
     }
   }
 
@@ -56,7 +58,7 @@ export default function ChangePwd({email}) {
       <InputBox 
         id="New Password" 
         type="password" 
-        title="New Password" 
+        title={t('New Password')} 
         placeholder="********" 
         value={newPwd} 
         onChange={(e) => {
@@ -67,7 +69,7 @@ export default function ChangePwd({email}) {
       <InputBox 
         id="Confirm New Password" 
         type="password" 
-        title="Confirm New Password"
+        title={t('Confirm New Password')}
         placeholder="********" 
         value={confirmNewPwd} 
         onChange={

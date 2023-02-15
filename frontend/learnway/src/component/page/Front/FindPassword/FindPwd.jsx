@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import BackgroundFrame from "../Background"
 import InputBox from "../Input"
 import Button from '../../../ui/Button';
@@ -29,6 +30,8 @@ export default function FindPwd(){
   const [authcode, setAuthcode] = useState("")
   const [changePwd, setchangePwd] = useState(true)
 
+  const { t } = useTranslation();
+
   const URL = '/users'
   
   const chkAuthcode = () => {
@@ -56,9 +59,9 @@ export default function FindPwd(){
         const msg = res.msg
         if(status === 200){ 
           setchangePwd(false)               
-          alert("Success")
+          alert(t('The authentication numbers match.'))
         } else {
-          alert("Mismatch")
+          alert(t('The authentication numbers do not match.'))
         }
       })
       .catch((err) => console.log(err))
@@ -103,7 +106,7 @@ export default function FindPwd(){
                   <InputBox 
                     id="authcode" 
                     type="text"
-                    title="Verification code" 
+                    title={t('Verification code')} 
                     placeholder="123456" 
                     value={authcode} 
                     onChange={(e) => {

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
@@ -59,6 +60,8 @@ function Profile() {
     const [imgBase64, setImgBase64] = useState(""); // 미리보기 파일
     const [imgFile, setImgFile] = useState(""); // 선택한 이미지 파일
 
+    const { t } = useTranslation();
+
     // 선택이미지 미리보기
     const handleChangePreview = (e) => {
         console.log(e.target.files);
@@ -86,12 +89,28 @@ function Profile() {
 
     // save 클릭시 호출되는 form 제출함수(image 편집)
     function handleSubmit() {
-        console.log(imgFile);
-        userInfo.userPwd = "";
-        console.log(userInfo);
-        const formData = new FormData();
-        const blob = new Blob([JSON.stringify(userInfo)], {
-            type: "application/json",
+    console.log(imgFile);
+    userInfo.userPwd = ""
+    console.log(userInfo)
+    const formData = new FormData();
+    const blob = new Blob([JSON.stringify(userInfo)], {
+        type: "application/json",
+    });
+    formData.append("image", imgFile);
+    formData.append("userDto", blob);
+
+    axios
+        .put("api/users/modify", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(function (res) {
+            console.log(res.data.msg);
+            alert(t('Successfully edited profile image'));
+            // 회원정보 수정 api 완료시, redux userInfo state 갱신.
+            dispatch({ type: "UPDATE_USER", payload: res.data.user });
+        })
+        .catch(function (error) {
+            console.log(error);
         });
         formData.append("image", imgFile);
         formData.append("userDto", blob);
