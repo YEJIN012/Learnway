@@ -9,7 +9,7 @@ ${props=> props.pubsub === 'pub'
     height:inherit;
 `;
 
-const MyVideoFrame = styled(motion.video)`
+const LargeVodFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
 width:max-content;
 height: auto;
@@ -32,7 +32,7 @@ box-shadow:2px 3px 9px -1px #222222;
 
 `;
 
-const OppoVideoFrame = styled(motion.video)`
+const SmallVodFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
 position:fixed;
 z-index:1;
@@ -73,14 +73,14 @@ function OpenViduVideoComponent({ streamManager, size , pubsub}){
 
     return (
         <>
-        {pubsub === 'pub'?(
-            <MyVideoFrame 
+        {pubsub === 'small'?(
+            <LargeVodFrame 
             layout
             autoPlay={true} ref={videoRef} fixSizeId={size} 
             />
 
         ):(
-            <OppoVideoFrame 
+            <SmallVodFrame 
             layout
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
