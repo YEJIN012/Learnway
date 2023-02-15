@@ -193,7 +193,7 @@ function Translate() {
             <h3>{resultLang}</h3>
           </InnerFrame>
           <InnerFrame>
-            <TranslateArea disabled>{translatedContent}</TranslateArea>
+            <TranslateArea disabled value={translatedContent}>{translatedContent}</TranslateArea>
           </InnerFrame>
         </Frame>
       }
