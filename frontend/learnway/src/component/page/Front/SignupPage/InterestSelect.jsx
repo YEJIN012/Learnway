@@ -46,6 +46,19 @@ export default function InterestSelect({
     let [lst, setLst] = useState(initLst);
 
     let itobj = [];
+    let j = 0
+    let itlst2 = [];
+    let tmp = []
+    for (let i=0; i < itdata.length-1; i++) {
+        if (i % 3 === 2) {
+            tmp = [ ...tmp, itdata[i]]
+            itlst2 = [...itlst2, tmp]
+            tmp = []
+        } else {
+            tmp = [ ...tmp, itdata[i]]
+        }
+    }
+    console.log(itlst2)
 
     // (회원가입시->2)취향을 선택하고 버튼을 클릭하면 회원가입 요청 후, 자동 로그인
     // (회원정보수정시->1)취향 선택하고 버튼 클릭하면 ChangeInterest에 취향 정보 담아 올림 + 모달닫기
@@ -139,7 +152,7 @@ export default function InterestSelect({
                         } else {
                             return (
                                 <SelectBtn
-                                    key={idx}
+                                key={idx}
                                     id={idx}
                                     disabled=""
                                     icontxt={icontxt}
