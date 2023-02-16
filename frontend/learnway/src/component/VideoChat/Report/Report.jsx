@@ -151,11 +151,11 @@ function Report(props) {
         let result = [];
 
         const labelContent = [
-            [<strong>{t('Sexual access')}</strong>, <br />, <small>{t('sexual harassment, forced conversation, pornographic broadcasts, etc')}</small>],
-            [<strong>{t('verbal abuse')}</strong>, <br />, <small>{t('abuse, disparaging remarks, etc')}</small>],
-            [<strong>{t('Harmful or dangerous acts')}</strong>, <br />, <small>{t('events of curelty, such as inciting terrorism, arson, torture, etc')}</small>],
-            [<strong>{t('Investment and multi-level corecion')}</strong>],
-            [<strong>{t('act of causing span or confusion')}</strong>]
+            [<strong>{t('SEXUAL ACCESS')}</strong>, <br />, <small>{t('SEXUAL HARASSMENT, FORCED CONVERSATION, PORNOGRAPHIC BROADCASTS, ETC')}</small>],
+            [<strong>{t('VERBAL ABUSE')}</strong>, <br />, <small>{t('ABUSE, DISPARAGING REMARKS, ETC')}</small>],
+            [<strong>{t('HARMFUL OR DANGEROUS ACTS')}</strong>, <br />, <small>{t('EVENTS OF CURELTY, SUCH AS INCITING TERRORISM, ARSON, TORTURE, ETC')}</small>],
+            [<strong>{t('INVESTMENT AND MULTI-LEVEL CORECION')}</strong>],
+            [<strong>{t('ACT OF CAUSING SPAN OR CONFUSION')}</strong>]
         ]
         for (let i = 0; i < 5; i++) {
             result.push(<ChkBoxComponent value={i} text={labelContent[i]}></ChkBoxComponent>)

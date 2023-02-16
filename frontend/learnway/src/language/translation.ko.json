@@ -97,5 +97,11 @@
     "Add Friends Successfully":"친구 추가 성공",
     "Failed to add friends":"친구 추가 실패",
     "Your report has been received successfullly":"신고가 성공적으로 접수되었습니다.",
-    "There was an error while sending your report. Please try again.":"접수 실패하였습니다. 다시 신청해주세요"
+    "There was an error while sending your report. Please try again.":"접수 실패하였습니다. 다시 신청해주세요",
+    "Confirm Password":"비밀번호 확인",
+    "Birth":"생일",
+    "Bio":"자기소개",
+    "Interests":"관심사",
+    "Cancel":"취소",
+    "Submit":"제출"
 }

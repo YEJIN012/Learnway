@@ -21,7 +21,7 @@ const a={
 }
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
-    getLanguage()
+    // getLanguage()
     return (
         <BrowserRouter>
             <Routes>

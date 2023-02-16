@@ -97,5 +97,11 @@
     "Add Friends Successfully":"Tambahkan Teman dengan Sukses",
     "Failed to add friends":"Gagal menambahkan teman",
     "Your report has been received successfullly":"Laporan Anda telah diterima dengan sukses",
-    "There was an error while sending your report. Please try again.":"Ada kesalahan saat mengirim laporanmu. Silakan coba lagi."
+    "There was an error while sending your report. Please try again.":"Ada kesalahan saat mengirim laporanmu. Silakan coba lagi.",
+    "Confirm Password":"Konfirmasi Kata Sandi",
+    "Birth":"Kelahiran",
+    "Bio":"Biologi",
+    "Interests":"Kepentingan",
+    "Cancel":"Batalkan",
+    "Submit":"Kirim"
 }

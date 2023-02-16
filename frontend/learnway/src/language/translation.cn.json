@@ -97,5 +97,11 @@
     "Add Friends Successfully":"成功添加好友",
     "Failed to add friends":"添加朋友失败",
     "Your report has been received successfullly":"你的报告已成功收到",
-    "There was an error while sending your report. Please try again.":"发送报告时出错。 请再试一次。"
+    "There was an error while sending your report. Please try again.":"发送报告时出错。 请再试一次。",
+    "Confirm Password":"确认密码",
+    "Birth":"出生",
+    "Bio":"比奥",
+    "Interests":"B.",
+    "Cancel":"取消",
+    "Submit":"提交"
 }

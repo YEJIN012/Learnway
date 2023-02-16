@@ -97,5 +97,11 @@
     "Add Friends Successfully":"เพิ่มเพื่อนสำเร็จ",
     "Failed to add friends":"ล้มเหลวในการเพิ่มเพื่อน",
     "Your report has been received successfullly":"รายงานของคุณได้รับเรียบร้อยแล้ว",
-    "There was an error while sending your report. Please try again.":"เกิดข้อผิดพลาดขณะส่งรายงานของคุณ กรุณาลองอีกครั้ง"
+    "There was an error while sending your report. Please try again.":"เกิดข้อผิดพลาดขณะส่งรายงานของคุณ กรุณาลองอีกครั้ง",
+    "Confirm Password":"ยืนยันรหัสผ่าน",
+    "Birth":"กำเนิด",
+    "Bio":"ไบโอ",
+    "Interests":"ผลประโยชน์",
+    "Cancel":"ยกเลิก",
+    "Submit":"ส่ง"
 }
