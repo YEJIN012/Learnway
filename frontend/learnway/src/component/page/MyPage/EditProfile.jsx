@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
 import Interest from "../Front/SignupPage/Interest";
 import { Settings } from "@mui/icons-material";
+import { request } from '../../page/Front/utils/axios';
 
 const style = {
     position: "absolute",
@@ -91,6 +92,26 @@ function EditProfile() {
                 }
             }
         }
+        console.log(username)
+
+        request("get",`/users/dupName?name=${username}`).then((res) => { 
+            console.log(res);
+            // switch (res.msg) {
+            //   case "사용가능한 닉네임입니다.":
+            //     setMsg(t('What a great name.'));
+            //     break;
+            //   case "사용중인 닉네임입니다. ":
+            //     setMsg(t('This is a duplicate name.'));
+            //     break;
+            //   default:
+            //     setMsg(t('Enter your name'));
+            //     break;
+            // }
+            if (res.msg === "사용중인 닉네임입니다. ") {
+                alert (t('This is a duplicate name.'))
+            } else {
+
+
         
         // Make FormData
         const formData = new FormData();
@@ -133,6 +154,8 @@ function EditProfile() {
             .catch(function (error) {
                 console.log(error);
             });
+        }
+    })
     }
 
     return (
@@ -262,7 +285,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue={t('Submit')}
+                                textValue={t('Save')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"
