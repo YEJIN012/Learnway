@@ -217,7 +217,7 @@ function Body() {
                 )
                 //window.location.reload();
             } else {
-                alert("❗Please choose the language you want to learn❗")
+                alert("❗ Choose the language you want to learn ❗")
             }
     };
     
