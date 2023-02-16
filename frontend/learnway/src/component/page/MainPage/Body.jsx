@@ -215,7 +215,7 @@ function Body() {
                     replace: true,
                 }
                 )
-                window.location.reload();
+                //window.location.reload();
             } else {
                 alert("❗Please choose the language you want to learn❗")
             }
