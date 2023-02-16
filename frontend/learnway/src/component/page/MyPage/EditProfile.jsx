@@ -262,7 +262,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue={t('Cancel')}
+                                textValue={t('Save')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"

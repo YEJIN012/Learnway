@@ -4,6 +4,13 @@ import Interest from "./Interest";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import BackgroundFrame from "../Background";
+import { NavLink } from 'react-router-dom';
+
+const Frame = styled.div`
+  text-align : right;
+  margin-right: 5px;
+  margin-bottom: 20px;  
+`;
 
 
 export default function Signup () {
@@ -21,8 +28,11 @@ export default function Signup () {
     <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"}  top= {userinfo ? "10vh" : "15vh"} fsize="15px" mtop = "13vh" opacity= {userinfo ? 0.5 : null}
       bg={
             userinfo === ""
-          ? (
+          ? (  
+              <>
+              <Frame><NavLink to = "/login">{t('Login')}</NavLink></Frame>
               <SignupForm getUserinfo={getUserinfo}></SignupForm>
+              </>
             )
             : <Interest userinfo={userinfo} />
           }

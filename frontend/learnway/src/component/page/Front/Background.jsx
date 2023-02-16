@@ -83,7 +83,6 @@ export default function BackgroundFrame ({bg, ment1, ment2, width, height, top, 
           <MentText fsize={fsize} opacity={opacity} >{ment2}</MentText>
         </MentFrame>
         <InputWrapper mtop={mtop} mr={mr} mb={mb} ml={ml}>
-        {align_items ? <Frame><NavLink to = "/login">{t('Login')}</NavLink></Frame>: null}
         {bg}
         </InputWrapper>
       </LoginBackground>

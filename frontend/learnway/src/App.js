@@ -29,13 +29,13 @@ function App() {
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
                     <Route path="/loading/match/:roomId/:recorder" element={<RandomMatch />}></Route>
-                    <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
                                 
                 // 토큰 없어야만 접근 가능
                 <Route element={<PublicRoute />}>
+                    <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                     <Route path="/intro" element={<Intro />}></Route>
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/signup" element={<Signup />}></Route>
