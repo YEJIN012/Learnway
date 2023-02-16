@@ -21,7 +21,6 @@ const a={
 }
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
-    // getLanguage()
     return (
         <BrowserRouter>
             <Routes>
@@ -33,7 +32,7 @@ function App() {
                 </Route>
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
-                                
+
                 // 토큰 없어야만 접근 가능
                 <Route element={<PublicRoute />}>
                     <Route path="/googlesignup" element={<GoogleSignup />}></Route>
@@ -49,10 +48,5 @@ function App() {
     );
 }
 
-
-// function getLanguage() {
-//     console.log(navigator.language ,"or", navigator.userLanguage)
-//     return navigator.language || navigator.userLanguage;
-// }
 
 export default App;

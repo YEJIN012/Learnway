@@ -117,7 +117,7 @@ function Friend(props) {
                     <ProfileImg src={userInfo.imgUrl} width="9vh" />
                     <Friends>
                         <FriendNumber>{friendCnt}</FriendNumber>
-                        Friends
+                        {t("FRIENDS")}
                     </Friends>
                     <PersonRemoveIcon
                         color="#e7e7e7"

@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import logo from './img/logo_skyblue.png'
 import BGAll from "./introbackground/BGAll";
-import { NavLink } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import LanguageBar from "../../ui/LanguageBar";
 
 
 const Bg = styled.div`
@@ -64,16 +63,22 @@ const InputWrapper = styled.div`
 `;
 
 const Frame = styled.div`
-  text-align : right;
-  margin-right: 5px;
-  /* margin-bottom: 10px;   */
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  right: 20px;
 `;
 
+
 export default function BackgroundFrame ({bg, ment1, ment2, width, height, top, right, fsize, mtop, mr, mb, ml, txttop, txtleft, align_items, frame_justify, opacity}) {
-  const { t } = useTranslation();
 
   return(
     <Bg frame_justify={frame_justify}>
+      <Frame>
+        <LanguageBar />
+      </Frame>
       <LoginBackground  width={width} height={height} top={top} right={right} >
         <LogoFrame>
           <Logo src={logo} />

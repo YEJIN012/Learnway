@@ -6,11 +6,8 @@ import { deleteInfo } from "../page/Front/actions/userAction";
 import { removeCookieToken } from "../page/Front/utils/Cookie";
 import { DELETE_INFO } from "../page/Front/actions/types";
 import logo from "../page/Front/img/logo_skyblue.png";
-import blueAirplane from '../page/Front/img/sky_airplane.png'; 
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
-import flagData from "../../language/flagList.json";
+import LanguageBar from "./LanguageBar";
 
 const Wrapper = styled.div`
     height: 1.7vw;
@@ -59,40 +56,7 @@ function NavBar(params) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userEmail = useSelector(state => state.AuthReducer.userEmail);
-    const [Selected, setSelected] = useState("Language");
-    const [optionList, setOptionList] = useState([]);
-
-    const handleChangeSelect = (e) => {
-        setSelected(e.target.value);
-    };
-
-    const { t, i18n } = useTranslation();
-
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-        localStorage.setItem('language', lng);
-    };
-
-    function dropdownBoxRenderer() {
-        const flag = flagData.data; //국기 이미지 json으로 한번에
-
-        const options = [];
-            for (let i = 0; i < flag.length; i++) {
-                options.push(
-                    <MenuItem
-                        key={flag[i].code}
-                        onClick={() => {changeLanguage(flag[i].code);}} value={flag[i].name}>
-                        {flag[i].name}
-                    </MenuItem>
-                    );
-                }
-            setOptionList(options);
-        
-    }
-
-    useEffect(() => {
-        dropdownBoxRenderer();
-    }, []);
+    const { t } = useTranslation();
 
     const Logout = () => {
 
@@ -125,17 +89,6 @@ function NavBar(params) {
                 </Img>
             </NavLink>
             <Menu>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select-label"
-                value={Selected}
-                displayEmpty
-                onChange={handleChangeSelect}
-                sx={{color:"#91a8d0"}}
-                >
-                {optionList}
-            </Select>
-
                 <MenuBtn onClick={()=> navigate('/mypage')}>
                     {t('MyPage')}
                 </MenuBtn>
@@ -143,6 +96,7 @@ function NavBar(params) {
                     {t('Logout')}
                 </MenuBtn>
                 {/* <img style={{position:"absolute", marginTop:'3vw',right:'1.6vw'}}src={blueAirplane} alt="" /> */}
+                <LanguageBar />
             </Menu>
         </Wrapper>
     );
