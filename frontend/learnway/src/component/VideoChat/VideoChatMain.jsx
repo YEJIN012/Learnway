@@ -129,7 +129,8 @@ class VideoChatMain extends Component {
             //socketId: undefined,
             recordingId:undefined,
             oppolang:undefined,
-            myLanguage:undefined
+            myLanguage:undefined,
+            isStop:false
         };
 
     this.joinSession = this.joinSession.bind(this);
@@ -236,7 +237,17 @@ onbeforeunload(event) {
         });
       }
 
-  
+      deleteSubscriber(streamManager) {
+        let subscribers = this.state.subscribers;
+        let index = subscribers.indexOf(streamManager, 0);
+        if (index > -1) {
+            subscribers.splice(index, 1);
+            this.setState({
+                subscribers: subscribers,
+            });
+        }
+    }
+
   deleteRoom(id) {
     axios
       .delete(`/api/chat/room/${id}`)
@@ -278,9 +289,9 @@ onbeforeunload(event) {
           subscribers.push(subscriber);
           
           //여기 부분 레코드 시작 함수
-          if(this.state.recorder === 'true'){
-            console.log("음성 레코드 시작");
-            //this.startRecording();
+          if(this.state.recorder === 'true' && this.state.isStop === false){
+            console.log("음성 레코드 시작", this.state.isStop);
+            this.startRecording();
           }
           console.log(this.state.subscribers)
           // Update the state with the new subscribers
@@ -296,12 +307,13 @@ onbeforeunload(event) {
           
           
           //내 입장에서 상대방이 나갔을 때 레코드 중지 함수
-          if(this.state.recorder === 'true'){
+          if(this.state.recorder === 'true' && this.state.isStop === false){
             console.log("음성녹음 중지(상대방 나감)")
-            //this.stopRecording();
+            this.stopRecording();
           }
-          
+          this.deleteSubscriber(event.stream.streamManager);
           //console.log(this.state.subscribers)
+          this.leaveSession();
         });
 
         // On every asynchronous exception...
@@ -378,9 +390,9 @@ onbeforeunload(event) {
     const mySession = this.state.session;
 
     //내가 나갔을 때 녹화 종료
-    if(this.state.recorder === 'true'){
+    if(this.state.recorder === 'true'&& this.state.isStop === 'false'){
       console.log("음성 녹화 종료:내가 나감")
-      //this.stopRecording();
+      this.stopRecording();
     }
     if (mySession) {
     setTimeout(()=>mySession.disconnect(),3000);
@@ -542,7 +554,7 @@ onbeforeunload(event) {
 
     return response.data; // The token
   }
-/*
+
   async startRecording() {
     console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recorder, this.state.oppolang)
     console.log(this.state.oppoInfo);
@@ -571,9 +583,12 @@ onbeforeunload(event) {
       }
     ).then((res)=>{
       console.log(res);  //성공 or 실패
+      this.setState({
+        isStop:true
+      })
     })
   }
-*/
+
 
 }
 

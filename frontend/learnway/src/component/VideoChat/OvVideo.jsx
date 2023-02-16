@@ -11,7 +11,7 @@ ${props=> props.pubsub === 'pub'
 
 const LargeVodFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
-width:max-content;
+width:90vw;
 height: auto;
 
 `};

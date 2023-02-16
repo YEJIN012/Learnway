@@ -204,13 +204,18 @@ function Loading() {
                 console.log(error);
             });
     }
-
+    function timeLimit(){
+      alert("Macting was not successful")
+      navigate(`/`,{replace:true});
+    }
     //window.location.reload();
     useEffect(() => {
         getTodayConv();
         ws.connect({}, (frame) => {
             console.log("connected to Matching server:", frame);
             subscribe();
+
+            setTimeout(timeLimit, 180000)
         });
 
         return () => {

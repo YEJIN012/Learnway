@@ -104,6 +104,7 @@ function Chatroom(props) {
     const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
     // const socket = new SockJS("/api/ws-stomp");
     const ws = Stomp.over(socket);
+    const scrollRef = useRef(null);
 
     const handleSelectUserState = props.handleSelectUserState;
     console.log(handleSelectUserState);
@@ -112,6 +113,7 @@ function Chatroom(props) {
     const [text, setText] = useState("");
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
+
 
     //채팅 기록 컴포넌트 초기 렌더링 시 마지막 순서 기억
     function initMsgId() {
@@ -133,6 +135,15 @@ function Chatroom(props) {
         };
     }, []);
 
+    useEffect(()=>{
+        
+        scrollToBottom();
+    },[chatLog])
+
+    function scrollToBottom(){
+        scrollRef.current.scrollIntoView(false);
+        console.log("scroll")
+    }
     function loadChatHistory() {
         axios
             .get(`api/chat/room/message/${props.info.roomId}`)
@@ -148,6 +159,7 @@ function Chatroom(props) {
                             id: i,
                             msg: (
                                 <ChatText
+                                    key={num}
                                     id={1}
                                     text={data[i].message}
                                 ></ChatText>
@@ -158,6 +170,7 @@ function Chatroom(props) {
                             id: i,
                             msg: (
                                 <ChatText
+                                    key={num}
                                     id={0}
                                     text={data[i].message}
                                 ></ChatText>
@@ -193,15 +206,16 @@ function Chatroom(props) {
             if (received.sender === props.info.profileDto.userEmail) {
                 data = {
                     id: num,
-                    msg: <ChatText id={1} text={received.message}></ChatText>,
+                    msg: <ChatText key={num} id={1} text={received.message}></ChatText>,
                 };
             } else {
                 data = {
                     id: num,
-                    msg: <ChatText id={0} text={received.message}></ChatText>,
+                    msg: <ChatText key={num} id={0} text={received.message}></ChatText>,
                 };
                 // setChatLog([...chatLog, data]);
             }
+            
             setMsgId((msgId) => msgId + 1);
             num++;
             setChatLog((chatLog) => [...chatLog, data]);
@@ -244,8 +258,8 @@ function Chatroom(props) {
                 ></ArrowBackIcon>
             </Head>
             <UserProfile id={1} room={props.info}></UserProfile>
-            <Body className="scroll">
-                <List>
+            <Body className="scroll" ref={scrollRef}>
+                <List >
                     {chatLog.map((chatLog) => (
                         <li key={chatLog.id}>{chatLog.msg}</li>
                     ))}

@@ -141,56 +141,7 @@ function Youtube({...props}){
         })
         
       }
-    //Youtube 컴포넌트 실행 시 웹 소캣 개설(1회)
-    /*useEffect(()=>{
-        if(props.sockId !== null){
-            //console.log("룸아이디"+props.sockId)
 
-                    ws.connect({}, (frame) => {
-                        setSocketE(frame)
-                        console.log("connected to Youtube socket:", frame);
-                        subscribe();
-                    })
-        }
-           
-        return()=>{
-            ws.disconnect(()=>{
-                console.log("console disconnected");
-            })}
-            
-        }
-            ,[])
-      */  
-    //내가 동영상 조작 이벤트 발생 시, 상대방에게 조작정보 전송
-    /*useEffect(()=>{
-        if(vodId !== null && playState !== null && socketE !== null){
-            
-            ws.send('/pub/chat/message', {}, JSON.stringify({type: "TALK",roomId: props.sockId, sender: props.myId, message: {playControl:playState}}))
-        }
-    },[playState]);
-*/
-    function controlVod(event){
-        switch(event.getPlayerState()){
-            case 0:
-                event.stopVideo();
-            case 1:
-                event.playVideo();
-            case -1:
-                event.playVideo();
-            case 2:
-                event.pauseVideo();
-        }
-        const second = event.getCurrentTime();
-        event.seekTo(second, true);
-    }
-
-    //내가 동영상을 선택하면, 동영상을 띄우고 상대방에게 조작정보 전송
-    /*useEffect(()=>{
-        if(vodId !== null){
-            ws.send('/pub/chat/message', {}, JSON.stringify({type: "TALK",roomId: props.sockId, sender: props.myId, message: {vodChange:vodId}}))
-        }
-    },[vodId]);
-    */
     function subscribe(newSocketId){
         // ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
         ws.subscribe(`/sub/chat/room/${newSocketId}`, (event) => {
@@ -208,6 +159,7 @@ function Youtube({...props}){
                     setVodId(cmdMessage[1])
                 }
                 // Play
+                /*
                 else if(command == 1){
               
 
@@ -218,7 +170,7 @@ function Youtube({...props}){
                 } else if(command == 2){
 
                     player.target.pauseVideo()
-                }
+                }*/
                 
                 //수신받은 동영상 조작정보를 state에 저장하고 내 동영상에 업데이트
                 console.log(`Youtube VodId: ${data}`)
@@ -238,7 +190,7 @@ function Youtube({...props}){
         };
         ws.send("/pub/chat/message", {}, JSON.stringify(da));
     }
-
+/*
     function handlePlayChange(e) {
         // 실행
         console.log(e)
@@ -253,7 +205,7 @@ function Youtube({...props}){
         // 멈춤
         } 
     }
-
+*/
     function processVodId(id){ 
         setVodId(id);
         publishVodId(id);
@@ -305,14 +257,15 @@ function Youtube({...props}){
                     <YoutubeFrame
                         videoId={vodId}
                         opts={{
-                            width:"530",
-                            height:"300",
+                            width:"590",
+                            height:"400",
+                            playerVars:{
+                                autoplay:1
+                            }
                         }}
-                        onReady ={(e)=> setPlayer(e)}
-                        onStateChange={(e)=>{
-                            // setPlayState(e);
-                            handlePlayChange(e);
-                        } } //e.target.getCurrentTime())
+                        
+                        
+                        
                     />
 
                 ):
