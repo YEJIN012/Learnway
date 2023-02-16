@@ -38,6 +38,10 @@ public class Study extends BaseTime {
 //    private LocalDateTime studyDatetime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="languageId")
-    private Language languageId;
+    @JoinColumn(name="user_language_id")
+    private Language userLanguageId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="friend_language_id")
+    private Language friendLanguageId;
 }

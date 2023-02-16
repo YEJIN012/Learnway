@@ -16,6 +16,9 @@ public interface StudyRepository extends JpaRepository<Study, Integer> {
     @Query("SELECT u FROM Study u WHERE u.userId = :user_id AND DATE_FORMAT(u.createdDate, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')")
     List<Study> findAllByUserIdAndCreatedDate(@Param("user_id") User user, @Param("date") Date date);
 
+    @Query("SELECT u FROM Study u WHERE u.friendId = :friend_id AND DATE_FORMAT(u.createdDate, '%Y-%m-%d') = DATE_FORMAT(:date, '%Y-%m-%d')")
+    List<Study> findAllByFriendIdAndCreatedDate(@Param("friend_id") User friend, @Param("date") Date date);
+
     //nativeQuery 문으로 작성 - sql
     //조회달에 대한 일수와 해당 일수의 학습개수 리턴
     //dto로 선택된 열만 반환하기 때문에 interface로 선언

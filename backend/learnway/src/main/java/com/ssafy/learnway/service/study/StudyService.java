@@ -34,112 +34,139 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class StudyService {
-    private final StudyRepository studyRepository;
+  private final StudyRepository studyRepository;
 
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    private final LanguageRepository languageRepository;
+  private final LanguageRepository languageRepository;
 
-    private final UserInterestRepository userInterestRepository;
+  private final UserInterestRepository userInterestRepository;
 
-    @Value("${whisper.server.url}")
-    private String whisperServerUri;
+  @Value("${whisper.server.url}")
+  private String whisperServerUri;
 
-    public List<StudyListResponseDto> selectStudyList(StudyListRequestDto studyListRequestDto) throws Exception{
-//        List<Study> studyList = studyRepository.findAllByUserId(studyProvideRequestDto.getUserId());
-        Date date = studyListRequestDto.getDate();
-        User user = userRepository.findByUserEmail(studyListRequestDto.getUserEmail());
-        List<Study> list = studyRepository.findAllByUserIdAndCreatedDate(user, date);
+  public List<StudyListResponseDto> selectStudyList(StudyListRequestDto studyListRequestDto) throws Exception {
+    // List<Study> studyList =
+    // studyRepository.findAllByUserId(studyProvideRequestDto.getUserId());
+    Date date = studyListRequestDto.getDate();
+    User user = userRepository.findByUserEmail(studyListRequestDto.getUserEmail());
+    List<Study> listAsUser = studyRepository.findAllByUserIdAndCreatedDate(user, date);
+    List<Study> listAsFriend = studyRepository.findAllByFriendIdAndCreatedDate(user, date);
 
-        List<StudyListResponseDto> studyList = new ArrayList<>();
-        for(Study study : list){
-            //lazy
-            LanguageDto languageDto = LanguageDto.builder()
-                    .languageId(study.getLanguageId().getLanguageId())
-                    .code(study.getLanguageId().getLanguageCode())
-                    .name(study.getLanguageId().getLanguageName())
-                    .build();
+    List<StudyListResponseDto> studyList = new ArrayList<>();
+    for (Study study : listAsUser) {
+      // lazy
+      LanguageDto languageDto = LanguageDto.builder()
+          .languageId(study.getFriendLanguageId().getLanguageId())
+          .code(study.getFriendLanguageId().getLanguageCode())
+          .name(study.getFriendLanguageId().getLanguageName())
+          .build();
 
-            ProfileDto profileDto = getProfile(study.getFriendId());
+      ProfileDto profileDto = getProfile(study.getFriendId());
 
-            StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())
-                    .userId(study.getUserId().getUserId())
-                    .script(study.getScript())
-                    .createdDate(study.getCreatedDate())
-                    .language(languageDto)
-                    .profileDto(profileDto)
-                    .build();
+      StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())
+          .userId(study.getFriendId().getUserId())
+          .script(study.getScript())
+          .createdDate(study.getCreatedDate())
+          .language(languageDto)
+          .profileDto(profileDto)
+          .build();
 
-            studyList.add(response);
-        }
-
-        return studyList;
+      studyList.add(response);
     }
 
-    @Transactional
-    @Async
-    public void insertStudy(StudyRecordRequestDto studyRecordRequestDto, String recordUrl) throws SQLException, URISyntaxException, UnsupportedEncodingException {
-        User user = userRepository.findByUserEmail(studyRecordRequestDto.getUserEmail());
-        User friend = userRepository.findByUserEmail(studyRecordRequestDto.getFriendEmail());
-        Language language = languageRepository.findByLanguageId(studyRecordRequestDto.getLanguageId());
+    for (Study study : listAsFriend) {
+      // lazy
+      LanguageDto languageDto = LanguageDto.builder()
+              .languageId(study.getUserLanguageId().getLanguageId())
+              .code(study.getUserLanguageId().getLanguageCode())
+              .name(study.getUserLanguageId().getLanguageName())
+              .build();
 
-        String encodedUrl = URLEncoder.encode(recordUrl);
-        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-        requestFactory.setReadTimeout(0);
-        requestFactory.setConnectTimeout(0);
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
-        String requestURL = whisperServerUri+ "?audio_url={audio_url}";
+      ProfileDto profileDto = getProfile(study.getUserId());
 
-        String script = restTemplate.getForObject(requestURL, String.class, encodedUrl);
-        System.out.println(encodedUrl);
-        Study study = Study.builder()
-                .userId(user)
-                .friendId(friend)
-                .languageId(language)
-                .script(script)
-                .build();
+      StudyListResponseDto response = StudyListResponseDto.builder().videoId(study.getVideoId())
+              .userId(study.getUserId().getUserId())
+              .script(study.getScript())
+              .createdDate(study.getCreatedDate())
+              .language(languageDto)
+              .profileDto(profileDto)
+              .build();
 
-        if(studyRepository.save(study) == null){ //학습기록
-            throw new SQLException();
-        }
+      studyList.add(response);
     }
 
-    public List<StudyMonthResponseDto> selectStudyMonthList(User user, Date month) throws Exception{
-//        User user = userRepository.findByUserEmail(userEmail);
-        return studyRepository.selectByUserIdAndMonth(user, month);
+    return studyList;
+  }
+
+  @Transactional
+  @Async
+  public void insertStudy(StudyRecordRequestDto studyRecordRequestDto, String recordUrl)
+      throws SQLException, URISyntaxException, UnsupportedEncodingException {
+    User user = userRepository.findByUserEmail(studyRecordRequestDto.getUserEmail());
+    User friend = userRepository.findByUserEmail(studyRecordRequestDto.getFriendEmail());
+    Language userLanguage = languageRepository.findByLanguageId(studyRecordRequestDto.getUserLanguageId());
+    Language friendLanguage = languageRepository.findByLanguageId(studyRecordRequestDto.getFriendLanguageId());
+
+    String encodedUrl = URLEncoder.encode(recordUrl);
+    HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+    requestFactory.setReadTimeout(0);
+    requestFactory.setConnectTimeout(0);
+    RestTemplate restTemplate = new RestTemplate(requestFactory);
+    String requestURL = whisperServerUri + "?audio_url={audio_url}";
+
+    String script = restTemplate.getForObject(requestURL, String.class, encodedUrl);
+    System.out.println(encodedUrl);
+    Study study = Study.builder()
+        .userId(user)
+        .friendId(friend)
+        .userLanguageId(userLanguage)
+        .friendLanguageId(friendLanguage)
+        .script(script)
+        .build();
+
+    if (studyRepository.save(study) == null) { // 학습기록
+      throw new SQLException();
+    }
+  }
+
+  public List<StudyMonthResponseDto> selectStudyMonthList(User user, Date month) throws Exception {
+    // User user = userRepository.findByUserEmail(userEmail);
+    return studyRepository.selectByUserIdAndMonth(user, month);
+  }
+
+  @Transactional(readOnly = true)
+  public ProfileDto getProfile(User user) {
+
+    LanguageDto languageDto = LanguageDto.builder()
+        .languageId(user.getLanguageId().getLanguageId())
+        .code(user.getLanguageId().getLanguageCode())
+        .name(user.getLanguageId().getLanguageName())
+        .build();
+
+    List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
+
+    List<InterestDto> interests = new ArrayList<>();
+    for (UserInterest userInterest : userInterests) {
+      InterestDto interestDto = InterestDto.builder()
+          .interestId(userInterest.getInterestId().getInterestId())
+          .field(userInterest.getInterestId().getField()).build();
+      interests.add(interestDto);
     }
 
-    @Transactional(readOnly = true)
-    public ProfileDto getProfile(User user){
-
-        LanguageDto languageDto = LanguageDto.builder()
-                .languageId(user.getLanguageId().getLanguageId())
-                .code(user.getLanguageId().getLanguageCode())
-                .name(user.getLanguageId().getLanguageName())
-                .build();
-
-        List<UserInterest> userInterests = userInterestRepository.findAllByUserId(user);
-
-        List<InterestDto> interests = new ArrayList<>();
-        for(UserInterest userInterest : userInterests){
-            InterestDto interestDto = InterestDto.builder()
-                    .interestId(userInterest.getInterestId().getInterestId())
-                    .field(userInterest.getInterestId().getField()).build();
-            interests.add(interestDto);
-        }
-
-        return ProfileDto.builder()
-                .userEmail(user.getUserEmail())
-                .name(user.getName())
-                .birthDay(user.getBirthday())
-                .language(languageDto)
-                .interests(interests)
-                .imgUrl(user.getImgUrl())
-                .bio(user.getBio()).build();
-    }
+    return ProfileDto.builder()
+        .userEmail(user.getUserEmail())
+        .name(user.getName())
+        .birthDay(user.getBirthday())
+        .language(languageDto)
+        .interests(interests)
+        .imgUrl(user.getImgUrl())
+        .bio(user.getBio()).build();
+  }
 }
