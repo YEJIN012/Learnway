@@ -37,16 +37,6 @@ const BtnWrapper = styled.div`
     align-items: end;
 `;
 
-function interestRernderer(array) {
-    let result = "";
-    if (array) {
-        for (let i = 0; i < array.length; i++) {
-            result += "#" + array[i].field + "  ";
-        }
-    }
-    return result;
-}
-
 function EditProfile() {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.AuthReducer);
@@ -76,6 +66,16 @@ function EditProfile() {
         setInterests(userInfo.interests);
         setLanguage(userInfo.language.name);
         setBio(userInfo.bio);
+    }
+
+    function interestRernderer(array) {
+        let result = "";
+        if (array) {
+            for (let i = 0; i < array.length; i++) {
+                result += "#" + t(array[i].field) + "  ";
+            }
+        }
+        return result;
     }
 
     // save 클릭시 호출되는 form 제출함수(userDto 편집)
@@ -238,7 +238,7 @@ function EditProfile() {
                                     opacity:"0.5",
                                 }}
                             >
-                                Bio
+                                {t('Bio')}
                             </div>
                             <textarea
                                 style={{ width: "20.6vw", height: "6vh", borderRadius:"6px", resize:'none' }}
@@ -262,7 +262,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue={t('Cancel')}
+                                textValue={t('Submit')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"

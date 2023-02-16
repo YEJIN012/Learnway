@@ -195,7 +195,7 @@ function Profile() {
                             />
                         }
                         flex="column"
-                        textValue="Email"
+                        textValue={t('E-mail')}
                         fontSize="1.5vh"
                         fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"
@@ -214,7 +214,7 @@ function Profile() {
                             />
                         }
                         flex="column"
-                        textValue="Birthday"
+                        textValue={t('Birthday')}
                         fontSize="1.5vh"
                         fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"

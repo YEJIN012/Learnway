@@ -294,7 +294,7 @@ function Loading() {
                                     margin: "0px 1vw 0px 0px",
                                 }}
                             ></FlightTakeoffIcon>
-                            {t('Todays Conversation')}
+                            {t('Todays Coversation')}
                         </TitleFrame>
                         <hr
                             style={{

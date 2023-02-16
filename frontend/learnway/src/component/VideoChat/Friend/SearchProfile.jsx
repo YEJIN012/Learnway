@@ -200,7 +200,7 @@ function SearchProfile(props) {
                                     />
                                 }
                                 flex="column"
-                                textValue="Email"
+                                textValue={t('E-mail')}
                                 fontSize="1.8vh"
                                 fontColor="#000000"
                                 margin="2.5vh 0vw 0vw 0vw"
@@ -223,7 +223,7 @@ function SearchProfile(props) {
                                     />
                                 }
                                 flex="column"
-                                textValue="Birth"
+                                textValue={t('Birthday')}
                                 fontSize="1.8vh"
                                 fontColor="#000000"
                                 margin="2.5vh 0vw 0vw 0vw"
@@ -246,7 +246,7 @@ function SearchProfile(props) {
                                     />
                                 }
                                 flex="column"
-                                textValue="Language"
+                                textValue={t('language')}
                                 fontSize="1.8vh"
                                 fontColor="#000000"
                                 margin="2.5vh 0vw 0vw 0vw"
@@ -269,7 +269,7 @@ function SearchProfile(props) {
                                     />
                                 }
                                 flex="column"
-                                textValue="Bio"
+                                textValue={t('Bio')}
                                 fontSize="1.8vh"
                                 fontColor="#000000"
                                 margin="2.5vh 0vw 0vw 0vw"
@@ -293,7 +293,7 @@ function SearchProfile(props) {
                                     />
                                 }
                                 flex="column"
-                                textValue="Interests"
+                                textValue={t('Interests')}
                                 fontSize="1.8vh"
                                 fontColor="#000000"
                                 margin="2.5vh 0vw 0vw 0vw"

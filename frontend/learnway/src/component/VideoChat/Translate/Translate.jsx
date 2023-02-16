@@ -184,7 +184,7 @@ function Translate() {
                   width={"inherit"}
                   height={"3vw"}
                   fontSize={"1.5vw"}
-                  textValue="translate"
+                  textValue={t('Translate')}
                   
                 ></Button>
               </ButtonFrame>

@@ -147,11 +147,11 @@ export default function SignupForm({getUserinfo}) {
               :<Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
             }
           </Stack>
-          <InputBox id="password" type="password" title="Password" placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} focus={pwRuleChk(pw)}margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
+          <InputBox id="password" type="password" title={t('Password')} placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} focus={pwRuleChk(pw)}margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
             {pwRuleChk(pw)}
-          <InputBox id="confirmPw" type="password" title="Confirm Password" placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
+          <InputBox id="confirmPw" type="password" title={t('Confirm Password')} placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
           <InputFrame >

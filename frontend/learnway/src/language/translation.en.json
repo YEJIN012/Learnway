@@ -50,7 +50,7 @@
    "Make new friends who can have language exchange constantly through our Learnway":"Make new friends who can have language exchange constantly through our Learnway",
    "Calendar":"Calendar",
    "Scripts":"Scripts",
-   "Todays Coversation":"Today's Coversation",
+   "Todays Coversation":"Today's Conversation",
    "Search Youtube Content":"Search Youtube Content",
    "Translate":"Translate",
    "Enter the content to translate.":"Enter the content to translate.",
@@ -99,5 +99,10 @@
    "Add Friends Successfully":"Add Friends Successfully",
    "Failed to add friends":"Failed to add friends",
    "Your report has been received successfullly":"Your report has been received successfullly",
-   "There was an error while sending your report. Please try again.":"There was an error while sending your report. Please try again."
+   "There was an error while sending your report. Please try again.":"There was an error while sending your report. Please try again.",
+   "Birth":"Birth",
+   "Bio":"Bio",
+   "Interests":"Interests",
+   "Cancel":"Cancel",
+   "Submit":"Submit"
 }

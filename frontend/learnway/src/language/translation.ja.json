@@ -97,5 +97,11 @@
     "Add Friends Successfully":"正常に友達を追加",
     "Failed to add friends":"友達の追加に失敗しました",
     "Your report has been received successfullly":"レポートが正常に受信されました。",
-    "There was an error while sending your report. Please try again.":"レポートの送信中にエラーが発生しました。 もう一度試してください。"
+    "There was an error while sending your report. Please try again.":"レポートの送信中にエラーが発生しました。 もう一度試してください。",
+    "Confirm Password":"パスワードの確認",
+    "Birth":"誕生",
+    "Bio":"略歴",
+    "Interests":"利害関係",
+    "Cancel":"キャンセル",
+    "Submit":"送信"
  }

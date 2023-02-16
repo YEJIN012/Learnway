@@ -97,5 +97,11 @@
     "Add Friends Successfully":"Ajouter des amis avec succès",
     "Failed to add friends":"N'a pas réussi à ajouter des amis",
     "Your report has been received successfullly":"Votre rapport a été reçu avec succès.",
-    "There was an error while sending your report. Please try again.":"Il y a eu une erreur lors de l'envoi de votre rapport. S'il vous plaît, réessayez."
+    "There was an error while sending your report. Please try again.":"Il y a eu une erreur lors de l'envoi de votre rapport. S'il vous plaît, réessayez.",
+    "Confirm Password":"Confirmer le mot de passe",
+    "Birth":"Naissance",
+    "Bio":"Biologique",
+    "Interests":"Intérêts",
+    "Cancel":"Annulez.",
+    "Submit":"Soumettre"
 }
