@@ -93,25 +93,15 @@ function EditProfile() {
             }
         }
         console.log(username)
-
-        request("get",`/users/dupName?name=${username}`).then((res) => { 
+        if(username !== userInfo.name){
+          request("get",`/users/dupName?name=${username}`).then((res) => { 
             console.log(res);
-            // switch (res.msg) {
-            //   case "사용가능한 닉네임입니다.":
-            //     setMsg(t('What a great name.'));
-            //     break;
-            //   case "사용중인 닉네임입니다. ":
-            //     setMsg(t('This is a duplicate name.'));
-            //     break;
-            //   default:
-            //     setMsg(t('Enter your name'));
-            //     break;
-            // }
             if (res.msg === "사용중인 닉네임입니다. ") {
                 alert (t('This is a duplicate name.'))
-            } else {
-
-
+            }
+            return;
+          })
+        }
         
         // Make FormData
         const formData = new FormData();
@@ -154,8 +144,6 @@ function EditProfile() {
             .catch(function (error) {
                 console.log(error);
             });
-        }
-    })
     }
 
     return (
