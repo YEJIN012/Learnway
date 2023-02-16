@@ -53,13 +53,13 @@ export default function LoginForm () {
           setRefreshToken(res.token.refreshToken);
           const getaccessToken = accessToken(res.token);
           dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
-          alert(t('🤗🤗 Good to see you again 🤗🤗'))
+          alert(t('🤗🤗 Good to see you again 🤗🤗'));
 
           // 성공했으면 메인 페이지로 이동
           navigate('/');
         } else if (status === 202) {
           // 아이디 비밀번호가 틀린 경우,
-          alert(t('🚨Please double check your email and password!!🚨'))
+          alert(t('🚨Please double check your email and password!!🚨'));
         }
       })
       .catch((err) => alert(t('A network error has occurred. The request has failed.')));
@@ -119,4 +119,4 @@ export default function LoginForm () {
             </BtnFrame>
         </form>
     );
-}
+};

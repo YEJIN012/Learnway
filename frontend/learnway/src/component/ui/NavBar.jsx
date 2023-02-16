@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteInfo } from "../page/Front/actions/userAction";
@@ -15,10 +14,6 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    // box-shadow: 0px 2px 10px #EFEFEF;
-    // background-color : #fff;
-    // opacity:0.9;
-    // border-bottom: 0.2rem solid #DBDBDB;
     width:95vw;
     margin: 0.3vw auto;
 `;
@@ -32,7 +27,6 @@ const Menu = styled.div`
     font-size: 1vw;
     color : #91a8d0;
     font-weight : bolder;
-    // text-shadow:2px 10px #EFEFEF;
     text-shadow: 2px 2px 2px #E3E1E1;
 `;
 const MenuBtn = styled.div`

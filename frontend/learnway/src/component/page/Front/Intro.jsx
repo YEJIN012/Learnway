@@ -20,7 +20,6 @@ const LeftSide = styled.div`
   align-items: center;
   justify-content: center;
   z-index : -1;
-  // border:1px solid black;
 `;
 
 const Picture = styled.img`
@@ -33,14 +32,6 @@ const Picture = styled.img`
   z-index : -1;
 `;
 
-// const RightSide = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   position: absolute;
-//   border:1px solid black;
-// `;
-
-
 const StartBtn = styled.div`
   border: none; 
   background-color: transparent;
@@ -51,7 +42,6 @@ const StartBtn = styled.div`
   top: 88%;
   left: 50%;
   transform: translate(-50%, -50%);
-  // border:1px solid black;
   margin: auto;
 `;
 
@@ -93,14 +83,6 @@ function LeftBox() {
     </LeftSide>
   )
 }
-
-// function RightBox(){
-//   return(
-//     <RightSide>
-//         <Btn/>
-//     </RightSide>
-//   )
-// }
 
 function Btn() {
   let navigate = useNavigate()

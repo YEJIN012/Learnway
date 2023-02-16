@@ -5,7 +5,7 @@ const initialState= {
   authenticated: false,
   accessToken: null,
   expireTime: null
-}
+};
 
 export default function TokenReducer(state=initialState, action) {
   switch (action.type) {
@@ -22,5 +22,5 @@ export default function TokenReducer(state=initialState, action) {
 
     default:
       return state
-  }
-}
+  };
+};

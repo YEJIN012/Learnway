@@ -70,10 +70,10 @@ export default function GoogleSignup() {
         if (languageBox.language[i].name === languageName){
           // console.log(languageBox.language[i])
           return languageBox.language[i]
-        }
-      }
-    }
-    const language = asyncFor()
+        };
+      };
+    };
+    const language = asyncFor();
 
     const data = {
       name: username,
@@ -89,7 +89,7 @@ export default function GoogleSignup() {
       userPwd: 0,
     };
     
-    setUserinfo(data)
+    setUserinfo(data);
   }
 
   return (
