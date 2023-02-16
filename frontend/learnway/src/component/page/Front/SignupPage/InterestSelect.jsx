@@ -23,9 +23,17 @@ const SelectFrame = styled.div`
 `;
 
 const Frame = styled.div`
-  text-align : right;
-  margin-right: 5px;
-  margin-bottom: 30px;  
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-bottom: 30px;  
+    margin-left: 20px;
+`;
+
+const Restriction = styled.div`
+    font-size: 12px;
+    opacity: 0.4;
+    color: red;
 `;
 
 
@@ -175,6 +183,7 @@ export default function InterestSelect({
                 </Frame>
             ) : (
                 <Frame>
+                    <Restriction>{t('Please select more than 3')}</Restriction>
                     <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px"  />
                 </Frame>
             )}

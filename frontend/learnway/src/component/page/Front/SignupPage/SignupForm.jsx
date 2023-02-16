@@ -51,6 +51,7 @@ export default function SignupForm({getUserinfo}) {
   // 이메일 인증이 되면 email 갱신
   const getEmail = (email) => {
     setEmail(email)
+  
   }
 
 
@@ -98,7 +99,7 @@ export default function SignupForm({getUserinfo}) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(languageBox)
-    
+  
     // 해당 언어 데이터를 정제하기
     const asyncFor =  () => {
       for (let i = 0; i < languageBox.language.length; i++) {
@@ -111,26 +112,30 @@ export default function SignupForm({getUserinfo}) {
     }
     const language = asyncFor()
 
-    if (pw === confirmPw) {
-      const data = {
-        name: username,
-        userEmail: email,
-        userPwd: pw,
-        birthDay: birthday,
-        language: language,       // 랭귀지 id  체크
-        badUser: false,
-        bio: "",
-        imgUrl: "",
-        providerId: "",
-        provider: "",
-        userId: 0,
-      };
-      console.log(data)
-      getUserinfo(data)           // 정제된 데이터를 부모 컴포넌트에 보내준다.
-        
-    }
-    else {
-      alert(t('Please check your password.'))
+    if ( !email ) {
+      alert(t('Please Check your Email!'))
+    } else {
+      if (pw === confirmPw) {
+        const data = {
+          name: username,
+          userEmail: email,
+          userPwd: pw,
+          birthDay: birthday,
+          language: language,       // 랭귀지 id  체크
+          badUser: false,
+          bio: "",
+          imgUrl: "",
+          providerId: "",
+          provider: "",
+          userId: 0,
+        };
+        console.log(data)
+        getUserinfo(data)           // 정제된 데이터를 부모 컴포넌트에 보내준다.
+          
+      }
+      else {
+        alert(t('Please check your password.'))
+      }
     }
   };
 

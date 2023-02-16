@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import InputBox from '../Input';
@@ -34,6 +34,8 @@ const Frame = styled.div`
   margin-right: 5px;
   margin-bottom: 20px;  
 `;
+
+
 
 export default function GoogleSignup() {
   const languageBox = useSelector(state => state.UserInfoReducer)
@@ -91,10 +93,12 @@ export default function GoogleSignup() {
   }
 
   return (
-    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"} top= {userinfo ? "5vh" : "13vh"} bottom="5vh" fsize="15px" mtop = "13vh"
+    <BackgroundFrame left="35vw" right="35vw" width= {userinfo ? null : "470px"} top= {userinfo ? "5vh" : "13vh"} bottom="5vh" fsize="15px" mtop = "13vh" opacity={userinfo ? 0.5 : null}
       bg={
         userinfo === ""
         ? (
+          <>
+          <Frame><NavLink to = "/login">{t('Login')}</NavLink></Frame>
           <form onSubmit={handleSubmit}>
             <InputBox id="username" type="txt" title={t('User Name(ENG)')} placeholder={username} value={username} disabled={true} inputWidth="300px" margin="20px 0px 10px 0px"
               icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
@@ -135,11 +139,12 @@ export default function GoogleSignup() {
               <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue={t('Next')} margin="30px 0px 50px 0px" disabled= {disabled} />
             </Frame>
           </form>
+          </>
         )
         : <Interest userinfo={userinfo}></Interest>
       }
       ment1={t('SingUp')}
-      ment2={t('Already Member?')} 
+      ment2 = {userinfo ? t('What do you do in your free time?') : t('Already Member?')}
       align_items="center"
       txttop="80px"
     />
