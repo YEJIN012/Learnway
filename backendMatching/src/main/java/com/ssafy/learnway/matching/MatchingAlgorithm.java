@@ -56,6 +56,10 @@ public class MatchingAlgorithm {
             WaitUser subjectUser = matchingWaitList.getMatchingList().get(i);
             int subjectUserWaitTurn = subjectUser.getMatchingTurn();
             subjectUser.setMatchingTurn(subjectUserWaitTurn+1); // 매칭 턴 횟수 증가
+
+            log.info("sublastTurn - "+subjectUserWaitTurn);
+            log.info("subturn - "+subjectUser.getMatchingTurn());
+
             MatchingRequestDto subject = subjectUser.getMatchingRequestDto(); // 매칭 기준 유저 정보
 
 
@@ -109,17 +113,17 @@ public class MatchingAlgorithm {
                 }
 
                 // 1,2,3턴은 취향 3개, 2개, 1 이상이 맞아야 성공. 4번째 턴 부터는 취향 상관없이 매칭!!!!
-              if(subjectUserWaitTurn==1){
+              if(subjectUserWaitTurn<=1){
                     if(weight <=3){
                         log.info("첫번째 턴 관심분야 매칭 실패");
                         break out;
                     }
-                } else if (subjectUserWaitTurn==2) {
+                } else if (subjectUserWaitTurn<=2) {
                     if(weight <=2){
                         log.info("두 번째 턴 관심분야 매칭 실패");
                         break out;
                     }
-                }  else if (subjectUserWaitTurn==3) {
+                }  else if (subjectUserWaitTurn<=3) {
                     if(weight <=1){
                         log.info(" 세 번째 턴 관심분야 매칭 실패");
                         break out;
@@ -128,16 +132,16 @@ public class MatchingAlgorithm {
 
                 //나이 체크
                 // 1,2,3턴은 나이 범위 10, 4번째는 상관없이 매칭
-                if(subjectUserWaitTurn==1){
-                    if(Math.abs(subject.getAge() - candidate.getAge())>10){
+                if(subjectUserWaitTurn<=1){
+                    if(Math.abs(subject.getAge() - candidate.getAge())>7){
                         break out;
                     }
-                } else if (subjectUserWaitTurn==2) {
-                    if(Math.abs(subject.getAge() - candidate.getAge())>10){
+                } else if (subjectUserWaitTurn<=1) {
+                    if(Math.abs(subject.getAge() - candidate.getAge())>9){
                         break out;
                     }
-                }  else if (subjectUserWaitTurn==3) {
-                    if(Math.abs(subject.getAge() - candidate.getAge())>10){
+                }  else if (subjectUserWaitTurn<=1) {
+                    if(Math.abs(subject.getAge() - candidate.getAge())>11){
                         break out;
                     }
                 }
