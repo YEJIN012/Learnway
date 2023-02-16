@@ -177,7 +177,7 @@ function Profile() {
                         <FriendNumber>
                             {GetFriendCnt(userInfo.userEmail)}
                         </FriendNumber>
-                        Friends
+                        {t("FRIENDS")}
                     </Friends>
                 </>
             }

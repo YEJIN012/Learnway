@@ -13,5 +13,3 @@ export const UPDATE_USER = "UPDATE_USER";
 export const CHAT_INFO = "CHAT_INFO";
 
 export const DELETE_INFO = "DELETE_INFO";
-
-// export const AUTH_USER = "AUTH_USER";
