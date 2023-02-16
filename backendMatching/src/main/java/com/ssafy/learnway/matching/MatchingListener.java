@@ -2,6 +2,7 @@ package com.ssafy.learnway.matching;
 
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 
+import com.ssafy.learnway.dto.matching.WaitUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -37,7 +38,7 @@ public class MatchingListener {
         log.info("receive message : " + matchingRequestDto.toString());
 
         // 매칭 대기자 추가
-        matchingWaitList.getMatchingWaitList().add(matchingRequestDto);
+        matchingWaitList.getMatchingWaitList().add(WaitUser.builder().matchingRequestDto(matchingRequestDto).matchingTurn(0).build());
 
     }
 }

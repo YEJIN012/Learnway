@@ -2,6 +2,7 @@ package com.ssafy.learnway.matching;
 
 import com.ssafy.learnway.dto.matching.MatchingRequestDto;
 import com.ssafy.learnway.dto.matching.MatchingResponseDto;
+import com.ssafy.learnway.dto.matching.WaitUser;
 import com.ssafy.learnway.matching.MatchingWaitList;
 import com.ssafy.learnway.matching.SendMatching;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class MatchingAlgorithm {
     public Map<Object, Object> algorithm(){
         log.info("matching algorithm start...");
 
-        // 실제 매칭할 유저들 가져오기 (중간에 매칭하는 유저가 또 들어오는 걸 방지)
+        // 실제 매칭할 유저들 가져오기 (중간에 매칭하는 유저가 또 들어오는 걸 방지) -> n소요
         while(!matchingWaitList.getMatchingWaitList().isEmpty()){
 
             matchingWaitList.getMatchingList().add(matchingWaitList.getMatchingWaitList().poll());
@@ -52,11 +53,20 @@ public class MatchingAlgorithm {
             // 3. 나이가 +=10 사이이어야 한다.
             // 4. 대기열에 먼저 들어온 순서부터 우선적으론 판별하고 확인할 수 있어야 한다.
 
-            MatchingRequestDto subject = matchingWaitList.getMatchingList().get(i);
+            WaitUser subjectUser = matchingWaitList.getMatchingList().get(i);
+            int subjectUserWaitTurn = subjectUser.getMatchingTurn();
+            subjectUser.setMatchingTurn(subjectUserWaitTurn+1); // 매칭 턴 횟수 증가
+
+            log.info("sublastTurn - "+subjectUserWaitTurn);
+            log.info("subturn - "+subjectUser.getMatchingTurn());
+
+            MatchingRequestDto subject = subjectUser.getMatchingRequestDto(); // 매칭 기준 유저 정보
+
 
             out : for(int j=0; j<matchingWaitList.getMatchingList().size(); j++){
-
-                MatchingRequestDto candidate = matchingWaitList.getMatchingList().get(j);
+                WaitUser candidateuser = matchingWaitList.getMatchingList().get(j);
+                //int candidateuserWaitTurn = subjectUser.getMatchingTurn();
+                MatchingRequestDto candidate = candidateuser.getMatchingRequestDto(); // 상대방 유저 정보
 
                 // TODO 중간에 나간 유저인지 확인
 
@@ -97,24 +107,49 @@ public class MatchingAlgorithm {
                 for(int interest : subject.getInterestId()){
                     for(int interest2 : candidate.getInterestId()){ // HashSet을 이용해서 최적화
                         log.info(interest + " : " + interest2);
-                        if(weight >=2) break;
+//                        if(weight >=3) break;
                         if(interest == interest2) weight ++;
                     }
                 }
 
-                if(weight <2){
-                    log.info("관심분야 매칭 실패");
-                    continue;
+                // 1,2,3턴은 취향 3개, 2개, 1 이상이 맞아야 성공. 4번째 턴 부터는 취향 상관없이 매칭!!!!
+              if(subjectUserWaitTurn<=1){
+                    if(weight <=3){
+                        log.info("첫번째 턴 관심분야 매칭 실패");
+                        break out;
+                    }
+                } else if (subjectUserWaitTurn<=2) {
+                    if(weight <=2){
+                        log.info("두 번째 턴 관심분야 매칭 실패");
+                        break out;
+                    }
+                }  else if (subjectUserWaitTurn<=3) {
+                    if(weight <=1){
+                        log.info(" 세 번째 턴 관심분야 매칭 실패");
+                        break out;
+                    }
                 }
 
                 //나이 체크
-                if(Math.abs(subject.getAge() - candidate.getAge())>10){
-                    continue;
+                // 1,2,3턴은 나이 범위 10, 4번째는 상관없이 매칭
+                if(subjectUserWaitTurn<=1){
+                    if(Math.abs(subject.getAge() - candidate.getAge())>7){
+                        break out;
+                    }
+                } else if (subjectUserWaitTurn<=1) {
+                    if(Math.abs(subject.getAge() - candidate.getAge())>9){
+                        break out;
+                    }
+                }  else if (subjectUserWaitTurn<=1) {
+                    if(Math.abs(subject.getAge() - candidate.getAge())>11){
+                        break out;
+                    }
                 }
 
+
                 //모든 조건을 만족하면 서로 매칭
-                matchingWaitList.getMatchingResultList().add(subject);
-                matchingWaitList.getMatchingResultList().add(candidate);
+                matchingWaitList.getMatchingResultList().add(subjectUser);
+                matchingWaitList.getMatchingResultList().add(candidateuser);
 
                 if(i>j){
                     matchingWaitList.getMatchingList().remove(i);
@@ -136,8 +171,8 @@ public class MatchingAlgorithm {
 
             succeed = true;
 
-            MatchingRequestDto user1 = matchingWaitList.getMatchingResultList().poll();
-            MatchingRequestDto user2 = matchingWaitList.getMatchingResultList().poll();
+            MatchingRequestDto user1 = matchingWaitList.getMatchingResultList().poll().getMatchingRequestDto();
+            MatchingRequestDto user2 = matchingWaitList.getMatchingResultList().poll().getMatchingRequestDto();
 
             // 매칭 성사되면, 매칭 결과 main server 전송
             if(succeed){
