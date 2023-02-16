@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const InputFrame = styled.div`
-    /* width: 300px; */
-    /* height: 63px;  */
     margin: ${(props) => props.margin || "20px 0px 10px 0px"};
     display: flex;
     flex-direction: row;

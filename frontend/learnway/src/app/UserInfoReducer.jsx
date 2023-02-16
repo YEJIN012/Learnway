@@ -3,7 +3,7 @@ import { GET_LANGUAGE, GET_INTEREST, DELETE_INFO} from "../component/page/Front/
 const initialLang = {
   language : null,
   interests : null
-}
+};
 
 export default function UserInfoReducer(state = initialLang, action) {
   // const promise = action.payload
@@ -25,5 +25,5 @@ export default function UserInfoReducer(state = initialLang, action) {
 
     default:
       return state;
-  }
-}
+  };
+};

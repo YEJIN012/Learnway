@@ -175,7 +175,7 @@ function SearchProfile(props) {
                         />
                         {/* <Friends>
                             <FriendNumber>{friendCnt}</FriendNumber>
-                            Friends
+                            {t("FRIENDS")}
                         </Friends> */}
                         {/* 이미 친구이면 아예 추가 icon안뜨게 처리필요 */}
                         <UserName>{userInfo.name}</UserName>
