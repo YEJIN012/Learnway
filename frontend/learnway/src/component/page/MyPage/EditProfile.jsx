@@ -11,6 +11,7 @@ import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
 import Interest from "../Front/SignupPage/Interest";
 import { Settings } from "@mui/icons-material";
+import { request } from '../../page/Front/utils/axios';
 
 const style = {
     position: "absolute",
@@ -90,6 +91,16 @@ function EditProfile() {
                     return languageBox.language[i];
                 }
             }
+        }
+        console.log(username)
+        if(username !== userInfo.name){
+          request("get",`/users/dupName?name=${username}`).then((res) => { 
+            console.log(res);
+            if (res.msg === "사용중인 닉네임입니다. ") {
+                alert (t('This is a duplicate name.'))
+            }
+            return;
+          })
         }
         
         // Make FormData
@@ -262,7 +273,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue={t('Submit')}
+                                textValue={t('Save')}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"

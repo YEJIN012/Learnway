@@ -50,6 +50,14 @@ const TranslateArea = styled.textarea`
   font-size: 18px;
 `;
 
+const ResultLangFrame = styled.div`
+    color: #91a8d0;
+    font-size: large;
+    margin-bottom: 8px;
+    margin-left: 9px;
+    font-weight: 600;
+`;
+
 const ButtonFrame = styled.div`
   display: flex;
   flex-direction: row-reverse;
@@ -153,7 +161,7 @@ function Translate() {
                 value={seletlang}
                 onChange={handleChangeSelect}
                 displayEmpty
-                label="Language"
+                label={t("language")}
                 sx={{ color: "#91a8d0" }}
                 // inputProps={{ 'aria-label': 'Without label' }}
               >
@@ -191,7 +199,7 @@ function Translate() {
             </Form>
           </InnerFrame>
           <InnerFrame>
-            <h3>{resultLang}</h3>
+          <ResultLangFrame>{resultLang}</ResultLangFrame>
           </InnerFrame>
           <InnerFrame>
             <TranslateArea disabled value={translatedContent}>{translatedContent}</TranslateArea>

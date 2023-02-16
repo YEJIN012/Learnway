@@ -13,14 +13,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class StudyRecordRequestDto {
 
-//    private int videoId;
-    private String userEmail;
+  // private int videoId;
+  private String userEmail;
 
-    private String friendEmail;
+  private String friendEmail;
 
-    private String recordId;
-//    private String recordUri;
-//    private LocalDateTime studyDatetime;
+  private String recordId;
+  // private String recordUri;
+  // private LocalDateTime studyDatetime;
 
-    private int languageId;
+  private int userLanguageId;
+  private int friendLanguageId;
 }

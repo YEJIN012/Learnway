@@ -104,7 +104,7 @@ function Chatroom(props) {
     const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
     // const socket = new SockJS("/api/ws-stomp");
     const ws = Stomp.over(socket);
-    const scrollRef = useRef(null);
+    const scrollRef = useRef();
 
     const handleSelectUserState = props.handleSelectUserState;
     console.log(handleSelectUserState);
@@ -137,13 +137,10 @@ function Chatroom(props) {
 
     useEffect(()=>{
         
-        scrollToBottom();
-    },[chatLog])
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+        
+    })
 
-    function scrollToBottom(){
-        scrollRef.current.scrollIntoView(false);
-        console.log("scroll")
-    }
     function loadChatHistory() {
         axios
             .get(`api/chat/room/message/${props.info.roomId}`)
