@@ -4,7 +4,6 @@ import {
     UPDATE_USER,
     REGISTER_USER,
     DELETE_INFO,
-    AUTH_USER,
 } from "../component/page/Front/actions/types";
 
 const userInfo = {
@@ -46,5 +45,5 @@ export default function AuthReducer(state = userInfo, action) {
         //   return { ...state, userData: action.payload };
         default:
             return state;
-    }
-}
+    };
+};

@@ -20,7 +20,7 @@ export default function Signup () {
   const getUserinfo = (userinfo) => {
     setUserinfo(userinfo)
     console.log(userinfo)
-  }
+  };
 
   const { t } = useTranslation();
 

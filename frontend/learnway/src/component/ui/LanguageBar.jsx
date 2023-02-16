@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { useState, useEffect } from "react";
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -10,7 +9,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 export default function LanguageBar() {
   const [Selected, setSelected] = useState("Language");
   const [optionList, setOptionList] = useState([]);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const changeLanguage = (lng) => {
       i18n.changeLanguage(lng);

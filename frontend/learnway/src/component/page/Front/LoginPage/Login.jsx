@@ -1,15 +1,9 @@
 import styled from 'styled-components';
 import LoginForm from './LoginForm';
 import BackgroundFrame from '../Background';
-import icon from '../img/googleIcon.jpg'
+import icon from '../img/googleIcon.jpg';
 import { useTranslation } from 'react-i18next';
-/*
-1. location.search : 쿼리스트링에서 ? 뒤에 있는 값을 가져옴
-2. 즉 여기서는 url? 'token= "queryString" 에서 queryString을 가져온다는 말임
-3. 따라서 queryString이 붙어서 온 경우는 그것을 catch 해서 로그인 시켜주기 => 토큰은 로컬스토리지에 저장하고 axios 요청해서 뭐든 하고 메인페이지로
-4. queryString이 붙어서 오지 않은 경우는 회원이 아니므로 회원가입 폼으로 옮겨주자.
-5. 
-*/
+
 const LineFrame = styled.div`
   width: 380px;
   margin-top: 15px;
@@ -42,7 +36,7 @@ const GooIcon = styled.button`
 export default function Login () {
   const { t } = useTranslation();
   
-  const OpenForm = () => {window.location.href = "https://i8a408.p.ssafy.io/api/oauth2/authorization/google"}
+  const OpenForm = () => {window.location.href = "https://i8a408.p.ssafy.io/api/oauth2/authorization/google"};
   return (
     <BackgroundFrame
       bg = {

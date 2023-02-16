@@ -65,7 +65,6 @@ export default function SignupForm({getUserinfo}) {
   }, [msg])
   
   // 닉네임이 변경되면 중복여부 체크
-  // request("get",`/users/dupName?name=${username}`).then((res) => setMsg(res.msg) )
   request("get",`/users/dupName?name=${username}`).then((res) => { 
     console.log(res);
     switch (res.msg) {
