@@ -107,7 +107,7 @@ function StudyScripts(props) {
         const date = moment(props).format("YYYY-MM-DD");
         // console.log(date, typeof date);
         axios
-            .post("api/study/day", {
+            .post("/api/study/day", {
                 date: date,
                 userEmail: store["userEmail"],
             })

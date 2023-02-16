@@ -69,7 +69,7 @@ const BTN3_FILL = styled.button`
     border-radius: ${props=>props.radius || '0px'};
     border:none;
     
-    font-family: 'Lato';
+    /* font-family: 'Lato'; */
     font-style: normal;
     font-weight: ${props=>props.textWeight || '700'};
     font-size: ${props=>props.fontSize || '20px'};
@@ -95,7 +95,7 @@ const BTN3_UNFILL = styled.button`
     border-radius: ${props=>props.radius || '0px'};
     background:none;
 
-    font-family: 'Lato';
+    /* font-family: 'Lato'; */
     font-style: normal;
     font-weight: ${props=>props.textWeight || '700'};
     font-size: ${props=>props.fontSize || '20px'};

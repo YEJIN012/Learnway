@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import SelectBtn from "./InterestIcon";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
@@ -22,9 +23,17 @@ const SelectFrame = styled.div`
 `;
 
 const Frame = styled.div`
-  text-align : right;
-  margin-right: 5px;
-  margin-bottom: 30px;  
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-bottom: 30px;  
+    margin-left: 20px;
+`;
+
+const Restriction = styled.div`
+    font-size: 12px;
+    opacity: 0.4;
+    color: red;
 `;
 
 
@@ -40,10 +49,24 @@ export default function InterestSelect({
 
     const icon = Iconbox()
     const initLst = new Array(itdata.length - 1).fill(0);
+    const { t } = useTranslation();
 
     let [lst, setLst] = useState(initLst);
 
     let itobj = [];
+    let j = 0
+    let itlst2 = [];
+    let tmp = []
+    for (let i=0; i < itdata.length-1; i++) {
+        if (i % 3 === 2) {
+            tmp = [ ...tmp, itdata[i]]
+            itlst2 = [...itlst2, tmp]
+            tmp = []
+        } else {
+            tmp = [ ...tmp, itdata[i]]
+        }
+    }
+    console.log(itlst2)
 
     // (회원가입시->2)취향을 선택하고 버튼을 클릭하면 회원가입 요청 후, 자동 로그인
     // (회원정보수정시->1)취향 선택하고 버튼 클릭하면 ChangeInterest에 취향 정보 담아 올림 + 모달닫기
@@ -60,7 +83,7 @@ export default function InterestSelect({
 
         // 세개 이상 선택 확인.
         if (selectedNum < 3) {
-            alert ("Please select more than 3")
+            alert (t('Please select more than 3'))
         } else {
 
             
@@ -115,12 +138,12 @@ export default function InterestSelect({
                                         
                                         // 성공했으면 메인 페이지로 이동
                                         navigate('/');
-                                        alert("💑Welcome💑")
+                                        alert(t('💑Welcome💑'))
                                     } 
                                 });
                             }
                     })
-                    .catch((err) => alert("🚨A network error has occurred. The request has failed.🚨"));
+                    .catch((err) => alert(t('A network error has occurred. The request has failed.')));
                 }
             };
             
@@ -137,7 +160,7 @@ export default function InterestSelect({
                         } else {
                             return (
                                 <SelectBtn
-                                    key={idx}
+                                key={idx}
                                     id={idx}
                                     disabled=""
                                     icontxt={icontxt}
@@ -160,6 +183,7 @@ export default function InterestSelect({
                 </Frame>
             ) : (
                 <Frame>
+                    <Restriction>{t('Please select more than 3')}</Restriction>
                     <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px"  />
                 </Frame>
             )}

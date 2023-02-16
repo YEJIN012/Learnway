@@ -99,9 +99,12 @@ const Searchbtn = styled.div`
 
 //검색 공통 컴포넌트 끝
 
-const socket = new SockJS("/api/ws-stomp");
-const ws = Stomp.over(socket);
+
 function Chatroom(props) {
+    const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
+    // const socket = new SockJS("/api/ws-stomp");
+    const ws = Stomp.over(socket);
+
     const handleSelectUserState = props.handleSelectUserState;
     console.log(handleSelectUserState);
     const stored = useSelector((state) => state.AuthReducer);
@@ -121,10 +124,7 @@ function Chatroom(props) {
 
     useEffect(() => {
         loadChatHistory();
-        ws.connect({}, (frame) => {
-            console.log("connected to Chat server:", frame);
-            subscribe();
-        });
+        
 
         return () => {
             ws.disconnect(() => {
@@ -173,6 +173,12 @@ function Chatroom(props) {
                 setMsgId(num);
                 setChatLog(chatHistory);
                 console.log(chatHistory);
+
+                ws.connect({}, (frame) => {
+                    console.log("connected to Chat server:", frame);
+                    subscribe();
+                });
+
             })
             .catch(function (err) {
                 console.log(err);
@@ -183,7 +189,7 @@ function Chatroom(props) {
 
         ws.subscribe(`/sub/chat/room/${props.info.roomId}`, (event) => {
             const received = JSON.parse(event.body);
-            const data = {};
+            let data = {};
             if (received.sender === props.info.profileDto.userEmail) {
                 data = {
                     id: num,

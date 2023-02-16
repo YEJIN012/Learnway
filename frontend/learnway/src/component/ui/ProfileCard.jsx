@@ -54,7 +54,7 @@ function ProfileCard({ header, name, body, width, height, className }) {
             }}
             style={{
                 overflow : 'auto',
-                marginTop: '1.7vw;'
+                // marginTop: '1.7vw;'
             }}
         />
     );

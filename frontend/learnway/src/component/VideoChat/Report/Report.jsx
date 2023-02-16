@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 import axios from 'axios'
 import InputGroup from "../../ui/InputGroup";
@@ -92,7 +93,7 @@ function Report(props) {
     const [reportType, setReportType] = useState([]);
     const [reportDetail, setReportDetail] = useState("");
     const [reportDate, setReportDate] = useState(new Date())
-    
+    const { t } = useTranslation();
 
     function submit(val1, val2) {
         //paste api call logic
@@ -103,12 +104,12 @@ function Report(props) {
             reportId:reportType,
             etc:reportDetail
         }).then(function(res){
-            alert("Your report has been received successfullly")
+            alert(t('Your report has been received successfullly'))
             setReportType([]);
             setReportDetail("");
 
         }).catch(function(err){
-            alert("There was an error while sending your report. Please try again.")
+            alert(t('There was an error while sending your report. Please try again.'))
             console.log(err)
         })
     }
@@ -150,11 +151,11 @@ function Report(props) {
         let result = [];
 
         const labelContent = [
-            [<strong>Sexual access</strong>, <br />, <small>sexual harassment, forced conversation, pornographic broadcasts, etc</small>],
-            [<strong>verbal abuse</strong>, <br />, <small>abuse, disparaging remarks, etc</small>],
-            [<strong>Harmful or dangerous acts</strong>, <br />, <small>events of curelty, such as inciting terrorism, arson, torture, etc</small>],
-            [<strong>Investment and multi-level corecion</strong>],
-            [<strong>act of causing span or confusion</strong>]
+            [<strong>{t('Sexual access')}</strong>, <br />, <small>{t('sexual harassment, forced conversation, pornographic broadcasts, etc')}</small>],
+            [<strong>{t('verbal abuse')}</strong>, <br />, <small>{t('abuse, disparaging remarks, etc')}</small>],
+            [<strong>{t('Harmful or dangerous acts')}</strong>, <br />, <small>{t('events of curelty, such as inciting terrorism, arson, torture, etc')}</small>],
+            [<strong>{t('Investment and multi-level corecion')}</strong>],
+            [<strong>{t('act of causing span or confusion')}</strong>]
         ]
         for (let i = 0; i < 5; i++) {
             result.push(<ChkBoxComponent value={i} text={labelContent[i]}></ChkBoxComponent>)
@@ -165,12 +166,12 @@ function Report(props) {
     //console.log(reportType, reportDetail)
     return (
         <CommonFrame
-            header={<Title title={"Report"}></Title>}
+            header={<Title title={t('Report')}></Title>}
             body={
                 <Frame>
                     <PreInputGroup>
                         <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly></PreInput>
-                        <PreInput type="text" id="reportTime" inputWidth="12vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
+                        <PreInput type="text" id="reportTime" inputWidth="8.2vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
                     </PreInputGroup>
 
                     <ChkBoxGroup>
@@ -180,7 +181,7 @@ function Report(props) {
                             <LargeInput
                                 id="detailBox"
                                 onChange={(e) => { setReportDetail(e.target.value) }}
-                                placeholder="Please write down other reports"
+                                placeholder={t('Please write down other reports')}
                                 value={reportDetail}
                             >
                             </LargeInput>

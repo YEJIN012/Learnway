@@ -14,6 +14,7 @@ import RouteToMain from './RouteToMain';
 import { motion } from "framer-motion";
 import {useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
+import BGAll from "../page/Front/introbackground/BGAll";
 
 
 function withParams(Component){
@@ -107,7 +108,6 @@ background:none;
 `;
 
 
-let socketId = null;
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production" ? "" : "/api/video/";
 class VideoChatMain extends Component {
@@ -126,7 +126,7 @@ class VideoChatMain extends Component {
             subscribers: [],
             menu: 9,
             quitflag: 0,
-            socketId: undefined,
+            //socketId: undefined,
             recordingId:undefined,
             oppolang:undefined,
             myLanguage:undefined
@@ -142,7 +142,7 @@ class VideoChatMain extends Component {
     this.joinSession = this.joinSession.bind(this);
     //this.handleSetMenu = this.handleSetMenu(this);
     //this.getQuit = this.handleQuit.bind(this);
-    this.makeRoom = this.makeRoom.bind(this);
+   // this.makeRoom = this.makeRoom.bind(this);
     //this.store = this.makeRoom.bind(this);
     //this.storeData = this.storeData.bind(this);
   }
@@ -193,15 +193,25 @@ class VideoChatMain extends Component {
 
     componentDidMount() {
         window.addEventListener("beforeunload", this.onbeforeunload);
-        this.joinSession();
-        this.makeRoom();
+        //this.makeRoom();
         this.storeData();
+        this.joinSession();
     }
     
     componentWillUnmount() {
         window.removeEventListener("beforeunload", this.onbeforeunload);
     }
 
+    deleteSubscriber(streamManager) {
+      let subscribers = this.state.subscribers;
+      let index = subscribers.indexOf(streamManager, 0);
+      if (index > -1) {
+          subscribers.splice(index, 1);
+          this.setState({
+              subscribers: subscribers,
+          });
+      }
+  }
 
 onbeforeunload(event) {
    this.leaveSession();
@@ -226,16 +236,7 @@ onbeforeunload(event) {
         });
       }
 
-  async makeRoom() {
-    const res = await axios.post(`/api/youtube/create`, {
-      userEmail: this.state.myUserName,
-      friendEmail: this.state.oppoUserName,
-    });
-    this.setState({
-      socketId: res.data.roomId,
-    });
-  }
-
+  
   deleteRoom(id) {
     axios
       .delete(`/api/chat/room/${id}`)
@@ -279,7 +280,7 @@ onbeforeunload(event) {
           //여기 부분 레코드 시작 함수
           if(this.state.recorder === 'true'){
             console.log("음성 레코드 시작");
-            this.startRecording();
+            //this.startRecording();
           }
           console.log(this.state.subscribers)
           // Update the state with the new subscribers
@@ -297,9 +298,8 @@ onbeforeunload(event) {
           //내 입장에서 상대방이 나갔을 때 레코드 중지 함수
           if(this.state.recorder === 'true'){
             console.log("음성녹음 중지(상대방 나감)")
-            this.stopRecording();
+            //this.stopRecording();
           }
-          setTimeout(()=>this.deleteSubscriber(event.stream.streamManager), 3000);
           
           //console.log(this.state.subscribers)
         });
@@ -380,7 +380,7 @@ onbeforeunload(event) {
     //내가 나갔을 때 녹화 종료
     if(this.state.recorder === 'true'){
       console.log("음성 녹화 종료:내가 나감")
-      this.stopRecording();
+      //this.stopRecording();
     }
     if (mySession) {
     setTimeout(()=>mySession.disconnect(),3000);
@@ -441,6 +441,7 @@ onbeforeunload(event) {
     render() {
         console.log(this.state.socketId);
         console.log(this.state.oppoUserName);
+        console.log(this.state.socketId);
         //const matchData = {sessionId : 'abdhfhueh', myId : "aaa@ssafy.com", oppoId:"bbb@ssafy.com"};
         //        const mySessionId = this.state.mySessionId;
         //        const myUserName = this.state.myUserName;
@@ -452,7 +453,6 @@ onbeforeunload(event) {
             3: <Translate></Translate>,
             4: (
                 <Youtube
-                    sockId={this.state.socketId}
                     myId={this.state.myUserName}
                     oppoId={this.state.oppoUserName}
                 ></Youtube>
@@ -489,12 +489,12 @@ onbeforeunload(event) {
                         >
                             {this.state.publisher !== undefined ? (
                                 
-                                <Video streamManager={this.state.publisher} pubsub={'pub'} size={this.state.menu} />
+                                <Video streamManager={this.state.publisher} pubsub={'small'} size={this.state.menu} />
                                 
                                 ) : null}
                             {this.state.subscribers.map((sub, i) => (
                                 
-                                <Video streamManager={sub}  pubsub={'sub'}  size = {this.state.menu}/>
+                                <Video streamManager={sub}  pubsub={'large'}  size = {this.state.menu}/>
                                 
                                 ))}
                         </VideoFrame>
@@ -502,7 +502,8 @@ onbeforeunload(event) {
                 </VideoArea>
         
                 </Frame>
-    </>
+                <BGAll id = {0}></BGAll>
+    </>         
         );
     }
     
@@ -541,7 +542,7 @@ onbeforeunload(event) {
 
     return response.data; // The token
   }
-
+/*
   async startRecording() {
     console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recorder, this.state.oppolang)
     console.log(this.state.oppoInfo);
@@ -572,6 +573,8 @@ onbeforeunload(event) {
       console.log(res);  //성공 or 실패
     })
   }
+*/
+
 }
 
 export default withParams(VideoChatMain);

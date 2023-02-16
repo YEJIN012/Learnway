@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
-import {chatRoomLst} from "../../chat/actions/profileAction"
+import { chatRoomLst } from "../../chat/actions/profileAction";
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
@@ -34,15 +35,13 @@ const Text = styled.span`
     color: #000000;
 `;
 
-
-
 function MakeChat({ userEmail, friendEmail }) {
-    console.log(userEmail)
-    console.log(friendEmail)
+    console.log(userEmail);
+    console.log(friendEmail);
     axios
         .post("/api/chat/room", {
-                userEmail: userEmail,
-                friendEmail: friendEmail,
+            userEmail: userEmail,
+            friendEmail: friendEmail,
         })
         .then(function (res) {
             console.log(res);
@@ -71,10 +70,11 @@ function Friend(props) {
     const [friendCnt, setFriendCnt] = useState("");
     const ChatBtnState = useSelector((state) => state.ChatBtnReducer);
     const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     function DeleteFriend({ userEmail, friendEmail }) {
         alert(
-            "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
+            t('Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat')
         );
 
         axios
@@ -86,7 +86,7 @@ function Friend(props) {
             })
             .then(function (res) {
                 console.log(res);
-                alert("친구가 삭제되었습니다.");
+                alert(t('Your friend has been deleted.'));
                 handleDeletedFriend();
             })
             .catch(function (error) {
@@ -127,34 +127,47 @@ function Friend(props) {
                                 friendEmail: userInfo.userEmail,
                             });
                             // 바뀐 나의 채팅방리스트(친구끊으면 채팅방소멸) 호출 및 redux 갱신
-                            const roomList = chatRoomLst(myInfo.userEmail)
-                            console.log(roomList)
-                            roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
-                            
+                            const roomList = chatRoomLst(myInfo.userEmail);
+                            console.log(roomList);
+                            roomList.payload.then((res) =>
+                                dispatch({ type: roomList.type, payload: res })
+                            );
                         }}
                         cursor="pointer"
-                        sx={{position:"absolute", right:"0.8vw", top:"16.5vh", color:"gray",opacity:"0.4"}}
+                        sx={{
+                            position: "absolute",
+                            right: "0.8vw",
+                            top: "16.5vh",
+                            color: "gray",
+                            opacity: "0.4",
+                        }}
                     />
                     <SendIcon
                         color="#e7e7e7"
                         onClick={() => {
-                                // 방만드는 aioxs함수 호출
-                                MakeChat({
-                                    userEmail: myInfo.userEmail,
-                                    friendEmail: userInfo.userEmail,
-                                })
+                            // 방만드는 aioxs함수 호출
+                            MakeChat({
+                                userEmail: myInfo.userEmail,
+                                friendEmail: userInfo.userEmail,
+                            });
 
-                                // 바뀐 나의 채팅방리스트(채팅방 추가) 호출 및 redux 갱신
-                                const roomList = chatRoomLst(myInfo.userEmail)
-                                roomList.payload.then((res) => dispatch({ type: roomList.type, payload: res }))
-                                
-                                // chattingFtb Open
-                                dispatch({
-                                    type: "ChatBtnUpdate",
-                                    payload: true,
-                                });
+                            // 바뀐 나의 채팅방리스트(채팅방 추가) 호출 및 redux 갱신
+                            const roomList = chatRoomLst(myInfo.userEmail);
+                            roomList.payload.then((res) =>
+                                dispatch({ type: roomList.type, payload: res })
+                            );
+
+                            // chattingFtb Open
+                            dispatch({
+                                type: "ChatBtnUpdate",
+                                payload: true,
+                            });
                         }}
                         cursor="pointer"
+                        sx={{ 
+                            rotate: "-45deg",
+                            // color: "white" 
+                        }}
                     />
                 </>
             }

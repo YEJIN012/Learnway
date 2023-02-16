@@ -18,7 +18,8 @@ const Frame = styled.div`
     margin: 0 auto;
     &:hover{  
         border-bottom: .08rem solid #615E5F;
-    }
+    };
+    cursor:"pointer";
 `;
 
 //youtube resultcomponent와 동일(공통으로 묶기)

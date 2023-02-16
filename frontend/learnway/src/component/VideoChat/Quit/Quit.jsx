@@ -1,4 +1,5 @@
 import { TabUnselectedOutlined } from "@mui/icons-material";
+import { useTranslation } from 'react-i18next';
 import React, {useState} from "react";
 import styled from "styled-components";
 import TFBtnSet from "../CommonComponent/TFBtnSet";
@@ -40,6 +41,8 @@ const Ref = styled.a`
 
 function Leave({getQuitFlag}) {
     const [quitFlag, setQuitFlag] = useState(0);
+    const { t } = useTranslation();
+
     function quit(){
         setQuitFlag(1);
         console.log(quitFlag)
@@ -48,15 +51,15 @@ function Leave({getQuitFlag}) {
     getQuitFlag(quitFlag);
     return (
         <CommonFrame 
-            header={<Title title={"Quit"}></Title>} 
+            header={<Title title={t('Quit')}></Title>} 
             body={
                 <Frame>
                     <Picture src={ImgBye}></Picture>
+                    <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
                     
-                <Msg>Do  you want to leave random matching?</Msg>
+                <Msg>{t('Do you want to leave random matching?')}</Msg>
                 <AllButton  onClick={quit} id ="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="OK"/>
                 {/* <Button onClick={quit} id ="4" radius={"5px"} width={"5vw"} height={"2vw"} fontSize={"1vw"} textValue="OK"></Button> */}
-                <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
                 </Frame>
             }>
         </CommonFrame>

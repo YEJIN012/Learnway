@@ -1,0 +1,65 @@
+{
+   "data" : [
+      {
+         "name":"한국어",
+         "url":"flag/Korean.png",
+         "code":"ko"
+      },
+      {
+         "name":"English",
+         "url":"flag/English.png",
+         "code":"en"
+      },
+      {
+         "name":"日本語",
+         "url":"flag/Japanese.png",
+         "code":"ja"
+         
+      },
+      {
+         "name":"中文",
+         "url":"flag/Chinese.png",
+         "code":"cn"
+      },
+      {
+         "name":"Español",
+         "url":"flag/Spanish.png",
+         "code":"es"
+      },
+      {
+         "name":"Français",
+         "url":"flag/French.png",
+         "code":"fr"
+      },
+      {
+         "name":"Tiếng Việt",
+         "url":"flag/Vietnamese.png",
+         "code":"vi"
+      },
+      {
+         "name":"แบบไทย",
+         "url":"flag/Thai.png",
+         "code":"th"
+      },
+      {
+         "name":"Bahasa Indonesia",
+         "url":"flag/Indonesian.png",
+         "code":"id"
+      },
+      {
+         "name":"Русский",
+         "url":"flag/Russian.png",
+         "code":"ru"
+      },
+      {
+         "name":"Deutsch",
+         "url":"flag/German.png",
+         "code":"de"
+      },
+      {
+         "name":"Italiano",
+         "url":"flag/Italian.png",
+         "code":"it"
+      }
+   ]
+}

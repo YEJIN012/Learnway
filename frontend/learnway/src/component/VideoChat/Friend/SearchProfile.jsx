@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 import axios from "axios";
 import ProfileCard from "../../ui/ProfileCard";
@@ -59,6 +60,8 @@ const TimeUl = styled.ul`
 
 // Friend 말고 상대방 프로필로 함수명 바꿔야할듯..
 function SearchProfile(props) {
+    const { t } = useTranslation();
+
     // 내정보
     const myInfo = useSelector(state => state.AuthReducer);
     // 상대방 정보
@@ -90,14 +93,14 @@ function SearchProfile(props) {
                 const data = res.data;
                 console.log(data);
                 if (data.status === 200) {
-                    alert("친구 추가 성공");
+                    alert(t('Add Friends Successfully'));
                     getFriendCnt(props.user)
                 } else {
-                    alert("친구 추가 실패 " + String(data.status));
+                    alert(t('Failed to add friends') + String(data.status));
                 }
             })
             .catch(function (err) {
-                alert("친구 추가 에러");
+                alert(t('A network error has occurred. The request has failed.'));
             });
     }
     
@@ -162,9 +165,9 @@ function SearchProfile(props) {
         <ProfileCard
             className = "timeline"
             header={
-                <>
+                <div style={{overflow:"auto"}}>
                     <ProfileHeader>
-                        <ProfileImg src={userInfo.img} width={"10vw"}></ProfileImg>
+                        <ProfileImg src={userInfo.img} width={"8vw"}></ProfileImg>
                         <PersonAddIcon
                             onClick={() => addFriend(myInfo.userEmail, props.user)}
                             cursor="pointer"
@@ -178,11 +181,11 @@ function SearchProfile(props) {
                         <UserName>{userInfo.name}</UserName>
                         
                     </ProfileHeader>
-                </>
+                </div>
             }
             // name={userInfo.name}
             body={
-                <>  
+                <div>  
                     <TimeUl>
                         <TimeLi>
                             <InputGroup
@@ -315,7 +318,7 @@ function SearchProfile(props) {
                         radius="15px"
                         margin="0px"
                         onClick={() => addFriend(myInfo.userEmail, props.user)} /> */}
-                </>
+                </div>
             }
             width="39vw"
             height="90vh"

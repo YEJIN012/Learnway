@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { setRefreshToken } from "../utils/Cookie";
@@ -13,6 +14,8 @@ export default function LoginCheck()  {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const flag = searchParams.get("flag");
+
+  const { t } = useTranslation();
   
   useEffect (() => {
     
@@ -29,22 +32,23 @@ export default function LoginCheck()  {
           provider: provider,
           providerId: providerId,
         }
-        alert("💑Welcome💑")
+        alert(t('💑Welcome💑'))
         navigate('/googlesignup', {state: data});
     } else { 
     // 구글 로그인 가입자면 토큰을 받아오고
         const catchaccessToken = searchParams.get("accessToken");
         const catchrefreshToken = searchParams.get("refreshToken");
-        
         // 회원 정보를 조회하여 스토어에 회원 정보를 넣고 토큰을 저장
         const userInfo = findUserInfo({userEmail: userEmail})
         userInfo.payload
-          .then((res) => dispatch({type: userInfo.type, payload: res.user}))
-        setRefreshToken(catchrefreshToken);
-        const getaccessToken = accessToken({accessToken: catchaccessToken});
-        dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
+          .then((res) => {
+            dispatch({type: userInfo.type, payload: res.user})
+            setRefreshToken(catchrefreshToken);
+            const getaccessToken = accessToken({accessToken: catchaccessToken});
+            dispatch({type: getaccessToken.type, payload: getaccessToken.payload});
+          })
 
-        alert("🤗🤗Good to see you again🤗🤗")
+        alert(t('🤗🤗Good to see you again🤗🤗'))
         // 성공했으면 메인 페이지로 이동
         navigate(`/`)
       }

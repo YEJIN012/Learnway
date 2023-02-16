@@ -3,13 +3,19 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
+import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
+const NoFriend = styled.div`
+    font-size:1vw;`
 function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)
     console.log(deletedFriend)
 
     const store = useSelector((state) => state.AuthReducer);
+
+    const { t } = useTranslation();
 
     // const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const [status, setStatus] = useState("");
@@ -18,7 +24,7 @@ function FriendList(props) {
     async function getFriendList() {
         try{
             const res = await axios.get(
-                "api/friend/list",
+                "/api/friend/list",
                 { params: { userEmail: store["userEmail"]}})
             // handle success
             console.log("getFriendList");
@@ -41,8 +47,7 @@ function FriendList(props) {
             elevation={3}
             children={
                 <div>
-                    "Make new friends who can have language exchange constantly
-                    through our Learnway😉"
+                    {t('Make new friends who can have language exchange constantly through our Learnway')}
                 </div>
             }
             sx={{
