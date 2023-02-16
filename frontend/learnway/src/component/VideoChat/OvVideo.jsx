@@ -5,8 +5,8 @@ import { delay, motion } from "framer-motion";
 const Video = styled.video`
 ${props=> props.pubsub === 'pub'
 }
-    width:inherit;
-    height:inherit;
+    width:800px !important;
+    height:600px: important;
 `;
 
 const LargeVodFrame = styled(motion.video)`
@@ -16,12 +16,12 @@ height: auto;
 
 `};
 ${props=> props.fixSizeId === 4 && css`
-width:30vw;
+width:30vw !important;
 height:auto;
 margin:1vw 2vw 1vw 1vw;
 `}
 ${props=>(props.fixSizeId >= 0 && props.fixSizeId <= 3)&& css`
-width:40vw;
+width:40vw !important;
 height:auto;
 margin:1vw 1vw 1vw 1vw;
 `}
@@ -38,19 +38,19 @@ position:fixed;
 z-index:1;
 top:3vw;
 left:10vw;
-width:20vw;
+width:20vw !important;
 height:auto;
 
 `}
 ${props=> props.fixSizeId === 4 && css`
 position:unset;
-width:30vw;
+width:30vw !important;
 height:auto;
 margin:1vw 2vw 1vw 1vw;
 `}
 ${props=>(props.fixSizeId >= 0 && props.fixSizeId <= 3)&& css`
 position:unset;
-width:40vw;
+width:40vw !important;
 height:auto;
 margin:1vw 1vw 1vw 1vw;
 `}

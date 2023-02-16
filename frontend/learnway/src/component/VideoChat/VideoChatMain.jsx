@@ -154,6 +154,7 @@ class VideoChatMain extends Component {
       this.setState({
         menu: 9,
       });
+   
     } else {
       this.setState({
         menu: menuid,
@@ -215,7 +216,9 @@ class VideoChatMain extends Component {
   }
 
 onbeforeunload(event) {
-   this.leaveSession();
+  event.preventDefault();
+  event.returnValue='';
+   //this.leaveSession();
  }
 
  handleChangeUserName(e) {
@@ -282,24 +285,27 @@ onbeforeunload(event) {
         // On every new Stream received...
         mySession.on("streamCreated", (event) => {
           console.log("event" + event);
-          // Subscribe to the Stream to receive it. Second parameter is undefined
-          // so OpenVidu doesn't create an HTML video by its own
-          var subscriber = mySession.subscribe(event.stream, undefined);
-          var subscribers = this.state.subscribers;
-          subscribers.push(subscriber);
-          
-          //여기 부분 레코드 시작 함수
-          if(this.state.recorder === 'true' && this.state.isStop === false){
-            console.log("음성 레코드 시작", this.state.isStop);
-            this.startRecording();
-          }
-          console.log(this.state.subscribers)
-          // Update the state with the new subscribers
-          this.setState({
-            subscribers: subscribers,
-          });
-        });
+          if((this.state.subscribers).length < 1){
+            // Subscribe to the Stream to receive it. Second parameter is undefined
+            // so OpenVidu doesn't create an HTML video by its own
+            var subscriber = mySession.subscribe(event.stream, undefined);
+            var subscribers = this.state.subscribers;
+            subscribers.push(subscriber);
 
+            
+            //여기 부분 레코드 시작 함수
+            if(this.state.recorder === 'true' && this.state.isStop === false){
+              console.log("음성 레코드 시작", this.state.isStop);
+              this.startRecording();
+            }
+            console.log(this.state.subscribers)
+            // Update the state with the new subscribers
+            this.setState({
+              subscribers: subscribers,
+            });
+          }
+          });
+          
         // On every Stream destroyed...
         mySession.on("streamDestroyed", (event) => {
           // Remove the stream from 'subscribers' array
