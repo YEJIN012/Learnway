@@ -396,7 +396,7 @@ onbeforeunload(event) {
     const mySession = this.state.session;
 
     //내가 나갔을 때 녹화 종료
-    if(this.state.recorder === 'true'&& this.state.isStop === 'false'){
+    if(this.state.recorder === 'true'&& this.state.isStop === false){
       console.log("음성 녹화 종료:내가 나감")
       this.stopRecording();
     }
