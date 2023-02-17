@@ -21,19 +21,24 @@
 
 ## III. 주요 기능
  - 회원 가입 및 소셜 로그인
+ 
  - 대화 하고 싶은 언어 선택
+ 
  - **유저 취향, 선택 언어 등을 고려**하여 최적의 대화 가능한 유저들 중  **랜덤 매칭**
+ 
  - 화상 통화 중 **여러 부가서비스 제공**
 	- YouTube 동시 시청 
 	- 실시간 번역 기능
 	- 대화 중 친구의 프로필 조회 및 친구 추가 기능 
-	 -악성 유저 신고 기능 
+	 - 악성 유저 신고 기능 
 	 - 화상 통화를 안전하게 끝낼 수 있는 기능
+	 
 - 친구로 등록된 사용자와의 **채팅** 기능
+
 - 마이페이지에서 **친구와의 대화 스크립트 제공**으로 언어 복습 및 다시 들어보기 기능
 
 ## IV. 기술
-- Back End
+- **Back End**
 	- nginx
 	- docker
 	- Openvidu
@@ -48,7 +53,7 @@
 	- Stomp
 	- Sweager
 
-- Front End
+- **Front End**
 	- React
 	- Redux
 	- react-Stomp
@@ -72,7 +77,7 @@
 	- 업무 할당량 정하여 Story Point 설정, In Progress > Done 순으로 작성
 - GitLab 
 	- 코드 버전 관리
-	- 이슈 발행	
+	- 이슈 발행	및 관리
 
 ## VII. 프로젝트 결과물
 - Wireframe ( Figma )
@@ -84,20 +89,35 @@
 - 최종 발표 자료
 
 ## VIII. 서비스 화면
-- Demo Video
+- Service Flow Demo Video
 
-
+- intro
+![intro](https://user-images.githubusercontent.com/57744586/219590225-0ad161ae-d250-4bac-80d4-4b9cb34749d4.gif)
 - 회원가입
 	- 일반 회원가입
 		이메일 주소 인증 기반 회원가입
 		영문, 숫자, 특수문자 포함 8문자 이상 패스워드 규칙 설정
 		대화와 매칭에 필요한 취향 최소 3개 이상 설정 가능
-		나의 언어 설정 가능
-		
-	- 소셜 로그인
+		나의 언어, 취향 설정 가능
+		![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
 
-- 
+	- 소셜 로그인(Google)
+	
+- 메인페이지 (사이트 언어 설정 및 매칭 시작)
+![camcheck](https://user-images.githubusercontent.com/57744586/219592063-bc860d40-e7bf-46b1-8d8c-6c84c2667861.gif)
 
+- 매칭 대기 페이지
 
+- 매칭 완료 페이지(상대방의 프로필이 보여진다.)
 
+- 화상 통화 페이지
+	- 부가서비스(유튜브)
+	- 부가서비스(번역)
+	- 부가서비스(상대 프로필 보기 및 친구추가)
+	- 부가서비스(신고)
+	- 화상 통화 나가기(종료)
 
+- 마이페이지(내 프로필 수정)
+- 친구 목록 보기  ![friend](https://user-images.githubusercontent.com/57744586/219590211-1f91cf4a-7c89-4219-a83c-3cea65e8e75a.gif)
+- 채팅
+- 화상 통화 중 녹음된 대화 스크립트 보기 및 음성재생
