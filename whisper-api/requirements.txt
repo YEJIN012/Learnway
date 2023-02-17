@@ -1,0 +1,3 @@
+flask
+whisper
+pyannote.audio

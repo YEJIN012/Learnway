@@ -1,34 +1,19 @@
 # ==== CONFIGURE ====
-From node:18-alpine AS builder
+From node:18-alpine 
 WORKDIR /app
 COPY . .
 
-# ==== BUILD ====
-RUN npm ci
-RUN npm run build
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# Bundle static assets with nginx
-FROM nginx:1.21.0-alpine as production
-ENV NODE_ENV production
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install
 
-RUN mkdir react
+# add app
+COPY . ./
 
-WORKDIR /react
-
-RUN mkdir ./build_file
-
-#Copy built assets from `builder` image
-COPY --from=builder /app/build ./build_file
-
-# Add nginx.conf
-COPY nginx.conf /etc/nginx/nginx/nginx.conf
-
-# Add default.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
-
-# Expose port
-EXPOSE 3000
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# start app
+CMD ["npm", "start"]    
 

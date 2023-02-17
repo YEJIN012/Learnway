@@ -27,7 +27,9 @@ function ScriptsAccordions(props) {
     };
 
     if (studyList) {
-        return studyList.map((study, index) => (
+        return studyList.map((study, index) => {
+            if(study.script !==null) {
+            return (
             <Accordion
                 key={index}
                 expanded={expanded === `panel${index}`}
@@ -92,7 +94,7 @@ function ScriptsAccordions(props) {
                     </Typography>
                 </AccordionDetails>
             </Accordion>
-        ));
+        )}});
     }
 }
 
