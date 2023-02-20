@@ -23,6 +23,9 @@ const BtnFrame = styled.div`
   margin-bottom: 20px;  
 `;
 
+const InputForm = styled.form`
+
+`;
 
 export default function FindPwd(){
   const [email, setEmail] = useState("");
@@ -98,7 +101,7 @@ export default function FindPwd(){
               onClick={chkAuthcode}
              />
           </InputbtmFrame>
-          <form onSubmit={handleSubmit}>
+          <InputForm onSubmit={handleSubmit}>
             {
               auth === true
               ? (
@@ -130,7 +133,7 @@ export default function FindPwd(){
               )
               : null
             }
-          </form>
+          </InputForm>
         </>
         : <ChangePwd email={email} />
       } height = {"550px"}

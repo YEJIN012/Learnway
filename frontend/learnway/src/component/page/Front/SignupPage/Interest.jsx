@@ -12,6 +12,6 @@ export default function Interest({
     const itdata = useSelector(state => state.UserInfoReducer.interests)
     
     return (
-            <InterestSelect flag={flag} userinfo={userinfo} itdata={itdata} handleclose={handleclose} ChangeInterest={ChangeInterest}></InterestSelect>
+            <InterestSelect flag={flag} userinfo={userinfo} itdata={itdata} handleclose={handleclose} ChangeInterest={ChangeInterest} />
     );
 }

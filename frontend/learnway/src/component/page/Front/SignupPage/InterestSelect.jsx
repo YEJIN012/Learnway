@@ -37,6 +37,10 @@ const Restriction = styled.div`
 `;
 
 
+const InputForm = styled.form`
+
+`;
+
 export default function InterestSelect({
     flag,
     ChangeInterest,
@@ -54,7 +58,6 @@ export default function InterestSelect({
     let [lst, setLst] = useState(initLst);
 
     let itobj = [];
-    let j = 0
     let itlst2 = [];
     let tmp = []
     for (let i=0; i < itdata.length-1; i++) {
@@ -150,7 +153,7 @@ export default function InterestSelect({
         }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <InputForm onSubmit={handleSubmit}>
             <SelectFrame >
                 {itdata !== ""
                     ? itdata.map((e, idx) => {
@@ -187,7 +190,7 @@ export default function InterestSelect({
                     <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px"  />
                 </Frame>
             )}
-        </form>
+        </InputForm>
     );
 }
 

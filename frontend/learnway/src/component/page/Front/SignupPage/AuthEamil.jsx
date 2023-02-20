@@ -13,6 +13,10 @@ const InputbtmFrame = styled.div`
   align-items: flex-end;
 `;
 
+const InputForm = styled.form`
+
+`;
+
 
 export default function AuthEamil({getEmail}) {
   const [email, setEmail] = useState("");
@@ -30,7 +34,6 @@ export default function AuthEamil({getEmail}) {
     // request("get", URL + `?user_email=${email}`, email)
       .then ((res) => {
         const status = res.status;
-        const msg = res.msg;
         if (status === 200) {
           setAuth(true)                  
         } else if (status === 202) {
@@ -90,7 +93,7 @@ export default function AuthEamil({getEmail}) {
           onClick={chkAuthcode}
           />
       </InputbtmFrame>
-      <form onSubmit={handleSubmit}>
+      <InputForm onSubmit={handleSubmit}>
         {
           auth === true
           ? (
@@ -125,7 +128,7 @@ export default function AuthEamil({getEmail}) {
           )
           : null
         }
-      </form>
+      </InputForm>
     </>
   )
 };
