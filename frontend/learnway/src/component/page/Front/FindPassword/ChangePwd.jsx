@@ -13,6 +13,16 @@ const BtnFrame = styled.div`
   margin-bottom: 20px;  
 `;
 
+const PwReChk = styled.span`
+color: #ff0000;
+font-size: 0.1vw;
+margin-left: 3vw;
+`;
+
+const InputForm = styled.form`
+
+`;
+
 export default function ChangePwd({email}) {
   const navigate = useNavigate()
   
@@ -27,6 +37,22 @@ export default function ChangePwd({email}) {
       setDisabled(false)
     }
   },[newPwd,confirmNewPwd])
+
+  function pwRuleChk(str){
+    //영어 숫자 특수문자 혼합 8문자 이상 
+    const pattern_eng = /[a-zA-Z]/;
+    const pattern_num = /[0-9]/;
+    const pattern_spec = /[~!@#$%^&*()_+|<>?:{}]/;
+    if(str==="" || (str.length > 8 && ((pattern_spec.test(str))&&(pattern_num.test(str))&&(pattern_eng.test(str)))))
+    {
+      console.log("settt")
+      return(null)
+    }
+    else{
+      return(<PwReChk style={{ fontSize: "10px"}}>Set password more than 8 characters including special character</PwReChk>)
+    }
+  }
+
 
   // 비밀번호와 비밀번호 확인이 같으면 비밀번호 수정 후, login 페이지 이동
   const handleSubmit = async (e) => {
@@ -54,27 +80,26 @@ export default function ChangePwd({email}) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <InputForm onSubmit={handleSubmit}>
       <InputBox 
         id="New Password" 
         type="password" 
         title={t('New Password')} 
         placeholder="********" 
         value={newPwd} 
-        onChange={(e) => {
-          setNewPwd(e.target.value)}}
+        onChange={(e) => setNewPwd(e.target.value)}
         icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
-        margin = "30px 0px 40px 0px"
-      ></InputBox>
+        margin = "30px 0px 0px 0px"
+      />
+        {pwRuleChk(newPwd)}
       <InputBox 
         id="Confirm New Password" 
         type="password" 
         title={t('Confirm New Password')}
         placeholder="********" 
         value={confirmNewPwd} 
-        onChange={
-          (e) => {setConfirmNewPwd(e.target.value)}}
-        icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
+        onChange={(e) => setConfirmNewPwd(e.target.value)}
+        icon= {<LockOpenIcon sx={{margin: "40px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />} 
       />
       <BtnFrame>
         <Button
@@ -89,6 +114,6 @@ export default function ChangePwd({email}) {
           disabled={disabled}
         />
       </BtnFrame>
-    </form>
+    </InputForm>
   )
 }

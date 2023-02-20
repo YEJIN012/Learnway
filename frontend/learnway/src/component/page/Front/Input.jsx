@@ -48,6 +48,7 @@ export default function InputBox({
     backgroundColor,
     border,
     max,
+    focus,
 }) {
     return (
         <InputFrame margin={margin}>
@@ -77,6 +78,7 @@ export default function InputBox({
                     border={border}
                     max={max}
                     ime-mode="inactive"
+                    focus={focus}
                 />
             </InputIcon>
         </InputFrame>

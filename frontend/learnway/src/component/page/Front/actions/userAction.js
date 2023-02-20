@@ -38,7 +38,9 @@ export function registerUser(dataToSubmit) {
 // 로그인
 export function loginUser(dataToSubmit) {
   const URL = USER_URL + `/login?userEmail=${dataToSubmit.userEmail}&userPwd=${dataToSubmit.userPwd}`;
+  console.log(dataToSubmit)
   const data = request("get", URL , dataToSubmit);
+  console.log(data)
   return {
     type: LOGIN_USER,
     payload: data,

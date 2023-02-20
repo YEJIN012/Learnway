@@ -41,8 +41,6 @@ export default function AuthReducer(state = userInfo, action) {
             state = userInfo
             return state;   
           
-        // case AUTH_USER:
-        //   return { ...state, userData: action.payload };
         default:
             return state;
     };

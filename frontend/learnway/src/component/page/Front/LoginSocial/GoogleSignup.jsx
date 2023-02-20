@@ -35,6 +35,9 @@ const Frame = styled.div`
   margin-bottom: 20px;  
 `;
 
+const InputForm = styled.form`
+
+`;
 
 
 export default function GoogleSignup() {
@@ -99,7 +102,7 @@ export default function GoogleSignup() {
         ? (
           <>
           <Frame><NavLink to = "/login">{t('Login')}</NavLink></Frame>
-          <form onSubmit={handleSubmit}>
+          <InputForm onSubmit={handleSubmit}>
             <InputBox id="username" type="txt" title={t('User Name(ENG)')} placeholder={username} value={username} disabled={true} inputWidth="300px" margin="20px 0px 10px 0px"
               icon= {<AccountCircleIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
@@ -138,7 +141,7 @@ export default function GoogleSignup() {
             <Frame>
               <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue={t('Next')} margin="30px 0px 50px 0px" disabled= {disabled} />
             </Frame>
-          </form>
+          </InputForm>
           </>
         )
         : <Interest userinfo={userinfo}></Interest>

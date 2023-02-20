@@ -11,7 +11,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import AllButton from "../../../ui/AllButton";
 
 const CheckBoxFrame = styled.div`
-  text-align : right;
+  text-align: right;
   margin-top: 15px;
 `;
 
@@ -21,6 +21,10 @@ const BtnFrame = styled.div`
   border: 0px;
   display: flex;
   justify-content: space-between;
+`;
+
+const InputForm = styled.form`
+
 `;
 
 export default function LoginForm () {
@@ -36,7 +40,7 @@ export default function LoginForm () {
     e.preventDefault();
     let body = {
       userEmail: email,
-      userPwd: pw
+      userPwd: pw,
     };
     const userInfo = loginUser(body)
     userInfo.payload
@@ -66,7 +70,7 @@ export default function LoginForm () {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <InputForm onSubmit={handleSubmit}>
             <InputBox
                 id="id"
                 type="email"
@@ -85,9 +89,7 @@ export default function LoginForm () {
                 title={t('Password')}
                 placeholder="********"
                 color="primary"
-                onChange={(e) => {
-                    setPwd(e.target.value);
-                }}
+                onChange={(e) => setPwd(e.target.value)}
                 value={pw}
                 icon= {<LockOpenIcon sx={{margin: "0px 5px 8px 5px", color: "#615e5f", opacity: "0.5"}}  />}
             />
@@ -117,6 +119,6 @@ export default function LoginForm () {
                     onClick={() => navigate("/signup")}
                 />
             </BtnFrame>
-        </form>
+        </InputForm>
     );
 };

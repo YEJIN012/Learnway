@@ -10,6 +10,7 @@ import { interestLst, languageLst } from './actions/userAction';
 import BGIntro from './introbackground/BGIntro';
 import Welcome from './Welcome';
 import AllButton from '../../ui/AllButton';
+
 const LeftSide = styled.div`
   width: 100%;
   height: 100%;
@@ -56,14 +57,14 @@ const Ref = styled.a`
 
 export default function Intro() {
   return (
-    <div>
+    <>
       <LeftBox></LeftBox>
       <Welcome />
       <Picture src={logo}></Picture>
       <Btn />
       <BGIntro />
       <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
-    </div>
+    </>
   )
 }
 

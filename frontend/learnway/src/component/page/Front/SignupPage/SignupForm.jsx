@@ -28,6 +28,16 @@ const Frame = styled.div`
   margin-bottom: 30px;
 `;
 
+const InputForm = styled.form`
+
+`;
+
+const PwReChk = styled.span`
+color: #ff0000;
+font-size: 0.1vw;
+margin-left: 3vw;
+`;
+
 export default function SignupForm({getUserinfo}) {
 
   // 언어정보 받아오기
@@ -43,21 +53,15 @@ export default function SignupForm({getUserinfo}) {
   const [msg, setMsg] = useState("");
   const { t } = useTranslation();
 
-  const PwReChk = styled.span`
-    color: #ff0000;
-    font-size: 0.1vw;
-    margin-left: 3vw;
-  `;
   // 이메일 인증이 되면 email 갱신
   const getEmail = (email) => {
     setEmail(email)
-  
-  }
+  };
 
 
   // 닉네임이 중복되지 않으면 들어오면 Next button 활성화
   useEffect(() => {
-    if (msg === t("What a great name.")) {
+    if (msg === t("What a great name.") && email) {
       setDisabled(false)
     } else {
       setDisabled(true)
@@ -83,17 +87,18 @@ export default function SignupForm({getUserinfo}) {
   function pwRuleChk(str){
     //영어 숫자 특수문자 혼합 8문자 이상 
     const pattern_eng = /[a-zA-Z]/;
+    const pattern_num = /[0-9]/;
     const pattern_spec = /[~!@#$%^&*()_+|<>?:{}]/;
-    if(str==="" || (str.length > 8 && ((pattern_spec.test(str))&&(pattern_eng.test(str)))))
+    if(str==="" || (str.length > 8 && ((pattern_spec.test(str))&&(pattern_num.test(str))&&(pattern_eng.test(str)))))
     {
       console.log("settt")
       return(null)
     }
     else{
-      return(<PwReChk>Set password more than 8 characters including special character</PwReChk>)
+      return(<PwReChk style={{ fontSize: "10px"}}>Set password more than 8 characters including special character</PwReChk>)
     }
   }
-  console.log(pw)
+
   // form에 값이 다 들어와서 Next Button을 누르면 부모 컴포넌트에 모든 값을 emit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -139,23 +144,23 @@ export default function SignupForm({getUserinfo}) {
   };
 
   return(
-      <div>
-        <AuthEamil getEmail = {getEmail}></AuthEamil>
-        <form onSubmit={handleSubmit}>
+      <>
+        <AuthEamil getEmail = {getEmail} />
+        <InputForm onSubmit={handleSubmit}>
           <InputBox id="username" type="txt" title={t('User Name(ENG)')} placeholder="bingbing" value={username} inputWidth="300px" inputHeight="25px" margin="10px 0px 10px 0px" onChange={(e) => {setUsername(e.target.value)}}
             icon= {<AccountCircleIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
           <Stack sx={{ width: '100%' }} spacing={2}>
-            { disabled
+            { msg !== t("What a great name.")
               ?<Alert sx={{ fontWeight: "700", color: "red", fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert> 
               :<Alert sx={{ fontSize: "5px", opacity: "0.7", justifyContent: "right", padding: "0px" ,margin: "0px 8px 0px 0px" }} severity="warning">{msg}</Alert>
             }
           </Stack>
-          <InputBox id="password" type="password" title={t('Password')} placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} focus={pwRuleChk(pw)}margin="0px 0px 10px 0px" inputWidth="300px" inputHeight="25px"
+          <InputBox id="password" type="password" title={t('Password')} placeholder="********" value={pw} onChange={(e) => {setPw(e.target.value)}} focus={pwRuleChk(pw)} margin="0px" inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
           />
             {pwRuleChk(pw)}
-          <InputBox id="confirmPw" type="password" title={t('Confirm Password')} placeholder="********" value={confirmPw} margin="10px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
+          <InputBox id="confirmPw" type="password" title={t('Confirm Password')} placeholder="********" value={confirmPw} margin="20px 0px 10px 0px" onChange={(e) => {setconfirmPw(e.target.value)}} inputWidth="300px" inputHeight="25px"
             icon= {<LockOpenIcon sx={{margin: "0px 5px 3px 5px", color: "#615e5f", opacity: "0.5"}} />} 
             />
           <InputFrame >
@@ -169,7 +174,7 @@ export default function SignupForm({getUserinfo}) {
           <Frame>
             <Button id= "0" width="185px" height="35px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px" disabled= {disabled} />
           </Frame>
-        </form>
-      </div>
+        </InputForm>
+      </>
   )
 }
