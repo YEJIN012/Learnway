@@ -89,7 +89,6 @@ function NavBar(params) {
                 <MenuBtn onClick={Logout}>
                     {t('Logout')}
                 </MenuBtn>
-                {/* <img style={{position:"absolute", marginTop:'3vw',right:'1.6vw'}}src={blueAirplane} alt="" /> */}
                 <LanguageBar />
             </Menu>
         </Wrapper>

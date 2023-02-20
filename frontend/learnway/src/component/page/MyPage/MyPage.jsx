@@ -11,7 +11,6 @@ function Mypage() {
             <ChatBtn></ChatBtn>
             <NavBar />
             <MyPageTab/>
-            {/* 배경 추가 스크롤 생김...... 삭제해도됨*/}
             <BGAll id={1}></BGAll> 
         </>
     );

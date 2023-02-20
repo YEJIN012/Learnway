@@ -2,15 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Stomp from "stompjs";
 import SockJS from "sockjs-client";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import UserProfile from "./UserProfile";
 import ChatText from "./ChatText";
 import axios from "axios";
 import iconimg from "../chat/send.png";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import SendIcon from "@mui/icons-material/Send";
 import "./ChatScroll.css";
-import { border, color } from "@mui/system";
 
 const RoomFrame = styled.div`
     display: flex;
@@ -22,6 +20,7 @@ const List = styled.ul`
     list-style: none;
     padding-left: 0px;
 `;
+
 const Head = styled.div`
     display: flex;
     justify-content: start;
@@ -29,47 +28,23 @@ const Head = styled.div`
     padding-top: 1.5vh;
     align-items: flex-end;
 `;
+
 const Body = styled.div`
     width: inherit;
     height: 80%;
     overflow: scroll;
-`;
-const InputBox = styled.input`
-    width: inherit;
-    height: 10%;
-    border-radius: 30%;
-    // border:solid 1px black;
-`;
-
-//검색버튼(유튜브와 공통 컴포넌트)
-const SearchBox = styled.div`
-    width: inherit;
-    height: 3vw;
-    margin: 1vw 0.3vw 1vw 0.3vw;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    align-items: center;
-    // border:solid 1px black;
 `;
 
 const InputFrame = styled.div`
     box-sizing: border-box;
     width: 20vw;
     min-width: 200px;
-    /* height: 40px; */
-    /* margin: 0.5vw 0.2vw 0.5vw 0.2vw; */
     padding: 1.5vh 1vw 2vh 1vw;
     display: grid;
     grid-template-columns: 10fr 1fr;
-    /* flex-direction: row; */
 `;
 
 const Input = styled.input`
-    /* width: 19vw;
-    /* min-width: 24.95px; */
-    /* height: 2.5vw;
-    /* margin: 0.5vw 0.2vw 0.5vw 0.2vw; */
     margin: 0vw 2px 0vw 0vw;
     border-radius: 50px;
     background: #EFEFEF;
@@ -77,12 +52,11 @@ const Input = styled.input`
     padding-left:5%;
     &:focus {
         outline: none;
-        // background: #73A0C6
     }
 `;
 
 
-const Searchbtn = styled.div`
+const Sendbtn = styled.div`
     width: 26px;
     height: 24px;
     background-image: url(${(props) => props.url || ""});
@@ -90,14 +64,10 @@ const Searchbtn = styled.div`
     padding-bottom: 0.1vw;
     border-radius: 50px;
     &:hover {
-        /* box-shadow: 1px 2px 10px #a4a4a4; */
         filter:grayscale(90%);
     }
     cursor: pointer;
 `;
-
-
-//검색 공통 컴포넌트 끝
 
 
 function Chatroom(props) {
@@ -262,7 +232,6 @@ function Chatroom(props) {
                     ))}
                 </List>
             </Body>
-            {/* <SearchBox> */}
             <InputFrame>
                 <Input
                     id="queryBox"
@@ -274,14 +243,13 @@ function Chatroom(props) {
                     value={text}
                     onKeyPress={onKeyPress}
                 ></Input>
-                <Searchbtn
+                <Sendbtn
                     url={iconimg}
                     onClick={() => {
                         sendMsg();
                     }}
-                ></Searchbtn>
+                ></Sendbtn>
             </InputFrame>
-            {/* </SearchBox> */}
         </RoomFrame>
     );
 }

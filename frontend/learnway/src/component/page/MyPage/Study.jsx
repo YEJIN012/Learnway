@@ -77,17 +77,6 @@ function Study(props) {
             value={value} // 선택된 일자
             showNeighboringMonth={false}
             tileClassName={"tile-default"}
-            // tileClassName={({ date }) => {
-            //     // 해당 달의 일자에만 표시
-            //     const day = moment(date).format("YYYY-MM-DD");
-            //     if (day in mark) {
-            //         if (mark[day] < 3) {
-            //             return "highlight-low";
-            //         } else if (mark[day] >= 3) {
-            //             return "highlight-high";
-            //         }
-            //     }
-            // }}
             tileContent={({ date }) => {
                 // 해당 달의 일자에만 표시
                 const day = moment(date).format("YYYY-MM-DD");

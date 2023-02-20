@@ -4,10 +4,7 @@ import axios from "axios";
 import Paper from "@mui/material/Paper";
 import FriendListItem from "./FriendListItem";
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
-const NoFriend = styled.div`
-    font-size:1vw;`
 function FriendList(props) {
     const { handleSelectedFriend, deletedFriend } = props;
     console.log(deletedFriend)
@@ -17,7 +14,6 @@ function FriendList(props) {
 
     const { t } = useTranslation();
 
-    // const [friends, setFriends] = useState(""); // 친구들의 이메일Array
     const [status, setStatus] = useState("");
     const [friendsProfile, setFriendsProfile] = useState([]);
 
@@ -26,7 +22,6 @@ function FriendList(props) {
             const res = await axios.get(
                 "/api/friend/list",
                 { params: { userEmail: store["userEmail"]}})
-            // handle success
             console.log("getFriendList");
             console.log(res.data.friendProfileList);
             setFriendsProfile(res.data.friendProfileList);
