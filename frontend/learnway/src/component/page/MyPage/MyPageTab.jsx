@@ -30,9 +30,6 @@ function MyPageTab() {
                             id="6"
                             textValue={t(title)}
                             onClick={() => setContent(title)}
-                            // fontSize="90%"
-                            // width="18vw"
-                            // height="5vh"
                         />
                      : 
                         <Button
@@ -40,9 +37,6 @@ function MyPageTab() {
                             id="7"
                             textValue={t(title)}
                             onClick={() => setContent(title)}
-                            // fontSize="90%"
-                            // width="18vw"
-                            // height="5vh"
                         />
                 )}
             </BtnWrapper>

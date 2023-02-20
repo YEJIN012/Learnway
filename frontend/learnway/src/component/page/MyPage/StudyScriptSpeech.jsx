@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Pause, PlayArrow } from "@mui/icons-material";
@@ -6,9 +6,6 @@ import { Pause, PlayArrow } from "@mui/icons-material";
 const SentenceFrame = styled.div`
     display: grid;
     grid-template-columns: 7fr 1fr;
-    /* display: flex;
-    flex-direction: row; */
-    /* align-items: center; */
     padding-bottom: 0.5vh;
     padding-top: 0.5vh;
     padding-left: 1vw;
@@ -65,11 +62,10 @@ function StudyScriptSpeech(props) {
                     },
                 }
             );
-            console.log(response.data);
 
             // papago langcode -> google langcode
             const lang = langCode[response.data.langCode];
-            console.log(lang);
+
             // 2. google TTS api axios
             try {
                 const response = await axios.post(
@@ -103,11 +99,11 @@ function StudyScriptSpeech(props) {
                 const tmp = new Blob([byteArray], { type: "audio/mp3" });
                 setBlob(URL.createObjectURL(tmp));
             } catch (error) {
-                console.error(`tts error : ${error}`);
+                // console.error(`tts error : ${error}`);
                 setBlob("");
             }
         } catch (error) {
-            console.log(`detectLangs error : ${error}`);
+            // console.log(`detectLangs error : ${error}`);
         }
     }
 
@@ -116,12 +112,10 @@ function StudyScriptSpeech(props) {
     const audioRef = useRef(null);
 
     function handlePlay() {
-        console.log("play");
         audioRef.current.play();
         setIsPlaying(true);
     }
     function handlePause() {
-        console.log("pause");
         audioRef.current.pause();
         setIsPlaying(false);
     }
@@ -131,9 +125,7 @@ function StudyScriptSpeech(props) {
 
     function clicked(props) {
         handleSetSelectedSent(props);
-        // if (!blob) {    // 이미 해당 문장에 호출된 음성파일이 있으면 재호출제한.
         getSpeech(sentence);
-        // }
     }
 
     return (
