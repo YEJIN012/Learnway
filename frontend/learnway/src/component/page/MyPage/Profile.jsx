@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
@@ -31,6 +31,12 @@ const ImgIcon = styled.div`
     align-items: end;
 `;
 
+const ProfileIcon = {
+    color: "#615e5f",
+    opacity: "0.5",
+    height: "2vh",
+};
+
 function GetFriendCnt(userEmail) {
     const [friendCnt, setFriendCnt] = useState("");
     axios
@@ -51,7 +57,6 @@ function Profile() {
     const userInfo = useSelector((state) => state.AuthReducer);
     const selectFile = useRef(); // Icon onClick에 input File을 달기 위한 ref
 
-    const [imgUrl, setImgUrl] = useState(userInfo.imgUrl);
     const [imgBase64, setImgBase64] = useState(""); // 미리보기 파일
     const [imgFile, setImgFile] = useState(""); // 선택한 이미지 파일
 
@@ -82,29 +87,29 @@ function Profile() {
 
     // save 클릭시 호출되는 form 제출함수(image 편집)
     function handleSubmit() {
-    console.log(imgFile);
-    userInfo.userPwd = ""
-    console.log(userInfo)
-    const formData = new FormData();
-    const blob = new Blob([JSON.stringify(userInfo)], {
-        type: "application/json",
-    });
-    formData.append("image", imgFile);
-    formData.append("userDto", blob);
-
-    axios
-        .put("api/users/modify", formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then(function (res) {
-            console.log(res.data.msg);
-            alert(t('Successfully edited profile image'));
-            // 회원정보 수정 api 완료시, redux userInfo state 갱신.
-            dispatch({ type: "UPDATE_USER", payload: res.data.user });
-        })
-        .catch(function (error) {
-            console.log(error);
+        console.log(imgFile);
+        userInfo.userPwd = "";
+        console.log(userInfo);
+        const formData = new FormData();
+        const blob = new Blob([JSON.stringify(userInfo)], {
+            type: "application/json",
         });
+        formData.append("image", imgFile);
+        formData.append("userDto", blob);
+
+        axios
+            .put("api/users/modify", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+            .then(function (res) {
+                console.log(res.data.msg);
+                alert(t("Successfully edited profile image"));
+                // 회원정보 수정 api 완료시, redux userInfo state 갱신.
+                dispatch({ type: "UPDATE_USER", payload: res.data.user });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         formData.append("image", imgFile);
         formData.append("userDto", blob);
 
@@ -115,8 +120,8 @@ function Profile() {
             .then(function (res) {
                 alert("Successfully edited profile image");
                 // 회원정보 수정 api 완료시, redux userInfo state 갱신.
-                dispatch({ type: "UPDATE_USER", payload: res.data.user })
-                setImgBase64("")
+                dispatch({ type: "UPDATE_USER", payload: res.data.user });
+                setImgBase64("");
             })
             .catch(function (error) {
                 console.log(error);
@@ -138,7 +143,7 @@ function Profile() {
                     <ImgIcon>
                         <ProfileImg
                             tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌 - 미리보기
-                            src={imgUrl}
+                            src={userInfo.imgUrl}
                             width="9vh"
                         />
                         <EditIcon
@@ -168,17 +173,9 @@ function Profile() {
             body={
                 <>
                     <InputGroup
-                        icon={
-                            <EmailIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
+                        icon={<EmailIcon sx={ProfileIcon} />}
                         flex="column"
-                        textValue={t('E-mail')}
+                        textValue={t("E-mail")}
                         fontSize="1.5vh"
                         fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"
@@ -187,17 +184,9 @@ function Profile() {
                         obj={<Text>{userInfo.userEmail}</Text>}
                     ></InputGroup>
                     <InputGroup
-                        icon={
-                            <CakeIcon
-                                sx={{
-                                    color: "#615e5f",
-                                    opacity: "0.5",
-                                    height: "2vh",
-                                }}
-                            />
-                        }
+                        icon={<CakeIcon sx={ProfileIcon} />}
                         flex="column"
-                        textValue={t('Birthday')}
+                        textValue={t("Birthday")}
                         fontSize="1.5vh"
                         fontColor="#7c7c7c"
                         margin="10% 0vw 0vw 0vw"

@@ -11,7 +11,6 @@ const Frame = styled.div`
     flex-direction:row;
     align-items: center;
     justify-content: space-between;
-    // border:solid 1px black;
     padding-top: 5%;
     padding-bottom: 1%; 
     border-bottom: .08rem solid #B4ABAB;
@@ -22,14 +21,12 @@ const Frame = styled.div`
     cursor:"pointer";
 `;
 
-//youtube resultcomponent와 동일(공통으로 묶기)
 const UserFrame = styled.div`
     width:70%;
     height:100%;
     display:flex;
     flex-direction:row;
     margin: 0 0 0 0.3vw;
-    // border:1px solid black;
 `;
 
 const DetailBox = styled.div`
@@ -37,33 +34,27 @@ const DetailBox = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    // border:1px solid black;
     margin-left:1vw;
 `;
 
 const UserName = styled.span`
     font-size:1.1vw;
     font-weight:900;
-    // border:1px solid black;
     color : #4F4C4D;
 `;
 
 const Info = styled.span`
     font-size:0.8vw;
     font-weight:600;
-    /* margin-top:0.4vw; */
     color : #4F4C4D;
-    // border:1px solid black;
 `;
 
-//공통 대상 컴포넌트 영역 끝
 
 const Func = styled.div`
     width:30%;
     height:100%;
     display:flex;
     flex-direction:row;
-    // border:1px solid black; 
 `;
 
 const LogonTime = styled.div`
@@ -76,30 +67,15 @@ const LogonTime = styled.div`
     color : #4F4C4D;
     margin-top:0.1vw;
     font-weight:600;
-    // border: 1px solid black;
 `;
 
-const Check = styled.div`
-    width:20%;
-    height:inherit;
-
-    border:1px solid black;
-`;
-
-const RequestVideoChatBtn = styled.div`
-    width:100%;
-    min-width: 30px;
-    height:inherit;
-    // border:1px solid black;
-`;
 function UserProfile(props) {
     if (props.id === 0) {
         const imgurl = props.userInfo.profileDto.imgUrl
         const name = props.userInfo.profileDto.name;
         const latestmsg = props.userInfo.msg;
         const latestDateTime = props.userInfo.dateTime===null? ["","","","","","",""] :props.userInfo.dateTime;
-        // console.log(latestDateTime)
-        // console.log(imgurl)
+
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
@@ -130,11 +106,7 @@ function UserProfile(props) {
                         <Info>{`Last seen. ${latestDateTime} ago`}</Info>
                     </DetailBox>
                 </UserFrame>
-                {/* <Func> */}
-                    {/* <RequestVideoChatBtn> */}
-                        <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
-                    {/* </RequestVideoChatBtn> */}
-                {/* </Func> */}
+                <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
             </Frame>
         );
     }

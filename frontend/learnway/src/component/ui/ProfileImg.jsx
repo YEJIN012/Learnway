@@ -9,18 +9,12 @@ const Img = styled.img`
     min-height: ${(props) => props.minWidth || "10px"};
     border-radius: 50%;
     overflow: hidden;
-
-    /* :hover {
-        box-shadow: 1px 2px 8px #a4a4a4;
-    } */
 `;
 
 function ProfileImg(props) {
     const { tmpsrc, src, width, height, minWidth } = props;
-    // const [imgSrc, setImgSrc] = useState(src)
-    // console.log(imgSrc)
-    //tmpsrc : 클라이언트에서 바로 가져오는 이미지src
-    //src : s3에서 불러오는 이미지 키값
+    // tmpsrc : 클라이언트에서 바로 가져오는 이미지src
+    // src : s3에서 불러오는 이미지 키값
 
     // s3 bucket 이미지 읽어오기
     AWS.config.update({
@@ -42,13 +36,11 @@ function ProfileImg(props) {
                 console.error(err);
                 return;
             }
-
             setImageUrl(url);
-            console.log(url);
         });
     }, [src]);
 
-    // 이미지 편집에서 선택한 tmpImage있으면 그걸로 보여주기
+    // 이미지 편집에서 선택한 tmpImage있으면 해당 사진 미리보기
     return tmpsrc ? (
         <Img src={tmpsrc} width={width} height={height} minWidth={minWidth} />
     ) : (

@@ -12,7 +12,6 @@ const Wrapper = styled.div`
     width: 90vw;
     height: 30vmax;
     z-index : -1;
-    // border:1px solid black;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;

@@ -11,7 +11,6 @@ const AniImg = styled.div`
 const Wrapper = styled.div`
     width: 90vmax;
     height: 23vmax;
-    // border:1px solid black;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
