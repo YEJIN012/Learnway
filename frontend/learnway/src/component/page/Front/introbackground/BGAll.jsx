@@ -11,7 +11,6 @@ const Wrapper = styled.div`
     z-index : -7;
     display: flex;
     background-size: cover;
-    // border: solid 1px black;
     position:absolute;
     top:0vw;
 `;

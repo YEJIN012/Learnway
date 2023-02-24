@@ -6,7 +6,7 @@ import Profile from "./Profile";
 import Friend from "./Friend";
 import Study from "./Study";
 import StudyScripts from "./StudyScripts";
-import EditProfile from "./EditProfile";
+import ProfileEdit from "./ProfileEdit";
 import NameTag from "../../ui/NameTag";
 
 const ContentWrapper = styled.div`
@@ -59,7 +59,7 @@ function MyPageContent(props) {
     const Tab = {
         PROFILE: {
             subtitle: [t('Profile'), t('Edit Profile')],
-            child: [<Profile />, <EditProfile />],
+            child: [<Profile />, <ProfileEdit />],
         },
         FRIENDS: {
             subtitle: [t('Friend'), t('Friends List')],
