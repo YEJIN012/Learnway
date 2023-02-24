@@ -40,12 +40,12 @@ const InputFrame = styled.div`
     width: 20vw;
     min-width: 200px;
     padding: 1.5vh 1vw 2vh 1vw;
-    display: grid;
-    grid-template-columns: 10fr 1fr;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const Input = styled.input`
-    margin: 0vw 2px 0vw 0vw;
+    width: 80%;
     border-radius: 50px;
     background: #EFEFEF;
     border : none;
@@ -54,7 +54,6 @@ const Input = styled.input`
         outline: none;
     }
 `;
-
 
 const Sendbtn = styled.div`
     width: 26px;
@@ -79,7 +78,6 @@ function Chatroom(props) {
     const handleSelectUserState = props.handleSelectUserState;
     console.log(handleSelectUserState);
     const stored = useSelector((state) => state.AuthReducer);
-    // const stored = { userEmail: "aaa@ssafy.com" };
     const [text, setText] = useState("");
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());
@@ -116,9 +114,7 @@ function Chatroom(props) {
             .get(`api/chat/room/message/${props.info.roomId}`)
             .then(function (res) {
                 let chatHistory = [];
-
                 const data = res.data;
-                //console.log(data);
                 let num = 0;
                 for (let i = 0; i < data.length; i++) {
                     if (data[i].sender === props.info.profileDto.userEmail) {

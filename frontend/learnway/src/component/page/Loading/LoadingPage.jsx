@@ -14,13 +14,10 @@ const Frame = styled.div`
   padding-top: 10vh;
   display: flex;
   flex-direction: row;
-  /* border: solid 1px black; */
 `;
 const SubFrame1 = styled.div`
   margin-left: 3vw;
   width: 40vw;
-  /* height: 70vh; */
-  /* border: solid 1px black; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +39,6 @@ const SubFrame2 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: solid 1px black; */
 `;
 
 const Box = styled.div`
@@ -51,7 +47,6 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: solid 1px black; */
   background: linear-gradient(to bottom, #36475f, #2c394f);
   border-radius: 35px;
   color: white;
@@ -87,13 +82,11 @@ const ConvFrame = styled.div`
   justify-content: space-around;
 `;
 const Stn1 = styled.div`
-  /* padding: 1%; */
   width: 100%;
   font-weight: 500;
   font-size: 1.5vw;
 `;
 const Stn2 = styled.div`
-  /* padding: 1%; */
   width: 100%;
   font-size: 1vw;
   color: #acacacbd;
@@ -118,7 +111,6 @@ const TestObj = styled.div`
 const TestSpan = styled.span`
   position: relative;
   animation: ${animeTextUp} 2s infinite;
-  /* font-family: "nanumSquareNeo"; */
 
   &:nth-of-type(1) {
     animation-delay: 0.1s;
@@ -156,30 +148,15 @@ const TestSpan = styled.span`
 
 
 function Loading() {
-    const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
-    // const socket = new SockJS("/api/ws-stomp");
+    const socket = new SockJS("/api/ws-stomp");
     const ws = Stomp.over(socket);
     const userInfo = useSelector((state) => state.AuthReducer);
     const studyLng = useSelector((state) => state.MainStore);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // console.log(useInfo)
     const [lngConv, setLngConv] = useState([]);
     const { t } = useTranslation();
-    // const lngConv = [
-    //     "Call your parents at least once a month.",
-    //     "I jog at least three times a week to keep fit.",
-    //     // "Is there anything I can do to make it up to you?",
-    //     // "I'll make it up to you for forgetting your birthday.",
-    // ];
     const [studyLngConv, setStudyLngConv] = useState([]);
-    // const studyLngConv = [
-    //     "적어도 한 달에 한 번은 부모님께 전화를 드려.",
-    //     "건강을 유지하기 위해 적어도 일주일에 세 번은 조깅을 한다.",
-    //     // "당신과 화해하기 위해 제가 할 수 있는 일이 없을까요? ",
-    //     // "생일을 잊어버린 것에 대해 성의를 보일게.",
-    // ];
-    //userInfo.language.languageId, studyLng.languageId
     const matchingServerRoomId = `${userInfo.userEmail}-${studyLng.languageId}`;
     console.log(matchingServerRoomId)
 
@@ -191,7 +168,6 @@ function Loading() {
             .get("/api/conv", {
                 params: { lng: userInfo.language.name, study_lng: studyLng.languageName },
             })
-            // handle success
             .then(function (res) {
                 console.log();
                 setLngConv(res.data.conversation.lng.slice(0, 2));
@@ -208,7 +184,6 @@ function Loading() {
       alert("Macting was not successful")
       navigate(`/`,{replace:true});
     }
-    //window.location.reload();
     useEffect(() => {
         getTodayConv();
         ws.connect({}, (frame) => {

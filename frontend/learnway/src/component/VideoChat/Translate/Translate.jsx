@@ -10,7 +10,6 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { width } from "@mui/system";
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
@@ -63,9 +62,7 @@ const ButtonFrame = styled.div`
 `;
 function Translate() {
     const myInfo = useSelector((state) => state.AuthReducer);
-    console.log(myInfo);
     const oppoInfo = useSelector((state) => state.OpponentReducer);
-    console.log(oppoInfo);
     const [value, setValue] = useState(""); // 검색 내용
     const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
     const [seletlang, setSelectlang] = useState("");
@@ -106,9 +103,7 @@ function Translate() {
                     },
                 }
             );
-            // console.log(response.data.message.result.translatedText);
             setTranslatedContent(response.data.message.result.translatedText);
-            // console.log("getTranslate");
         } catch (error) {
             // console.log(error);
         }
@@ -116,9 +111,7 @@ function Translate() {
 
     const handleTranslate = (e) => {
         e.preventDefault();
-        // console.log(value);
         getTranslate(value);
-        // console.log("handler");
     };
 
     const handleChangeSelect = (e) => {

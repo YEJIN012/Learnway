@@ -12,8 +12,6 @@ const initialState={
 
 
 export default function YoutubeShareReducer(state = initialState, action) {
-  // const promise = action.payload
-  // console.log(promise)
   switch (action.type) {
     //재생 상태 자징(상태, 시간)
     case YOUTUBE_PLAY_STATE:

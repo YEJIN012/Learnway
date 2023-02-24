@@ -35,6 +35,12 @@ const TimeUl = styled.ul`
     font-size: 1.9vh;
 `;
 
+const IconStyle = {
+    color: "#615e5f",
+    opacity: "0.5",
+    height: "2vh",
+}
+
 function SearchProfile(props) {
     const { t } = useTranslation();
 
@@ -114,11 +120,7 @@ function SearchProfile(props) {
                                         icon={
                                             <EmailIcon
                                                 className="time-wrapper"
-                                                sx={{
-                                                    color: "#615e5f",
-                                                    opacity: "0.5",
-                                                    height: "2vh",
-                                                }}
+                                                sx={IconStyle}
                                             />
                                         }
                                         flex="column"
@@ -141,11 +143,7 @@ function SearchProfile(props) {
                                     <InputGroup
                                         icon={
                                             <CakeIcon
-                                                sx={{
-                                                    color: "#615e5f",
-                                                    opacity: "0.5",
-                                                    height: "2vh",
-                                                }}
+                                                sx={IconStyle}
                                             />
                                         }
                                         flex="column"
@@ -168,11 +166,7 @@ function SearchProfile(props) {
                                     <InputGroup
                                         icon={
                                             <LanguageIcon
-                                                sx={{
-                                                    color: "#615e5f",
-                                                    opacity: "0.5",
-                                                    height: "2vh",
-                                                }}
+                                                sx={IconStyle}
                                             />
                                         }
                                         flex="column"
@@ -195,11 +189,7 @@ function SearchProfile(props) {
                                     <InputGroup
                                         icon={
                                             <TextSnippetIcon
-                                                sx={{
-                                                    color: "#615e5f",
-                                                    opacity: "0.5",
-                                                    height: "2vh",
-                                                }}
+                                                sx={IconStyle}
                                             />
                                         }
                                         flex="column"
@@ -222,11 +212,7 @@ function SearchProfile(props) {
                                     <InputGroup
                                         icon={
                                             <FavoriteIcon
-                                                sx={{
-                                                    color: "#615e5f",
-                                                    opacity: "0.5",
-                                                    height: "2vh",
-                                                }}
+                                                sx={IconStyle}
                                             />
                                         }
                                         flex="column"

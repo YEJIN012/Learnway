@@ -15,10 +15,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PublicRoute from "./component/page/Front/utils/PublicRoute";
 
-const a={
-    "aaa@ssafy.com": "bbb@ssafy.com",
-    "bbb@ssafy.com":"aaa@ssafy.com"
-}
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
     return (

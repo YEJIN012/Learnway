@@ -4,10 +4,6 @@ import { useSelector } from 'react-redux';
 
 const MyLang = styled.div`
     width:50%;
-    // font-family: 'Poppins';
-    // font-style: normal;
-    // font-weight: 300;
-    // font-size: 2vw;
     display: flex;
     justify-content:center;
     align-items: center;
