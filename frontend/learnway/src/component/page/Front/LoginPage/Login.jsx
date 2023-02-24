@@ -3,6 +3,9 @@ import LoginForm from './LoginForm';
 import BackgroundFrame from '../Background';
 import icon from '../img/googleIcon.jpg';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { interestLst, languageLst } from '../actions/userAction';
+import { useEffect } from 'react';
 
 const LineFrame = styled.div`
   width: 380px;
@@ -34,9 +37,22 @@ const GooIcon = styled.button`
 `;
 
 export default function Login () {
+  const dispatch = useDispatch()
+
+  // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
+  useEffect(() => {
+    const langdata = languageLst()
+    const interstdata = interestLst()
+    langdata.payload.then((res) => dispatch({ type: langdata.type, payload: res.language }))
+    interstdata.payload.then((res) => dispatch({ type: interstdata.type, payload: res.interests }))
+  }, [])
+
+  
   const { t } = useTranslation();
   
   const OpenForm = () => {window.location.href = "https://i8a408.p.ssafy.io/api/oauth2/authorization/google"};
+  
+  
   return (
     <BackgroundFrame
       bg = {
