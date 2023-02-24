@@ -17,7 +17,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from "redux-persist/lib/storage";
 import "./language/i18n";
-// import { Dropdown } from "react-bootstrap";
 
 const persistConfig = {
   key: "root",
@@ -39,7 +38,6 @@ const rootReducer = combineReducers({
 let persistrootReducer = persistReducer(persistConfig, rootReducer)
 
 let store = createStore(persistrootReducer)
-// let store = createStore(rootReducer)
 
 let persistor = persistStore(store)
 

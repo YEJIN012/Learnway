@@ -31,7 +31,7 @@ function Study(props) {
             })
             .then(function (res) {
                 const data = res.data.monthCountList;
-                console.log("getMonthlyLog", year, month);
+                // console.log("getMonthlyLog", year, month);
                 const logDay = {};
                 for (let i = 1; i < data.length; i++) {
                     if (data[i].count !== 0) {
@@ -39,7 +39,6 @@ function Study(props) {
                         // {기록이 남은 일자: 학습량}으로 재가공
                     }
                 }
-                console.log(logDay);
                 setMark(logDay);
             })
             .catch(function (error) {
@@ -59,7 +58,6 @@ function Study(props) {
                 month: value.getMonth() + 1,
             };
         }
-        console.log(viewYearDate);
         getMonthlyLog(viewYearDate);
     }, [viewValue]);
 
