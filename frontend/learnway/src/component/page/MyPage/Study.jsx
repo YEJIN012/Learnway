@@ -54,7 +54,7 @@ function Study(props) {
                 month: viewValue.activeStartDate.getMonth() + 1,
             };
         } else {
-            var viewYearDate = {
+            viewYearDate = {
                 year: value.getYear() + 1900,
                 month: value.getMonth() + 1,
             };

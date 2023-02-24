@@ -154,7 +154,6 @@ function Body() {
     const myInfo = useSelector((state) => state.AuthReducer);
     //상태 저장소에서 상대방 언어 가져오기
     const oppolang = useSelector((state) => state.MainStore);
-    const chatinfo = useSelector((state) => state.ChatinfoReducer);
     const dispatch = useDispatch();
 
     //console.log(mylang, oppolang)
