@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import MainStore from './app/MainStore';
+import MainReducer from './app/MainReducer';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import AuthReducer from './app/AuthReducer';
@@ -25,7 +25,7 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    MainStore,
+    MainReducer,
     AuthReducer,
     TokenReducer,
     UserInfoReducer,

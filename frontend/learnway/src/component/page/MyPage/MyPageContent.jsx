@@ -81,15 +81,13 @@ function MyPageContent(props) {
         <ContentWrapper>
             <Side>
                 <Subtitle>
-
-                <NameTag subtitle={Tab[`${selectedContent}`].subtitle[0]} />
+                    <NameTag subtitle={Tab[`${selectedContent}`].subtitle[0]} />
                 </Subtitle>
                 {Tab[`${selectedContent}`].child[0]}
             </Side>
             <Side>
                 <Subtitle>
-
-                <NameTag subtitle={Tab[`${selectedContent}`].subtitle[1]} />
+                    <NameTag subtitle={Tab[`${selectedContent}`].subtitle[1]} />
                 </Subtitle>
                 {Tab[`${selectedContent}`].child[1]}
             </Side>
