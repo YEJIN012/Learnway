@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
 import Interest from "../Front/SignupPage/Interest";
 import { Settings } from "@mui/icons-material";
-import { request } from '../../page/Front/utils/axios';
+import { request } from "../../page/Front/utils/axios";
 
 const style = {
     position: "absolute",
@@ -43,14 +43,13 @@ function EditProfile() {
     const userInfo = useSelector((state) => state.AuthReducer);
     const languageBox = useSelector((state) => state.UserInfoReducer);
     const [username, setUsername] = useState(userInfo.name);
-    const [language, setLanguage] = useState(userInfo.language.name); // language.name
+    const [language, setLanguage] = useState(userInfo.language.name);
     const [bio, setBio] = useState(userInfo.bio);
-    // const [pw, setPw] = useState(userInfo.userPwd);
-    // const [confirmPw, setConfirmPw] = useState("");
     const [interests, setInterests] = useState(userInfo.interests);
 
     const { t } = useTranslation();
-    // Interest Modal
+
+    // Interest Modal Handler
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -92,22 +91,21 @@ function EditProfile() {
                 }
             }
         }
-        console.log(username)
-        if(username !== userInfo.name){
-          request("get",`/users/dupName?name=${username}`).then((res) => { 
-            console.log(res);
-            if (res.msg === "사용중인 닉네임입니다. ") {
-                alert (t('This is a duplicate name.'))
-            }
-            return;
-          })
+        console.log(username);
+        if (username !== userInfo.name) {
+            request("get", `/users/dupName?name=${username}`).then((res) => {
+                console.log(res);
+                if (res.msg === "사용중인 닉네임입니다. ") {
+                    alert(t("This is a duplicate name."));
+                }
+                return;
+            });
         }
-        
+
         // Make FormData
         const formData = new FormData();
         const data = {
             // 편집 가능 정보
-            // userPwd: pw,
             language: makeLanguageData(),
             bio: bio,
             name: username,
@@ -137,7 +135,7 @@ function EditProfile() {
             })
             .then(function (res) {
                 console.log(res.data);
-                alert(t('Successfully edited profile Info'));
+                alert(t("Successfully edited profile Info"));
                 // 회원정보 수정 api 완료시, redux userInfo state 갱신.
                 dispatch({ type: "UPDATE_USER", payload: res.data.user });
             })
@@ -163,7 +161,7 @@ function EditProfile() {
                         <InputBox
                             id="username"
                             type="text"
-                            title={t('User Name(ENG)')}
+                            title={t("User Name(ENG)")}
                             value={username}
                             onChange={(e) => {
                                 setUsername(e.target.value);
@@ -176,31 +174,11 @@ function EditProfile() {
                             margin="0px"
                             border="solid 0.6px black"
                         ></InputBox>
-                        {/* <RowWrapper>
-                            <InputBox
-                                id="password"
-                                type="password"
-                                title="New Password"
-                                value={pw}
-                                onChange={(e) => {
-                                    setPw(e.target.value);
-                                }}
-                            ></InputBox>
-                            <InputBox
-                                id="confirmPw"
-                                type="password"
-                                title="Confirm Password"
-                                value={confirmPw}
-                                onChange={(e) => {
-                                    setConfirmPw(e.target.value);
-                                }}
-                            ></InputBox>
-                        </RowWrapper> */}
                         <RowWrapper>
                             <InputBox
                                 id="interests"
                                 type="text"
-                                title={t('Interests')}
+                                title={t("Interests")}
                                 value={interestRernderer(interests)}
                                 disabled="disabled"
                                 backgroundColor="#dbdbdb"
@@ -214,7 +192,7 @@ function EditProfile() {
                             <Settings
                                 sx={{
                                     position: "absolute",
-                                    
+
                                     marginBottom: "1.25vh",
                                     marginLeft: "16vw",
                                     width: "20px",
@@ -227,7 +205,7 @@ function EditProfile() {
                             />
                         </RowWrapper>
                         <CommonSelectLanguage
-                            title={t('language')}
+                            title={t("language")}
                             radius="6px"
                             opacity="0.5"
                             selectFontSize="1.8vh"
@@ -238,7 +216,6 @@ function EditProfile() {
                             language={language}
                             selectHeight="2.5vh"
                             setLanguage={setLanguage}
-                            
                         />
                         <div>
                             <div
@@ -246,13 +223,18 @@ function EditProfile() {
                                     width: "20vw",
                                     height: "2.5vh",
                                     fontSize: "1.8vh",
-                                    opacity:"0.5",
+                                    opacity: "0.5",
                                 }}
                             >
-                                {t('Bio')}
+                                {t("Bio")}
                             </div>
                             <textarea
-                                style={{ width: "20.6vw", height: "6vh", borderRadius:"6px", resize:'none' }}
+                                style={{
+                                    width: "20.6vw",
+                                    height: "6vh",
+                                    borderRadius: "6px",
+                                    resize: "none",
+                                }}
                                 name="Bio"
                                 onChange={(e) => {
                                     setBio(e.target.value);
@@ -264,7 +246,7 @@ function EditProfile() {
                             <Button
                                 id="5"
                                 fontSize="0.9vw"
-                                textValue={t('Cancel')}
+                                textValue={t("Cancel")}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"
@@ -273,7 +255,7 @@ function EditProfile() {
                             <Button
                                 id="4"
                                 fontSize="0.9vw"
-                                textValue={t('Save')}
+                                textValue={t("Save")}
                                 width="7.079vw"
                                 margin="10px 10px 0px 10px"
                                 radius="5px"

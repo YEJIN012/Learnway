@@ -1,27 +1,14 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import '../../ui/Background.css';
-import logo from '../Front/img/intro_global.png';
-import { interestLst, languageLst } from './actions/userAction';
-import BGIntro from './introbackground/BGIntro';
+import '../../../ui/Background.css';
+import logo from '../../Front/img/intro_global.png';
+import BGIntro from '../introbackground/BGIntro';
 import Welcome from './Welcome';
-import AllButton from '../../ui/AllButton';
+import AllButton from '../../../ui/AllButton';
 
-const LeftSide = styled.div`
-  width: 100%;
-  height: 100%;
-  left: 0vw;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index : -1;
-`;
 
 const Picture = styled.img`
   width: 45vw;
@@ -58,30 +45,12 @@ const Ref = styled.a`
 export default function Intro() {
   return (
     <>
-      <LeftBox></LeftBox>
       <Welcome />
       <Picture src={logo}></Picture>
       <Btn />
       <BGIntro />
       <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
     </>
-  )
-}
-
-function LeftBox() {
-  const dispatch = useDispatch()
-
-  // 홈페이지 시작시 언어정보와 취향설정 정보를 스토어에 저장해둔다.
-  useEffect(() => {
-    const langdata = languageLst()
-    const interstdata = interestLst()
-    langdata.payload.then((res) => dispatch({ type: langdata.type, payload: res.language }))
-    interstdata.payload.then((res) => dispatch({ type: interstdata.type, payload: res.interests }))
-  }, [])
-
-  return (
-    <LeftSide>
-    </LeftSide>
   )
 }
 

@@ -1,77 +1,65 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import YoutubeFrame from 'react-youtube'
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
+import YoutubeFrame from "react-youtube";
+import Stomp from "stompjs";
+import SockJS from "sockjs-client";
 
-import ResultComponent from './ResultComponent';
-import ResultList from './ResultList'
-import SearchBtnImg from '../../ui/searchBtn.png';
-import { EnergySavingsLeafTwoTone } from "@mui/icons-material";
-axios.defaults.headers['Access-Control-Allow-Credentials']=true;
-axios.defaults.headers['Access-Control-Allow-Origin']='*';
+import ResultComponent from "./ResultComponent";
+import ResultList from "./ResultList";
+import SearchIcon from "@mui/icons-material/Search";
+
+axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
+axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
 const Frame = styled.div`
-    width:60vw;
-    height:45vw;
-    display:flex;
-    flex-direction:row;
-    border-radius:10px;
-    background:#FFFFFF;
-    box-shadow:-1px 2px 9px -1px #B5B5B5;
+    width: 60vw;
+    height: 45vw;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: -1px 2px 9px -1px #b5b5b5;
 `;
 
 const Search = styled.div`
-    width:25vw;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const SearchBox = styled.div`
-    width:23vw;
-    height:3vw;
-    margin:1vw 0 1vw 0;
-    display:flex;
-    flex-direction:row;
-    align-content:center;
-    align-items:center;
-    background: #ECECEC;
+    width: 23vw;
+    height: 3vw;
+    margin: 1vw 0 1vw 0;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    background: #ececec;
     border-radius: 6px;
     justify-content: space-around;
-
 `;
 
 const Input = styled.input.attrs({
-    placeholder:"Search Youtube Content"
-    
+    placeholder: "Search Youtube Content",
 })`
-background: none;
-border: none;
-margin: 0 0.5vw 0 0.5vw;
-font-size: 1.2vw;
-color: #A8A8A8;
-width: 18vw;
-outline:none;
-`;
-
-const Searchbtn = styled.div`
-    width: 2.1vw;
-    height: 2vw;
-    background-image: url(${props => props.url || ""});
-    background-size:cover;
-    onKeyPress:{(e)=>{e.key === 'Enter'?}}
-    cursor:pointer
+    background: none;
+    border: none;
+    margin: 0 0.5vw 0 0.5vw;
+    font-size: 1.2vw;
+    color: #a8a8a8;
+    width: 18vw;
+    outline: none;
 `;
 
 const Video = styled.div`
-width:35vw;
-display:flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: center;
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 `;
 
 const VodTitle = styled.div`
@@ -83,83 +71,83 @@ const VodTitle = styled.div`
     padding: 0 0 1vw 0;
 `;
 
-
-
-
-function deleteRoom(id){
-    axios.delete(`/api/chat/room/${id}`)
-    .then(function(res){
-        console.log(res);
-    }).catch(function(err){
-        console.log(err);
-    })
+function deleteRoom(id) {
+    axios
+        .delete(`/api/chat/room/${id}`)
+        .then(function (res) {
+            console.log(res);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
-
-
-function Youtube({...props}){
+function Youtube({ ...props }) {
     const socket = new SockJS("https://i8a408.p.ssafy.io/api/ws-stomp");
     // const socket = new SockJS("/api/ws-stomp");
-    const ws =  Stomp.over(socket);
-    
-    const [socketObj, setSocketObj] = useState(undefined)
+    const ws = Stomp.over(socket);
+
+    const [socketObj, setSocketObj] = useState(undefined);
     const [searchData, setSearchData] = useState([]);
     const [query, setQuery] = useState("");
     const [vodId, setVodId] = useState(undefined);
-    const[playState, setPlayState] = useState(undefined);
-    const[socketId, setSocketId] = useState(null);
-    const[vodTitle, setVodTitle] = useState(undefined);
-    const[player,setPlayer] = useState(undefined);
-    console.log(vodId)
-    console.log(props.sockId)
-    useEffect(()=>{
-            makeRoom(props.myId, props.oppoId);
+    const [playState, setPlayState] = useState(undefined);
+    const [socketId, setSocketId] = useState(null);
+    const [vodTitle, setVodTitle] = useState(undefined);
+    const [player, setPlayer] = useState(undefined);
+    console.log(vodId);
+    console.log(props.sockId);
+    useEffect(() => {
+        makeRoom(props.myId, props.oppoId);
 
-        return()=>{
-            ws.disconnect(()=>{
+        return () => {
+            ws.disconnect(() => {
                 console.log("Youtube socket disconnected");
-            })}
-            
-    },[])
+            });
+        };
+    }, []);
 
     console.log(socketId);
 
     function makeRoom(myId, oppoId) {
-        console.log(myId, oppoId)
-        axios.post(`/api/youtube/create`, {
-          userEmail: myId,
-          friendEmail: oppoId,
-        }).then(function(res){
-            console.log(res.data.roomId)
-            if(socketId === null){
-                setSocketId(res.data.roomId)
-            }
-            ws.connect({}, (frame) => {
-                console.log("connected to Youtube socket:", frame);
-                subscribe(res.data.roomId);
+        console.log(myId, oppoId);
+        axios
+            .post(`/api/youtube/create`, {
+                userEmail: myId,
+                friendEmail: oppoId,
             })
-        })
-        
-      }
-
-    function subscribe(newSocketId){
-        // ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
-        ws.subscribe(`/sub/chat/room/${newSocketId}`, (event) => {
-            console.log(event.body)
-            const received = JSON.parse(event.body)
-            const data = received.message;
-            if(received.sender === props.oppoId){
-                // 먼저 앞에 를 뗌
-                // 실행
-                var cmdMessage = data.split(":");
-                var  command = cmdMessage[0];
-                console.log(player)
-                // 영상이 바꼈을 때
-                if(command == 0){
-                    setVodId(cmdMessage[1])
+            .then(function (res) {
+                console.log(res.data.roomId);
+                if (socketId === null) {
+                    setSocketId(res.data.roomId);
                 }
-                // Play
-                /*
+                ws.connect({}, (frame) => {
+                    console.log("connected to Youtube socket:", frame);
+                    subscribe(res.data.roomId);
+                });
+            });
+    }
+
+    function subscribe(newSocketId) {
+        // ws.subscribe(`/sub/chat/room/${socketId}`, (event) => {
+        ws.subscribe(
+            `/sub/chat/room/${newSocketId}`,
+            (event) => {
+                console.log(event.body);
+                const received = JSON.parse(event.body);
+                const data = received.message;
+                if (received.sender === props.oppoId) {
+                    // 먼저 앞에 를 뗌
+                    // 실행
+                    var cmdMessage = data.split(":");
+                    var command = cmdMessage[0];
+                    console.log(player);
+                    // 영상이 바꼈을 때
+                    if (command == 0) {
+                        setVodId(cmdMessage[1]);
+                    }
+                    // Play
+                    /*
                 else if(command == 1){
               
 
@@ -171,13 +159,14 @@ function Youtube({...props}){
 
                     player.target.pauseVideo()
                 }*/
-                
-                //수신받은 동영상 조작정보를 state에 저장하고 내 동영상에 업데이트
-                console.log(`Youtube VodId: ${data}`)
-                //동영상의 아이디가 들어오면 해당 동영상을 내 컴포넌트에 띄운다.
-                
-            }
-        },{});
+
+                    //수신받은 동영상 조작정보를 state에 저장하고 내 동영상에 업데이트
+                    console.log(`Youtube VodId: ${data}`);
+                    //동영상의 아이디가 들어오면 해당 동영상을 내 컴포넌트에 띄운다.
+                }
+            },
+            {}
+        );
     }
 
     function publishVodId(vodid) {
@@ -190,7 +179,7 @@ function Youtube({...props}){
         };
         ws.send("/pub/chat/message", {}, JSON.stringify(da));
     }
-/*
+    /*
     function handlePlayChange(e) {
         // 실행
         console.log(e)
@@ -206,73 +195,92 @@ function Youtube({...props}){
         } 
     }
 */
-    function processVodId(id){ 
+    function processVodId(id) {
         setVodId(id);
         publishVodId(id);
     }
     //console.log(vodTitle)
     //다음 페이지 호출 1, 호출 x 2
-    function getSearchData(query){
-        
-        console.log(process.env.REACT_APP_YOUTUBE_API_KEY)
-        let requestURL = `/youtubeapi/youtube/v3/search?q=${query}&part=snippet&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=${30}`
-        
+    function getSearchData(query) {
+        console.log(process.env.REACT_APP_YOUTUBE_API_KEY);
+        let requestURL = `/youtubeapi/youtube/v3/search?q=${query}&part=snippet&key=${
+            process.env.REACT_APP_YOUTUBE_API_KEY
+        }&maxResults=${30}`;
 
-        axios.get(requestURL
-        ).then(async function(res){
-            let listData = [];
-            let titlelist = new Map();
+        axios
+            .get(requestURL)
+            .then(async function (res) {
+                let listData = [];
+                let titlelist = new Map();
 
-            const data = res.data.items;
-            console.log(data.length);
-            for(let i = 0; i < data.length; i++){
-                const vodId = data[i].id.videoId;
-                const title = data[i].snippet.title;
-                const thumb = data[i].snippet.thumbnails.high.url;
-                const channel = data[i].snippet.channelTitle;
-                //titlelist.set({vodId,title});
-                listData.push(<ResultComponent click={processVodId} getTitle = {setVodTitle}key={vodId} id={vodId} imgUrl={thumb} title={title} uploader={channel}></ResultComponent>)
-            }
-            //setVodTitle(titlelist);
-            setSearchData(listData);
-
-            
-        }).catch(function(err){
-            console.log(err)
-        });
+                const data = res.data.items;
+                console.log(data.length);
+                for (let i = 0; i < data.length; i++) {
+                    const vodId = data[i].id.videoId;
+                    const title = data[i].snippet.title;
+                    const thumb = data[i].snippet.thumbnails.high.url;
+                    const channel = data[i].snippet.channelTitle;
+                    //titlelist.set({vodId,title});
+                    listData.push(
+                        <ResultComponent
+                            click={processVodId}
+                            getTitle={setVodTitle}
+                            key={vodId}
+                            id={vodId}
+                            imgUrl={thumb}
+                            title={title}
+                            uploader={channel}
+                        ></ResultComponent>
+                    );
+                }
+                //setVodTitle(titlelist);
+                setSearchData(listData);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
     }
 
-    return(
+    return (
         <Frame>
             <Search>
                 <SearchBox>
-                    <Input id="queryBox" onChange={(e) => { setQuery(e.target.value) }} onKeyPress={(e)=>{if(e.key === 'Enter'){getSearchData(query)}}}></Input>
-                    <Searchbtn url={SearchBtnImg} onClick={()=>{getSearchData(query)}} ></Searchbtn>
+                    <Input
+                        id="queryBox"
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                        }}
+                        onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                getSearchData(query);
+                            }
+                        }}
+                    ></Input>
+                    <SearchIcon
+                        onClick={() => {
+                            getSearchData(query);
+                        }}
+                        cursor="pointer"
+                    />
                 </SearchBox>
                 <ResultList data={searchData}></ResultList>
             </Search>
             <Video>
                 <VodTitle>{vodTitle}</VodTitle>
-                {vodId !== undefined?(
+                {vodId !== undefined ? (
                     <YoutubeFrame
                         videoId={vodId}
                         opts={{
-                            width:"590",
-                            height:"400",
-                            playerVars:{
-                                autoplay:1
-                            }
+                            width: "590",
+                            height: "400",
+                            playerVars: {
+                                autoplay: 1,
+                            },
                         }}
-                        
-                        
-                        
                     />
-
-                ):
-                    null
-                }
+                ) : null}
             </Video>
         </Frame>
     );
-};
+}
 export default Youtube;

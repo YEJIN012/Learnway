@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
-import Button from "../../ui/Button";
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
@@ -11,7 +10,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/Email";
 import CakeIcon from "@mui/icons-material/Cake";
 import SaveIcon from "@mui/icons-material/Save";
-import Alert from "@mui/material/Alert";
 
 const Friends = styled.div`
     display: flex;
@@ -19,11 +17,9 @@ const Friends = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1.5vh;
-    /* border: solid 1px black; */
 `;
 const FriendNumber = styled.span`
     font-size: 2vh;
-    /* border: solid 1px black; */
 `;
 const Text = styled.span`
     font-size: 2vh;
@@ -41,7 +37,6 @@ function GetFriendCnt(userEmail) {
         .get("/api/friend/count", {
             params: { userEmail: userEmail },
         })
-        // handle success
         .then(function (res) {
             setFriendCnt(res.data.friendCnt);
         })
@@ -73,11 +68,9 @@ function Profile() {
             reader.onloadend = () => {
                 // 2. 읽기가 완료되면 아래코드가 실행됩니다.
                 const base64 = reader.result;
-                // console.log(base64);
                 if (base64) {
                     var base64Sub = base64.toString();
                     setImgBase64(base64Sub);
-                    //  setImgBase64(newObj);
                     // 파일 base64 상태 업데이트
                     console.log(imgBase64);
                 }
@@ -120,14 +113,6 @@ function Profile() {
                 headers: { "Content-Type": "multipart/form-data" },
             })
             .then(function (res) {
-                console.log(res.data.msg);
-                
-                // return(<Alert
-                //     // icon={<CheckIcon fontSize="inherit" />}
-                //     severity="success"
-                // >
-                //     This is a success alert — check it out!
-                // </Alert>
                 alert("Successfully edited profile image");
                 // 회원정보 수정 api 완료시, redux userInfo state 갱신.
                 dispatch({ type: "UPDATE_USER", payload: res.data.user })
@@ -150,11 +135,9 @@ function Profile() {
                         ref={selectFile} //EditIcon 에서 input에 접근 하기위해 useRef사용
                         onChange={handleChangePreview}
                     />
-                    {/* <>{imgBase64}</> */}
-                    {/* <>{userInfo.imgUrl}</> */}
                     <ImgIcon>
                         <ProfileImg
-                            tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌
+                            tmpsrc={imgBase64} //선택한 파일이 있으면 -> tmpsrc로 임시선택 이미지(imgBase64)를 내려줌 - 미리보기
                             src={imgUrl}
                             width="9vh"
                         />

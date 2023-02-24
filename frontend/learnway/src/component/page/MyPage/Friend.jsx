@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
@@ -14,9 +14,6 @@ import CakeIcon from "@mui/icons-material/Cake";
 import LanguageIcon from "@mui/icons-material/Language";
 import TextSnippetIcon from "@mui/icons-material/TextSnippet";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-// import Alert from "@mui/material/Alert";
-// import AlertTitle from "@mui/material/AlertTitle";
-// import Stack from "@mui/material/Stack";
 
 const Friends = styled.div`
     display: flex;
@@ -24,11 +21,9 @@ const Friends = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1.5vh;
-    /* border: solid 1px black; */
 `;
 const FriendNumber = styled.span`
     font-size: 2vh;
-    /* border: solid 1px black; */
 `;
 const Text = styled.span`
     font-size: 1.5vh;
@@ -74,7 +69,9 @@ function Friend(props) {
 
     function DeleteFriend({ userEmail, friendEmail }) {
         alert(
-            t('Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat')
+            t(
+                "Are you sure you want to delete your friend? If you delete a friend, you can no longer request a chat"
+            )
         );
 
         axios
@@ -86,7 +83,7 @@ function Friend(props) {
             })
             .then(function (res) {
                 console.log(res);
-                alert(t('Your friend has been deleted.'));
+                alert(t("Your friend has been deleted."));
                 handleDeletedFriend();
             })
             .catch(function (error) {
@@ -102,7 +99,6 @@ function Friend(props) {
             .get("/api/friend/count", {
                 params: { userEmail: userInfo.userEmail },
             })
-            // handle success
             .then(function (res) {
                 setFriendCnt(res.data.friendCnt);
             })
@@ -164,9 +160,8 @@ function Friend(props) {
                             });
                         }}
                         cursor="pointer"
-                        sx={{ 
+                        sx={{
                             rotate: "-45deg",
-                            // color: "white" 
                         }}
                     />
                 </>
