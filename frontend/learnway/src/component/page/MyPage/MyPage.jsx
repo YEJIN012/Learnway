@@ -8,10 +8,10 @@ import ChatBtn from "../../chat/ChatBtn";
 function Mypage() {
     return (
         <>
-            <ChatBtn></ChatBtn>
+            <ChatBtn />
             <NavBar />
-            <MyPageTab/>
-            <BGAll id={1}></BGAll> 
+            <MyPageTab />
+            <BGAll id={1} />
         </>
     );
 }

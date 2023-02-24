@@ -3,7 +3,7 @@ const selectedMatchLang={
   languageName:null
 };
   
-  function MainStore(state = selectedMatchLang, action){
+  function MainReducer(state = selectedMatchLang, action){
     if(action.type === 'matchLangUpdate'){
         state = action.payload;
       return state; 
@@ -13,4 +13,4 @@ const selectedMatchLang={
     }
   }
 
-  export default MainStore;
+  export default MainReducer;
