@@ -187,7 +187,7 @@ export default function InterestSelect({
             ) : (
                 <Frame>
                     <Restriction>{t('Please select more than 3')}</Restriction>
-                    <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Next" margin="20px 0px 0px 0px"  />
+                    <Button id= "0" width="185px" height="39px" fontSize="12px" textWeight="700" radius="10px" textValue="Submit" margin="20px 0px 0px 0px"  />
                 </Frame>
             )}
         </InputForm>
