@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import AllButton from "../../ui/AllButton";
-import ImgBye from "../img/quitImg.png";
+import ImgBye from "./src/quitImg.png";
 
 const Frame = styled.div`
     display:flex;
@@ -34,31 +34,30 @@ const Ref = styled.a`
     text-decoration-line: none;
 `;
 
-function Quit({getQuitFlag}) {
+function Leave({ getQuitFlag }) {
     const [quitFlag, setQuitFlag] = useState(0);
     const { t } = useTranslation();
 
-    function quit(){
+    function quit() {
         setQuitFlag(1);
-        console.log(quitFlag)
-
     }
+
     getQuitFlag(quitFlag);
+
     return (
-        <CommonFrame 
-            header={<Title title={t('Quit')}></Title>} 
+        <CommonFrame
+            header={<Title title={t('Quit')} />}
             body={
                 <Frame>
-                    <Picture src={ImgBye}></Picture>
+                    <Picture src={ImgBye} />
                     <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
-                    
-                <Msg>{t('Do you want to leave random matching?')}</Msg>
-                <AllButton  onClick={quit} id ="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="OK"/>
+
+                    <Msg>{t('Do you want to leave random matching?')}</Msg>
+                    <AllButton onClick={quit} id="4" radius={"30px"} width={"8vw"} height={"2.5vw"} fontSize={"1vw"} textValue="OK" />
+
                 </Frame>
             }>
         </CommonFrame>
-
     );
-
 };
 export default Quit;

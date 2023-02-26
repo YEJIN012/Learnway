@@ -67,6 +67,7 @@ function Translate() {
     const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
     const [seletlang, setSelectlang] = useState("");
     const [resultLang, setResultLang] = useState("");
+
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -80,7 +81,7 @@ function Translate() {
     }, [seletlang]);
 
     async function getTranslate(props) {
-        console.log(props);
+
         try {
             const response = await axios.post(
                 "/papagoapi/v1/papago/n2mt",
@@ -105,20 +106,20 @@ function Translate() {
             );
             setTranslatedContent(response.data.message.result.translatedText);
         } catch (error) {
-            // console.log(error);
+            console.log(error);
         }
     }
 
-    const handleTranslate = (e) => {
+    function handleTranslate(e) {
         e.preventDefault();
         getTranslate(value);
     };
 
-    const handleChangeSelect = (e) => {
+    function handleChangeSelect(e) {
         setSelectlang(e.target.value);
     };
 
-    const handleChangeText = (e) => {
+    function handleChangeText (e){
         setValue(e.target.value);
     };
 
@@ -160,7 +161,7 @@ function Translate() {
                                 placeholder={t(
                                     "Enter the content to translate."
                                 )}
-                            ></TextFrame>
+                            />
                             <ButtonFrame>
                                 <Button
                                     type="submit"
@@ -171,7 +172,7 @@ function Translate() {
                                     height={"3vw"}
                                     fontSize={"1.5vw"}
                                     textValue={t("Translate")}
-                                ></Button>
+                                />
                             </ButtonFrame>
                         </Form>
                     </InnerFrame>

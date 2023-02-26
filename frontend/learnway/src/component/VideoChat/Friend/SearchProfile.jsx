@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import axios from "axios";
+import {request} from "../../page/Front/utils/axios"
 import ProfileCard from "../../ui/ProfileCard";
 import ProfileImg from "../../ui/ProfileImg";
 import InputGroup from "../../ui/InputGroup";
@@ -50,25 +50,15 @@ function SearchProfile(props) {
     const userInfo = useSelector((state) => state.OpponentReducer)
 
     function addFriend(me, oppo) {
-        axios
-            .post("/api/friend", {
-                userEmail: me,
-                friendEmail: oppo,
-            })
-            .then(function (res) {
-                const data = res.data;
-                console.log(data);
-                if (data.status === 200) {
-                    alert(t("Add Friends Successfully"));
-                } else {
-                    alert(t("Failed to add friends") + String(data.status));
-                }
-            })
-            .catch(function (err) {
-                alert(
-                    t("A network error has occurred. The request has failed.")
-                );
-            });
+        request("post","/api/friend",{userEmail: me,friendEmail: oppo}).then((res)=>{
+            const data = res;
+
+            if (data.status === 200) {
+                alert(t("Add Friends Successfully"));
+            } else {
+                alert(t("Failed to add friends") + String(data.status));
+            }
+        })
     }
 
     function interestRernderer(array) {
@@ -100,7 +90,7 @@ function SearchProfile(props) {
                                 <ProfileImg
                                     src={userInfo.imgUrl}
                                     width={"8vw"}
-                                ></ProfileImg>
+                                />
                                 <PersonAddIcon
                                     onClick={() =>
                                         addFriend(myInfo.userEmail, props.user)

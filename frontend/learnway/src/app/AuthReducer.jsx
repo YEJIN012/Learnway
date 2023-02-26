@@ -12,7 +12,7 @@ const userInfo = {
     userPwd: "",
     name: "",
     birthDay: "",
-    language: "",
+    language: {id:1, name:"KOREAN"},
     badUser: "",
     imgUrl: "",
     interests: "",

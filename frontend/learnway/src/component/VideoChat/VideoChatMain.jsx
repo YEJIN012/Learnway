@@ -2,7 +2,7 @@ import { OpenVidu } from "openvidu-browser";
 import styled, { css } from "styled-components";
 import axios from "axios";
 import React, { Component } from "react";
-import "./VideoChatMain.css";
+import "./externalCss/VideoChatMain.css";
 import Video from "./OvVideo";
 import Translate from "./Translate/Translate";
 import Report from "./Report/Report";
@@ -13,12 +13,11 @@ import FloatingBtn from "./CommonComponent/FloatingBtn";
 import RouteToMain from './RouteToMain';
 import { motion } from "framer-motion";
 import {useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
 import BGAll from "../page/Front/introbackground/BGAll";
 
 
 function withParams(Component){
-    return props => <Component {...props} params={useParams()}></Component>
+    return props => <Component {...props} params={useParams()}/>
 }
 
 const Frame = styled.div`
@@ -107,26 +106,22 @@ ${(props) =>
 background:none;
 `;
 
+const APPLICATION_SERVER_URL = process.env.NODE_ENV === "production" ? "" : "/api/video/";
 
-const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production" ? "" : "/api/video/";
 class VideoChatMain extends Component {
   constructor(props) {
     super(props);
-
-        // These properties are in the state's component in order to re-render the HTML whenever their values change
         this.state = {
             mySessionId: undefined,
             myUserName: undefined,
             oppoUserName: undefined,
             recorder:undefined,
             session: undefined,
-            mainStreamManager: undefined, // Main video of the page. Will be the 'publisher' or one of the 'subscribers'
+            mainStreamManager: undefined, 
             publisher: undefined,
             subscribers: [],
             menu: 9,
             quitflag: 0,
-            //socketId: undefined,
             recordingId:undefined,
             oppolang:undefined,
             myLanguage:undefined,
@@ -141,11 +136,6 @@ class VideoChatMain extends Component {
     this.handleMainVideoStream = this.handleMainVideoStream.bind(this);
     this.onbeforeunload = this.onbeforeunload.bind(this);
     this.joinSession = this.joinSession.bind(this);
-    //this.handleSetMenu = this.handleSetMenu(this);
-    //this.getQuit = this.handleQuit.bind(this);
-   // this.makeRoom = this.makeRoom.bind(this);
-    //this.store = this.makeRoom.bind(this);
-    //this.storeData = this.storeData.bind(this);
   }
   
 
@@ -176,12 +166,11 @@ class VideoChatMain extends Component {
         }
       );
 
-      console.log("flag is " + flag);
     }}
 
      storeData(){
          let {sessionId, myId, oppoId, recorder, oppolang, mylang} = this.props.params;
-         console.log(sessionId, myId, oppoId, recorder);
+        
          this.setState({
             mySessionId:sessionId,
             myUserName:myId,
@@ -195,7 +184,7 @@ class VideoChatMain extends Component {
 
     componentDidMount() {
         window.addEventListener("beforeunload", this.onbeforeunload);
-        //this.makeRoom();
+      
         this.storeData();
         this.joinSession();
     }
@@ -263,16 +252,8 @@ onbeforeunload(event) {
   }
 
   joinSession() {
-    
-    //this.makeRoom()
-    //console.log("소켓아이디" + socketId)
-    //get room id fot websocket
-    //this.makeRoom(this.state.oppoUserNameS)
-    // --- 1) Get an OpenVidu object ---
 
     this.OV = new OpenVidu();
-
-    // --- 2) Init a session ---
 
     this.setState(
       {
@@ -280,14 +261,10 @@ onbeforeunload(event) {
       },
       () => {
         var mySession = this.state.session;
-        // --- 3) Specify the actions when events take place in the session ---
-        //console.log("mySession", mySession)
-        // On every new Stream received...
         mySession.on("streamCreated", (event) => {
           console.log("event" + event);
           if((this.state.subscribers).length < 1){
-            // Subscribe to the Stream to receive it. Second parameter is undefined
-            // so OpenVidu doesn't create an HTML video by its own
+           
             var subscriber = mySession.subscribe(event.stream, undefined);
             var subscribers = this.state.subscribers;
             subscribers.push(subscriber);
@@ -299,64 +276,47 @@ onbeforeunload(event) {
               this.startRecording();
             }
             console.log(this.state.subscribers)
-            // Update the state with the new subscribers
             this.setState({
               subscribers: subscribers,
             });
           }
           });
           
-        // On every Stream destroyed...
         mySession.on("streamDestroyed", (event) => {
-          // Remove the stream from 'subscribers' array
-          console.log(event)
-          
-          
           //내 입장에서 상대방이 나갔을 때 레코드 중지 함수
           if(this.state.recorder === 'true' && this.state.isStop === false){
-            console.log("음성녹음 중지(상대방 나감)")
             this.stopRecording();
           }
           this.deleteSubscriber(event.stream.streamManager);
-          //console.log(this.state.subscribers)
           this.leaveSession();
         });
 
-        // On every asynchronous exception...
         mySession.on("exception", (exception) => {
           console.warn(exception);
         });
 
-        // --- 4) Connect to the session with a valid user token ---
-
-        // Get a token from the OpenVidu deployment
         this.getToken().then((token) => {
-          // First param is the token got from the OpenVidu deployment. Second param can be retrieved by every user on event
-          // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+        
           mySession
             .connect(token, { clientData: this.state.myUserName })
             .then(async () => {
-              // --- 5) Get your own camera stream ---
-
-              // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
-              // element: we will manage it on our own) and with the desired properties
+            
               let publisher = await this.OV.initPublisherAsync(undefined, {
-                audioSource: undefined, // T+he source of audio. If undefined default microphone
-                videoSource: undefined, // The source of video. If undefined default webcam
-                publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
-                publishVideo: true, // Whether you want to start publishing with your video enabled or not
-                //resolution: `${window.screen.availWidth}x${window.screen.availHeight}`, // The resolution of your video
-                resolution: `${"1280"}x${"720"}`, // The resolution of your video
-                frameRate: 30, // The frame rate of your video
-                insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
-                mirror: false, // Whether to mirror your local video or not
+                audioSource: undefined,
+                videoSource: undefined,
+                publishAudio: true,
+                publishVideo: true,
+              
+                resolution: `${"1280"}x${"720"}`,
+                frameRate: 30,
+                insertMode: "APPEND",
+                mirror: false, 
               });
 
-              // --- 6) Publish your stream ---
-
+      
               mySession.publish(publisher);
 
-              // Obtain the current video device in use
+           
               var devices = await this.OV.getDevices();
               var videoDevices = devices.filter(
                 (device) => device.kind === "videoinput"
@@ -369,14 +329,12 @@ onbeforeunload(event) {
                 (device) => device.deviceId === currentVideoDeviceId
               );
 
-              // Set the main video in the page to display our webcam and store our Publisher
               this.setState({
                 currentVideoDevice: currentVideoDevice,
                 mainStreamManager: publisher,
                 publisher: publisher,
               });
 
-              //todo
             })
             .catch((error) => {
               console.log(
@@ -391,7 +349,6 @@ onbeforeunload(event) {
   }
 
   leaveSession() {
-    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
 
     const mySession = this.state.session;
 
@@ -405,7 +362,6 @@ onbeforeunload(event) {
       
     }
 
-    // Empty all properties...
     this.OV = null;
     this.setState({
       session: undefined,
@@ -431,8 +387,6 @@ onbeforeunload(event) {
         );
 
         if (newVideoDevice.length > 0) {
-          // Creating a new publisher with specific videoSource
-          // In mobile devices the default and first camera is the front one
           var newPublisher = this.OV.initPublisher(undefined, {
             videoSource: newVideoDevice[0].deviceId,
             publishAudio: true,
@@ -440,7 +394,6 @@ onbeforeunload(event) {
             mirror: true,
           });
 
-          //newPublisher.once("accessAllowed", () => {
           await this.state.session.unpublish(this.state.mainStreamManager);
 
           await this.state.session.publish(newPublisher);
@@ -457,37 +410,30 @@ onbeforeunload(event) {
   }
 
     render() {
-        console.log(this.state.socketId);
-        console.log(this.state.oppoUserName);
-        console.log(this.state.socketId);
-        //const matchData = {sessionId : 'abdhfhueh', myId : "aaa@ssafy.com", oppoId:"bbb@ssafy.com"};
-        //        const mySessionId = this.state.mySessionId;
-        //        const myUserName = this.state.myUserName;
-        console.log(this.state.menu);
         const menuList = {
-            0: <Report user={this.state.oppoUserName}></Report>,
-            1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}></Quit>,
-            2: <SearchProfile user={this.state.oppoUserName}></SearchProfile>,
-            3: <Translate></Translate>,
+            0: <Report user={this.state.oppoUserName}/>,
+            1: <Quit getQuitFlag={this.getQuitFlag.bind(this)}/>,
+            2: <SearchProfile user={this.state.oppoUserName}/>,
+            3: <Translate/>,
             4: (
                 <Youtube
                     myId={this.state.myUserName}
                     oppoId={this.state.oppoUserName}
-                ></Youtube>
+                />
             ),
         };
         return (<>
-                <FloatingBtn handleSetMenu={this.handleSetMenu.bind(this)} func={this.leaveSession}></FloatingBtn>
+                <FloatingBtn handleSetMenu={this.handleSetMenu.bind(this)} func={this.leaveSession}/>
             <Frame>
                 <FloatingBtn
                     handleSetMenu={this.handleSetMenu.bind(this)}
                     func={this.leaveSession}
-                ></FloatingBtn>
+                />
 
       
                 <VideoArea>
                     {this.state.session === undefined ? (
-                        <RouteToMain></RouteToMain>
+                        <RouteToMain/>
                     ) : null}
 
                     {menuList[this.state.menu]}
@@ -520,24 +466,18 @@ onbeforeunload(event) {
                 </VideoArea>
         
                 </Frame>
-                <BGAll id = {0}></BGAll>
+                <BGAll id = {0}/>
     </>         
         );
     }
     
     
     async getToken() {
-        console.log("gg" + this.state.mySessionId);
-        console.log("gg" + this.state.myUserName);
-        
         const sessionId = await this.createSession(this.state.mySessionId);
-        console.log(sessionId);
         return await this.createToken(sessionId);
     }
 
   async createSession(sessionId) {
-    //await this.makeRoom()
-
     const response = await axios.post(
       APPLICATION_SERVER_URL + "api/sessions",
       { customSessionId: sessionId },
@@ -545,7 +485,7 @@ onbeforeunload(event) {
         headers: { "Content-Type": "application/json" },
       }
     );
-    return response.data.sessionId; // The sessionId
+    return response.data.sessionId;
   }
 
   async createToken(sessionId) {
@@ -556,14 +496,11 @@ onbeforeunload(event) {
         headers: { "Content-Type": "application/json" },
       }
     );
-    console.log("token:" + response.data);
 
-    return response.data; // The token
+    return response.data;
   }
 
   async startRecording() {
-    console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recorder, this.state.oppolang)
-    console.log(this.state.oppoInfo);
     await axios.post(APPLICATION_SERVER_URL+ "recording/start", 
     {
       session: this.state.mySessionId,
@@ -571,13 +508,11 @@ onbeforeunload(event) {
       hasAudio: true,
       hasVideo: false,
     }).then((res=>{
-      console.log(res);
       this.setState({recordingId: res.data});   //레코딩 아이디
     }))
   }
 
   async stopRecording() {
-    console.log(this.state.mySessionId,this.state.myUserName, this.state.oppoUserName, this.state.recordingId, this.state.oppolang)
     await axios.post(
       APPLICATION_SERVER_URL+ "recording/stop",
       {
@@ -588,7 +523,6 @@ onbeforeunload(event) {
         friendLanguageId:this.state.oppolang
       }
     ).then((res)=>{
-      console.log(res);  //성공 or 실패
       this.setState({
         isStop:true
       })

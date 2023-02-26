@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import NavBar from "../../ui/NavBar";
-import Body from "./Body";
-import ChatBtn from '../../chat/ChatBtn';
-import peopleImg from "./img/people.png";
-import BGAll from "../Front/introbackground/BGAll";
+import Body from "./Body/Body";
+import peopleImg from "./src/people.png";
+import BgComp from "../Common/BgComp";
 
 const BackGround = styled.div`
     position : absolute;
@@ -32,16 +30,18 @@ const Ref = styled.a`
 
 function Home() {
     return (
-        <div>
-            <ChatBtn></ChatBtn>
-            <NavBar></NavBar>
-            <People src={peopleImg}></People>  
+        <>
+            <BgComp id={1}/>
+            <People src={peopleImg}/>   
+            
             <BackGround>
-                <Body></Body>
+                <Body/>
             </BackGround>
-            <BGAll id = {1}></BGAll>
-            <Ref href="https://kr.freepik.com/">Designed by Freepik</Ref>
-        </div>
+            
+            <Ref href="https://kr.freepik.com/">
+                Designed by Freepik
+            </Ref>
+        </>
     );
 }
 export default Home;

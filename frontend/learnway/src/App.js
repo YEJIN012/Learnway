@@ -20,7 +20,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                // 토큰 있어야만 접근 가능
+               
                 <Route element={<PrivateRoute />}>
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
@@ -29,7 +29,6 @@ function App() {
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
 
-                // 토큰 없어야만 접근 가능
                 <Route element={<PublicRoute />}>
                     <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                     <Route path="/intro" element={<Intro />}></Route>

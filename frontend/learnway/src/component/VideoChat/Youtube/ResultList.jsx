@@ -1,7 +1,4 @@
-import React, {useState, useEffect} from 'react';
-
-import axios from 'axios';
-import ResultComponent from './ResultComponent';
+import React from 'react';
 import styled from 'styled-components'
 const Frame=styled.div`
   width:24vw;
@@ -22,9 +19,7 @@ function PinnedSubheaderList(props) {
     <Frame>
         <List>
             {props.data}
-
         </List> 
-    
   </Frame>
   );
 }export default PinnedSubheaderList;

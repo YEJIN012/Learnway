@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
-import axios from 'axios'
-import InputGroup from "../../ui/InputGroup";
+import {request} from '../../page/Front/utils/axios'
 import CommonFrame from "../CommonComponent/CommonFrame";
 import Title from "../CommonComponent/CommonTitle";
 import TFBtnSet from "../CommonComponent/TFBtnSet";
-import "./CheckBoxCss.css";
+import "./externalCss/CheckBoxCss.css";
 
 const Frame = styled.div`
     display:flex;
@@ -95,23 +94,16 @@ function Report(props) {
     const [reportDate, setReportDate] = useState(new Date())
     const { t } = useTranslation();
 
-    function submit(val1, val2) {
-        //paste api call logic
-        console.log(reportType, reportDetail, props.user)
-        axios.post(`/api/reports`,
-        {
+    function submit() {
+        request("post",`/api/reports`,{
             userEmail:props.user,
             reportId:reportType,
             etc:reportDetail
-        }).then(function(res){
+        }).then((res)=>{
             alert(t('Your report has been received successfullly'))
             setReportType([]);
             setReportDetail("");
-
-        }).catch(function(err){
-            alert(t('There was an error while sending your report. Please try again.'))
-            console.log(err)
-        })
+          })
     }
 
     function cancelSubmit() {
@@ -163,15 +155,14 @@ function Report(props) {
         return result;
     }
 
-    //console.log(reportType, reportDetail)
     return (
         <CommonFrame
             header={<Title title={t('Report')}></Title>}
             body={
                 <Frame>
                     <PreInputGroup>
-                        <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly></PreInput>
-                        <PreInput type="text" id="reportTime" inputWidth="8.2vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly></PreInput>
+                        <PreInput type="text" id="reportDate" inputWidth="8vw" inputHeight="1vw" value={`${reportDate.getFullYear()}. ${String(reportDate.getMonth()).padStart(2, '0')}. ${String(reportDate.getDate()).padStart(2, '0')}`} readOnly/>
+                        <PreInput type="text" id="reportTime" inputWidth="8.2vw" inputHeight="1vw" value={`${String(reportDate.getHours()).padStart(2, '0')}:${String(reportDate.getMinutes()).padStart(2, '0')}:${String(reportDate.getSeconds()).padStart(2, '0')} UTC${(parseInt(reportDate.getTimezoneOffset()) > 0) ? "-" + String(parseInt(reportDate.getTimezoneOffset()) / (-60)) : "+" + String(parseInt(reportDate.getTimezoneOffset()) / (-60))}`} readOnly/>
                     </PreInputGroup>
 
                     <ChkBoxGroup>
@@ -183,8 +174,7 @@ function Report(props) {
                                 onChange={(e) => { setReportDetail(e.target.value) }}
                                 placeholder={t('Please write down other reports')}
                                 value={reportDetail}
-                            >
-                            </LargeInput>
+                            />
                         </Label>
                     </ChkBoxGroup>
 
@@ -194,8 +184,7 @@ function Report(props) {
                         height="2vw"
                         fontSize="1vw"
                         function_ok={() => { submit(reportType, reportDetail) }}
-                        function_cancel={() => { cancelSubmit() }}>
-                    </TFBtnSet>
+                        function_cancel={() => { cancelSubmit() }}/>
                 </Frame>
             }>
         </CommonFrame>

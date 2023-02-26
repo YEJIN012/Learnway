@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import iconimg from "../chat/chaticon.png";
-import Chatlist from "./Chatlist";
+import iconimg from "./src/chaticon.png";
+import Chatlist from "./Chatlist/Chatlist";
 
-const Frame = styled.div`
-    display: flex;
-    flex-direction: column-reverse;
-    font-family: "nanumSquareNeo";
-`;
 const Icon = styled.div`
     width: 40px;
     height: 40px;
@@ -48,7 +43,6 @@ const ChatPanel = styled.div`
 function ChatBtn() {
     const state = useSelector((state) => state.ChatBtnReducer);
     const dispatch = useDispatch();
-    // const [show, setShow] = useState(false);
 
     if (state === true) {
         return (
@@ -59,10 +53,10 @@ function ChatBtn() {
                     }}
                     url={iconimg}
                     filter={0.9}
-                ></Icon>
+                />
 
                 <ChatPanel>
-                    <Chatlist></Chatlist>
+                    <Chatlist/>
                 </ChatPanel>
             </>
         );
@@ -74,7 +68,7 @@ function ChatBtn() {
                         dispatch({ type: "ChatBtnUpdate", payload: true });
                     }}
                     url={iconimg}
-                ></Icon>
+                />
             </>
         );
     }

@@ -86,18 +86,20 @@ function UserProfile(props) {
                     </DetailBox>
                 </UserFrame>
                 <Func>
-                    <LogonTime>{`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}</LogonTime>
-
+                    <LogonTime>
+                        {`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}
+                    </LogonTime>
                 </Func>
             </Frame>
         );
+
     } else if (props.id === 1) {
         const date = new Date()
         const imgurl = props.room.profileDto.imgUrl;
         const name = props.room.profileDto.name;
         const latestDateTime = props.room.dateTime===null? "" :(date.getDate() - props.room.dateTime[2]);
+        
         return (
-
             <Frame>
                 <UserFrame>
                     <ProfileImg src={imgurl} width="3vw" minWidth="30px"/>
@@ -106,7 +108,9 @@ function UserProfile(props) {
                         <Info>{`Last seen. ${latestDateTime} ago`}</Info>
                     </DetailBox>
                 </UserFrame>
+
                 <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
+
             </Frame>
         );
     }
