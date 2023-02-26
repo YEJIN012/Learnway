@@ -1,8 +1,7 @@
-import { PersonPinSharp } from '@mui/icons-material';
-import react,{useState} from 'react';
+import react from 'react';
 import styled from 'styled-components';
 
-const Frame=styled.div`
+const Frame = styled.div`
 width: inherit;
 height: 5vw;
 display: flex;
@@ -12,7 +11,7 @@ margin: 0.5vw 0.5vw 0;
 cursor: pointer;
 align-items:center;
 `;
-const ImgFrame=styled.div`
+const ImgFrame = styled.div`
     height: 8.4vh;
     overflow: hidden;
     border-radius:5px;
@@ -48,16 +47,6 @@ margin-left: 0.4vw;
 
 `;
 
-const ProfileImg = styled.div`
-width: 4vw;
-height: 3.3vw;
-border-radius: 100px;
-margin: 0.3vw 1vw 0.3vw 0.3vw;
-background-image: url(${props => props.url || ""});
-background-size:cover;
-border: 1px solid black;
-
-`;
 const UserName = styled.span`
 width: 80%;
 font-size: 0.4vw;
@@ -65,14 +54,11 @@ font-weight: 500;
 color: #838383;
 `;
 
-function ResultComponent({...props}){
-
-
-
-    return(
-        <Frame onClick={()=>{props.click(props.id); props.getTitle(props.title)}}>
+function ResultComponent({ ...props }) {
+    return (
+        <Frame onClick={() => { props.click(props.id); props.getTitle(props.title) }}>
             <ImgFrame>
-            <Snapshot src={props.imgUrl}></Snapshot>
+                <Snapshot src={props.imgUrl}></Snapshot>
             </ImgFrame>
             <DetailBox>
                 <Title>{(props.title)}</Title>

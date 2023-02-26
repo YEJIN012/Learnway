@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//id = 0 : me , id = 1: opponent
 
 const Frame = styled.div`
     display:flex;
     flex-direction:column;
-    align-items:${props=>props.id == 0 ? 'flex-end' : 'flex-start'};
+    align-items:${props=>props.id === 0 ? 'flex-end' : 'flex-start'};
     margin-left:1vw;
     margin-right:1vw;
     margin-bottom:0.5vw;
 `;
 
 const Msg = styled.div`
-    background:${props=>props.id == 0 ? '#73A0C6;' : '#E7E7E7'};
-    color:${props=>props.id == 0 ? '#FFFFFF;' : '#303030'};
+    background:${props=>props.id === 0 ? '#73A0C6;' : '#E7E7E7'};
+    color:${props=>props.id === 0 ? '#FFFFFF;' : '#303030'};
     position: relative;
     display: inline-block;
     max-width: calc(100% - 7vw);
@@ -39,7 +38,7 @@ function ChatText({...props}) {
                 <SendTime>{display}</SendTime>
             </Frame>
         );
-    }
+    } 
     else if(props.id === 1){
         return (
             <Frame id={props.id}>

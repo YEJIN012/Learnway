@@ -22,7 +22,6 @@ const Frame = styled.div`
     cursor:"pointer";
 `;
 
-//youtube resultcomponent와 동일(공통으로 묶기)
 const UserFrame = styled.div`
     width:70%;
     height:100%;
@@ -56,7 +55,6 @@ const Info = styled.span`
     // border:1px solid black;
 `;
 
-//공통 대상 컴포넌트 영역 끝
 
 const Func = styled.div`
     width:30%;
@@ -79,27 +77,13 @@ const LogonTime = styled.div`
     // border: 1px solid black;
 `;
 
-const Check = styled.div`
-    width:20%;
-    height:inherit;
-
-    border:1px solid black;
-`;
-
-const RequestVideoChatBtn = styled.div`
-    width:100%;
-    min-width: 30px;
-    height:inherit;
-    // border:1px solid black;
-`;
 function UserProfile(props) {
     if (props.id === 0) {
         const imgurl = props.userInfo.profileDto.imgUrl
         const name = props.userInfo.profileDto.name;
         const latestmsg = props.userInfo.msg;
         const latestDateTime = props.userInfo.dateTime===null? ["","","","","","",""] :props.userInfo.dateTime;
-        // console.log(latestDateTime)
-        // console.log(imgurl)
+
         return (
             <Frame onClick={()=>{props.click(props.userInfo)}}>
                 <UserFrame>
@@ -110,18 +94,20 @@ function UserProfile(props) {
                     </DetailBox>
                 </UserFrame>
                 <Func>
-                    <LogonTime>{`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}</LogonTime>
-
+                    <LogonTime>
+                        {`${latestDateTime[0]}.${latestDateTime[1]}.${latestDateTime[2]}`}<br/>{`${latestDateTime[3]}:${latestDateTime[4]}${(latestDateTime[3] > 0 && latestDateTime[3] < 12)?'  am' : '  pm'}`}
+                    </LogonTime>
                 </Func>
             </Frame>
         );
+
     } else if (props.id === 1) {
         const date = new Date()
         const imgurl = props.room.profileDto.imgUrl;
         const name = props.room.profileDto.name;
         const latestDateTime = props.room.dateTime===null? "" :(date.getDate() - props.room.dateTime[2]);
+        
         return (
-
             <Frame>
                 <UserFrame>
                     <ProfileImg src={imgurl} width="3vw" minWidth="30px"/>
@@ -130,11 +116,9 @@ function UserProfile(props) {
                         <Info>{`Last seen. ${latestDateTime} ago`}</Info>
                     </DetailBox>
                 </UserFrame>
-                {/* <Func> */}
-                    {/* <RequestVideoChatBtn> */}
-                        <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
-                    {/* </RequestVideoChatBtn> */}
-                {/* </Func> */}
+
+                <VideocamIcon sx={{fontSize: "2vw", color: "615e5f", opacity: "0.5", minWidth:"30px", minheight:"20px"}} cursor="pointer" />
+
             </Frame>
         );
     }

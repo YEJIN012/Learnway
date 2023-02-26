@@ -18,7 +18,7 @@ function RouteToMain() {
             (
                 navigate("/", { replace: true })
                 ):(
-                    <SessionEnd></SessionEnd>
+                    <SessionEnd/>
             )
             }
         </>

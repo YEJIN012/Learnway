@@ -10,7 +10,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { width } from "@mui/system";
+
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
@@ -63,13 +63,13 @@ const ButtonFrame = styled.div`
 `;
 function Translate() {
     const myInfo = useSelector((state) => state.AuthReducer);
-    console.log(myInfo);
     const oppoInfo = useSelector((state) => state.OpponentReducer);
-    console.log(oppoInfo);
+
     const [value, setValue] = useState(""); // 검색 내용
     const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
     const [seletlang, setSelectlang] = useState("");
     const [resultLang, setResultLang] = useState("");
+
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -83,7 +83,7 @@ function Translate() {
     }, [seletlang]);
 
     async function getTranslate(props) {
-        console.log(props);
+
         try {
             const response = await axios.post(
                 "/papagoapi/v1/papago/n2mt",
@@ -106,26 +106,22 @@ function Translate() {
                     },
                 }
             );
-            // console.log(response.data.message.result.translatedText);
             setTranslatedContent(response.data.message.result.translatedText);
-            // console.log("getTranslate");
         } catch (error) {
-            // console.log(error);
+            console.log(error);
         }
     }
 
-    const handleTranslate = (e) => {
+    function handleTranslate(e) {
         e.preventDefault();
-        // console.log(value);
         getTranslate(value);
-        // console.log("handler");
     };
 
-    const handleChangeSelect = (e) => {
+    function handleChangeSelect(e) {
         setSelectlang(e.target.value);
     };
 
-    const handleChangeText = (e) => {
+    function handleChangeText (e){
         setValue(e.target.value);
     };
 
@@ -167,7 +163,7 @@ function Translate() {
                                 placeholder={t(
                                     "Enter the content to translate."
                                 )}
-                            ></TextFrame>
+                            />
                             <ButtonFrame>
                                 <Button
                                     type="submit"
@@ -178,7 +174,7 @@ function Translate() {
                                     height={"3vw"}
                                     fontSize={"1.5vw"}
                                     textValue={t("Translate")}
-                                ></Button>
+                                />
                             </ButtonFrame>
                         </Form>
                     </InnerFrame>

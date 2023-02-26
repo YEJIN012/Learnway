@@ -50,11 +50,9 @@ function ProfileCard({ header, name, body, width, height, className }) {
                 width: width || "100%",
                 height: height || "inherit",
                 minHeight: "60vh",
-                // backgroundColor:"transparent",
             }}
             style={{
                 overflow : 'auto',
-                // marginTop: '1.7vw;'
             }}
         />
     );

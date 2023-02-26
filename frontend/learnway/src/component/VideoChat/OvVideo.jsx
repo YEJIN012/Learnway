@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import styled,{css} from 'styled-components';
-import { delay, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
-const Video = styled.video`
-${props=> props.pubsub === 'pub'
-}
-    width:800px !important;
-    height:600px: important;
-`;
 
 const LargeVodFrame = styled(motion.video)`
 ${props=> props.fixSizeId === 9 && css`
@@ -63,7 +57,6 @@ box-shadow:2px 3px 9px -1px #222222;
 
 function OpenViduVideoComponent({ streamManager, size , pubsub}){
     const videoRef = React.useRef();
-    //const [punsub, setPubsub] = useState(pubsub);
 
     useEffect(() => {
         if (videoRef && !!videoRef.current) {

@@ -1,7 +1,7 @@
 import React from "react";
 import Home from "./component/page/MainPage/Home";
 import MyPage from "./component/page/MyPage/MyPage";
-import Intro from "./component/page/Front/Intro";
+import Intro from "./component/page/Front/Intro"
 import Login from "./component/page/Front/LoginPage/Login";
 import Signup from "./component/page/Front/SignupPage/SignUp";
 import FindPwd from "./component/page/Front/FindPassword/FindPwd";
@@ -15,16 +15,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PublicRoute from "./component/page/Front/utils/PublicRoute";
 
-const a={
-    "aaa@ssafy.com": "bbb@ssafy.com",
-    "bbb@ssafy.com":"aaa@ssafy.com"
-}
 function App() {
     const token = useSelector(state=>state.TokenReducer.accessToken)
     return (
         <BrowserRouter>
             <Routes>
-                // 토큰 있어야만 접근 가능
+               
                 <Route element={<PrivateRoute />}>
                     <Route path="/mypage" element={<MyPage />}></Route>
                     <Route path="/loading" element={<Loading />}></Route>
@@ -33,7 +29,6 @@ function App() {
 
                 <Route path="/" element={token ? <Home /> : <Intro /> }></Route>
 
-                // 토큰 없어야만 접근 가능
                 <Route element={<PublicRoute />}>
                     <Route path="/googlesignup" element={<GoogleSignup />}></Route>
                     <Route path="/intro" element={<Intro />}></Route>
