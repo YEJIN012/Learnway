@@ -11,9 +11,8 @@ const Frame = styled.div`
     flex-direction:column;
     align-items:center;
     position:absolute;
-    
-    
 `;
+
 const Msg = styled.strong`
     font-family :  "Raleway", sans-serif;
     font-size:1.5vw;
@@ -22,7 +21,6 @@ const Msg = styled.strong`
 
 const Picture = styled.img`
     height: 23vmax;
-    // border:1px solid black;
     display: flex;
     flex-direction: column-reverse;
 `;
@@ -62,4 +60,4 @@ function Leave({ getQuitFlag }) {
         </CommonFrame>
     );
 };
-export default Leave;
+export default Quit;

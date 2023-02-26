@@ -6,8 +6,6 @@ const initialLang = {
 };
 
 export default function UserInfoReducer(state = initialLang, action) {
-  // const promise = action.payload
-  // console.log(promise)
   switch (action.type) {
     // 언어 정보 저장
     case GET_LANGUAGE:

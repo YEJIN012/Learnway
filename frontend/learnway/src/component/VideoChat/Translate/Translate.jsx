@@ -10,7 +10,6 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-
 axios.defaults.headers["Access-Control-Allow-Credentials"] = true;
 axios.defaults.headers["Access-Control-Allow-Origin"] = "*";
 axios.defaults.withCredentials = true;
@@ -64,7 +63,6 @@ const ButtonFrame = styled.div`
 function Translate() {
     const myInfo = useSelector((state) => state.AuthReducer);
     const oppoInfo = useSelector((state) => state.OpponentReducer);
-
     const [value, setValue] = useState(""); // 검색 내용
     const [translatedContent, setTranslatedContent] = useState(""); // 번역 내용
     const [seletlang, setSelectlang] = useState("");

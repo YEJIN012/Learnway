@@ -15,7 +15,6 @@ function StudyScriptItem({ script }) {
             selectedSent={selectedSent}
             sentence={sentence}
             handleSetSelectedSent={handleSetSelectedSent}
-
         />
     ));
 }

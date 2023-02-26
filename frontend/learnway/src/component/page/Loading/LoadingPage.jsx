@@ -22,7 +22,7 @@ flex-direction: row;
     const ws = Stomp.over(socket);
     
     const userInfo = useSelector((state) => state.AuthReducer);
-    const studyLng = useSelector((state) => state.MainStore);
+    const studyLng = useSelector((state) => state.MainReducer);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();

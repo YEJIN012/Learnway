@@ -11,7 +11,7 @@ import Paper from "@mui/material/Paper";
 import InputBox from "../Front/Input";
 import Interest from "../Front/SignupPage/Interest";
 import { Settings } from "@mui/icons-material";
-import { request } from "../../page/Front/utils/axios";
+import { request } from "../Front/utils/axios";
 
 const style = {
     position: "absolute",
@@ -38,7 +38,7 @@ const BtnWrapper = styled.div`
     align-items: end;
 `;
 
-function EditProfile() {
+function ProfileEdit() {
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.AuthReducer);
     const languageBox = useSelector((state) => state.UserInfoReducer);
@@ -296,4 +296,4 @@ function EditProfile() {
     );
 }
 
-export default EditProfile;
+export default ProfileEdit;

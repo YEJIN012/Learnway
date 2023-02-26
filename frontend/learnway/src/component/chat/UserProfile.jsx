@@ -11,7 +11,6 @@ const Frame = styled.div`
     flex-direction:row;
     align-items: center;
     justify-content: space-between;
-    // border:solid 1px black;
     padding-top: 5%;
     padding-bottom: 1%; 
     border-bottom: .08rem solid #B4ABAB;
@@ -28,7 +27,6 @@ const UserFrame = styled.div`
     display:flex;
     flex-direction:row;
     margin: 0 0 0 0.3vw;
-    // border:1px solid black;
 `;
 
 const DetailBox = styled.div`
@@ -36,23 +34,19 @@ const DetailBox = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-around;
-    // border:1px solid black;
     margin-left:1vw;
 `;
 
 const UserName = styled.span`
     font-size:1.1vw;
     font-weight:900;
-    // border:1px solid black;
     color : #4F4C4D;
 `;
 
 const Info = styled.span`
     font-size:0.8vw;
     font-weight:600;
-    /* margin-top:0.4vw; */
     color : #4F4C4D;
-    // border:1px solid black;
 `;
 
 
@@ -61,7 +55,6 @@ const Func = styled.div`
     height:100%;
     display:flex;
     flex-direction:row;
-    // border:1px solid black; 
 `;
 
 const LogonTime = styled.div`
@@ -74,7 +67,6 @@ const LogonTime = styled.div`
     color : #4F4C4D;
     margin-top:0.1vw;
     font-weight:600;
-    // border: 1px solid black;
 `;
 
 function UserProfile(props) {

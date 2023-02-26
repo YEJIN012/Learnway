@@ -39,12 +39,12 @@ const InputFrame = styled.div`
     width: 20vw;
     min-width: 200px;
     padding: 1.5vh 1vw 2vh 1vw;
-    display: grid;
-    grid-template-columns: 10fr 1fr;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const Input = styled.input`
-    margin: 0vw 2px 0vw 0vw;
+    width: 80%;
     border-radius: 50px;
     background: #EFEFEF;
     border : none;
@@ -53,7 +53,6 @@ const Input = styled.input`
         outline: none;
     }
 `;
-
 
 const Sendbtn = styled.div`
     width: 26px;
@@ -77,7 +76,6 @@ function Chatroom(props) {
 
     const handleSelectUserState = props.handleSelectUserState;
     const stored = useSelector((state) => state.AuthReducer);
-
     const [text, setText] = useState("");
     const [chatLog, setChatLog] = useState([]);
     const [msgId, setMsgId] = useState(initMsgId());

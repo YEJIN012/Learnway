@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import MainStore from './app/MainStore';
+import MainReducer from './app/MainReducer';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
 import AuthReducer from './app/AuthReducer';
@@ -17,7 +17,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from "redux-persist/lib/storage";
 import "./language/i18n";
-// import { Dropdown } from "react-bootstrap";
 
 const persistConfig = {
   key: "root",
@@ -26,7 +25,7 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    MainStore,
+    MainReducer,
     AuthReducer,
     TokenReducer,
     UserInfoReducer,
@@ -39,7 +38,6 @@ const rootReducer = combineReducers({
 let persistrootReducer = persistReducer(persistConfig, rootReducer)
 
 let store = createStore(persistrootReducer)
-// let store = createStore(rootReducer)
 
 let persistor = persistStore(store)
 

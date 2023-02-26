@@ -4,19 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import flagData from "../../../../../../../language/flagList.json";
 
 const LangSelect = styled.div`
-    // width: 60%;
-    // height: 40%;
-    text-align : center;
+    text-align: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 `;
 
 const Language = styled.div`
-    width :10%;
-    // height: 100%;
-    padding : 2vw 4vw;
-    float:left;
+    width: 10%;
+    padding: 2vw 4vw;
+    float: left;
     text-align: center;
     margin: 0 auto;
 
@@ -24,14 +21,10 @@ const Language = styled.div`
     font-size: 1vw;
     font-style: normal;
 
-    // font-weight: 300;
-    // font-size: 2vw;
-
     &:hover {
-        // background: linear-gradient(to right,  #DAAAA9, #DAAAA9);
-        color: #DAAAA9;
+        color: #daaaa9;
         border-radius: 50%;
-        font-weight:bolder;
+        font-weight: bolder;
     }
 `;
 

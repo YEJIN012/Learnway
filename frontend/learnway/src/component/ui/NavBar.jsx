@@ -41,12 +41,6 @@ const MenuBtn = styled.div`
 `;
 
 function NavBar(params) {
-    // 토큰 보유 확인
-    // const accesstoken = useSelector(state => state.TokenReducer);
-    // console.log(accesstoken)
-    // const refreshToken = getCookieToken();
-    // console.log(refreshToken)
-    // console.log(useSelector(state => state.AuthReducer))
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userEmail = useSelector(state => state.AuthReducer.userEmail);

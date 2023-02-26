@@ -43,6 +43,7 @@ function ScriptsAccordions(props) {
                         display: "flex",
                         flexDirection: "row",
                         alignItems: "center",
+                        borderRadius: "35px"
                     }}
                 >
                     <Typography
@@ -83,10 +84,10 @@ function ScriptsAccordions(props) {
                         {moment(study.createDate).format("YYYY년 MM월 DD일")}
                     </Typography>
                 </AccordionSummary>
-                <AccordionDetails key={index}>
+                <AccordionDetails key={index} sx={{borderRadius: "35px"}}>
                     <Typography
                         component={"div"}
-                        sx={{ height: "30vh" }}
+                        sx={{ height: "30vh"}}
                         overflow={"scroll"}
                     >
                         <StudyScriptItem script={study.script} />

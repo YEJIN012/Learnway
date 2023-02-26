@@ -20,12 +20,11 @@ export default function FloatingBtn(props) {
     };
     const menuList = {
         "Report" : <WbTwilightIcon sx={{color: "#91a8d0"}}/>,
-        "Leave" : <LogoutIcon sx={{ color: "#91a8d0"}}/>,
+        "Quit" : <LogoutIcon sx={{ color: "#91a8d0"}}/>,
         "Your Profile": <BadgeIcon sx={{ color: "#91a8d0"}}/>,
         "Translate" : <TranslateIcon sx={{ color: "#91a8d0"}}/>,
         "Youtube" : <YouTubeIcon sx={{ color: "#91a8d0"}}/>,
     };
-    // console.log(Object.keys(menuList));
     return (
         <>
             <Fab  icon={<AddIcon />} mainButtonStyles={{backgroundColor:"#91a8d0"}} >

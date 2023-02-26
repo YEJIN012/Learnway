@@ -12,7 +12,6 @@ const CardTop = styled.div`
     min-height: 17vh;
     background: linear-gradient(to right, #f0eee9, #91a8d0);
     border-radius: 35px 35px 0px 0px;
-    // border:1px solid black;
 `;
 const CardBottom = styled.div`
     box-sizing: border-box;
@@ -20,15 +19,12 @@ const CardBottom = styled.div`
     display: flex;
     flex-direction: column;
     background-color:transparent;
-    // border:1px solid black;
 `;
 const Name = styled.div`
     font-size: 3.3vh;
     font-weight: 700;
     margin-top: 1.5vh;
     text-align: center;
-    // text-decoration-line: underline;
-    // text-decoration-style: wavy;
 `;
 
 function ProfileCard({ header, name, body, width, height, className }) {
