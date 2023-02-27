@@ -1,43 +1,55 @@
+[ 삼성 청년 SW 아카데미 (SSAFY) 8기 - 2학기 공통프로젝트 ]
 # LEARNWAY
+
 ## I. 서비스 소개
+
 ### 개요
-- **전 세계 사람들**과 서로 **언어**를 **교환**하고 배울 수 있는 플랫폼
-	Fly over the **RUNWAY** with our **LEARNWAY**
+
+- **전 세계 사람들**과 서로 **언어**를 **교환**하고 배울 수 있는 플랫폼 
+Fly over the **RUNWAY** with our **LEARNWAY**
+
 ### 타겟
-- **세계 여러 나라**의 **언어**와 **문화**를 **배우거나 공유**하고 싶은 사람
-- **스피킹 시험 성적 향상**을 목표로 다양한 **외국인과 소통**하면서 **회화 실력을 키우고자** 하는 사람
+
+- **세계 여러 나라**의 **언어**와 **문화**를 **배우거나 공유**하고 싶은 사람  
+- **스피킹 시험 성적 향상**을 목표로 다양한 **외국인과 소통**하면서 **회화 실력을 키우고자** 하는 사람  
+
 
 ## II. 기획 배경
-### 배경
-![image](https://user-images.githubusercontent.com/57744586/219523863-b4d600ad-0672-4da2-b7fe-ea430d890b4b.png)
-- **점점 증가하는 회화 능력의 중요성**에 비해 **한국 대학생들의 영어회화 능력은 평균치 이하**
-- 세계 여러 나라 사람들과 **언어적, 문화적 교류를 원하는 사용자의 니즈 충족** 필요
 
-### 목적
-- 중요해지는 영어 능력에 따른 회화공부 수요 증가, 글로벌화 시대에 따라 전세계 사람들과의 원할한 교류의 필요성에 대한트렌드에 맞춰, 이러한 니즈를 충족하고자 **LEARNWAY** 서비스를 기획
-### 의의
-- 넓은 언어의 선택폭(12개 언어 지원)
--  대화 중 유튜브 콘텐츠, 번역 등의 부가 기능 제공으로 대화 소재 제공 및 언어 구사 능력 격차 해소
+### 배경
+
+![image](https://user-images.githubusercontent.com/57744586/219523863-b4d600ad-0672-4da2-b7fe-ea430d890b4b.png)
+
+- **점점 증가하는 회화 능력의 중요성**에 비해 **한국 대학생들의 영어회화 능력은 평균치 이하**  
+- 세계 여러 나라 사람들과 **언어적, 문화적 교류를 원하는 사용자의 니즈 충족** 필요  
+  
+
+### 목적  
+- 중요해지는 영어 능력에 따른 회화공부 수요 증가, 글로벌화 시대에 따라 전세계 사람들과의 원할한 교류의 필요성에 대한트렌드에 맞춰, 이러한 니즈를 충족하고자 **LEARNWAY** 서비스를 기획  
+
+### 의의  
+- 넓은 언어의 선택폭(12개 언어 지원)  
+- 대화 중 유튜브 콘텐츠, 번역 등의 부가 기능 제공으로 대화 소재 제공 및 언어 구사 능력 격차 해소  
+
 
 ## III. 주요 기능
- - 회원 가입 및 소셜 로그인
- 
- - 대화 하고 싶은 언어 선택
- 
- - **유저 취향, 선택 언어 등을 고려**하여 최적의 대화 가능한 유저들 중  **랜덤 매칭**
- 
- - 화상 통화 중 **여러 부가서비스 제공**
-	- YouTube 동시 시청 
-	- 실시간 번역 기능
-	- 대화 중 친구의 프로필 조회 및 친구 추가 기능 
-	 - 악성 유저 신고 기능 
-	 - 화상 통화를 안전하게 끝낼 수 있는 기능
-	 
-- 친구로 등록된 사용자와의 **채팅** 기능
 
-- 마이페이지에서 **친구와의 대화 스크립트 제공**으로 언어 복습 및 다시 들어보기 기능
+- 회원 가입 및 일반 로그인/ 구글 소셜 로그인  
+- 대화 하고 싶은 언어 선택 가능  
+- **유저 취향, 선택 언어 등을 고려**하여 최적의 대화 가능한 유저들 중 **랜덤 매칭**  
+- 화상 통화 중 **여러 부가서비스 제공**  
+	- YouTube 동시 시청  
+	- 실시간 번역 기능  
+	- 대화 중 친구의 프로필 조회 및 친구 추가 기능  
+	- 악성 유저 신고 기능  
+	- 화상 통화를 안전하게 끝낼 수 있는 기능  
 
+- 친구로 등록된 사용자와의 **채팅** 기능  
+- 마이페이지에서 **친구와의 대화 스크립트 제공**으로 언어 복습 및 다시 들어보기 기능  
+
+  
 ## IV. 기술
+
 - **Back End**
 	- nginx
 	- docker
@@ -53,71 +65,85 @@
 	- Stomp
 	- Sweager
 
-- **Front End**
-	- React
-	- Redux
-	- react-Stomp
-	- Papago API
-	- Youtube API
-	- Google TTS API
-	- OpenVidu
+- **Front End**  
+	- React  
+	- Redux  
+	- react-Stomp  
+	- Papago API  
+	- Youtube API  
+	- Google TTS API  
+	- OpenVidu  
+
+## VI. 협업 툴 및 협업 환경
+
+- **Notion**
+	- 기획 및 회의록 작성  
+	- API문서, 기능 명세서 등 팀원 모두가 공유하는 산출물 기록  
+- **JIRA**  
+	- 매주 목표량 설정하여 sprint 진행  
+	- 업무 할당량 정하여 Story Point 설정, In Progress > Done 순으로 작성  
+- **GitLab**  
+	- 코드 버전 관리  
+	- 이슈 발행 및 관리  
+
+## VII. 역할 분담  
+- **BackEnd**
+	- 박미희
+		- Spring Secutiry 초기 설정
+		- 일반 로그인 및 소셜로그인(jwt, O-Auth 등)
+		- User 컨트롤러 구현
+		- 매칭 서버 (rabbitMQ, 매칭 알고리즘 수정)
+	- 이지수
+		- Spring JPA : Entity 설계
+		- API 구현 (회화, 학습, 신고, 채팅, 메일인증)
+		- WebSocket & Stomp & Redis
+		- 매칭 서버 구현
+	- 조현민
+		- CI/CD
+		- 화상 통화에서 음성 스크립트 생성 로직 구현
+		- 서버 로그 관리
+		- Friend 컨트롤러 구현
 	
-## V. 협업 툴
-- Notion 
-- JIRA 
-- GitLab 
+- **FrontEnd**
+	- **이예진** 
+		- 마이페이지(프로필 수정, 친구관리, 스크립트)
+		- 친구관리 기능(추가, 관리, 채팅리스트 등록)
+		- 스크립트 관리 컴포넌트(TTS 재생, 날짜별 정렬 기능)
+		- 번역 기능
+		
+	- **이한빈**
+		- Intro 페이지
+		- 로그인(Google 소셜 로그인, 일반 로그인)페이지
+		- 보안 처리(Access Token, Refresh Token, 라우터 접근)
+		- 회원가입 페이지
+		
+	- **차영후**
+		- 메인페이지
+		- Web Socket (채팅, Youtube 동시시청, 로딩페이지)
+		- WebRTC (OpenVidu)
+		- 화상통화 부가서비스(신고, 나가기, 상대 프로필 보기 및 친구추가)
+		
+## VIII. 프로젝트 결과물
+- [발표 자료](https://cs-study-0518.notion.site/38133d2eceb9422c87f023cbe03dd80e)
+- [기능 명세서](https://cs-study-0518.notion.site/29f26892f3b64059a75d9caba544d222)
+- Flow Chart![enter image description here](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f5a2167e-8605-43a9-be7b-609048188c4d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095731Z&X-Amz-Expires=86400&X-Amz-Signature=7c436d04872d5a2dcef54765a208060401bcdbe070563bf93223aee1f5104b06&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
+
+- ERD![enter image description here](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/86bf9784-5878-4d99-ae11-c9770a1cada6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095439Z&X-Amz-Expires=86400&X-Amz-Signature=7348df3dc76762727674ee8d25797d8792dda9a77dd2a5c13614c48856d8a5b0&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
+
+- 시스템 구조 다이어그램![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6d3e2eac-0813-480d-bea0-1e5362fdca92/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095609Z&X-Amz-Expires=86400&X-Amz-Signature=7ffb88c0dc8a98eab5774627ccf6706e6a99c52d0e52c5cb196dec66352fb201&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
 
 
-## VI. 협업 환경
-- Notion 
-	- 기획 및 회의록 작성
-	- API문서, 기능 명세서 등 팀원 모두가 공유하는 산출물 기록 
-- JIRA 
-	- 매주 목표량 설정하여 sprint 진행
-	- 업무 할당량 정하여 Story Point 설정, In Progress > Done 순으로 작성
-- GitLab 
-	- 코드 버전 관리
-	- 이슈 발행	및 관리
 
-## VII. 프로젝트 결과물
-- Wireframe ( Figma )
-- Flow Chart
-- 기능 명세서
-- RDB
-- API 문서(Sweager)
-- 시스템 구조 다이어그램
-- 최종 발표 자료
+## VIII. 서비스 데모 영상
+- **Demo Video**
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b9lyqdGf9FE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-## VIII. 서비스 화면
-- Service Flow Demo Video
+- **회원가입**
+![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
+	- 이메일 주소 인증 기반 회원가입  
+	- 영문, 숫자, 특수문자 포함 8문자 이상 패스워드 규칙 설정  
+	- 대화와 매칭에 필요한 취향 최소 3개 이상 설정 가능  
+	- 나의 언어, 취향 설정 가능  
 
-- intro
-![intro](https://user-images.githubusercontent.com/57744586/219590225-0ad161ae-d250-4bac-80d4-4b9cb34749d4.gif)
-- 회원가입
-	- 일반 회원가입
-		이메일 주소 인증 기반 회원가입
-		영문, 숫자, 특수문자 포함 8문자 이상 패스워드 규칙 설정
-		대화와 매칭에 필요한 취향 최소 3개 이상 설정 가능
-		나의 언어, 취향 설정 가능
-		![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
 
-	- 소셜 로그인(Google)
-	
-- 메인페이지 (사이트 언어 설정 및 매칭 시작)
-![camcheck](https://user-images.githubusercontent.com/57744586/219592063-bc860d40-e7bf-46b1-8d8c-6c84c2667861.gif)
 
-- 매칭 대기 페이지
-
-- 매칭 완료 페이지(상대방의 프로필이 보여진다.)
-
-- 화상 통화 페이지
-	- 부가서비스(유튜브)
-	- 부가서비스(번역)
-	- 부가서비스(상대 프로필 보기 및 친구추가)
-	- 부가서비스(신고)
-	- 화상 통화 나가기(종료)
-
-- 마이페이지(내 프로필 수정)
-- 친구 목록 보기  ![friend](https://user-images.githubusercontent.com/57744586/219590211-1f91cf4a-7c89-4219-a83c-3cea65e8e75a.gif)
-- 채팅
-- 화상 통화 중 녹음된 대화 스크립트 보기 및 음성재생
