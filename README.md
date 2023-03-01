@@ -150,7 +150,7 @@
 
 ## VIII. 서비스 데모 영상
 
-- **Demo Video [LEARNWAY 시연영상 - YouTube] **  
+- **Demo Video [LEARNWAY 시연영상 - YouTube]**  
 
   [![](http://i.ytimg.com/vi/FVc0pLRAJI8/hqdefault.jpg)](https://youtu.be/FVc0pLRAJI8)
   
