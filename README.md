@@ -170,10 +170,7 @@
 ## VIII. 서비스 데모 영상
 
 - **Demo Video**  
-
-<iframe width="1268" height="713" src="https://www.youtube.com/embed/FVc0pLRAJI8" title="LEARNWAY 시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>[![](http://i.ytimg.com/vi/FVc0pLRAJI8/hqdefault.jpg)](https://youtu.be/FVc0pLRAJI8)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/b9lyqdGf9FE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  [LEARNWAY 시연영상 - YouTube](https://youtu.be/FVc0pLRAJI8)
 
 - **회원가입**
   ![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
