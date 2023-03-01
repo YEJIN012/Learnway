@@ -141,11 +141,12 @@
 
 - [기능 명세서](https://cs-study-0518.notion.site/29f26892f3b64059a75d9caba544d222)
 
-- Flow Chart![enter image description here](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/f5a2167e-8605-43a9-be7b-609048188c4d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095731Z&X-Amz-Expires=86400&X-Amz-Signature=7c436d04872d5a2dcef54765a208060401bcdbe070563bf93223aee1f5104b06&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
+- Flow Chart![image](https://user-images.githubusercontent.com/57744586/222173269-3efdda78-5f48-48f8-8196-f5c48e539aed.png)
 
-- ERD![enter image description here](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/86bf9784-5878-4d99-ae11-c9770a1cada6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095439Z&X-Amz-Expires=86400&X-Amz-Signature=7348df3dc76762727674ee8d25797d8792dda9a77dd2a5c13614c48856d8a5b0&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
+- ERD![image](https://user-images.githubusercontent.com/57744586/222172914-9d9db926-e42f-4400-acd4-00994a96de97.png)
 
-- 시스템 구조 다이어그램![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6d3e2eac-0813-480d-bea0-1e5362fdca92/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45/20230225/us-west-2/s3/aws4_request&X-Amz-Date=20230225T095609Z&X-Amz-Expires=86400&X-Amz-Signature=7ffb88c0dc8a98eab5774627ccf6706e6a99c52d0e52c5cb196dec66352fb201&X-Amz-SignedHeaders=host&response-content-disposition=filename=%22Untitled.png%22&x-id=GetObject)
+- 시스템 구조 다이어그램![image](https://user-images.githubusercontent.com/57744586/222172612-3e663052-d010-4103-a7d5-c7db9a0b2807.png)
+
 
 ## VIII. 서비스 데모 영상
 
