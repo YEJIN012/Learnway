@@ -11,7 +11,6 @@
 ### 개요
 
 - **전 세계 사람들**과 서로 **언어**를 **교환**하고 배울 수 있는 플랫폼 
-  Fly over the **RUNWAY** with our **LEARNWAY**
 
 ### 타겟
 
