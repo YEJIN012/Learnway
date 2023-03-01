@@ -1,6 +1,10 @@
 [ 삼성 청년 SW 아카데미 (SSAFY) 8기 - 2학기 공통프로젝트 ]
 
-# LEARNWAY
+<br>
+
+<img title="" src="https://user-images.githubusercontent.com/109276824/222220000-d7516ffb-5339-40f8-b80d-bea46fc13ef0.png" alt="loading-ag-451" width="380">
+
+<br>
 
 ## I. 서비스 소개
 
@@ -12,7 +16,9 @@
 ### 타겟
 
 - **세계 여러 나라**의 **언어**와 **문화**를 **배우거나 공유**하고 싶은 사람  
-- **스피킹 시험 성적 향상**을 목표로 다양한 **외국인과 소통**하면서 **회화 실력을 키우고자** 하는 사람  
+- **스피킹 시험 성적 향상**을 목표로 다양한 **외국인과 소통**하면서 **회화 실력을 키우고자** 하는 사람 
+
+<br>
 
 ## II. 기획 배경
 
@@ -25,12 +31,14 @@
 
 ### 목적
 
-- 중요해지는 영어 능력에 따른 회화공부 수요 증가, 글로벌화 시대에 따라 전세계 사람들과의 원할한 교류의 필요성에 대한트렌드에 맞춰, 이러한 니즈를 충족하고자 **LEARNWAY** 서비스를 기획  
+- 중요해지는 영어 능력에 따른 회화공부 수요 증가, 글로벌화 시대에 따라 전세계 사람들과의 원할한 교류의 필요성에 대한 트렌드에 맞춰, 이러한 니즈를 충족하고자 **LEARNWAY** 서비스를 기획 
 
 ### 의의
 
 - 넓은 언어의 선택폭(12개 언어 지원)  
 - 대화 중 유튜브 콘텐츠, 번역 등의 부가 기능 제공으로 대화 소재 제공 및 언어 구사 능력 격차 해소  
+
+<br>
 
 ## III. 주요 기능
 
@@ -51,6 +59,8 @@
 - 친구로 등록된 사용자와의 **채팅** 기능  
 
 - 마이페이지에서 **친구와의 대화 스크립트 제공**으로 언어 복습 및 다시 들어보기 기능  
+
+<br>
 
 ## IV. 기술
 
@@ -80,6 +90,8 @@
   - Google TTS API  
   - OpenVidu  
 
+<br>
+
 ## VI. 협업 툴 및 협업 환경
 
 - **Notion**
@@ -92,21 +104,23 @@
   - 코드 버전 관리  
   - 이슈 발행 및 관리  
 
+<br>
+
 ## VII. 역할 분담
 
 - **BackEnd**
   
-  - 박미희
+  - **박미희**
     - Spring Secutiry 초기 설정
     - 일반 로그인 및 소셜로그인(jwt, O-Auth 등)
     - User 컨트롤러 구현
     - 매칭 서버 (rabbitMQ, 매칭 알고리즘 수정)
-  - 이지수
+  - **이지수**
     - Spring JPA : Entity 설계
     - API 구현 (회화, 학습, 신고, 채팅, 메일인증)
     - WebSocket & Stomp & Redis
     - 매칭 서버 구현
-  - 조현민
+  - **조현민**
     - CI/CD
     - 화상 통화에서 음성 스크립트 생성 로직 구현
     - 서버 로그 관리
@@ -116,10 +130,10 @@
   
   - **이예진** 
     
-    - 마이페이지(프로필 수정, 친구관리, 스크립트)
-    - 친구관리 기능(추가, 관리, 채팅리스트 등록)
-    - 스크립트 관리 컴포넌트(TTS 재생, 날짜별 정렬 기능)
-    - 번역 기능
+    - 프로필 메뉴 : 현재 프로필 확인 및 수정
+    - 친구목록 메뉴 : 친구 프로필 확인, 친구삭제, 채팅추가
+    - 스터디 메뉴 : 화상통화 내역 캘린더 기록 및 대화 스트립트 TTS 재생
+    - 화상통화 부가서비스(번역 검색)
   
   - **이한빈**
     
@@ -135,26 +149,31 @@
     - WebRTC (OpenVidu)
     - 화상통화 부가서비스(신고, 나가기, 상대 프로필 보기 및 친구추가)
 
+<br>
+
 ## VIII. 프로젝트 결과물
 
 - [발표 자료](https://cs-study-0518.notion.site/38133d2eceb9422c87f023cbe03dd80e)
 
 - [기능 명세서](https://cs-study-0518.notion.site/29f26892f3b64059a75d9caba544d222)
 
-- Flow Chart![image](https://user-images.githubusercontent.com/57744586/222173269-3efdda78-5f48-48f8-8196-f5c48e539aed.png)
+- [목업-Figma](https://www.figma.com/file/TgiYj3wQQ1m4K1quMS5pE4/SSAFY-A408%ED%8C%80-%EA%B3%B5%ED%86%B5%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8(%EC%9B%B9%EA%B8%B0%EC%88%A0)-UI-%EC%84%A4%EA%B3%84%EC%84%9C?node-id=60%3A250&t=X15zWojykPHdMj3J-0)
 
-- ERD![image](https://user-images.githubusercontent.com/57744586/222172914-9d9db926-e42f-4400-acd4-00994a96de97.png)
+- **Flow Chart**![image](https://user-images.githubusercontent.com/57744586/222173269-3efdda78-5f48-48f8-8196-f5c48e539aed.png)
 
-- 시스템 구조 다이어그램![image](https://user-images.githubusercontent.com/57744586/222172612-3e663052-d010-4103-a7d5-c7db9a0b2807.png)
+- **ERD**![image](https://user-images.githubusercontent.com/57744586/222172914-9d9db926-e42f-4400-acd4-00994a96de97.png)
 
+- **시스템 구조 다이어그램**![image](https://user-images.githubusercontent.com/57744586/222172612-3e663052-d010-4103-a7d5-c7db9a0b2807.png)
+
+<br>
 
 ## VIII. 서비스 데모 영상
 
-- **Demo Video [LEARNWAY 시연영상 - YouTube]**  
+- **Demo Video**  
 
-  [![](http://i.ytimg.com/vi/FVc0pLRAJI8/hqdefault.jpg)](https://youtu.be/FVc0pLRAJI8)
-  
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/b9lyqdGf9FE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="1268" height="713" src="https://www.youtube.com/embed/FVc0pLRAJI8" title="LEARNWAY 시연영상" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>[![](http://i.ytimg.com/vi/FVc0pLRAJI8/hqdefault.jpg)](https://youtu.be/FVc0pLRAJI8)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b9lyqdGf9FE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 - **회원가입**
   ![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
