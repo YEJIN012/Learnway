@@ -137,7 +137,7 @@
 
 ## VIII. 프로젝트 결과물
 
-- [발표 자료](https://cs-study-0518.notion.site/38133d2eceb9422c87f023cbe03dd80e)
+- [발표 자료](./LEARNWAY.pdf)
 
 - [기능 명세서](https://cs-study-0518.notion.site/29f26892f3b64059a75d9caba544d222)
 
@@ -148,13 +148,12 @@
 - 시스템 구조 다이어그램![image](https://user-images.githubusercontent.com/57744586/222172612-3e663052-d010-4103-a7d5-c7db9a0b2807.png)
 
 
-## VIII. 서비스 데모 영상
+## IX. 서비스 데모 영상
 
 - **Demo Video [LEARNWAY 시연영상 - YouTube]**  
 
   [![](http://i.ytimg.com/vi/FVc0pLRAJI8/hqdefault.jpg)](https://youtu.be/FVc0pLRAJI8)
   
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/b9lyqdGf9FE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 - **회원가입**
   ![signup](https://user-images.githubusercontent.com/57744586/219590929-328e7163-d821-4e9e-b470-566f2dad0ea7.gif)
@@ -163,3 +162,8 @@
   - 영문, 숫자, 특수문자 포함 8문자 이상 패스워드 규칙 설정  
   - 대화와 매칭에 필요한 취향 최소 3개 이상 설정 가능  
   - 나의 언어, 취향 설정 가능  
+
+
+## X. 개발 일정
+<img width="992" alt="스크린샷 2023-03-05 오후 3 06 15" src="https://user-images.githubusercontent.com/44748142/222945400-d5b8a49d-3439-4f8c-9aaf-c996e3bd7f45.png">
+
