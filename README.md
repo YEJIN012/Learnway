@@ -157,7 +157,7 @@
 
 - [기능 명세서](https://cs-study-0518.notion.site/29f26892f3b64059a75d9caba544d222)
 
-- [목업-Figma](https://www.figma.com/file/TgiYj3wQQ1m4K1quMS5pE4/SSAFY-A408%ED%8C%80-%EA%B3%B5%ED%86%B5%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8(%EC%9B%B9%EA%B8%B0%EC%88%A0)-UI-%EC%84%A4%EA%B3%84%EC%84%9C?node-id=60%3A250&t=X15zWojykPHdMj3J-0)
+- [프로토타입-Figma](https://www.figma.com/file/TgiYj3wQQ1m4K1quMS5pE4/SSAFY-A408%ED%8C%80-%EA%B3%B5%ED%86%B5%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8(%EC%9B%B9%EA%B8%B0%EC%88%A0)-UI-%EC%84%A4%EA%B3%84%EC%84%9C?node-id=60%3A250&t=X15zWojykPHdMj3J-0)
 
 - **Flow Chart**![image](https://user-images.githubusercontent.com/57744586/222173269-3efdda78-5f48-48f8-8196-f5c48e539aed.png)
 

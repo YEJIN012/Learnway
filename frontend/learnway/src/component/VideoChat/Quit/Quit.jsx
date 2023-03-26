@@ -34,7 +34,7 @@ const Ref = styled.a`
     text-decoration-line: none;
 `;
 
-function Leave({ getQuitFlag }) {
+function Quit({ getQuitFlag }) {
     const [quitFlag, setQuitFlag] = useState(0);
     const { t } = useTranslation();
 
